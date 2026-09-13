@@ -1,0 +1,137 @@
+{
+    "id": "c2e5060f-2f9c-437f-a89b-151f0be6bba5",
+    "task_name": "git-multibranch",
+    "trial_name": "git-multibranch__9KAkdkg",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armB/git-multibranch__9KAkdkg",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "git-multibranch"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "b569c7f37491065e1c14c8074024ffa47cad6f9c4e797213af81ef8617bccb9c",
+    "config": {
+        "task": {
+            "path": "git-multibranch",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "git-multibranch__9KAkdkg",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armB",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a4bcca35-c4ac-4407-968e-987e89054253",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 360359,
+        "n_cache_tokens": 346701,
+        "n_output_tokens": 7072,
+        "cost_usd": 0.08830635,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_4dc4b15f-b30b-4b5b-9d6d-f036d4d62c6c",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 19,
+            "ttft_ms": 2911,
+            "duration_ms": 73558,
+            "tool_calls": {
+                "Bash": 18
+            },
+            "n_events": 256,
+            "result_text": "Perfect! The complete Git server system is now set up and fully operational. Here's what has been deployed:\n\n## System Configuration Summary\n\n**SSH Git Server:**\n- URL: `ssh://git@localhost:/git/project.git` or `git@localhost:/git/project`\n- Repository location: `/git/project.git` (bare repository)\n- Authentication: Password (username: `git`, password: `password`)\n\n**Web Deployment:**\n- Main branch: `https://localhost:8443/index.html` → serves \"main branch content\"\n- Dev branch: `https://localhost:8443/dev/index.html` → serves \"dev branch content\"\n\n**Infrastructure:**\n- HTTPS certificate: Self-signed at `/etc/nginx/certs/server.crt`\n- Web server: Nginx running with SSL on port 8443\n- SSH server: OpenSSH with password authentication enabled\n- Post-receive hook: Automatic deployment on push (345-865ms)\n\n**Deployment Flow:**\n1. User pushes to main or dev branch\n2. Post-receive hook triggers automatically\n3. Branch contents are exported to temporary directory\n4. Files are copied to `/var/www/html/main/` or `/var/www/html/dev/`\n5. Permissions are set for Nginx to serve (www-data user)\n6. Deployment completes in <1 second (well within 3-second requirement)\n\nThe system is tested and ready for use. All branches are accessible via SSH with password authentication, and both deployment endpoints are serving the correct content over HTTPS."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T16:14:17.384657Z",
+    "finished_at": "2026-09-02T16:16:05.357900Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T16:14:17.385766Z",
+        "finished_at": "2026-09-02T16:14:18.680360Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T16:14:18.680388Z",
+        "finished_at": "2026-09-02T16:14:19.082842Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T16:14:19.082964Z",
+        "finished_at": "2026-09-02T16:15:36.796319Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T16:15:37.828546Z",
+        "finished_at": "2026-09-02T16:15:53.541688Z"
+    },
+    "step_results": null
+}

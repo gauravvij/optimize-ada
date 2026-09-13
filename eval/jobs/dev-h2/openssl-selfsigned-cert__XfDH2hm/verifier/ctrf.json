@@ -1,0 +1,77 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788554186.8144276,
+            "stop": 1788554187.0308344
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_directory_structure",
+                "status": "passed",
+                "duration": 0.0005737489846069366,
+                "start": 1788554186.8438785,
+                "stop": 1788554186.8447459,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_key_file",
+                "status": "passed",
+                "duration": 0.006812552019255236,
+                "start": 1788554186.8449738,
+                "stop": 1788554186.8520188,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_certificate_file",
+                "status": "passed",
+                "duration": 0.0695631030248478,
+                "start": 1788554186.852227,
+                "stop": 1788554186.9220674,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_combined_pem_file",
+                "status": "passed",
+                "duration": 0.03134980099275708,
+                "start": 1788554186.9223175,
+                "stop": 1788554186.9538836,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_verification_file",
+                "status": "passed",
+                "duration": 0.0007059159688651562,
+                "start": 1788554186.9540997,
+                "stop": 1788554186.954977,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_python_verification_script",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.05631220596842468,
+                "start": 1788554186.9551828,
+                "stop": 1788554187.0306032,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_python_verification_script():\n        \"\"\"Test that the Python verification script exists and works correctly.\"\"\"\n        script_path = \"/app/check_cert.py\"\n        assert os.path.exists(script_path), \"Python verification script does not exist\"\n    \n        process = subprocess.run([\"python\", script_path], capture_output=True, text=True)\n    \n>       assert process.returncode == 0, (\n            f\"Verification script failed with error: {process.stderr}\"\n        )\nE       AssertionError: Verification script failed with error: /root/.cache/uv/archive-v0/OAnmiYcvp75oimDS3SkkH/bin/python: No module named pip\nE         Traceback (most recent call last):\nE           File \"/app/check_cert.py\", line 7, in <module>\nE             from cryptography import x509\nE         ModuleNotFoundError: No module named 'cryptography'\nE         \nE         During handling of the above exception, another exception occurred:\nE         \nE         Traceback (most recent call last):\nE           File \"/app/check_cert.py\", line 12, in <module>\nE             subprocess.check_call([sys.executable, \"-m\", \"pip\", \"install\", \"cryptography\", \"-q\"])\nE             ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/local/lib/python3.13/subprocess.py\", line 419, in check_call\nE             raise CalledProcessError(retcode, cmd)\nE         subprocess.CalledProcessError: Command '['/root/.cache/uv/archive-v0/OAnmiYcvp75oimDS3SkkH/bin/python', '-m', 'pip', 'install', 'cryptography', '-q']' returned non-zero exit status 1.\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python', '/app/check_cert.py'], returncode=1, stdout='Error: cryptography library not found. I...oimDS3SkkH/bin/python\\', \\'-m\\', \\'pip\\', \\'install\\', \\'cryptography\\', \\'-q\\']\\' returned non-zero exit status 1.\\n').returncode\n\n/tests/test_outputs.py:146: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

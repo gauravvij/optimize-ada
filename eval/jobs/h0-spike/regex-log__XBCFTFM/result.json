@@ -1,0 +1,140 @@
+{
+    "id": "1bb68217-d284-4ae1-a108-e240e3bee772",
+    "task_name": "regex-log",
+    "trial_name": "regex-log__XBCFTFM",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/h0-spike/regex-log__XBCFTFM",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "regex-log"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "21c195b5984842dcef348132035504459514fc9ba31d1d813a82e59aa784dcc9",
+    "config": {
+        "task": {
+            "path": "regex-log",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "regex-log__XBCFTFM",
+        "trials_dir": "/root/optimize_ada/eval/jobs/h0-spike",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "hook_spike": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "5b571b45-4b90-4ed4-937e-1c5af25d1e7d",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 40330,
+        "n_cache_tokens": 13632,
+        "n_output_tokens": 13523,
+        "cost_usd": 0.10358944999999999,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_4e1e1560-4f3e-405b-804a-c577aac5e51e",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 2,
+            "ttft_ms": 93832,
+            "duration_ms": 99581,
+            "tool_calls": {
+                "Write": 1
+            },
+            "n_events": 169,
+            "result_text": "The regex has been saved. Here's how it works:\n\n**Pattern breakdown:**\n\n1. **`^`** - Start of line (with MULTILINE flag)\n\n2. **`(?=.*\\b IPv4_PATTERN \\b)`** - Lookahead that verifies an IPv4 address exists somewhere on the line\n   - IPv4 octet pattern: `(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])`\n   - Matches 0-255 without leading zeros (e.g., \"001\" or \"010\" won't match)\n   - Four octets separated by dots with word boundaries\n\n3. **`.*`** - Greedy match to consume as much text as possible\n\n4. **`\\b([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]))\\b`** - Captures the date\n   - Year: 4 digits (any 0000-9999)\n   - Month: 01-12\n   - Day: 01-29 (allows up to 29 for all months per requirements)\n   - Word boundaries ensure dates aren't part of larger alphanumeric sequences\n\n5. **`$`** - End of line\n\n**How it finds the last date:**\nThe greedy `.*` combined with the date pattern and end-of-line anchor causes the regex engine to backtrack and match only the rightmost date on lines containing IPv4 addresses.\n\n**Examples:**\n- `192.168.1.1 logged at 2024-01-15` → matches `2024-01-15` ✓\n- `192.168.1.1 events 2024-01-15 and 2024-01-20` → matches `2024-01-20` (last one) ✓\n- `user1134-12-1234 with 192.168.1.1` → no match (1134-12-1234 isn't valid, and word boundaries protect it) ✓\n- `2024-01-15` without IPv4 → no match ✓"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T17:37:24.400532Z",
+    "finished_at": "2026-09-04T17:39:37.987860Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T17:37:24.423585Z",
+        "finished_at": "2026-09-04T17:37:25.947813Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T17:37:25.947871Z",
+        "finished_at": "2026-09-04T17:37:26.378995Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T17:37:26.379171Z",
+        "finished_at": "2026-09-04T17:39:10.328898Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T17:39:11.583331Z",
+        "finished_at": "2026-09-04T17:39:26.050633Z"
+    },
+    "step_results": null
+}

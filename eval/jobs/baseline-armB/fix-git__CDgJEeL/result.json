@@ -1,0 +1,139 @@
+{
+    "id": "ae0f4e19-0318-482d-8763-4b6fa16e4652",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__CDgJEeL",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armB/fix-git__CDgJEeL",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__CDgJEeL",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armB",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a4bcca35-c4ac-4407-968e-987e89054253",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 172093,
+        "n_cache_tokens": 166874,
+        "n_output_tokens": 3031,
+        "cost_usd": 0.0393299,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_ec3d2d3a-2118-4a55-977c-e90255df57fb",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 15,
+            "ttft_ms": 1619,
+            "duration_ms": 27947,
+            "tool_calls": {
+                "Bash": 12,
+                "Read": 1,
+                "Edit": 1
+            },
+            "n_events": 180,
+            "result_text": "Done! Here's what happened and what I fixed:\n\n**What went wrong:** You made a commit called \"Move to Stanford\" (650dba4) but it ended up in a detached HEAD state. When you checked out master, the commit wasn't on that branch, so your changes seemed to disappear.\n\n**What I did:** I merged that commit into master. There was a merge conflict in `_includes/about.md` (your bio was being updated from University of Washington PhD to Stanford Postdoc), which I resolved by keeping the Stanford version from your commit.\n\nYour changes are now safely on master with a merge commit on top. The \"Move to Stanford\" changes updating your bio and layout files are now part of your main branch."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T16:56:43.707495Z",
+    "finished_at": "2026-09-02T16:57:37.368528Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T16:56:43.708921Z",
+        "finished_at": "2026-09-02T16:56:45.173136Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T16:56:45.173162Z",
+        "finished_at": "2026-09-02T16:56:45.562826Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T16:56:45.562931Z",
+        "finished_at": "2026-09-02T16:57:17.800813Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T16:57:18.964024Z",
+        "finished_at": "2026-09-02T16:57:25.661492Z"
+    },
+    "step_results": null
+}

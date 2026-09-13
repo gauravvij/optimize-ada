@@ -1,0 +1,103 @@
+{
+    "id": "bb8920db-c425-4d1c-9b18-4f8a9037c2b3",
+    "started_at": "2026-09-02T13:02:57.878674",
+    "updated_at": "2026-09-02T15:35:12.259132",
+    "finished_at": "2026-09-02T15:35:12.259132",
+    "n_total_trials": 60,
+    "stats": {
+        "n_completed_trials": 60,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "claude-code__claude-haiku-4-5__terminal-bench": {
+                "n_trials": 60,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.45
+                    }
+                ],
+                "pass_at_k": {
+                    "2": 0.5555555555555556,
+                    "4": 0.6666666666666666
+                },
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "log-summary-date-ranges__YSpb7uN",
+                            "fix-git__gzuSAz9",
+                            "fix-code-vulnerability__YPZszU8",
+                            "git-leak-recovery__FwPUHqb",
+                            "openssl-selfsigned-cert__3nKhYze",
+                            "vulnerable-secret__ASGBrcK",
+                            "fix-git__GetyDsE",
+                            "git-multibranch__stdvxVN",
+                            "fix-code-vulnerability__pyeNA6N",
+                            "git-leak-recovery__twRkev3",
+                            "openssl-selfsigned-cert__gBJeiwx",
+                            "vulnerable-secret__rgKXerD",
+                            "fix-git__KVVDnrb",
+                            "git-multibranch__xLrciYB",
+                            "fix-code-vulnerability__TGAD6AF",
+                            "regex-log__czPWGux",
+                            "cancel-async-tasks__P2VUSaT",
+                            "git-leak-recovery__jFNzMBS",
+                            "large-scale-text-editing__HmL7Uzu",
+                            "openssl-selfsigned-cert__doZ3nyY",
+                            "vulnerable-secret__Wby9AD6",
+                            "git-multibranch__iGTsFGu",
+                            "fix-code-vulnerability__JkRgev4",
+                            "regex-log__LgEnUHd",
+                            "git-leak-recovery__2SRaS8X",
+                            "openssl-selfsigned-cert__Q2kcr5o",
+                            "vulnerable-secret__Wp5Nnig"
+                        ],
+                        "0.0": [
+                            "password-recovery__LfJ73Mp",
+                            "configure-git-webserver__yopKjAA",
+                            "db-wal-recovery__z7QDWiL",
+                            "git-multibranch__Fu6wxbk",
+                            "regex-log__FGGqAkC",
+                            "filter-js-from-html__Buk6iAU",
+                            "cancel-async-tasks__ByLm2ni",
+                            "large-scale-text-editing__WkaNZ5o",
+                            "sanitize-git-repo__aJeot5N",
+                            "log-summary-date-ranges__8XWU27k",
+                            "password-recovery__bqCRHRG",
+                            "configure-git-webserver__8i7qx8Q",
+                            "db-wal-recovery__9hP25nT",
+                            "regex-log__V2pt9o5",
+                            "filter-js-from-html__4brGQqf",
+                            "cancel-async-tasks__yqcgPEZ",
+                            "large-scale-text-editing__ecfYhXa",
+                            "sanitize-git-repo__2mbvrDx",
+                            "log-summary-date-ranges__SXQb5pu",
+                            "password-recovery__EAHRnBs",
+                            "configure-git-webserver__9TXRCyT",
+                            "db-wal-recovery__eEqPB4S",
+                            "filter-js-from-html__JT5b4cC",
+                            "sanitize-git-repo__23SLtcu",
+                            "log-summary-date-ranges__u6mYfnr",
+                            "password-recovery__ePxCDWq",
+                            "configure-git-webserver__5nK9cMK",
+                            "db-wal-recovery__TFG6sNB",
+                            "fix-git__NfJT5Ek",
+                            "filter-js-from-html__oiCpoFg",
+                            "cancel-async-tasks__qrj6o9a",
+                            "large-scale-text-editing__ZiGe2FH",
+                            "sanitize-git-repo__6xQ5oRG"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 32656674,
+        "n_cache_tokens": 31535382,
+        "n_output_tokens": 479274,
+        "cost_usd": 6.95653305
+    }
+}

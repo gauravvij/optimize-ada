@@ -1,0 +1,143 @@
+{
+    "id": "698e3496-48db-4051-b760-081e26ef7ca3",
+    "task_name": "cobol-modernization",
+    "trial_name": "cobol-modernization__6XTn8d3",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/cobol-modernization__6XTn8d3",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "cobol-modernization"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "f8220a33bf193106989df1a28e4806985b12e5f93dcf07efb86acd8dbbc44f6a",
+    "config": {
+        "task": {
+            "path": "cobol-modernization",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "cobol-modernization__6XTn8d3",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 878220,
+        "n_cache_tokens": 853441,
+        "n_output_tokens": 16997,
+        "cost_usd": 0.20258459999999998,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_55268132-f818-4568-a277-93681909e73d",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 37,
+            "ttft_ms": 2044,
+            "duration_ms": 181343,
+            "tool_calls": {
+                "Read": 2,
+                "Glob": 1,
+                "Bash": 32,
+                "Write": 1
+            },
+            "n_events": 499,
+            "result_text": "Perfect! I've successfully re-implemented the COBOL program in Python. Here's a summary:\n\n## Summary\n\nI've created `/app/program.py` that implements the exact same functionality as the COBOL program. \n\n### What the Program Does:\n\n1. **Reads** a transaction from `/app/src/INPUT.DAT` containing:\n   - Buyer ID, Seller ID, Book ID, and Amount\n\n2. **Validates** that:\n   - Both buyer and seller exist in ACCOUNTS.DAT\n   - The book exists in BOOKS.DAT\n   - The seller currently owns the book\n\n3. **If validation passes**, updates:\n   - Buyer's balance (subtract amount)\n   - Seller's balance (add amount)\n   - Book owner (changed to buyer)\n   - Appends transaction to TRANSACTIONS.DAT\n\n4. **If validation fails**, displays \"Transaction failed due to validation errors\" and leaves files unchanged\n\n### Testing Results:\n\n✅ **Invalid transactions** (non-existent buyer/seller/book): Produces identical error message and leaves files unchanged  \n✅ **Valid transactions**: Produces identical file outputs to COBOL program (verified via MD5 hashes)  \n✅ **Account updates**: Correctly modifies balances (subtract from buyer, add to seller)  \n✅ **Book ownership**: Correctly transfers book ownership  \n✅ **Transaction logging**: Correctly appends records to TRANSACTIONS.DAT  \n\nThe Python script is fully functional and produces byte-for-byte identical output to the GnuCOBOL program for all test cases."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T10:46:19.033695Z",
+    "finished_at": "2026-09-03T10:49:51.348963Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T10:46:19.038673Z",
+        "finished_at": "2026-09-03T10:46:25.450519Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T10:46:25.450548Z",
+        "finished_at": "2026-09-03T10:46:25.859731Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T10:46:25.859849Z",
+        "finished_at": "2026-09-03T10:49:31.423995Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T10:49:32.467948Z",
+        "finished_at": "2026-09-03T10:49:39.500784Z"
+    },
+    "step_results": null
+}

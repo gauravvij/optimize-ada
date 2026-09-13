@@ -1,0 +1,14 @@
+Skipping image OS validation for alexgshaw/sqlite-db-truncate:20251031: docker inspect returned 1
+Trial sqlite-db-truncate__Mkonija failed: Docker compose command failed for environment sqlite-db-truncate. Command: docker compose --project-name sqlite-db-truncate__mkonija__env --project-directory /root/.cache/harbor/tasks/2hEZAwigfHAA5cnDNAJvfT/sqlite-db-truncate/environment -f /tmp/tmpg5tofm66/sqlite-db-truncate__Mkonija__env-docker-compose-resources.json -f /root/optimize_ada/venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-prebuilt.yaml -f /tmp/tmpngdl6ak7/docker-compose-environment.json -f /tmp/tmpbnq5nh11/docker-compose-mounts.json up --detach --wait. Return code: 125. Stdout: unknown flag: --project-name
+
+Usage:  docker [OPTIONS] COMMAND [ARG...]
+
+Run 'docker --help' for more information
+. Stderr: None. 
+Collecting main service artifacts
+Docker compose down failed: Docker compose command failed for environment sqlite-db-truncate. Command: docker compose --project-name sqlite-db-truncate__mkonija__env --project-directory /root/.cache/harbor/tasks/2hEZAwigfHAA5cnDNAJvfT/sqlite-db-truncate/environment -f /tmp/tmpg5tofm66/sqlite-db-truncate__Mkonija__env-docker-compose-resources.json -f /root/optimize_ada/venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-prebuilt.yaml -f /tmp/tmpngdl6ak7/docker-compose-environment.json -f /tmp/tmpbnq5nh11/docker-compose-mounts.json down --rmi local --volumes --remove-orphans. Return code: 125. Stdout: unknown flag: --project-name
+
+Usage:  docker [OPTIONS] COMMAND [ARG...]
+
+Run 'docker --help' for more information
+. Stderr: None. 

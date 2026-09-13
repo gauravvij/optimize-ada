@@ -1,0 +1,88 @@
+{
+    "id": "ec261c93-1211-4a2e-b299-8b4af2cce4d2",
+    "started_at": "2026-09-04T07:07:08.457812",
+    "updated_at": "2026-09-04T08:14:57.551156",
+    "finished_at": "2026-09-04T08:14:57.551156",
+    "n_total_trials": 40,
+    "stats": {
+        "n_completed_trials": 40,
+        "n_errored_trials": 2,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada-bridge__claude-haiku-4-5__terminal-bench": {
+                "n_trials": 40,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.6
+                    }
+                ],
+                "pass_at_k": {
+                    "2": 0.8,
+                    "4": 0.9
+                },
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "log-summary-date-ranges__tvbvJPF",
+                            "fix-git__e4u9wi7",
+                            "git-multibranch__qzf2tBX",
+                            "fix-code-vulnerability__kXBvRUj",
+                            "git-leak-recovery__npPBvS8",
+                            "large-scale-text-editing__shtSBX6",
+                            "openssl-selfsigned-cert__Vkjpk9B",
+                            "log-summary-date-ranges__CGgpCVj",
+                            "git-multibranch__zxyPBTG",
+                            "fix-code-vulnerability__3JsMRnA",
+                            "regex-log__52WoB82",
+                            "git-leak-recovery__TbsPmWC",
+                            "large-scale-text-editing__JndbGaq",
+                            "openssl-selfsigned-cert__cQephog",
+                            "log-summary-date-ranges__h6kHBXa",
+                            "git-multibranch__V8GbLnA",
+                            "fix-code-vulnerability__nwLMDci",
+                            "git-leak-recovery__2vNFHLi",
+                            "sanitize-git-repo__kYzGR7G",
+                            "fix-git__djvmhjs",
+                            "fix-code-vulnerability__YmdHLzo",
+                            "regex-log__thpz3jv",
+                            "git-leak-recovery__qHpAnuL",
+                            "openssl-selfsigned-cert__dnEJg6N"
+                        ],
+                        "0.0": [
+                            "regex-log__dKUJpA8",
+                            "cancel-async-tasks__wcXcJ3y",
+                            "sanitize-git-repo__YmvMGxh",
+                            "fix-git__CpceLpN",
+                            "cancel-async-tasks__qC73q5A",
+                            "sanitize-git-repo__DLahb9x",
+                            "fix-git__mRtmtxz",
+                            "regex-log__mrxBUPC",
+                            "cancel-async-tasks__gZL76GS",
+                            "large-scale-text-editing__NnAv5WK",
+                            "openssl-selfsigned-cert__3kKZdHa",
+                            "log-summary-date-ranges__tbh8GMf",
+                            "git-multibranch__STdqeUN",
+                            "cancel-async-tasks__mfH8Vvx",
+                            "large-scale-text-editing__MGALcZM",
+                            "sanitize-git-repo__wBUQgVe"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "large-scale-text-editing__NnAv5WK",
+                        "large-scale-text-editing__MGALcZM"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 13226070,
+        "n_cache_tokens": 12645162,
+        "n_output_tokens": 260230,
+        "cost_usd": 3.3398006999999996
+    }
+}

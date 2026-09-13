@@ -1,0 +1,10 @@
+Running command: apt-get update && apt-get install -y curl bash nodejs npm procps
+Command outputs captured
+Running command: set -euo pipefail; if command -v apk &> /dev/null; then  npm install -g @anthropic-ai/claude-code; else  curl -fsSL https://downloads.claude.ai/claude-code-releases/bootstrap.sh | bash -s --; fi && echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && export PATH="$HOME/.local/bin:$PATH" && claude --version
+Command outputs captured
+Running command: mkdir -p $CLAUDE_CONFIG_DIR/debug $CLAUDE_CONFIG_DIR/projects/-app $CLAUDE_CONFIG_DIR/shell-snapshots $CLAUDE_CONFIG_DIR/statsig $CLAUDE_CONFIG_DIR/todos $CLAUDE_CONFIG_DIR/skills && if [ -d ~/.claude/skills ]; then cp -r ~/.claude/skills/. $CLAUDE_CONFIG_DIR/skills/ 2>/dev/null || true; fi
+Command outputs captured
+Running command: export PATH="$HOME/.local/bin:$PATH"; harbor_claude_code_instruction_e205b08300dd4783933a98ea2d0141dc="$HARBOR_CLAUDE_CODE_INSTRUCTION_E205B08300DD4783933A98EA2D0141DC"; unset HARBOR_CLAUDE_CODE_INSTRUCTION_E205B08300DD4783933A98EA2D0141DC; printf "%s" "$harbor_claude_code_instruction_e205b08300dd4783933a98ea2d0141dc" | claude --verbose --output-format=stream-json --permission-mode=bypassPermissions --print 2>&1 | tee /logs/agent/claude-code.txt
+Command outputs captured
+Wrote Claude Code trajectory to /root/optimize_ada/eval/jobs/baseline-armA/password-recovery__LfJ73Mp/agent/trajectory.json
+Collecting main service artifacts

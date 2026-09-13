@@ -1,0 +1,137 @@
+{
+    "id": "ca40a40a-1344-4258-9f37-742998c25e41",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__WYXxBvx",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/ada-armB-smoke/fix-git__WYXxBvx",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__WYXxBvx",
+        "trials_dir": "/root/optimize_ada/eval/jobs/ada-armB-smoke",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "9a1705a3-9dbc-48a2-985c-7d2b2d7fc6ae",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 27158,
+        "n_cache_tokens": 22283,
+        "n_output_tokens": 390,
+        "cost_usd": 0.0112588,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_e4410e2b-7512-4f44-9180-35016526b8ad",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 2,
+            "ttft_ms": 2669,
+            "duration_ms": 4818,
+            "tool_calls": {
+                "Bash": 1
+            },
+            "n_events": 17,
+            "result_text": "It looks like `/app` isn't a git repository. Where is your personal site repository located? Please provide the path so I can help you find and merge those changes."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T15:40:19.240591Z",
+    "finished_at": "2026-09-02T15:40:50.339384Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T15:40:19.264118Z",
+        "finished_at": "2026-09-02T15:40:20.843286Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T15:40:20.843366Z",
+        "finished_at": "2026-09-02T15:40:21.448880Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T15:40:21.449037Z",
+        "finished_at": "2026-09-02T15:40:30.716321Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T15:40:31.828134Z",
+        "finished_at": "2026-09-02T15:40:38.372235Z"
+    },
+    "step_results": null
+}

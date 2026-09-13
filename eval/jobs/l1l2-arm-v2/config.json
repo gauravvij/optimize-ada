@@ -1,0 +1,50 @@
+{
+    "job_name": "l1l2-arm-v2",
+    "jobs_dir": "/root/optimize_ada/eval/jobs",
+    "n_attempts": 4,
+    "n_concurrent_trials": 2,
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/optimize_ada/eval/ada-runtime",
+                "target": "/ada-runtime"
+            }
+        ]
+    },
+    "agents": [
+        {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "model_name": "anthropic/claude-haiku-4-5",
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            }
+        }
+    ],
+    "datasets": [
+        {
+            "name": "terminal-bench",
+            "version": "2.0",
+            "task_names": [
+                "fix-git",
+                "git-leak-recovery",
+                "git-multibranch",
+                "sanitize-git-repo",
+                "db-wal-recovery",
+                "regex-log",
+                "log-summary-date-ranges",
+                "filter-js-from-html",
+                "fix-code-vulnerability",
+                "vulnerable-secret",
+                "configure-git-webserver",
+                "openssl-selfsigned-cert",
+                "password-recovery",
+                "large-scale-text-editing",
+                "cancel-async-tasks"
+            ]
+        }
+    ]
+}

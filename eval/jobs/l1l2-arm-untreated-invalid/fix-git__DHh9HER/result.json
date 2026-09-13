@@ -1,0 +1,143 @@
+{
+    "id": "70a4c84f-d210-489f-a7d7-5c350590384c",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__DHh9HER",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/fix-git__DHh9HER",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__DHh9HER",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "79afacb0-0882-421a-b2bd-11723915d3a7",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 157705,
+        "n_cache_tokens": 152239,
+        "n_output_tokens": 3012,
+        "cost_usd": 0.03808715,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_ed0d9ef7-6654-4179-8ca6-9ecda72b4568",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 18,
+            "ttft_ms": 2268,
+            "duration_ms": 30142,
+            "tool_calls": {
+                "Bash": 15,
+                "Read": 1,
+                "Edit": 1
+            },
+            "n_events": 176,
+            "result_text": "Done! Your \"Move to Stanford\" changes are now merged into master. Here's what happened:\n\n1. **Found your changes**: Commit `650dba4` contained your Stanford bio update (changes to `_includes/about.md` and `_layouts/default.html`)\n2. **Resolved conflict**: Master had a conflicting bio statement; I kept your Stanford Postdoc version\n3. **Merged successfully**: Your changes are now on master (commit `52c6f70`)\n\nYour site now reflects your move to Stanford as intended!"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T12:13:24.761073Z",
+    "finished_at": "2026-09-03T12:14:20.907802Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T12:13:24.762662Z",
+        "finished_at": "2026-09-03T12:13:26.403148Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T12:13:26.403175Z",
+        "finished_at": "2026-09-03T12:13:26.846061Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T12:13:26.846214Z",
+        "finished_at": "2026-09-03T12:14:01.300956Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T12:14:02.464573Z",
+        "finished_at": "2026-09-03T12:14:08.899588Z"
+    },
+    "step_results": null
+}

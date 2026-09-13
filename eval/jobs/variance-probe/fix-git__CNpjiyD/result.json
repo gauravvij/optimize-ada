@@ -1,0 +1,119 @@
+{
+    "id": "a0b65eca-3ce9-4824-ac55-e4d95a4c2673",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__CNpjiyD",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/variance-probe/fix-git__CNpjiyD",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__CNpjiyD",
+        "trials_dir": "/root/optimize_ada/eval/jobs/variance-probe",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "claude-code",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4a8a83f7-9470-44c2-9c30-7777778f54c6",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "claude-code",
+        "version": "2.1.258",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 178929,
+        "n_cache_tokens": 168446,
+        "n_output_tokens": 2312,
+        "cost_usd": 0.04472895,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T12:08:05.275720Z",
+    "finished_at": "2026-09-02T12:10:45.779518Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T12:08:05.278182Z",
+        "finished_at": "2026-09-02T12:08:06.898055Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T12:08:06.898107Z",
+        "finished_at": "2026-09-02T12:09:55.519714Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T12:09:55.519849Z",
+        "finished_at": "2026-09-02T12:10:27.623039Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T12:10:28.125214Z",
+        "finished_at": "2026-09-02T12:10:33.094848Z"
+    },
+    "step_results": null
+}

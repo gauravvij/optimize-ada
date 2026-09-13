@@ -1,0 +1,120 @@
+# yaml-language-server: $schema=https://astropods.ai/schema/package.json
+spec: package/v1
+name: ada-your-personal-coding-agent
+
+agent:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  interfaces:
+    # Serves the built-in AG-UI client + the SSE/HTTP API publicly from the
+    # container's port 80. Any AG-UI client (CopilotKit, custom) can also point
+    # at {ASTRO_EXTERNAL_AGENT_URL}/sessions/... directly.
+    frontend: true
+    # Also deploy the platform's messaging sidecar (chat UI / Slack). The sidecar
+    # runs the channel adapters, normalizes every inbound message to one shape,
+    # and streams it to us over gRPC (GRPC_SERVER_ADDR). agent/messaging/adapter.ts
+    # (a Claude Code AgentAdapter) + adapter-core `serve()` handle our side, so a
+    # Slack thread becomes a continuous Claude Code conversation. Slack itself is
+    # platform-managed (its app + workspace linking + user identity live in
+    # astro-server) — this agent needs NO Slack tokens. frontend + messaging
+    # coexist: our UI on its hostname, Slack/web on the sidecar's routes.
+    messaging: true
+  # Route model calls through the Astro AI Gateway instead of a personal key.
+  # Injects ASTRO_GATEWAY_URL + ASTRO_GATEWAY_API_KEY (virtual key). config/model.ts
+  # maps these to the gateway's /anthropic endpoint (→ Bedrock). Opt out per-deploy
+  # by setting the optional ANTHROPIC_API_KEY input below — that bypasses the
+  # gateway and calls Anthropic directly.
+  astro_ai_gateway: true
+
+inputs:
+  # GitHub App provisioning is web-driven. List the email addresses allowed to
+  # set it up (comma-separated). An admin opens the web UI and clicks "Set up
+  # GitHub App", which walks GitHub's App-Manifest flow — creating a correctly-
+  # configured GitHub App (callback, permissions) in a couple clicks and storing
+  # its OAuth credentials in the DB. No manual App registration, no client
+  # id/secret to copy. Regular users then connect their own GitHub with
+  # `/connect-github` in chat. Leave unset and any signed-in user may perform the
+  # INITIAL setup (once the App is configured, provisioning locks so no one can
+  # overwrite it — set this to re-enable admin re-provisioning). Emails are matched
+  # (case-insensitively) against the ALB-verified identity, so setup is web-only.
+  ADMIN_EMAILS:
+    name: ADMIN_EMAILS
+    datatype: string
+    optional: true
+    description: "Optional: comma-separated admin emails allowed to set up the GitHub App (matched against the verified login email). Unset = any signed-in user can do the initial setup."
+    display-as: short-text
+  # Optional opt-out of the Astro AI Gateway (see astro_ai_gateway above). Provide
+  # your own Anthropic API key and model calls go DIRECTLY to api.anthropic.com
+  # with it, bypassing the gateway/Bedrock. Leave unset to use the gateway
+  # (default). In config/model.ts a set ANTHROPIC_API_KEY takes precedence over the
+  # injected ASTRO_GATEWAY_* and switches claudeSpawnEnv to direct mode.
+  ANTHROPIC_API_KEY:
+    name: ANTHROPIC_API_KEY
+    datatype: string
+    secret: true
+    optional: true
+    description: "Optional: use this Anthropic API key directly and bypass the Astro AI Gateway"
+    display-as: short-text
+  # Max concurrent Claude runs. Each run is a `claude` child process (CPU+memory);
+  # messaging turns route through this limiter, so LOWERING it (e.g. 1–2) is the
+  # main lever to reduce memory pressure on the sandbox when its container can't
+  # be sized up. Default 3.
+  MAX_CONCURRENT_RUNS:
+    name: MAX_CONCURRENT_RUNS
+    datatype: number
+    optional: true
+    default: "3"
+    description: "Max concurrent Claude runs (each is a child process). Lower to 1–2 to ease sandbox memory pressure."
+    display-as: short-text
+  # GitHub App visibility. Default PRIVATE (single-tenant): only the account that
+  # created the App can install it — right when one user/org runs their own Ada.
+  # Set "true" for MULTI-TENANT: a PUBLIC App any teammate can install on THEIR
+  # repos and connect via chat. Public only means "installable by others"; each
+  # install is still explicit + repo-scoped, and the client secret stays secret.
+  GITHUB_APP_PUBLIC:
+    name: GITHUB_APP_PUBLIC
+    datatype: string
+    optional: true
+    default: "false"
+    description: "Provision the GitHub App as public (multi-tenant: installable by other users). Default false = private/single-tenant."
+    display-as: select
+    options: ["false", "true"]
+
+knowledge:
+  # Durable store for per-user GitHub OAuth tokens (access + refresh + expiry)
+  # and other per-interaction state. Platform-managed Postgres injects
+  # POSTGRES_HOST/PORT/USER/PASSWORD/DB. (If provider-mode injection misbehaves,
+  # fall back to container mode — see the migrate-to-astropods notes.)
+  db:
+    provider: postgres
+  # Isolated execution sandbox (the "gold standard" split). Runs Claude Code + git
+  # on per-conversation repo checkouts in a container that holds NONE of the
+  # control plane's secrets (DB, GitHub tokens, HMAC key) — a rogue tool the model
+  # runs can reach at most one thread's checkout. The agent reaches it over HTTP;
+  # the platform injects KNOWLEDGE_SANDBOX_HOST/PORT, which agent/sandbox-client.ts
+  # picks up to route execution here automatically. The model credential and the
+  # per-user GH_TOKEN are forwarded per request, so nothing sensitive lives here at
+  # rest. /data holds per-thread workspaces (TTL-GC'd). Remove this block to run
+  # Claude in-process in the agent container instead.
+  sandbox:
+    container:
+      build:
+        context: .
+        dockerfile: sandbox/Dockerfile
+      port: 3000
+      volume: /data
+
+dev:
+  # Local hot-reload path (`ast dev` / `ast project`): runs the agent in a
+  # container that bind-mounts the `agent/` source dir, so edits reload live via
+  # node --watch. (Source lives in agent/ so it lands under the mounted path.)
+  command: node --watch agent/index.ts
+  interfaces:
+    frontend:
+      port: 8080
+    # Local playground adapters for `ast dev`. `web` = built-in chat UI; add
+    # `slack` to exercise the Slack channel locally. (Deploy-time Slack is
+    # governed by agent.interfaces.messaging + platform Slack config, not this.)
+    messaging:
+      adapters: [web, slack]

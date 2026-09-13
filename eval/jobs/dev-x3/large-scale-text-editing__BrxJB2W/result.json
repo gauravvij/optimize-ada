@@ -1,0 +1,143 @@
+{
+    "id": "6b4836e5-49df-41aa-b78c-51a83606fd77",
+    "task_name": "large-scale-text-editing",
+    "trial_name": "large-scale-text-editing__BrxJB2W",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-x3/large-scale-text-editing__BrxJB2W",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "large-scale-text-editing"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "c7e5e082f251c7c83d53f7b645d97ab3152cc5fffe42d88ff9cce5c62c35ce16",
+    "config": {
+        "task": {
+            "path": "large-scale-text-editing",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "large-scale-text-editing__BrxJB2W",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-x3",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "effort_realism": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "df985e32-bff1-4100-9eee-74dd5ef6531e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 1153013,
+        "n_cache_tokens": 1126542,
+        "n_output_tokens": 20300,
+        "cost_usd": 0.24850869999999997,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_2c1c0c12-a038-4f38-adcc-7b1da74e4641",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 38,
+            "ttft_ms": 2564,
+            "duration_ms": 266925,
+            "tool_calls": {
+                "Read": 3,
+                "Write": 1,
+                "Bash": 31,
+                "Edit": 2
+            },
+            "n_events": 376,
+            "result_text": "Perfect! ✅ All requirements met:\n\n**Summary:**\n\nI've successfully created `/app/apply_macros.vim` that transforms `/app/input.csv` (1 million rows) to match `/app/expected.csv` exactly using three efficient Vim macros:\n\n**Macros (115 total keystrokes, well under 200 limit):**\n- **Macro @a (98 keystrokes):** Reverses column order (3→1→2→3), removes extra whitespace, and converts to uppercase\n- **Macro @b (8 keystrokes):** Converts remaining commas to semicolons \n- **Macro @c (9 keystrokes):** Appends \";OK\" to each line\n\n**Execution results:**\n- ✅ Script exits with code 0\n- ✅ Transformed 1 million rows in ~41 seconds\n- ✅ Output matches expected.csv byte-for-byte\n- ✅ Uses only allowed commands: `call setreg()`, `:%normal! @x`, `:x`\n- ✅ All macros are distinct and non-empty\n\nThe script is ready for headless execution: `vim -Nu NONE -n -Es /app/input.csv -S /app/apply_macros.vim`"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T12:56:29.965554Z",
+    "finished_at": "2026-09-04T13:02:35.907047Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T12:56:29.966904Z",
+        "finished_at": "2026-09-04T12:56:31.339885Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T12:56:31.339909Z",
+        "finished_at": "2026-09-04T12:56:31.764698Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T12:56:31.764836Z",
+        "finished_at": "2026-09-04T13:01:02.869417Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T13:01:03.977503Z",
+        "finished_at": "2026-09-04T13:02:23.965003Z"
+    },
+    "step_results": null
+}

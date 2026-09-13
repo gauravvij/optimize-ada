@@ -1,0 +1,143 @@
+{
+    "id": "4a370901-d93a-4a9e-9538-c7db980d2ddf",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__CAMg44Q",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/fix-git__CAMg44Q",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__CAMg44Q",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "79afacb0-0882-421a-b2bd-11723915d3a7",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 209299,
+        "n_cache_tokens": 203100,
+        "n_output_tokens": 2393,
+        "cost_usd": 0.0409785,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_d8788d1d-4f3d-4f61-81c8-ce734218cdd4",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 13,
+            "ttft_ms": 2201,
+            "duration_ms": 28452,
+            "tool_calls": {
+                "Bash": 10,
+                "Read": 1,
+                "Edit": 1
+            },
+            "n_events": 120,
+            "result_text": "Done! I found your \"Move to Stanford\" changes in the git reflog and merged them into master. The changes were made in a detached HEAD state, so they weren't on any branch—but git kept them in the reflog until they would be garbage collected.\n\nYour Stanford update is now merged into master with the new commit `f33c840`. The only conflict was in `about.md` where master had a slightly different version (saying \"sixth PhD candidate\" instead of your \"Postdoctoral Researcher\" update), and I resolved it in favor of your Stanford changes."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T11:07:01.897548Z",
+    "finished_at": "2026-09-03T11:07:56.520782Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T11:07:01.898992Z",
+        "finished_at": "2026-09-03T11:07:03.598375Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T11:07:03.598401Z",
+        "finished_at": "2026-09-03T11:07:04.123440Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T11:07:04.123574Z",
+        "finished_at": "2026-09-03T11:07:36.964741Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T11:07:38.158912Z",
+        "finished_at": "2026-09-03T11:07:44.827985Z"
+    },
+    "step_results": null
+}

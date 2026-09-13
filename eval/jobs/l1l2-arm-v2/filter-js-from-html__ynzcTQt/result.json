@@ -1,0 +1,144 @@
+{
+    "id": "939798de-a03e-46d9-a2a0-3b7b9f64fecc",
+    "task_name": "filter-js-from-html",
+    "trial_name": "filter-js-from-html__ynzcTQt",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm-v2/filter-js-from-html__ynzcTQt",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "filter-js-from-html"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "885bb73e2797a54d5de860c25f481b5a60e2b91c0de30acaca9560603e9e1ff8",
+    "config": {
+        "task": {
+            "path": "filter-js-from-html",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "filter-js-from-html__ynzcTQt",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4feeaa87-e915-47c0-99c1-b3004f5ce15e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 278911,
+        "n_cache_tokens": 266588,
+        "n_output_tokens": 8941,
+        "cost_usd": 0.08784729999999999,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_6977b5a2-2425-40fe-b916-0f722ee9818c",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 13,
+            "ttft_ms": 44255,
+            "duration_ms": 90018,
+            "tool_calls": {
+                "Write": 5,
+                "Bash": 4,
+                "Edit": 1,
+                "Read": 2
+            },
+            "n_events": 161,
+            "result_text": "Perfect! The `/app/filter.py` script is complete and thoroughly tested. Here's a summary of what it does:\n\n## Script Features\n\n**Removes JavaScript threats:**\n- `<script>` tags and their content\n- Event handler attributes (onclick, onload, onerror, onmouseover, etc.) with any quote style\n- `javascript:` protocol in href, src, data, and action attributes\n\n**Preserves legitimate content:**\n- HTML structure and formatting\n- Valid attributes (style, class, id, border, etc.)\n- Table layouts and semantic HTML elements\n- Text content and whitespace\n\n**Usage:**\n```bash\npython filter.py <html_file>\n```\n\nThe script modifies the file in-place and handles various edge cases including unquoted event handlers, uppercase event names, and mixed quote styles. All tests passed successfully, confirming that XSS vectors are removed while HTML integrity is maintained."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T13:32:51.324589Z",
+    "finished_at": "2026-09-03T13:40:18.117487Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T13:32:51.326331Z",
+        "finished_at": "2026-09-03T13:32:52.946509Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T13:32:52.946535Z",
+        "finished_at": "2026-09-03T13:32:53.382168Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T13:32:53.382336Z",
+        "finished_at": "2026-09-03T13:34:27.765021Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T13:34:28.882227Z",
+        "finished_at": "2026-09-03T13:40:02.334841Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,144 @@
+{
+    "id": "c169c82f-f894-45f0-8605-60bfd7bc329d",
+    "task_name": "cancel-async-tasks",
+    "trial_name": "cancel-async-tasks__56vHnLV",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm-v2/cancel-async-tasks__56vHnLV",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "cancel-async-tasks"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "283c70ca90688dc09a969d24e3ed137ba0f00d23018df68771bdf86526b82047",
+    "config": {
+        "task": {
+            "path": "cancel-async-tasks",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "cancel-async-tasks__56vHnLV",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4feeaa87-e915-47c0-99c1-b3004f5ce15e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 430222,
+        "n_cache_tokens": 413034,
+        "n_output_tokens": 10180,
+        "cost_usd": 0.11475414999999999,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_70df7de6-4518-4246-826c-534e71123885",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 19,
+            "ttft_ms": 11527,
+            "duration_ms": 113617,
+            "tool_calls": {
+                "Write": 2,
+                "Bash": 8,
+                "Edit": 7,
+                "Read": 1
+            },
+            "n_events": 297,
+            "result_text": "Done! I've created the `run_tasks` async function in `/app/run.py` with the following features:\n\n**Implementation details:**\n- Uses `asyncio.Semaphore` to enforce the max concurrency limit\n- Each task is wrapped with semaphore acquisition to control how many can run at once\n- Handles both `KeyboardInterrupt` and `asyncio.CancelledError` to ensure cleanup code runs\n- When interrupted, cancels all pending tasks and waits for them to complete (allowing finally blocks to run)\n\n**The function:**\n- Takes a list of async callables (no-argument functions returning `Awaitable[None]`)\n- Takes a `max_concurrent` integer for the concurrency limit\n- Returns `None` when complete\n- Can be imported via `from run import run_tasks`\n\n**Test results show:**\n1. ✓ Concurrency limit is enforced (3 tasks run in parallel max when set to 3)\n2. ✓ Cleanup code runs normally for all completed tasks\n3. ✓ Cleanup code runs for cancelled tasks (when interrupted via Ctrl+C or task cancellation)\n\nThe implementation ensures that even if a user presses Ctrl+C, all started tasks' cleanup code (try/finally blocks) will still execute before the program exits."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T14:00:23.656438Z",
+    "finished_at": "2026-09-03T14:02:57.879834Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T14:00:23.657546Z",
+        "finished_at": "2026-09-03T14:00:25.279568Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T14:00:25.279595Z",
+        "finished_at": "2026-09-03T14:00:25.684400Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T14:00:25.684511Z",
+        "finished_at": "2026-09-03T14:02:23.659058Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T14:02:25.222048Z",
+        "finished_at": "2026-09-03T14:02:45.511539Z"
+    },
+    "step_results": null
+}

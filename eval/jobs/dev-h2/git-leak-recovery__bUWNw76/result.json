@@ -1,0 +1,141 @@
+{
+    "id": "041ea2c8-a6e3-4f0b-b5a6-86122c4da7e0",
+    "task_name": "git-leak-recovery",
+    "trial_name": "git-leak-recovery__bUWNw76",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-h2/git-leak-recovery__bUWNw76",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "git-leak-recovery"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "6e313b191485295fc042ddfdc4d1184dc9588de1fa57f7513685fec67a7d7d9d",
+    "config": {
+        "task": {
+            "path": "git-leak-recovery",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "git-leak-recovery__bUWNw76",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-h2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "hook_output_cap": 10000,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "ac77f90e-3694-484c-8f12-8444acb567db",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 148229,
+        "n_cache_tokens": 145012,
+        "n_output_tokens": 1843,
+        "cost_usd": 0.028822200000000006,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_9433b2ef-aaf8-4c1e-b292-50e7a7295f7a",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 10,
+            "ttft_ms": 3132,
+            "duration_ms": 26778,
+            "tool_calls": {
+                "Bash": 8,
+                "Write": 1
+            },
+            "n_events": 84,
+            "result_text": "Done! I've successfully completed all three tasks:\n\n**1. Recovered the secret:**\n   - Found it in the lost commit `6b4c75c` in the git reflog\n   - Secret: `secret[lost_and_found_in_git]`\n   - Written to `/app/secret.txt`\n\n**2. Cleaned up the repository:**\n   - Expired the reflog with `git reflog expire --all --expire=now`\n   - Ran garbage collection with `git gc --prune=now`\n   - All unreachable objects containing the secret are now permanently removed\n\n**3. Verified integrity:**\n   - Current commits remain untouched (2 chore init commits intact)\n   - No secrets found in working directory\n   - Repository is clean with no uncommitted changes\n\nThe secret is safely recovered and the repository is now permanently cleaned of any traces of it."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T20:02:54.723920Z",
+    "finished_at": "2026-09-04T20:03:50.497760Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T20:02:54.726655Z",
+        "finished_at": "2026-09-04T20:02:56.083314Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T20:02:56.083343Z",
+        "finished_at": "2026-09-04T20:02:56.529573Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T20:02:56.529688Z",
+        "finished_at": "2026-09-04T20:03:27.498933Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T20:03:28.660270Z",
+        "finished_at": "2026-09-04T20:03:38.569816Z"
+    },
+    "step_results": null
+}

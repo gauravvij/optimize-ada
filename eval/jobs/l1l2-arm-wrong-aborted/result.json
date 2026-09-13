@@ -1,0 +1,79 @@
+{
+    "id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+    "started_at": "2026-09-03T08:53:09.678002",
+    "updated_at": "2026-09-03T10:53:37.296137Z",
+    "finished_at": null,
+    "n_total_trials": 356,
+    "stats": {
+        "n_completed_trials": 31,
+        "n_errored_trials": 5,
+        "n_running_trials": 0,
+        "n_pending_trials": 325,
+        "n_cancelled_trials": 2,
+        "n_retries": 0,
+        "evals": {
+            "ada-bridge__claude-haiku-4-5__terminal-bench": {
+                "n_trials": 29,
+                "n_errors": 5,
+                "metrics": [
+                    {
+                        "mean": 0.3225806451612903
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "gpt2-codegolf__RYKUGEM",
+                            "llm-inference-batching-scheduler__rBXjXeo",
+                            "reshard-c4-data__LQgi8xg",
+                            "break-filter-js-from-html__rJhUbzB",
+                            "write-compressor__6e4tYgW",
+                            "winning-avg-corewars__W4JY3wV",
+                            "largest-eigenval__M54EaxV",
+                            "password-recovery__iXyK4PT",
+                            "path-tracing-reverse__BXNtjfn",
+                            "torch-tensor-parallelism__Vb7H8o6",
+                            "regex-chess__NppKRhK",
+                            "prove-plus-comm__KTnKNo8",
+                            "path-tracing__jCcdJgb",
+                            "caffe-cifar-10__e49i9Jn",
+                            "feal-linear-cryptanalysis__gyTpRiZ",
+                            "mteb-retrieve__aBuDhSC",
+                            "configure-git-webserver__2gvxinQ",
+                            "adaptive-rejection-sampler__DYTpkad",
+                            "chess-best-move__fpZoC6q"
+                        ],
+                        "1.0": [
+                            "merge-diff-arc-agi-task__YMP7utw",
+                            "log-summary-date-ranges__XZrHby6",
+                            "pytorch-model-cli__4GVJZna",
+                            "portfolio-optimization__Dc4Stf5",
+                            "modernize-scientific-stack__xpFibkT",
+                            "distribution-search__zoVyD2N",
+                            "pypi-server__WuWJoCF",
+                            "custom-memory-heap-crash__jg253Wd",
+                            "multi-source-data-merger__DRLW6Ns",
+                            "cobol-modernization__6XTn8d3"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "prove-plus-comm__KTnKNo8",
+                        "caffe-cifar-10__e49i9Jn",
+                        "feal-linear-cryptanalysis__gyTpRiZ"
+                    ],
+                    "CancelledError": [
+                        "overfull-hbox__BziTPQg",
+                        "crack-7z-hash__FppzbWA"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 36760937,
+        "n_cache_tokens": 35903043,
+        "n_output_tokens": 562022,
+        "cost_usd": 7.5044383
+    }
+}

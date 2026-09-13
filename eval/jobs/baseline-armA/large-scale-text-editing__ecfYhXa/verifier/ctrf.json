@@ -1,0 +1,68 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 4,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788358655.7474153,
+            "stop": 1788358720.3422682
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_apply_macros_exists",
+                "status": "passed",
+                "duration": 0.0006466560043918435,
+                "start": 1788358655.8531766,
+                "stop": 1788358655.8541296,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_apply_macros_well_formed",
+                "status": "passed",
+                "duration": 0.004304593996494077,
+                "start": 1788358655.8543816,
+                "stop": 1788358655.8589313,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_apply_macros_runs",
+                "status": "passed",
+                "duration": 64.36475823300498,
+                "start": 1788358655.8591425,
+                "stop": 1788358720.2241907,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_input_equiv_expected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.08335449199876166,
+                "start": 1788358720.22456,
+                "stop": 1788358720.329901,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_input_equiv_expected():\n        \"\"\"\n        Compare input.csv and expected.csv (large files) via SHA-256 to avoid loading both\n        entirely into memory multiple times. Ensures byte-for-byte match.\n        \"\"\"\n        assert INPUT.exists(), f\"Missing transformed file: {INPUT}\"\n        assert EXPECTED.exists(), f\"Missing expected file: {EXPECTED}\"\n        got_hash = _sha256(INPUT)\n        exp_hash = _sha256(EXPECTED)\n>       assert got_hash == exp_hash, \"Transformed file does not match expected.\"\nE       AssertionError: Transformed file does not match expected.\nE       assert '4bb7bb55587b...1b38787d4c3e2' == '833cb9527dad...6eb2935f41f97'\nE         \nE         - 833cb9527dad306efe9f8f870497f6f519e3978e9c27f093bc56eb2935f41f97\nE         + 4bb7bb55587b9c6c2ce47e1d65918912307da99ea0d2cce90b01b38787d4c3e2\n\n/tests/test_outputs.py:191: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_outputs.py::test_macros_nonempty_and_efficient",
+                "status": "passed",
+                "duration": 0.011717411001882283,
+                "start": 1788358720.3301466,
+                "stop": 1788358720.3420415,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            }
+        ]
+    }
+}

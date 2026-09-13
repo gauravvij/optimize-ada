@@ -1,0 +1,141 @@
+{
+    "id": "e77c05fb-6121-4adf-bb82-5b88c72a08e5",
+    "task_name": "vulnerable-secret",
+    "trial_name": "vulnerable-secret__SJYHWs8",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm-v2/vulnerable-secret__SJYHWs8",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "vulnerable-secret"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "568760a9b221bd2efc27dc592833c1d2d99949b20995ba1321a3aa1567e6ba20",
+    "config": {
+        "task": {
+            "path": "vulnerable-secret",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "vulnerable-secret__SJYHWs8",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4feeaa87-e915-47c0-99c1-b3004f5ce15e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 634822,
+        "n_cache_tokens": 612356,
+        "n_output_tokens": 10416,
+        "cost_usd": 0.14238585,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_b982ab3a-5b78-4915-90e2-3f911cad718a",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 27,
+            "ttft_ms": 2519,
+            "duration_ms": 139515,
+            "tool_calls": {
+                "Bash": 26
+            },
+            "n_events": 328,
+            "result_text": "Excellent! I've successfully completed the task. Here's what I did:\n\n## Analysis & Solution\n\n1. **Initial Exploration**: Found the `/app/vulnerable` executable and used `objdump` to analyze its assembly code\n\n2. **Key Discovery**: Through disassembly analysis, I identified:\n   - The program checks for debuggers using `ptrace()`\n   - It reads user input using `gets()` (a classic buffer overflow vulnerability)\n   - At offset 0x40 from the stack pointer, it checks if the value equals 1\n   - If this condition is met, it triggers code that prints: \"Authentication bypassed!\" and \"Access granted! Secret: ...\"\n\n3. **Crafting the Exploit**: I created a payload that:\n   - Fills 64 bytes (0x40) with padding ('A's)\n   - Writes `0x01000000` (little-endian 1) at offset 0x40\n   - This triggers the condition check\n\n4. **Extracting the Secret**: When the exploit was run, the program revealed:\n   ```\n   FLAG{b4ff3r_0v3rfl0w_m4st3r_k3y_2024}\n   ```\n\n5. **Saved to Results**: The flag has been successfully written to `/app/results.txt`\n\nThe vulnerability was a classic buffer overflow where user input via `gets()` could overwrite a stack variable used to control program flow."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T13:43:36.844818Z",
+    "finished_at": "2026-09-03T13:46:22.268052Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T13:43:36.846102Z",
+        "finished_at": "2026-09-03T13:43:38.142662Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T13:43:38.142688Z",
+        "finished_at": "2026-09-03T13:43:38.523422Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T13:43:38.523529Z",
+        "finished_at": "2026-09-03T13:46:02.242274Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T13:46:03.327852Z",
+        "finished_at": "2026-09-03T13:46:10.457147Z"
+    },
+    "step_results": null
+}

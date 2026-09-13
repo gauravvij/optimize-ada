@@ -1,0 +1,71 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 3,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788438826.9252236,
+            "stop": 1788438898.9382849
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_apply_macros_exists",
+                "status": "passed",
+                "duration": 0.000531017009052448,
+                "start": 1788438827.0126657,
+                "stop": 1788438827.0134578,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_apply_macros_well_formed",
+                "status": "passed",
+                "duration": 0.0036636489967349917,
+                "start": 1788438827.0136878,
+                "stop": 1788438827.0175443,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_apply_macros_runs",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 71.88277788898267,
+                "start": 1788438827.0177596,
+                "stop": 1788438898.921376,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_apply_macros_runs():\n        \"\"\"\n        Apply the Vim macro script headlessly. Ensure Vim exits 0.\n        Generate expected.csv only AFTER running the agent's Vimscript to prevent cheating.\n        \"\"\"\n        # Run headless Vim\n        cmd = [\"vim\", \"-Nu\", \"NONE\", \"-n\", \"-Es\", str(INPUT), \"-S\", str(APPLY_SCRIPT)]\n        res = _run(cmd, timeout=600)\n>       assert res.returncode == 0, (\n            f\"vim exited {res.returncode}\\nSTDOUT:\\n{res.stdout}\\nSTDERR:\\n{res.stderr}\"\n        )\nE       AssertionError: vim exited 1\nE         STDOUT:\nE         \nE         STDERR:\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['vim', '-Nu', 'NONE', '-n', '-Es', '/app/input.csv', '-S', '/app/apply_macros.vim'], returncode=1, stdout='', stderr='').returncode\n\n/tests/test_outputs.py:172: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_outputs.py::test_input_equiv_expected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006077870057197288,
+                "start": 1788438898.92164,
+                "stop": 1788438898.926657,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_input_equiv_expected():\n        \"\"\"\n        Compare input.csv and expected.csv (large files) via SHA-256 to avoid loading both\n        entirely into memory multiple times. Ensures byte-for-byte match.\n        \"\"\"\n        assert INPUT.exists(), f\"Missing transformed file: {INPUT}\"\n>       assert EXPECTED.exists(), f\"Missing expected file: {EXPECTED}\"\nE       AssertionError: Missing expected file: /app/expected.csv\nE       assert False\nE        +  where False = exists()\nE        +    where exists = PosixPath('/app/expected.csv').exists\n\n/tests/test_outputs.py:188: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_outputs.py::test_macros_nonempty_and_efficient",
+                "status": "passed",
+                "duration": 0.011015755007974803,
+                "start": 1788438898.9268703,
+                "stop": 1788438898.9380593,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            }
+        ]
+    }
+}

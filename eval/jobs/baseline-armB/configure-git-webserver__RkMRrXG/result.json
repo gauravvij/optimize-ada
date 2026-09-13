@@ -1,0 +1,135 @@
+{
+    "id": "0b78f422-8367-4dd6-919b-9f69d92998c5",
+    "task_name": "configure-git-webserver",
+    "trial_name": "configure-git-webserver__RkMRrXG",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armB/configure-git-webserver__RkMRrXG",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "configure-git-webserver"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "3ebefab7ff093813f99af237de90b1ed73363a4eb42ea8a17096939922a16bcf",
+    "config": {
+        "task": {
+            "path": "configure-git-webserver",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "configure-git-webserver__RkMRrXG",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armB",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a4bcca35-c4ac-4407-968e-987e89054253",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 13500,
+        "n_cache_tokens": 12689,
+        "n_output_tokens": 1009,
+        "cost_usd": 0.0084274,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_e152a47f-bf71-4f64-a967-2d904b21359f",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 1,
+            "ttft_ms": 4375,
+            "duration_ms": 11095,
+            "tool_calls": {},
+            "n_events": 27,
+            "result_text": "I'll help you set up a git server with automatic deployment to a web server. This requires two main components: a bare git repository with a post-receive hook, and a web server. Here's the complete setup:\n\n## Server Setup\n\nRun these commands on your server as the user you'll be cloning as:\n\n```bash\n# 1. Create the git repository directory\nmkdir -p /git/server\ncd /git/server\ngit init --bare\n\n# 2. Create the web root directory\nmkdir -p /var/www/html\n\n# 3. Create the post-receive hook\ncat > /git/server/hooks/post-receive << 'EOF'\n#!/bin/bash\nDEPLOY_DIR=\"/var/www/html\"\ngit --work-tree=$DEPLOY_DIR --git-dir=/git/server checkout -f\nEOF\n\n# 4. Make the hook executable\nchmod +x /git/server/hooks/post-receive\n```\n\n## Web Server Setup\n\nInstall and start a simple HTTP server (choose one):\n\n**Option 1: Python (simplest)**\n```bash\n# Run in /var/www/html directory\ncd /var/www/html\npython3 -m http.server 8080\n```\n\n**Option 2: Node.js**\n```bash\ncd /var/www/html\nnpx http-server -p 8080\n```\n\n**Option 3: nginx (production)**\n```bash\nsudo apt-get install nginx\nsudo tee /etc/nginx/sites-available/default > /dev/null <<'EOF'\nserver {\n    listen 8080;\n    server_name _;\n    root /var/www/html;\n    index index.html;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}\nEOF\nsudo systemctl restart nginx\n```\n\n## How It Works\n\n1. When you push to the git server, the `post-receive` hook automatically checks out the files to `/var/www/html`\n2. The web server serves those files on port 8080\n3. Your workflow becomes:\n   ```bash\n   git clone user@server:/git/server\n   cd server\n   echo \"hello world\" > hello.html\n   git add hello.html\n   git commit -m \"add hello.html\"\n   git push origin master\n   ```\n4. After the push completes, curl will show the file:\n   ```bash\n   curl http://server:8080/hello.html\n   # Output: hello world\n   ```\n\n## Notes\n\n- The post-receive hook runs with the permissions of the git user, so make sure `/var/www/html` is writable by that user (adjust permissions if needed: `"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T16:10:00.258443Z",
+    "finished_at": "2026-09-02T16:10:42.144914Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T16:10:00.259772Z",
+        "finished_at": "2026-09-02T16:10:01.610023Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T16:10:01.610049Z",
+        "finished_at": "2026-09-02T16:10:01.978548Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T16:10:01.978654Z",
+        "finished_at": "2026-09-02T16:10:17.130559Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T16:10:18.193266Z",
+        "finished_at": "2026-09-02T16:10:30.262786Z"
+    },
+    "step_results": null
+}

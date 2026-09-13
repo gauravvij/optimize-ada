@@ -1,0 +1,137 @@
+{
+    "id": "aa21cc3c-7bf5-4a29-abc2-2c855cf97bd5",
+    "task_name": "sqlite-db-truncate",
+    "trial_name": "sqlite-db-truncate__NUBdgPz",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/ada-e2e-test/sqlite-db-truncate__NUBdgPz",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "sqlite-db-truncate"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "2346f11dbe5b7bad30e9a9bcb27e5276a73f324d62c452d898e4ce0e472583b1",
+    "config": {
+        "task": {
+            "path": "sqlite-db-truncate",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "sqlite-db-truncate__NUBdgPz",
+        "trials_dir": "/root/optimize_ada/eval/jobs/ada-e2e-test",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "212089f8-7c39-4145-8467-767327e090e4",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 0,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_4c7c79d7-1853-43b9-8105-f8ce3f9cad9f",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 18,
+            "ttft_ms": 1672,
+            "duration_ms": 101957,
+            "tool_calls": {
+                "Bash": 17
+            },
+            "n_events": 237,
+            "result_text": "Done! I've successfully recovered **9 out of 10 rows** from the corrupted SQLite database:\n\n- **testword01** through **testword09** with their corresponding integer values (2, 10, 25, 42, 50, 75, 99, 64, 63)\n- **testword00** was found in the database but the file truncated exactly at the end of the word string, before the value byte, so it couldn't be recovered\n\nThe recovered data has been saved to `/app/recover.json` in the requested format."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T11:43:04.076167Z",
+    "finished_at": "2026-09-02T11:45:13.341213Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T11:43:04.098899Z",
+        "finished_at": "2026-09-02T11:43:05.730980Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T11:43:05.731052Z",
+        "finished_at": "2026-09-02T11:43:06.282170Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T11:43:06.282373Z",
+        "finished_at": "2026-09-02T11:44:52.501863Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T11:44:53.780280Z",
+        "finished_at": "2026-09-02T11:45:01.566945Z"
+    },
+    "step_results": null
+}

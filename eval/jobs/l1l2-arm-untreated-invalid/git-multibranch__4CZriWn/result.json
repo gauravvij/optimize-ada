@@ -1,0 +1,144 @@
+{
+    "id": "b1ee3648-f836-4dd2-be49-a5a04a2ef31b",
+    "task_name": "git-multibranch",
+    "trial_name": "git-multibranch__4CZriWn",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/git-multibranch__4CZriWn",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "git-multibranch"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "b569c7f37491065e1c14c8074024ffa47cad6f9c4e797213af81ef8617bccb9c",
+    "config": {
+        "task": {
+            "path": "git-multibranch",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "git-multibranch__4CZriWn",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "79afacb0-0882-421a-b2bd-11723915d3a7",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 1451259,
+        "n_cache_tokens": 1419215,
+        "n_output_tokens": 17682,
+        "cost_usd": 0.27151625,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_54af75d6-b988-450f-a1a3-6dc47937c199",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 56,
+            "ttft_ms": 3515,
+            "duration_ms": 213927,
+            "tool_calls": {
+                "Bash": 43,
+                "Write": 8,
+                "Read": 2,
+                "Edit": 2
+            },
+            "n_events": 713,
+            "result_text": "Perfect! Your Git server is now fully operational. Here's a summary of what has been set up:\n\n## ✅ Complete Git Server Setup\n\n### Core Services Running\n- **OpenSSH Server** (Port 22) - Git repository access with password authentication\n- **Nginx Web Server** (Port 8443 HTTPS) - Automatic deployment serving\n- **Git Bare Repository** - `/git/project`\n\n### Key Features\n1. **SSH Access**: `ssh://git@localhost:/git/project` with credentials `git`/`password`\n2. **Automatic Deployment**: Post-receive hooks trigger instant deployment on push\n3. **Dual-Environment HTTPS**:\n   - Main branch → `https://localhost:8443/index.html`\n   - Dev branch → `https://localhost:8443/dev/index.html`\n4. **Self-Signed SSL Certificate** (RSA 2048-bit, 365 days validity)\n5. **Lightning-Fast Deployments** (~130ms, 20x faster than 3-second requirement)\n\n### Documentation Files\nAvailable in `/root/`:\n- **QUICK_START.md** - Fast setup instructions\n- **SETUP_SUMMARY.md** - Complete technical overview\n- **GIT_SERVER_SETUP.md** - Detailed configuration guide\n- **COMPLETION_REPORT.md** - Full verification results\n- **test-git-server.sh** - Automated test suite\n- **verify-git-server.sh** - Status verification script\n\n### Verified Test Results\n✅ Repository cloning via SSH with password auth\n✅ Main branch deployment and HTTPS serving\n✅ Dev branch deployment and HTTPS serving  \n✅ Automatic deployment on push (120-150ms)\n✅ SSL/HTTPS connections operational\n\nThe system is ready to use. You can clone with:\n```bash\nsshpass -p \"password\" git clone ssh://git@localhost:/git/project my-repo\n```"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T11:28:45.668792Z",
+    "finished_at": "2026-09-03T11:32:55.106188Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T11:28:45.670298Z",
+        "finished_at": "2026-09-03T11:28:47.131670Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T11:28:47.131697Z",
+        "finished_at": "2026-09-03T11:28:47.584418Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T11:28:47.584552Z",
+        "finished_at": "2026-09-03T11:32:25.858331Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T11:32:26.979958Z",
+        "finished_at": "2026-09-03T11:32:43.108887Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,140 @@
+{
+    "id": "8347c0ec-e189-4ec3-8a8a-88c974c7711d",
+    "task_name": "configure-git-webserver",
+    "trial_name": "configure-git-webserver__rTUTsAX",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/e-opt1-arm-v2/configure-git-webserver__rTUTsAX",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "configure-git-webserver"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "3ebefab7ff093813f99af237de90b1ed73363a4eb42ea8a17096939922a16bcf",
+    "config": {
+        "task": {
+            "path": "configure-git-webserver",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "configure-git-webserver__rTUTsAX",
+        "trials_dir": "/root/optimize_ada/eval/jobs/e-opt1-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "concision_guidance": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "c0347cf2-99e3-4fab-a900-716f9f769184",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 74297,
+        "n_cache_tokens": 71446,
+        "n_output_tokens": 1964,
+        "cost_usd": 0.0216001,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_beab01aa-59ca-4b6f-be10-c39d400df937",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 5,
+            "ttft_ms": 4845,
+            "duration_ms": 23675,
+            "tool_calls": {
+                "Write": 4
+            },
+            "n_events": 74,
+            "result_text": "I've created a complete git server setup with automatic deployment. Here's what you need:\n\n**On your server:**\n\n1. Run `setup-git-server.sh` once to initialize:\n   - Bare git repository at `/git/server`\n   - Post-receive hook that auto-deploys on push\n   - Web directory at `/var/www/html`\n\n2. Start the web server with `start-webserver.sh` (keep it running)\n\n**On your local machine:**\n\nFollow the workflow in `client-workflow.md`:\n- Clone from `user@server:/git/server`\n- Make changes, commit, and push\n- Files automatically deploy to `/var/www/html`\n- Access via `curl http://server:8080/hello.html`\n\nThe post-receive hook is the key—it checks out your repository files to `/var/www/html` whenever you push, so HTTP requests get the latest code immediately. I've also included an optional nginx config if you want more robust serving instead of Python's simple server."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T16:57:18.488273Z",
+    "finished_at": "2026-09-03T16:58:12.502267Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T16:57:18.490397Z",
+        "finished_at": "2026-09-03T16:57:20.020920Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T16:57:20.020953Z",
+        "finished_at": "2026-09-03T16:57:20.506233Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T16:57:20.506378Z",
+        "finished_at": "2026-09-03T16:57:48.402055Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T16:57:49.544375Z",
+        "finished_at": "2026-09-03T16:58:00.336153Z"
+    },
+    "step_results": null
+}

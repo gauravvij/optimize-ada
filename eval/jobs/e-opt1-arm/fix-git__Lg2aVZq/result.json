@@ -1,0 +1,139 @@
+{
+    "id": "364694a8-72e0-4e1f-ac43-b671697f7275",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__Lg2aVZq",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/e-opt1-arm/fix-git__Lg2aVZq",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__Lg2aVZq",
+        "trials_dir": "/root/optimize_ada/eval/jobs/e-opt1-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "concision_guidance": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "c5c125a0-082b-4eb9-a2ac-24f1b371b378",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 89223,
+        "n_cache_tokens": 84417,
+        "n_output_tokens": 1711,
+        "cost_usd": 0.023977950000000005,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_44640f79-e80d-4e4f-b17f-89d10ee6c1e2",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 13,
+            "ttft_ms": 1943,
+            "duration_ms": 17291,
+            "tool_calls": {
+                "Bash": 12
+            },
+            "n_events": 103,
+            "result_text": "Perfect! I found your changes. You have a commit \"Move to Stanford\" (650dba4) that updates your bio and makes formatting improvements to reflect your new position as a Postdoc at Stanford. \n\nThe changes include:\n- Updated bio in `_includes/about.md` (from PhD student at UW to Postdoc at Stanford)\n- Updated header in `_layouts/default.html` (changed title and formatting)\n\nWould you like me to merge this commit into master? I can do this by cherry-picking it onto master."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T18:27:23.732077Z",
+    "finished_at": "2026-09-02T18:28:06.094415Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T18:27:23.733774Z",
+        "finished_at": "2026-09-02T18:27:25.150725Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T18:27:25.150748Z",
+        "finished_at": "2026-09-02T18:27:25.518521Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T18:27:25.518633Z",
+        "finished_at": "2026-09-02T18:27:47.060604Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T18:27:48.065871Z",
+        "finished_at": "2026-09-02T18:27:54.412397Z"
+    },
+    "step_results": null
+}

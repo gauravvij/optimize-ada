@@ -1,0 +1,142 @@
+{
+    "id": "d1fecbb3-6dd4-4e22-b755-9f9525634487",
+    "task_name": "regex-log",
+    "trial_name": "regex-log__bMJHsmR",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-x1r/regex-log__bMJHsmR",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "regex-log"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "21c195b5984842dcef348132035504459514fc9ba31d1d813a82e59aa784dcc9",
+    "config": {
+        "task": {
+            "path": "regex-log",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "regex-log__bMJHsmR",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-x1r",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "verify_once_trimmed": 1,
+                "hook_output_cap": 3000,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "184ab306-f288-4227-9b42-f3493f7c55ba",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 164348,
+        "n_cache_tokens": 146282,
+        "n_output_tokens": 17828,
+        "cost_usd": 0.12759145,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_fb3f15c3-d9ff-4179-8442-2c452cc92b4b",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 6,
+            "ttft_ms": 129956,
+            "duration_ms": 158155,
+            "tool_calls": {
+                "Write": 1,
+                "Bash": 4
+            },
+            "n_events": 91,
+            "result_text": "Perfect! The regex is working correctly. The test results verify:\n\n1. **Last date extraction**: Line 1 has two dates (2025-01-15, 2025-02-20) → matches only 2025-02-20 ✓\n2. **Multiple dates**: Line 4 has three dates → matches only the last one (2025-07-20) ✓\n3. **No false positives without IPv4**: Line 3 has a date but no IPv4 → no match ✓\n4. **Invalid IPv4 rejected**: Line 5 has 255.255.255.256 (invalid octet) → no match ✓\n5. **Invalid dates rejected**: Line 9 has 2025-04-31 (April has 30 days) → matches only valid 2025-04-30 ✓\n6. **February 29 allowed**: Line 8 matches 2025-02-29 ✓\n7. **Word boundaries enforced**: Line 7's \"1134-12-1234\" without IPv4 → no match ✓\n\nThe regex in `/app/regex.txt` correctly matches the last date in YYYY-MM-DD format from lines containing valid IPv4 addresses, with proper validation for month lengths and word boundaries."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-05T08:18:44.071430Z",
+    "finished_at": "2026-09-05T08:21:55.907633Z",
+    "environment_setup": {
+        "started_at": "2026-09-05T08:18:44.073455Z",
+        "finished_at": "2026-09-05T08:18:45.565128Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-05T08:18:45.565149Z",
+        "finished_at": "2026-09-05T08:18:45.961615Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-05T08:18:45.961727Z",
+        "finished_at": "2026-09-05T08:21:28.195967Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-05T08:21:29.320012Z",
+        "finished_at": "2026-09-05T08:21:43.935547Z"
+    },
+    "step_results": null
+}

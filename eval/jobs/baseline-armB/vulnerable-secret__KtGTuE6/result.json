@@ -1,0 +1,138 @@
+{
+    "id": "78933036-7e11-4823-ab1f-2eb0c4257081",
+    "task_name": "vulnerable-secret",
+    "trial_name": "vulnerable-secret__KtGTuE6",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armB/vulnerable-secret__KtGTuE6",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "vulnerable-secret"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "568760a9b221bd2efc27dc592833c1d2d99949b20995ba1321a3aa1567e6ba20",
+    "config": {
+        "task": {
+            "path": "vulnerable-secret",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "vulnerable-secret__KtGTuE6",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armB",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a4bcca35-c4ac-4407-968e-987e89054253",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 438328,
+        "n_cache_tokens": 425019,
+        "n_output_tokens": 5587,
+        "cost_usd": 0.08806690000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_0af887b7-3897-4bff-9c42-161c36f1e281",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 24,
+            "ttft_ms": 2591,
+            "duration_ms": 58500,
+            "tool_calls": {
+                "Bash": 22,
+                "Write": 1
+            },
+            "n_events": 193,
+            "result_text": "Excellent! I've successfully extracted the secret key from the vulnerable program.\n\n## Summary\n\nI analyzed the `vulnerable` binary and found that:\n\n1. **Anti-debugging protection**: The program uses `ptrace()` calls to detect debuggers\n2. **Encoded secret**: The actual secret key was stored XOR-encoded in the binary's data section at offset `0x404060`\n3. **XOR cipher**: The encoding uses a simple XOR cipher with the key `0x42` ('B')\n\nBy examining the binary with `objdump` and analyzing the assembly code, I extracted the encoded bytes from the data section and decoded them by XORing each byte with `0x42`:\n\n**Result**: `FLAG{b4ff3r_0v3rfl0w_m4st3r_k3y_2024}`\n\nThe secret has been saved to `/app/results.txt` as requested."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T17:10:45.643727Z",
+    "finished_at": "2026-09-02T17:12:09.982626Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T17:10:45.645512Z",
+        "finished_at": "2026-09-02T17:10:46.959015Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T17:10:46.959042Z",
+        "finished_at": "2026-09-02T17:10:47.329501Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T17:10:47.329626Z",
+        "finished_at": "2026-09-02T17:11:49.956208Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T17:11:50.957542Z",
+        "finished_at": "2026-09-02T17:11:58.323526Z"
+    },
+    "step_results": null
+}

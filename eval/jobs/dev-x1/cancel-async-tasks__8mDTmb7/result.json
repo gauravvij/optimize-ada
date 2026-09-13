@@ -1,0 +1,141 @@
+{
+    "id": "410b8749-6aac-4110-b28d-beee5c32e1de",
+    "task_name": "cancel-async-tasks",
+    "trial_name": "cancel-async-tasks__8mDTmb7",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-x1/cancel-async-tasks__8mDTmb7",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "cancel-async-tasks"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "283c70ca90688dc09a969d24e3ed137ba0f00d23018df68771bdf86526b82047",
+    "config": {
+        "task": {
+            "path": "cancel-async-tasks",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "cancel-async-tasks__8mDTmb7",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-x1",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "verify_once": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "b81ea236-0d8c-47f6-90d0-50d628a205f8",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 274763,
+        "n_cache_tokens": 264226,
+        "n_output_tokens": 6951,
+        "cost_usd": 0.0754196,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_6798434e-a725-410c-aaec-7fd56536f9ea",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 14,
+            "ttft_ms": 21203,
+            "duration_ms": 81053,
+            "tool_calls": {
+                "Bash": 11,
+                "Write": 2
+            },
+            "n_events": 205,
+            "result_text": "Done! I've created `/app/run.py` with the `run_tasks` async function that:\n\n**Features:**\n- Uses `asyncio.Semaphore` to limit concurrent execution to `max_concurrent`\n- Accepts tasks as a list of async callables and runs them with the concurrency limit\n- Handles `KeyboardInterrupt` gracefully: when interrupted, it cancels pending tasks but waits for them to finish, ensuring their cleanup code (finally blocks, async context managers) runs properly\n- Can be imported as `from run import run_tasks`\n\n**How it works:**\n1. Creates a semaphore limiting concurrent tasks\n2. Wraps each task to acquire the semaphore before running\n3. Creates explicit Task objects so they can be cancelled if needed\n4. On `KeyboardInterrupt`: cancels all tasks, then waits for them with `return_exceptions=True` so cleanup runs, then re-raises the interrupt\n\nThe implementation was tested and verified to properly limit concurrency and execute cleanup code even when interrupted."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T08:52:18.361793Z",
+    "finished_at": "2026-09-04T08:54:19.376840Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T08:52:18.363823Z",
+        "finished_at": "2026-09-04T08:52:19.958212Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T08:52:19.958284Z",
+        "finished_at": "2026-09-04T08:52:20.400400Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T08:52:20.400524Z",
+        "finished_at": "2026-09-04T08:53:45.680834Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T08:53:46.799332Z",
+        "finished_at": "2026-09-04T08:54:07.297602Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,141 @@
+{
+    "id": "fac48f37-2112-4a84-8139-2ab85c13d48c",
+    "task_name": "regex-log",
+    "trial_name": "regex-log__AjdLvkF",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/regex-log__AjdLvkF",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "regex-log"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "21c195b5984842dcef348132035504459514fc9ba31d1d813a82e59aa784dcc9",
+    "config": {
+        "task": {
+            "path": "regex-log",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "regex-log__AjdLvkF",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "79afacb0-0882-421a-b2bd-11723915d3a7",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 43886,
+        "n_cache_tokens": 26321,
+        "n_output_tokens": 17284,
+        "cost_usd": 0.11225210000000001,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_8acdfe91-07eb-46e0-aaeb-0e5160cd848a",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 2,
+            "ttft_ms": 142543,
+            "duration_ms": 150813,
+            "tool_calls": {
+                "Write": 1
+            },
+            "n_events": 36,
+            "result_text": "I've created the regex and saved it to `/app/regex.txt`. Here's how it works:\n\n**Key components:**\n\n1. **IPv4 validation** - Matches 4 octets (0-255) separated by dots: `(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)`\n\n2. **Date patterns with month-day validation**:\n   - 31-day months (01,03,05,07,08,10,12): days 01-31\n   - 30-day months (04,06,09,11): days 01-30  \n   - February: days 01-29 (as required)\n\n3. **Word boundaries** - Uses `(?<![0-9a-zA-Z])` and `(?![0-9a-zA-Z])` to ensure valid dates and IPs aren't preceded/followed by alphanumeric characters\n\n4. **Last date only** - Uses `(?=.*IPv4_PATTERN)` to verify IPv4 exists, then `.*?` with a negative lookahead `(?!.*DATE_PATTERN)` to ensure only the last date on the line is captured\n\nThe regex returns the captured date through the single capturing group, so `re.findall()` will return just the dates without extra groups."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T12:16:58.590219Z",
+    "finished_at": "2026-09-03T12:20:03.644407Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T12:16:58.591508Z",
+        "finished_at": "2026-09-03T12:17:00.208020Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T12:17:00.208045Z",
+        "finished_at": "2026-09-03T12:17:00.583888Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T12:17:00.584009Z",
+        "finished_at": "2026-09-03T12:19:35.669228Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T12:19:36.925299Z",
+        "finished_at": "2026-09-03T12:19:51.484949Z"
+    },
+    "step_results": null
+}

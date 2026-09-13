@@ -1,0 +1,138 @@
+{
+    "id": "c1ae478d-f243-4e53-9314-f127983df792",
+    "task_name": "openssl-selfsigned-cert",
+    "trial_name": "openssl-selfsigned-cert__3kKZdHa",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-baseline/openssl-selfsigned-cert__3kKZdHa",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "openssl-selfsigned-cert"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "8c096d8af92f88d8f876e26efc7f495ff13f50586736e56f35140fbb080ff390",
+    "config": {
+        "task": {
+            "path": "openssl-selfsigned-cert",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "openssl-selfsigned-cert__3kKZdHa",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-baseline",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "ec261c93-1211-4a2e-b299-8b4af2cce4d2",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 113708,
+        "n_cache_tokens": 107848,
+        "n_output_tokens": 3465,
+        "cost_usd": 0.03674755,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_448d6c28-37af-4a5c-9030-eb642e3151b0",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 17,
+            "ttft_ms": 2608,
+            "duration_ms": 26379,
+            "tool_calls": {
+                "Bash": 14,
+                "Write": 2
+            },
+            "n_events": 168,
+            "result_text": "Perfect! I've successfully created a complete self-signed TLS certificate setup with all requirements met. Here's a summary:\n\n## Completion Summary\n\n✅ **All requirements fulfilled:**\n\n1. **Directory created:** `/app/ssl/` with all certificate files\n2. **Private key:** `/app/ssl/server.key` (2048-bit RSA, permissions 600)\n3. **Certificate:** `/app/ssl/server.crt` (365-day validity, 2026-09-04 to 2027-09-04)\n   - Organization: DevOps Team\n   - Common Name: dev-internal.company.local\n4. **Combined PEM:** `/app/ssl/server.pem` (both key and certificate)\n5. **Verification file:** `/app/ssl/verification.txt` containing:\n   - Certificate subject\n   - Validity dates in OpenSSL format\n   - SHA-256 fingerprint: `91:62:F9:73:F5:A4:57:CB:15:20:01:F9:5D:BF:D0:5B:2A:23:D6:34:0D:99:82:8E:CF:EA:8E:5B:8B:B7:94:07`\n6. **Verification script:** `/app/check_cert.py` that successfully:\n   - Loads and verifies the certificate\n   - Outputs Common Name: `dev-internal.company.local`\n   - Outputs expiration date: `2027-09-04` (YYYY-MM-DD format)\n   - Prints: \"Certificate verification successful\"\n\nThe private key has the correct restrictive permissions (600), and all files are ready for use with your internal development server."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T07:38:02.710645Z",
+    "finished_at": "2026-09-04T07:38:55.767374Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T07:38:02.712771Z",
+        "finished_at": "2026-09-04T07:38:04.323038Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T07:38:04.323065Z",
+        "finished_at": "2026-09-04T07:38:04.869966Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T07:38:04.870085Z",
+        "finished_at": "2026-09-04T07:38:35.469443Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T07:38:36.636858Z",
+        "finished_at": "2026-09-04T07:38:43.909344Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "fix-git",
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "source": "terminal-bench"
+    },
+    "trial_name": "fix-git__9EYYcwr",
+    "trials_dir": "/root/optimize_ada/eval/jobs/dev-x3",
+    "agent": {
+        "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+        "model_name": "anthropic/claude-haiku-4-5",
+        "kwargs": {
+            "effort_realism": 1,
+            "lever_debug": 1
+        }
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/optimize_ada/eval/ada-runtime",
+                "target": "/ada-runtime"
+            }
+        ]
+    },
+    "job_id": "df985e32-bff1-4100-9eee-74dd5ef6531e"
+}

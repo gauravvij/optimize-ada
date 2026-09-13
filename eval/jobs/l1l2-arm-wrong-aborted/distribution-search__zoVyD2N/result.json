@@ -1,0 +1,143 @@
+{
+    "id": "348d7d60-b2cc-440d-882b-0a5d780687f8",
+    "task_name": "distribution-search",
+    "trial_name": "distribution-search__zoVyD2N",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/distribution-search__zoVyD2N",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "distribution-search"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "9566c59435661995a4a64e71afc6b80baaa6339307dea1ae28608c9f2c1ce033",
+    "config": {
+        "task": {
+            "path": "distribution-search",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "distribution-search__zoVyD2N",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 635880,
+        "n_cache_tokens": 604849,
+        "n_output_tokens": 24278,
+        "cost_usd": 0.22192540000000005,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_709914db-6994-4d16-8678-b87452f715da",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 19,
+            "ttft_ms": 52041,
+            "duration_ms": 446216,
+            "tool_calls": {
+                "Write": 3,
+                "Bash": 12,
+                "Edit": 2,
+                "Read": 1
+            },
+            "n_events": 352,
+            "result_text": "Excellent! I've successfully found a probability distribution that meets all the requirements. Here's a summary:\n\n## Solution Summary\n\n**Distribution Created:** `/app/dist.npy`\n\n### Properties\n- **Vocabulary Size:** 150,000 tokens\n- **Distribution Type:** Three-level (mixed probabilities)\n  - 6 tokens with high probability: p_h = 0.1609384\n  - 3 tokens with medium probability: p_m = 0.0114142\n  - 149,991 tokens with near-uniform low probability: p_l ≈ 3.02e-10\n\n### KL Divergence Results\n- **Forward KL(P||U):** 10.0000000000 (error: 2.82e-11) ✓\n- **Backward KL(U||P):** 10.0000000000 (error: 8.03e-11) ✓\n- **Tolerance:** ±0.001 ✓✓✓ **PASSED**\n\n### Validation\n- ✓ Valid probability distribution (sums to 1.0)\n- ✓ All probabilities non-negative\n- ✓ Both KL divergences within tolerance\n- ✓ File saved as NumPy array (1.20 MB)\n\nThe solution represents a highly confident LLM prediction distribution where the model concentrates most probability mass on just 9 high-confidence tokens, with the remaining tokens receiving negligible probability. This makes intuitive sense as a confidence metric - the high KL divergence values indicate strong confidence in the model's predictions."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T10:23:06.920334Z",
+    "finished_at": "2026-09-03T10:31:22.071328Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T10:23:06.921342Z",
+        "finished_at": "2026-09-03T10:23:13.519430Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T10:23:13.519465Z",
+        "finished_at": "2026-09-03T10:23:13.914468Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T10:23:13.914608Z",
+        "finished_at": "2026-09-03T10:30:44.476677Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T10:30:46.386514Z",
+        "finished_at": "2026-09-03T10:31:06.205396Z"
+    },
+    "step_results": null
+}

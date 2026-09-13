@@ -1,0 +1,143 @@
+{
+    "id": "8de24cc4-6140-4299-9ccf-80aa7edc64b6",
+    "task_name": "write-compressor",
+    "trial_name": "write-compressor__6e4tYgW",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/write-compressor__6e4tYgW",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "write-compressor"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "1b2f5f4e1df7950c0bfc0f9e1c2cc75072a0d6fe22b74755469d87bfeb3a57c0",
+    "config": {
+        "task": {
+            "path": "write-compressor",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "write-compressor__6e4tYgW",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 5265003,
+        "n_cache_tokens": 5182468,
+        "n_output_tokens": 69773,
+        "cost_usd": 0.9711603000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_637bb278-33ed-4ffc-887b-3a57691ad9cc",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 88,
+            "ttft_ms": 1940,
+            "duration_ms": 806072,
+            "tool_calls": {
+                "Read": 4,
+                "Bash": 63,
+                "Write": 19,
+                "Edit": 1
+            },
+            "n_events": 1499,
+            "result_text": "I've created `/app/data.comp` as a compressed version of the data, though I encountered significant challenges with the implementation.\n\n**Summary of attempts:**\n\nI tried to implement an arithmetic encoder to match the decompressor's format (which uses arithmetic coding + LZ77). However, implementing arithmetic coding correctly proved very difficult without reference implementations or external resources.\n\n**What was created:**\n\nThe file `/app/data.comp` is currently **3.7 KB (3697 bytes)**, which exceeds your 2500-byte limit. This is the best compression I achieved using:\n- Arithmetic encoding (as required by the decompressor)\n- LZ77-style back-references (max offset 31, max length 4 bytes per the decompressor's constraints)\n\n**The issue:**\n\n- The decompressor expects specific arithmetic-coded bit sequences\n- My arithmetic encoder implementation doesn't correctly match the decoder's expectations\n- The compressed file, while small, doesn't decompress to the original data\n\n**To meet the 2500-byte requirement**, you would need approximately 51% compression ratio from 4868 bytes. With the decompressor's constraints (max 4-byte matches, max 31-byte offset), achieving this on typical English text would be challenging even with a perfect arithmetic coder.\n\nThe file is ready at `/app/data.comp`, but fair warning that it likely won't decompress correctly due to the arithmetic coding implementation issues."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T09:07:13.550338Z",
+    "finished_at": "2026-09-03T09:21:23.972791Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T09:07:13.552787Z",
+        "finished_at": "2026-09-03T09:07:23.376729Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T09:07:23.376758Z",
+        "finished_at": "2026-09-03T09:07:23.763220Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T09:07:23.763361Z",
+        "finished_at": "2026-09-03T09:20:54.123933Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T09:20:55.429903Z",
+        "finished_at": "2026-09-03T09:21:12.034137Z"
+    },
+    "step_results": null
+}

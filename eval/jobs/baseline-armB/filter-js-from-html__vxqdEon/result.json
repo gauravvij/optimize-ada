@@ -1,0 +1,138 @@
+{
+    "id": "be159821-2177-4f6a-b36a-5c25739a5614",
+    "task_name": "filter-js-from-html",
+    "trial_name": "filter-js-from-html__vxqdEon",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armB/filter-js-from-html__vxqdEon",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "filter-js-from-html"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "885bb73e2797a54d5de860c25f481b5a60e2b91c0de30acaca9560603e9e1ff8",
+    "config": {
+        "task": {
+            "path": "filter-js-from-html",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "filter-js-from-html__vxqdEon",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armB",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a4bcca35-c4ac-4407-968e-987e89054253",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 106014,
+        "n_cache_tokens": 94806,
+        "n_output_tokens": 9876,
+        "cost_usd": 0.07396135000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_b4203e8c-a8d3-402c-aa73-8a67f7dd9d0a",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 5,
+            "ttft_ms": 45284,
+            "duration_ms": 57334,
+            "tool_calls": {
+                "Write": 1,
+                "Bash": 3
+            },
+            "n_events": 66,
+            "result_text": "The `/app/filter.py` script is ready to use. Simply run it with an HTML file path: `python filter.py file.html`"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T15:49:09.146834Z",
+    "finished_at": "2026-09-02T15:58:17.622407Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T15:49:09.148733Z",
+        "finished_at": "2026-09-02T15:49:10.804921Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T15:49:10.804946Z",
+        "finished_at": "2026-09-02T15:49:11.190284Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T15:49:11.190395Z",
+        "finished_at": "2026-09-02T15:50:12.674805Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T15:50:13.824144Z",
+        "finished_at": "2026-09-02T15:57:37.903937Z"
+    },
+    "step_results": null
+}

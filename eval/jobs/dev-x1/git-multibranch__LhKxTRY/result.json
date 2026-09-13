@@ -1,0 +1,143 @@
+{
+    "id": "4513dcf8-2b54-4f8e-bf41-e358ef389350",
+    "task_name": "git-multibranch",
+    "trial_name": "git-multibranch__LhKxTRY",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-x1/git-multibranch__LhKxTRY",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "git-multibranch"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "b569c7f37491065e1c14c8074024ffa47cad6f9c4e797213af81ef8617bccb9c",
+    "config": {
+        "task": {
+            "path": "git-multibranch",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "git-multibranch__LhKxTRY",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-x1",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "verify_once": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "b81ea236-0d8c-47f6-90d0-50d628a205f8",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 489712,
+        "n_cache_tokens": 474212,
+        "n_output_tokens": 7362,
+        "cost_usd": 0.10479995000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_0166dc90-69d2-4a1b-b37c-03c32b974a36",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 24,
+            "ttft_ms": 3996,
+            "duration_ms": 97741,
+            "tool_calls": {
+                "Bash": 19,
+                "Write": 2,
+                "Read": 1,
+                "Edit": 1
+            },
+            "n_events": 388,
+            "result_text": "Excellent! The Git server is now fully operational. Here's a summary of what was set up:\n\n## ✓ Git Server Infrastructure\n\n**SSH Server:**\n- Running on `localhost:22` with password authentication enabled\n- Git user: `git` / password: `password`\n- Repository accessible at `git@localhost:/git/project`\n\n**Git Repository:**\n- Bare repository at `/git/project`\n- Post-receive hook automatically deploys on push\n- Supports both `main` and `dev` branches\n\n**HTTPS Deployment:**\n- Nginx web server running on port 8443\n- Self-signed certificate at `/etc/nginx/certs/`\n- Main branch: `https://localhost:8443/index.html`\n- Dev branch: `https://localhost:8443/dev/index.html`\n\n**Performance:**\n- Deployment completes in ~74ms (well under 3-second requirement)\n\n**Verified Functionality:**\n- ✓ Clone via SSH with password authentication\n- ✓ Push triggers automatic deployment\n- ✓ Main branch content served at `/index.html`\n- ✓ Dev branch content served at `/dev/index.html`\n- ✓ Both branches deployed with correct content\n\nThe system is ready for testing. You can now clone the repository, make changes to both branches, and push them to trigger automatic deployment."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T09:31:07.795930Z",
+    "finished_at": "2026-09-04T09:33:21.757621Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T09:31:07.797015Z",
+        "finished_at": "2026-09-04T09:31:09.137932Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T09:31:09.137961Z",
+        "finished_at": "2026-09-04T09:31:09.521728Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T09:31:09.521836Z",
+        "finished_at": "2026-09-04T09:32:51.353722Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T09:32:52.469211Z",
+        "finished_at": "2026-09-04T09:33:09.855086Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,142 @@
+{
+    "id": "37549cb8-0a81-442d-a69b-067561c3f62d",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__eDp69M5",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-x1-probe/fix-git__eDp69M5",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__eDp69M5",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-x1-probe",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "verify_once": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4e3d91d0-7b0e-4944-8a43-eea98d95500a",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 217668,
+        "n_cache_tokens": 199650,
+        "n_output_tokens": 2854,
+        "cost_usd": 0.057715249999999996,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_ff328540-c5e3-4b08-add6-c70a68c920f9",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 14,
+            "ttft_ms": 2843,
+            "duration_ms": 39904,
+            "tool_calls": {
+                "Bash": 11,
+                "Read": 1,
+                "Edit": 1
+            },
+            "n_events": 151,
+            "result_text": "Excellent! Your changes have been recovered and merged into master. Here's what happened:\n\n**What was lost:** You had made a commit called \"Move to Stanford\" that updated your bio and layout files, but when you checked out master, that commit became orphaned and wasn't on any branch.\n\n**What I recovered:** \n- Updated your about section from \"sixth PhD candidate at University of Washington\" to \"Postdoctoral Researcher at Stanford CS\"\n- Layout changes were also preserved\n\nThe changes are now safely merged into master with a new merge commit (`a141faf`). Your repository history shows the recovery clearly!"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T08:40:39.211337Z",
+    "finished_at": "2026-09-04T08:41:45.359330Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T08:40:39.234703Z",
+        "finished_at": "2026-09-04T08:40:40.827892Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T08:40:40.827966Z",
+        "finished_at": "2026-09-04T08:40:41.286990Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T08:40:41.287157Z",
+        "finished_at": "2026-09-04T08:41:25.588798Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T08:41:26.763064Z",
+        "finished_at": "2026-09-04T08:41:33.444060Z"
+    },
+    "step_results": null
+}

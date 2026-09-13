@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "break-filter-js-from-html",
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "source": "terminal-bench"
+    },
+    "trial_name": "break-filter-js-from-html__rJhUbzB",
+    "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+    "agent": {
+        "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+        "model_name": "anthropic/claude-haiku-4-5",
+        "kwargs": {
+            "self_verify": 1,
+            "adaptive_concision": 1
+        }
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/optimize_ada/eval/ada-runtime",
+                "target": "/ada-runtime"
+            }
+        ]
+    },
+    "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83"
+}

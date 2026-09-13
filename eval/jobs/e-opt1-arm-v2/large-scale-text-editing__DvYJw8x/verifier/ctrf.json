@@ -1,0 +1,68 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 4,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788457294.4272172,
+            "stop": 1788457352.951666
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_apply_macros_exists",
+                "status": "passed",
+                "duration": 0.000586034992011264,
+                "start": 1788457294.5166025,
+                "stop": 1788457294.5174723,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_apply_macros_well_formed",
+                "status": "passed",
+                "duration": 0.003659408976091072,
+                "start": 1788457294.5177038,
+                "stop": 1788457294.5215623,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_apply_macros_runs",
+                "status": "passed",
+                "duration": 58.3144242859853,
+                "start": 1788457294.521778,
+                "stop": 1788457352.8365278,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_input_equiv_expected",
+                "status": "passed",
+                "duration": 0.07758082500367891,
+                "start": 1788457352.8368812,
+                "stop": 1788457352.9147332,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_macros_nonempty_and_efficient",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.013843128981534392,
+                "start": 1788457352.9150078,
+                "stop": 1788457352.9514418,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_macros_nonempty_and_efficient():\n        \"\"\"\n        Verify that macros a, b, and c are non-empty, pairwise distinct, and efficient\n        (total keystrokes < 200).\n        \"\"\"\n        tmp_script = Path(\"/app/_defs_only.vim\")\n        _write_defs_only_script(APPLY_SCRIPT, tmp_script)\n        # Run Vim headlessly to source only the defs and emit counts/contents\n        res = _run([\"vim\", \"-Nu\", \"NONE\", \"-n\", \"-Es\", \"-S\", str(tmp_script)])\n        assert res.returncode == 0, f\"Vim exited with code {res.returncode}\"\n        ks_out = Path(\"/app/vim_keystrokes.out\")\n        regs_out = Path(\"/app/vim_regs.out\")\n        assert ks_out.exists(), \"Expected keystroke output file was not created\"\n        assert regs_out.exists(), \"Expected registers output file was not created\"\n        # Parse keystroke counts\n        line = ks_out.read_text(encoding=\"utf-8\", errors=\"ignore\").strip()\n        m = re.match(r\"^KEYSTROKES a=(\\d+) b=(\\d+) c=(\\d+) total=(\\d+)$\", line)\n        assert m, f\"Could not parse keystrokes line: {line!r}\"\n        a, b, c, total = map(int, m.groups())\n        assert a > 0 and b > 0 and c > 0, f\"Macros must be non-empty: a={a} b={b} c={c}\"\n        assert total == a + b + c, f\"Sum mismatch: a+b+c={a + b + c} vs total={total}\"\n        assert total < 200, f\"Total keystrokes must be < 200; got: {total}\"\n        # Parse register contents\n        text = regs_out.read_text(encoding=\"utf-8\", errors=\"ignore\")\n        lines = [s.strip() for s in text.splitlines()]\n        assert len(lines) >= 3, \"Registers output should have at least 3 lines\"\n        ra, rb, rc = lines[:3]\n>       assert ra != rb and rb != rc and ra != rc, \"Macros a, b, c must be distinct\"\nE       AssertionError: Macros a, b, c must be distinct\nE       assert (':s/^\\\\s*\\\\(\\\\w\\\\+\\\\)\\\\s*,\\\\s*\\\\(\\\\w\\\\+\\\\)\\\\s*,\\\\s*\\\\(\\\\w\\\\+\\\\)\\\\s*$/\\\\U\\\\3;\\\\U\\\\2;\\\\U\\\\1;OK\\\\E/<CR><NL>' != 'i<Esc>' and 'i<Esc>' != 'i<Esc>')\n\n/tests/test_outputs.py:221: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

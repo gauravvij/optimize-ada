@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788434857.4882948,
+            "stop": 1788434857.5655134
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_recovery_file_exists",
+                "status": "passed",
+                "duration": 0.0005272749840514734,
+                "start": 1788434857.546127,
+                "stop": 1788434857.5468616,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_password_match",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006344350113067776,
+                "start": 1788434857.54704,
+                "stop": 1788434857.565327,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_password_match():\n        guesses = Path(\"/app/recovered_passwords.txt\").read_text().strip().split(\"\\n\")\n    \n        assert len(guesses) > 0, \"No guesses found\"\n    \n>       assert \"8XDP5Q2RT9ZK7VB3BV4WW54\" in guesses, \"Password not found\"\nE       AssertionError: Password not found\nE       assert '8XDP5Q2RT9ZK7VB3BV4WW54' in ['8XDP5Q2RT9ZABCDEFGHUW54', '8XD00000000000000000W54', '8XD12345678901234567W54', '8XDABCDEFGHIJKLMNOPQW54', '8XDP5Q2RT9ZAAAAAAA00W54', '8XD9ZAAAAAAAAAA00000W54', ...]\n\n/tests/test_outputs.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

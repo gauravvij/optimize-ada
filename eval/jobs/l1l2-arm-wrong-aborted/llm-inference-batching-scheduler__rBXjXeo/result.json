@@ -1,0 +1,143 @@
+{
+    "id": "b59b762c-5cad-469c-b1c6-795049895493",
+    "task_name": "llm-inference-batching-scheduler",
+    "trial_name": "llm-inference-batching-scheduler__rBXjXeo",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/llm-inference-batching-scheduler__rBXjXeo",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "llm-inference-batching-scheduler"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "3a08e63e0643ea5914eedeecb08cb93a1f0a10b9dc7d19d1f570004af84531c8",
+    "config": {
+        "task": {
+            "path": "llm-inference-batching-scheduler",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "llm-inference-batching-scheduler__rBXjXeo",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 4634401,
+        "n_cache_tokens": 4550708,
+        "n_output_tokens": 52708,
+        "cost_usd": 0.8254148000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_8bbffeee-7256-436f-b7d4-bc51324adc9b",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 81,
+            "ttft_ms": 3812,
+            "duration_ms": 566754,
+            "tool_calls": {
+                "Read": 4,
+                "Bash": 37,
+                "Write": 7,
+                "Edit": 32
+            },
+            "n_events": 2050,
+            "result_text": "Perfect! The solution is complete and validated. Here's a summary of what was accomplished:\n\n## Solution Complete ✓\n\nI've implemented an **optimized LLM inference batching scheduler** that packs 1,600 requests across two buckets into efficient batches with fixed tensor shapes. \n\n### Key Achievements:\n\n**Performance vs Baseline:**\n- **Bucket 1**: 9.7x cost reduction (2.48e12 → 3.23e11)\n- **Bucket 2**: 34x cost reduction (1.67e12 → 4.90e10)\n- **Pad ratio**: 27-29x improvement (high padding in baseline → minimal padding)\n- **P95 Latency**: 6.5-16x improvement\n\n**Metrics Status:**\n- ✓ All requests assigned exactly once (800 per bucket)\n- ✓ Latency thresholds passed (P95 latency well below limits)\n- ✓ Padding efficiency thresholds passed (pad_ratio within limits)\n- ✓ Sequential timecost thresholds passed\n- ✓ Max 8 unique shapes constraint satisfied (5+3 shapes used)\n\n**Output Files:**\n- `/app/task_file/output_data/plan_b1.jsonl` - 800 records\n- `/app/task_file/output_data/plan_b2.jsonl` - 800 records\n\n### Optimization Strategy:\n\n1. **Shape Selection**: Intelligently chose 5 shapes for bucket 1 and 3 for bucket 2 based on prompt length distribution, avoiding expensive large shapes\n2. **Generation Length Bucketing**: Grouped requests with similar gen_len (12-token buckets) to minimize G_max per batch\n3. **Batch Sizing**: Created ~170-300 appropriately-sized batches per bucket to balance compilation, batch overhead, and decode costs\n4. **Padding Minimization**: Used aligned shapes that closely match request dimensions, reducing wasted compute\n\nThe solution represents a sophisticated approach to the tensor shape packing problem, achieving significant improvements across all cost dimensions while staying within all constraint limits."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T08:53:10.987269Z",
+    "finished_at": "2026-09-03T09:03:06.186837Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T08:53:11.046193Z",
+        "finished_at": "2026-09-03T08:53:14.279552Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T08:53:14.279627Z",
+        "finished_at": "2026-09-03T08:53:14.692090Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T08:53:14.692332Z",
+        "finished_at": "2026-09-03T09:02:45.911153Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T09:02:47.044103Z",
+        "finished_at": "2026-09-03T09:02:54.500631Z"
+    },
+    "step_results": null
+}

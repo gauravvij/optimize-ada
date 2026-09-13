@@ -1,0 +1,16 @@
+# Secrets
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Bundled runtime (large binary, not source)
+eval/ada-runtime/node-v24.11.0-linux-x64/
+
+# Sandbox scratch
+.tmp/eval/ada-runtime/ada/

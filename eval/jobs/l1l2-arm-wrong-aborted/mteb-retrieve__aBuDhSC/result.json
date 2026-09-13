@@ -1,0 +1,142 @@
+{
+    "id": "40e084c3-0ed2-4e7e-ad59-ff936c883160",
+    "task_name": "mteb-retrieve",
+    "trial_name": "mteb-retrieve__aBuDhSC",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/mteb-retrieve__aBuDhSC",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "mteb-retrieve"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "c9b88a67c599defd76f11c87dc596dbfd16e2e3ea1e40d1abec4033db888473f",
+    "config": {
+        "task": {
+            "path": "mteb-retrieve",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "mteb-retrieve__aBuDhSC",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 75409,
+        "n_cache_tokens": 71924,
+        "n_output_tokens": 1942,
+        "cost_usd": 0.0223734,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_985bf839-8592-4048-bb63-cbb5383c8595",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 5,
+            "ttft_ms": 2966,
+            "duration_ms": 35002,
+            "tool_calls": {
+                "Read": 2,
+                "Write": 1,
+                "Bash": 1
+            },
+            "n_events": 65,
+            "result_text": "Done! The document with the 5th highest cosine similarity to \"terminal-bench\" has been found and written to `/app/result.txt`.\n\n**Results:**\n- **5th highest match** (similarity score: 0.5494): \"Humanity's Last Exam (HLE) is a multi-modal benchmark at the frontier of human knowledge\"\n\n**Top 5 similar documents:**\n1. \"A benchmark for LLMs on complicated tasks in the terminal\" (0.6735)\n2. \"Terminal-Bench is the benchmark for testing AI agents in real terminal environments\" (0.6218)\n3. \"SWE-bench Multimodal: Do AI Systems Generalize to Visual Software Domains?\" (0.5921)\n4. \"Omni-MATH: Universal Olympiad-level mathematic benchmark\" (0.5642)\n5. \"Humanity's Last Exam (HLE) is a multi-modal benchmark at the frontier of human knowledge\" (0.5494)"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T10:28:56.268502Z",
+    "finished_at": "2026-09-03T10:33:29.393077Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T10:28:56.269931Z",
+        "finished_at": "2026-09-03T10:31:28.709908Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T10:31:28.709933Z",
+        "finished_at": "2026-09-03T10:31:29.143150Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T10:31:29.143319Z",
+        "finished_at": "2026-09-03T10:32:08.428944Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T10:32:09.525496Z",
+        "finished_at": "2026-09-03T10:33:09.929375Z"
+    },
+    "step_results": null
+}

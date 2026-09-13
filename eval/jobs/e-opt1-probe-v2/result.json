@@ -1,0 +1,42 @@
+{
+    "id": "07bbf2ae-e951-4037-a700-34b8ae6e0fd7",
+    "started_at": "2026-09-03T16:51:34.955300",
+    "updated_at": "2026-09-03T16:54:51.870369",
+    "finished_at": "2026-09-03T16:54:51.870369",
+    "n_total_trials": 2,
+    "stats": {
+        "n_completed_trials": 2,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada-bridge__claude-haiku-4-5__terminal-bench": {
+                "n_trials": 2,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.5
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "log-summary-date-ranges__kC2DGRU"
+                        ],
+                        "0.0": [
+                            "fix-git__6rXJQGb"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 234113,
+        "n_cache_tokens": 195180,
+        "n_output_tokens": 3797,
+        "cost_usd": 0.08950074999999999
+    }
+}

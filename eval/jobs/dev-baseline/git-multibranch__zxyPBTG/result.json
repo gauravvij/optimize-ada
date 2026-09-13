@@ -1,0 +1,138 @@
+{
+    "id": "21336938-621a-4f32-ba39-eae360908a1b",
+    "task_name": "git-multibranch",
+    "trial_name": "git-multibranch__zxyPBTG",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-baseline/git-multibranch__zxyPBTG",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "git-multibranch"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "b569c7f37491065e1c14c8074024ffa47cad6f9c4e797213af81ef8617bccb9c",
+    "config": {
+        "task": {
+            "path": "git-multibranch",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "git-multibranch__zxyPBTG",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-baseline",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "ec261c93-1211-4a2e-b299-8b4af2cce4d2",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 960499,
+        "n_cache_tokens": 933287,
+        "n_output_tokens": 15967,
+        "cost_usd": 0.20834245,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_6543f4aa-742a-487a-be13-4692988607fd",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 39,
+            "ttft_ms": 3278,
+            "duration_ms": 202783,
+            "tool_calls": {
+                "Bash": 36,
+                "Write": 2
+            },
+            "n_events": 596,
+            "result_text": "Perfect! Your Git server is fully set up and verified. Here's what's operational:\n\n## ✅ System Complete\n\n**Git Server**: `ssh://git@localhost/git/project.git` (password: `password`)\n\n**HTTPS Endpoints**:\n- Main branch: `https://localhost:8443/index.html`\n- Dev branch: `https://localhost:8443/dev/index.html`\n\n**Key Components**:\n1. **SSH Server** - Accepts password auth on port 22\n2. **Bare Git Repository** - At `/git/project.git` with post-receive hook\n3. **Nginx HTTPS Server** - Port 8443 with self-signed certificate\n4. **Automatic Deployment** - Push triggers instant deployment (<3s)\n\n**Verification Results**:\n- ✓ SSH password authentication working\n- ✓ Repository cloning working  \n- ✓ Branch creation and push working\n- ✓ HTTPS endpoints serving correct content\n- ✓ Deployment completes in 2 seconds (within 3-second requirement)\n\n**Documentation Created**:\n- `/app/GIT_SERVER_SETUP.md` - Complete documentation\n- `/app/QUICK_START.md` - Quick reference guide\n- `/app/SETUP_COMPLETE.md` - Detailed setup info\n\nThe system is ready to use. Try cloning with:\n```bash\nexport GIT_SSH_COMMAND=\"sshpass -p password ssh -o StrictHostKeyChecking=no\"\ngit clone ssh://git@localhost/git/project.git\n```"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T07:17:27.606007Z",
+    "finished_at": "2026-09-04T07:21:26.295233Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T07:17:27.607123Z",
+        "finished_at": "2026-09-04T07:17:28.982734Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T07:17:28.982760Z",
+        "finished_at": "2026-09-04T07:17:29.392643Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T07:17:29.392751Z",
+        "finished_at": "2026-09-04T07:20:56.430898Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T07:20:57.599786Z",
+        "finished_at": "2026-09-04T07:21:14.268529Z"
+    },
+    "step_results": null
+}

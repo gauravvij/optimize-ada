@@ -1,0 +1,142 @@
+{
+    "id": "14589dc8-8eaf-4c84-8118-305b097b129a",
+    "task_name": "openssl-selfsigned-cert",
+    "trial_name": "openssl-selfsigned-cert__CLi38j7",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/openssl-selfsigned-cert__CLi38j7",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "openssl-selfsigned-cert"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "8c096d8af92f88d8f876e26efc7f495ff13f50586736e56f35140fbb080ff390",
+    "config": {
+        "task": {
+            "path": "openssl-selfsigned-cert",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "openssl-selfsigned-cert__CLi38j7",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "79afacb0-0882-421a-b2bd-11723915d3a7",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 179771,
+        "n_cache_tokens": 172876,
+        "n_output_tokens": 3523,
+        "cost_usd": 0.044826099999999994,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_e150a38e-1a0a-4525-bba2-5f6c5d1aa3b2",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 11,
+            "ttft_ms": 4380,
+            "duration_ms": 41455,
+            "tool_calls": {
+                "Bash": 9,
+                "Write": 1
+            },
+            "n_events": 123,
+            "result_text": "Perfect! I've successfully created a complete self-signed TLS certificate setup for your internal development server. Here's what was completed:\n\n## Summary of Created Files\n\n**1. Private Key** (`/app/ssl/server.key`)\n- 2048-bit RSA private key\n- Permissions: 600 (rw-------)\n- Secure read-only access\n\n**2. Self-Signed Certificate** (`/app/ssl/server.crt`)\n- Valid for 365 days (2026-09-03 to 2027-09-03)\n- Organization: DevOps Team\n- Common Name: dev-internal.company.local\n- Uses SHA-256 signing algorithm\n\n**3. Combined PEM File** (`/app/ssl/server.pem`)\n- Contains both private key and certificate\n- Ready to use with applications that require combined PEM format\n\n**4. Verification File** (`/app/ssl/verification.txt`)\nContains certificate metadata:\n- Subject: O = DevOps Team, CN = dev-internal.company.local\n- Validity: 2026-09-03 to 2027-09-03\n- SHA-256 Fingerprint: `19:89:30:67:FE:A3:A1:5F:D3:DA:FB:E2:D3:E1:F4:3E:99:09:EF:CF:7D:9F:C5:55:52:56:CB:15:C7:7F:3B:FF`\n\n**5. Python Verification Script** (`/app/check_cert.py`)\n- Verifies certificate file exists and can be loaded\n- Extracts and displays Common Name and expiration date in YYYY-MM-DD format\n- Outputs \"Certificate verification successful\" on successful verification\n- Works with or without the `cryptography` library (with fallback to OpenSSL)\n\nThe script has been tested and confirms:\n```\nCommon Name: dev-internal.company.local\nExpiration Date: 2027-09-03\nCertificate verification successful\n```\n\nAll files are ready for use in your internal development environment. The certificate can be used immediately with any server application that supports HTTPS/TLS."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T11:40:47.470756Z",
+    "finished_at": "2026-09-03T11:41:56.587924Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T11:40:47.471839Z",
+        "finished_at": "2026-09-03T11:40:49.087329Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T11:40:49.087362Z",
+        "finished_at": "2026-09-03T11:40:49.536259Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T11:40:49.536392Z",
+        "finished_at": "2026-09-03T11:41:35.477844Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T11:41:36.615920Z",
+        "finished_at": "2026-09-03T11:41:44.786925Z"
+    },
+    "step_results": null
+}

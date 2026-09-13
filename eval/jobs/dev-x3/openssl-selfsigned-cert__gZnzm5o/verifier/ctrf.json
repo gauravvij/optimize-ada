@@ -1,0 +1,77 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788527336.6188538,
+            "stop": 1788527336.9110997
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_directory_structure",
+                "status": "passed",
+                "duration": 0.0005656560242641717,
+                "start": 1788527336.7040987,
+                "stop": 1788527336.7049239,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_key_file",
+                "status": "passed",
+                "duration": 0.0068473509745672345,
+                "start": 1788527336.7051487,
+                "stop": 1788527336.7121785,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_certificate_file",
+                "status": "passed",
+                "duration": 0.06802342398441397,
+                "start": 1788527336.7124114,
+                "stop": 1788527336.7807517,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_combined_pem_file",
+                "status": "passed",
+                "duration": 0.030727139994269237,
+                "start": 1788527336.7810178,
+                "stop": 1788527336.8119934,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_verification_file",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.001374524988932535,
+                "start": 1788527336.8122802,
+                "stop": 1788527336.8370962,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_verification_file():\n        \"\"\"Test that the verification file exists with correct content.\"\"\"\n        verification_file = \"/app/ssl/verification.txt\"\n        assert os.path.exists(verification_file), \"Verification file does not exist\"\n    \n        with open(verification_file, \"r\") as f:\n            verification_content = f.read()\n    \n        # Check for certificate subject information\n        assert \"dev-internal.company.local\" in verification_content.lower(), (\n            \"Verification file does not contain the correct Common Name\"\n        )\n        assert \"devops team\" in verification_content.lower(), (\n            \"Verification file does not contain the correct Organization\"\n        )\n    \n        # Check for validity dates in YYYY-MM-DD format OR OpenSSL format\n        date_formats_found = (\n            re.search(r\"\\d{4}-\\d{2}-\\d{2}\", verification_content)  # YYYY-MM-DD format\n            or re.search(\n                r\"[A-Z][a-z]{2}\\s+\\d{1,2}\\s+\\d{2}:\\d{2}:\\d{2}\\s+\\d{4}(?:\\s+[A-Z]+)?\",\n                verification_content,\n            )  # OpenSSL format with optional timezone\n        )\n        assert date_formats_found, (\n            \"Verification file does not contain properly formatted dates\"\n        )\n    \n        # Check for SHA-256 fingerprint (hex pairs separated by colons)\n>       assert re.search(r\"[0-9a-f]{2}(:[0-9a-f]{2}){31}\", verification_content.lower()), (\n            \"Verification file does not contain valid SHA-256 fingerprint\"\n        )\nE       AssertionError: Verification file does not contain valid SHA-256 fingerprint\nE       assert None\nE        +  where None = <function search at 0x7bcacead1800>('[0-9a-f]{2}(:[0-9a-f]{2}){31}', 'certificate subject:\\no = devops team, cn = dev-internal.company.local\\n\\nvalidity dates:\\nnot before: sep  4 13:08:2...: sep  4 13:08:22 2027 gmt\\n\\nsha-256 fingerprint:\\n660ed34c0228c5fbe696347982d3ee38c89529b1f2ff165489c4b8e5754a4ed3\\n')\nE        +    where <function search at 0x7bcacead1800> = re.search\nE        +    and   'certificate subject:\\no = devops team, cn = dev-internal.company.local\\n\\nvalidity dates:\\nnot before: sep  4 13:08:2...: sep  4 13:08:22 2027 gmt\\n\\nsha-256 fingerprint:\\n660ed34c0228c5fbe696347982d3ee38c89529b1f2ff165489c4b8e5754a4ed3\\n' = <built-in method lower of str object at 0x7bcacdcc2d50>()\nE        +      where <built-in method lower of str object at 0x7bcacdcc2d50> = 'Certificate Subject:\\nO = DevOps Team, CN = dev-internal.company.local\\n\\nValidity Dates:\\nNot Before: Sep  4 13:08:2...: Sep  4 13:08:22 2027 GMT\\n\\nSHA-256 Fingerprint:\\n660ed34c0228c5fbe696347982d3ee38c89529b1f2ff165489c4b8e5754a4ed3\\n'.lower\n\n/tests/test_outputs.py:134: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_outputs.py::test_python_verification_script",
+                "status": "passed",
+                "duration": 0.0733141569653526,
+                "start": 1788527336.8373325,
+                "stop": 1788527336.9108567,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,142 @@
+{
+    "id": "ae453542-cec6-4d43-99d9-be0a773f07ed",
+    "task_name": "db-wal-recovery",
+    "trial_name": "db-wal-recovery__D4SYXgB",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/db-wal-recovery__D4SYXgB",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "db-wal-recovery"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "01f470c86f3a1f7ce4d91bdf0aaaa89fa96a4124ac48617990e2735b5291913a",
+    "config": {
+        "task": {
+            "path": "db-wal-recovery",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "db-wal-recovery__D4SYXgB",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "79afacb0-0882-421a-b2bd-11723915d3a7",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 1206784,
+        "n_cache_tokens": 1182778,
+        "n_output_tokens": 16035,
+        "cost_usd": 0.22951805,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_ab9e2a65-3068-487a-a29a-0575ccca28ed",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 50,
+            "ttft_ms": 2260,
+            "duration_ms": 215455,
+            "tool_calls": {
+                "Bash": 48,
+                "Read": 1
+            },
+            "n_events": 515,
+            "result_text": "I've completed an extensive recovery attempt, but I need to inform you of the situation:\n\n## Recovery Summary\n\n**Initial State:**\n- `main.db`: 8192 bytes (5 records visible)\n- `main.db-wal`: 16512 bytes (reportedly containing 6 additional records)\n\n**What Happened:**\nWhen I first queried the database with `sqlite3 main.db \"SELECT * FROM items\"`, SQLite automatically triggered a WAL checkpoint. However, since the WAL file was corrupted/encrypted, SQLite couldn't parse the transactions in it and ultimately discarded the file, removing access to those 6 missing records.\n\n**Recovery Attempts Made:**\n1. ✅ Direct SQLite queries - returned only 5 records\n2. ✅ Examined raw database file - only contains 5 records\n3. ✅ Switched journal modes - no additional data found\n4. ✅ Searched for backup files - none exist\n5. ✅ Scanned filesystem for deleted data - nothing recoverable\n6. ✅ Examined SHM and WAL file structures - no useful data\n7. ✅ Searched for fruit names and value patterns - none found beyond the 5 records\n8. ✅ Created SQL dump - confirms only 5 records\n\n**Result:**\nI've created `/app/recovered.json` with the 5 recoverable records:\n\n```json\n[\n  {\"id\": 1, \"name\": \"apple\", \"value\": 100},\n  {\"id\": 2, \"name\": \"banana\", \"value\": 200},\n  {\"id\": 3, \"name\": \"cherry\", \"value\": 300},\n  {\"id\": 4, \"name\": \"date\", \"value\": 400},\n  {\"id\": 5, \"name\": \"elderberry\", \"value\": 500}\n]\n```\n\n**The Problem:**\nTo properly recover the 11 records, I would have needed to examine and fix the corrupted WAL file BEFORE accessing the database. My initial query inadvertently triggered a checkpoint that lost the WAL data.\n\n**Next Steps:**\nDo you have:\n1. A backup of the original database files with the WAL file intact?\n2. Information about what the missing 6 records should be?\n3. A way to reset the database to its original corrupted state so I can apply a proper WAL recovery technique?\n\nLet me know how you'd like to proceed!"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T11:24:58.025977Z",
+    "finished_at": "2026-09-03T11:29:05.326066Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T11:24:58.027205Z",
+        "finished_at": "2026-09-03T11:24:59.548109Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T11:24:59.548141Z",
+        "finished_at": "2026-09-03T11:25:00.144442Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T11:25:00.144615Z",
+        "finished_at": "2026-09-03T11:28:40.117425Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T11:28:41.362361Z",
+        "finished_at": "2026-09-03T11:28:52.996934Z"
+    },
+    "step_results": null
+}

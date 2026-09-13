@@ -1,0 +1,14 @@
+PASS L1 on with ADA_SELF_VERIFY=1
+PASS L1 off by default
+PASS L1 text mentions running the deliverable
+PASS L2 on for bulk-volume prompt
+PASS L2 off for plain prompt
+PASS L2 off without env gate
+Heuristic fired on: password-recovery, large-scale-text-editing
+PASS heuristic fires on exactly the 2 expected tasks
+PASS composed append empty when both gates off
+PASS composed append = L1 only for plain prompt
+PASS composed append = L1 only for plain prompt under both gates
+PASS composed append = L1+L2 for bulk prompt
+
+ALL CHECKS PASSED

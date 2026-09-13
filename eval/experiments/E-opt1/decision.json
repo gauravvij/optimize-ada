@@ -1,0 +1,316 @@
+{
+  "arm_b": {
+    "pass": 33,
+    "n": 60,
+    "rate": 0.55,
+    "wilson": [
+      0.42491714548981496,
+      0.6690654614623918
+    ],
+    "mean_cost": 0.10244638833333333
+  },
+  "e_opt1": {
+    "pass": 30,
+    "n": 60,
+    "rate": 0.5,
+    "wilson": [
+      0.37734812427246284,
+      0.6226518757275372
+    ],
+    "mean_cost": 0.10179961916666666
+  },
+  "paired": {
+    "n_tasks": 14,
+    "cost_delta": [
+      0.007367806249999997,
+      -0.007387285732317826,
+      0.02212289823231782
+    ],
+    "wall_delta_ms": [
+      -27600.833333333332,
+      -100147.93115330946,
+      44946.2644866428
+    ],
+    "cost_significant": false,
+    "wall_significant": false
+  },
+  "mcnemar": {
+    "n_b_only": 1,
+    "n_e_only": 2,
+    "p": 1.0
+  },
+  "pass_delta_in_noise": true,
+  "verdict": "REJECT",
+  "per_task": {
+    "cancel-async-tasks": {
+      "B": {
+        "n": 4,
+        "pass": 2,
+        "mean_cost": 0.0286227875,
+        "cost_n": 4,
+        "mean_wall": 27732.75,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 1,
+        "mean_cost": 0.019172512500000002,
+        "cost_n": 4,
+        "mean_wall": 17154.75,
+        "wall_n": 4
+      }
+    },
+    "configure-git-webserver": {
+      "B": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.009211725,
+        "cost_n": 4,
+        "mean_wall": 11114.0,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.056517062499999986,
+        "cost_n": 4,
+        "mean_wall": 58416.0,
+        "wall_n": 4
+      }
+    },
+    "db-wal-recovery": {
+      "B": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.184589425,
+        "cost_n": 4,
+        "mean_wall": 137860.0,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.14653777499999998,
+        "cost_n": 4,
+        "mean_wall": 117348.25,
+        "wall_n": 4
+      }
+    },
+    "filter-js-from-html": {
+      "B": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.05362651250000001,
+        "cost_n": 4,
+        "mean_wall": 45574.25,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.038084875,
+        "cost_n": 4,
+        "mean_wall": 33569.0,
+        "wall_n": 4
+      }
+    },
+    "fix-code-vulnerability": {
+      "B": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.1635008,
+        "cost_n": 4,
+        "mean_wall": 73104.75,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.20341016250000005,
+        "cost_n": 4,
+        "mean_wall": 64154.75,
+        "wall_n": 4
+      }
+    },
+    "fix-git": {
+      "B": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.0393781,
+        "cost_n": 4,
+        "mean_wall": 26110.5,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 1,
+        "mean_cost": 0.02190815,
+        "cost_n": 4,
+        "mean_wall": 14970.75,
+        "wall_n": 4
+      }
+    },
+    "git-leak-recovery": {
+      "B": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.031419025,
+        "cost_n": 4,
+        "mean_wall": 28623.25,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.0321598125,
+        "cost_n": 4,
+        "mean_wall": 33128.0,
+        "wall_n": 4
+      }
+    },
+    "git-multibranch": {
+      "B": {
+        "n": 4,
+        "pass": 3,
+        "mean_cost": 0.1180506125,
+        "cost_n": 4,
+        "mean_wall": 92575.5,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 3,
+        "mean_cost": 0.14083245,
+        "cost_n": 4,
+        "mean_wall": 109664.25,
+        "wall_n": 4
+      }
+    },
+    "large-scale-text-editing": {
+      "B": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.3678549,
+        "cost_n": 3,
+        "mean_wall": 907441.75,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 3,
+        "mean_cost": 0.16304035,
+        "cost_n": 4,
+        "mean_wall": 412583.0,
+        "wall_n": 4
+      }
+    },
+    "log-summary-date-ranges": {
+      "B": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.0329669125,
+        "cost_n": 4,
+        "mean_wall": 19381.5,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 3,
+        "mean_cost": 0.034246025,
+        "cost_n": 4,
+        "mean_wall": 25273.5,
+        "wall_n": 4
+      }
+    },
+    "openssl-selfsigned-cert": {
+      "B": {
+        "n": 4,
+        "pass": 3,
+        "mean_cost": 0.048913175,
+        "cost_n": 4,
+        "mean_wall": 32003.0,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.0551679,
+        "cost_n": 4,
+        "mean_wall": 35051.75,
+        "wall_n": 4
+      }
+    },
+    "password-recovery": {
+      "B": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.23631128750000002,
+        "cost_n": 4,
+        "mean_wall": 248573.0,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 1,
+        "mean_cost": 0.27246577499999997,
+        "cost_n": 4,
+        "mean_wall": 294732.25,
+        "wall_n": 4
+      }
+    },
+    "regex-log": {
+      "B": {
+        "n": 4,
+        "pass": 3,
+        "mean_cost": 0.106588975,
+        "cost_n": 4,
+        "mean_wall": 105669.25,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 0,
+        "mean_cost": 0.1067855375,
+        "cost_n": 4,
+        "mean_wall": 106332.0,
+        "wall_n": 4
+      }
+    },
+    "sanitize-git-repo": {
+      "B": {
+        "n": 4,
+        "pass": 2,
+        "mean_cost": 0.12066905,
+        "cost_n": 4,
+        "mean_wall": 54744.0,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 2,
+        "mean_cost": 0.1580597625,
+        "cost_n": 4,
+        "mean_wall": 86944.25,
+        "wall_n": 4
+      }
+    },
+    "vulnerable-secret": {
+      "B": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.0869562625,
+        "cost_n": 4,
+        "mean_wall": 64560.0,
+        "wall_n": 4
+      },
+      "E": {
+        "n": 4,
+        "pass": 4,
+        "mean_cost": 0.0786061375,
+        "cost_n": 4,
+        "mean_wall": 51732.5,
+        "wall_n": 4
+      }
+    }
+  }
+}

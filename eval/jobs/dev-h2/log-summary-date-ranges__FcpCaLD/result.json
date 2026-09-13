@@ -1,0 +1,141 @@
+{
+    "id": "ec75bfac-d3a8-4d2b-a7f5-80f69db3146f",
+    "task_name": "log-summary-date-ranges",
+    "trial_name": "log-summary-date-ranges__FcpCaLD",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-h2/log-summary-date-ranges__FcpCaLD",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "log-summary-date-ranges"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "fe600befce59ff43dd85cb1db864652d4e6fa4706c6dd8a1d82118c1a76561ae",
+    "config": {
+        "task": {
+            "path": "log-summary-date-ranges",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "log-summary-date-ranges__FcpCaLD",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-h2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "hook_output_cap": 10000,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "ac77f90e-3694-484c-8f12-8444acb567db",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 93002,
+        "n_cache_tokens": 88642,
+        "n_output_tokens": 2351,
+        "cost_usd": 0.027430950000000003,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_9b97e026-a24c-4705-8631-7b9379f0ecc1",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 6,
+            "ttft_ms": 4390,
+            "duration_ms": 26412,
+            "tool_calls": {
+                "Bash": 4,
+                "Read": 1
+            },
+            "n_events": 76,
+            "result_text": "Perfect! The summary CSV has been successfully created at `/app/summary.csv`. \n\nThe analysis counted severity levels across all 164 log files (from 2025-07-03 to 2025-08-12) using 2025-08-12 as the reference date. Here's what was found:\n\n- **Today (2025-08-12)**: 414 ERRORs, 419 WARNINGs, 1,433 INFOs\n- **Last 7 days** (2025-08-06 to 2025-08-12): 3,559 ERRORs, 3,430 WARNINGs, 12,203 INFOs\n- **Last 30 days** (2025-07-14 to 2025-08-12): 11,432 ERRORs, 11,009 WARNINGs, 38,702 INFOs\n- **Month to date** (2025-08-01 to 2025-08-12): 5,594 ERRORs, 5,415 WARNINGs, 19,420 INFOs\n- **Total** (all files): 16,774 ERRORs, 16,158 WARNINGs, 56,621 INFOs\n\nThe CSV file is ready with the exact format you requested."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T19:58:22.266546Z",
+    "finished_at": "2026-09-04T19:59:16.124910Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T19:58:22.296476Z",
+        "finished_at": "2026-09-04T19:58:23.733451Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T19:58:23.733510Z",
+        "finished_at": "2026-09-04T19:58:24.128289Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T19:58:24.128410Z",
+        "finished_at": "2026-09-04T19:58:54.820132Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T19:58:55.996336Z",
+        "finished_at": "2026-09-04T19:59:04.318886Z"
+    },
+    "step_results": null
+}

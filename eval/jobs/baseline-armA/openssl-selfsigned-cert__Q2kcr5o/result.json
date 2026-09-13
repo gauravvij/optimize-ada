@@ -1,0 +1,119 @@
+{
+    "id": "94d5227c-f6d1-4fcc-b278-9a0bb1937b21",
+    "task_name": "openssl-selfsigned-cert",
+    "trial_name": "openssl-selfsigned-cert__Q2kcr5o",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armA/openssl-selfsigned-cert__Q2kcr5o",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "openssl-selfsigned-cert"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "8c096d8af92f88d8f876e26efc7f495ff13f50586736e56f35140fbb080ff390",
+    "config": {
+        "task": {
+            "path": "openssl-selfsigned-cert",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "openssl-selfsigned-cert__Q2kcr5o",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armA",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "claude-code",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "bb8920db-c425-4d1c-9b18-4f8a9037c2b3",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "claude-code",
+        "version": "2.1.258",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 223897,
+        "n_cache_tokens": 216859,
+        "n_output_tokens": 3551,
+        "cost_usd": 0.04821815,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T15:21:02.505330Z",
+    "finished_at": "2026-09-02T15:23:36.480986Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T15:21:02.506592Z",
+        "finished_at": "2026-09-02T15:21:03.981795Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T15:21:03.981819Z",
+        "finished_at": "2026-09-02T15:22:49.006583Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T15:22:49.006702Z",
+        "finished_at": "2026-09-02T15:23:18.037312Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T15:23:18.666901Z",
+        "finished_at": "2026-09-02T15:23:23.748376Z"
+    },
+    "step_results": null
+}

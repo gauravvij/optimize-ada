@@ -1,0 +1,139 @@
+{
+    "id": "dec1ee2f-bd22-450f-afca-ba7ec6a9b23d",
+    "task_name": "openssl-selfsigned-cert",
+    "trial_name": "openssl-selfsigned-cert__dnEJg6N",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-baseline/openssl-selfsigned-cert__dnEJg6N",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "openssl-selfsigned-cert"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "8c096d8af92f88d8f876e26efc7f495ff13f50586736e56f35140fbb080ff390",
+    "config": {
+        "task": {
+            "path": "openssl-selfsigned-cert",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "openssl-selfsigned-cert__dnEJg6N",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-baseline",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "ec261c93-1211-4a2e-b299-8b4af2cce4d2",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 195828,
+        "n_cache_tokens": 188885,
+        "n_output_tokens": 3982,
+        "cost_usd": 0.04878,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_19ebbb2d-5832-4b8c-8e68-63093952c5fe",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 12,
+            "ttft_ms": 6465,
+            "duration_ms": 36402,
+            "tool_calls": {
+                "Bash": 9,
+                "Write": 1,
+                "Edit": 1
+            },
+            "n_events": 119,
+            "result_text": "Perfect! I've successfully created a self-signed TLS certificate for your internal development server. Here's what was completed:\n\n## Summary of Created Files\n\n### 1. **SSL Directory Structure** (`/app/ssl/`)\n   - `server.key` - 2048-bit RSA private key (permissions: 600)\n   - `server.crt` - Self-signed X.509 certificate (365-day validity)\n   - `server.pem` - Combined private key and certificate in PEM format\n   - `verification.txt` - Certificate details and fingerprint\n\n### 2. **Certificate Details**\n- **Organization:** DevOps Team\n- **Common Name:** dev-internal.company.local\n- **Validity Period:** Sep 4, 2026 to Sep 4, 2027 (365 days)\n- **Key Size:** 2048-bit RSA\n- **SHA-256 Fingerprint:** `06:66:96:1B:54:3B:9A:DA:91:E7:11:BA:75:99:2C:E0:D4:98:E2:D1:62:04:F7:C4:D2:35:01:00:33:52:C7:99`\n\n### 3. **Python Verification Script** (`/app/check_cert.py`)\nThe script successfully:\n- ✅ Verifies the certificate exists and is loadable\n- ✅ Extracts the Common Name: `dev-internal.company.local`\n- ✅ Displays expiration date in YYYY-MM-DD format: `2027-09-04`\n- ✅ Prints \"Certificate verification successful\" confirmation\n\nAll files have been created with proper permissions and formatting. You can now use these certificates for your internal development server!"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T08:01:04.039660Z",
+    "finished_at": "2026-09-04T08:02:06.855058Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T08:01:04.040936Z",
+        "finished_at": "2026-09-04T08:01:05.343514Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T08:01:05.343544Z",
+        "finished_at": "2026-09-04T08:01:05.743876Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T08:01:05.744003Z",
+        "finished_at": "2026-09-04T08:01:46.326481Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T08:01:47.430391Z",
+        "finished_at": "2026-09-04T08:01:55.079967Z"
+    },
+    "step_results": null
+}

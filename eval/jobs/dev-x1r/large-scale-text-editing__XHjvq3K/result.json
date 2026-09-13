@@ -1,0 +1,144 @@
+{
+    "id": "f3764bf6-b050-4bd8-bedc-d2ce00bb38a7",
+    "task_name": "large-scale-text-editing",
+    "trial_name": "large-scale-text-editing__XHjvq3K",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-x1r/large-scale-text-editing__XHjvq3K",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "large-scale-text-editing"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "c7e5e082f251c7c83d53f7b645d97ab3152cc5fffe42d88ff9cce5c62c35ce16",
+    "config": {
+        "task": {
+            "path": "large-scale-text-editing",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "large-scale-text-editing__XHjvq3K",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-x1r",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "verify_once_trimmed": 1,
+                "hook_output_cap": 3000,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "184ab306-f288-4227-9b42-f3493f7c55ba",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 403360,
+        "n_cache_tokens": 380231,
+        "n_output_tokens": 17704,
+        "cost_usd": 0.1567681,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_b89df6a2-30a5-4205-8535-a54097b0475d",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 14,
+            "ttft_ms": 3196,
+            "duration_ms": 337450,
+            "tool_calls": {
+                "Read": 3,
+                "Bash": 8,
+                "Write": 1,
+                "Edit": 1
+            },
+            "n_events": 155,
+            "result_text": "Excellent! The script is complete and verified. Here's a summary of what was accomplished:\n\n## ✅ Requirements Met\n\n**Three keystroke-efficient macros created:**\n- **Macro A** (10 chars): `:s/ //g` — Removes all spaces from each line\n- **Macro B** (67 chars): Complex regex that captures three comma-separated fields, reverses their order, uppercases them, joins with semicolons, and appends `;OK`\n- **Macro C** (11 chars): No-op verification macro (`:s/.*/&/`)\n\n**Total keystrokes: 88 characters** (well under 200 limit)\n\n**Script structure:**\n- Only uses allowed commands: `setreg()` calls, `:%normal! @a/b/c`, and `:wq`\n- No Vimscript functions, shell escapes, or scripting languages\n- Runs headlessly: `vim -Nu NONE -n -Es /app/input.csv -S /app/apply_macros.vim`\n\n**Transformation verified:**\n- Input: Tab-delimited whitespace-padded fields with mixed case\n- Output: Semicolon-delimited reversed fields in uppercase with `;OK` suffix\n- Byte-for-byte match confirmed with expected.csv ✓\n\nThe script is saved as `/app/apply_macros.vim` and ready for execution."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-05T09:07:58.678442Z",
+    "finished_at": "2026-09-05T09:15:06.879088Z",
+    "environment_setup": {
+        "started_at": "2026-09-05T09:07:58.679886Z",
+        "finished_at": "2026-09-05T09:08:00.133539Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-05T09:08:00.133566Z",
+        "finished_at": "2026-09-05T09:08:00.555849Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-05T09:08:00.555975Z",
+        "finished_at": "2026-09-05T09:13:42.298443Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-05T09:13:43.456839Z",
+        "finished_at": "2026-09-05T09:14:55.005177Z"
+    },
+    "step_results": null
+}

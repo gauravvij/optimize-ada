@@ -1,0 +1,139 @@
+{
+    "id": "3fbe8e97-d5fa-4081-8c1c-431663f2d1ba",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__CmMZFv2",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/e-opt1-arm/fix-git__CmMZFv2",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__CmMZFv2",
+        "trials_dir": "/root/optimize_ada/eval/jobs/e-opt1-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "concision_guidance": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "c5c125a0-082b-4eb9-a2ac-24f1b371b378",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 87434,
+        "n_cache_tokens": 84325,
+        "n_output_tokens": 1419,
+        "cost_usd": 0.0203875,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_5851e807-efa9-47ce-83a6-912ffc909054",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 12,
+            "ttft_ms": 1580,
+            "duration_ms": 13797,
+            "tool_calls": {
+                "Bash": 11
+            },
+            "n_events": 94,
+            "result_text": "Perfect! I found your changes. The commit `650dba4` (\"Move to Stanford\") modified two files:\n- `_includes/about.md`\n- `_layouts/default.html`\n\nWould you like me to merge this commit into master? I can do that with a merge or rebase, whichever you prefer."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T19:12:01.868785Z",
+    "finished_at": "2026-09-02T19:12:40.467301Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T19:12:01.870292Z",
+        "finished_at": "2026-09-02T19:12:03.208017Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T19:12:03.208039Z",
+        "finished_at": "2026-09-02T19:12:03.592416Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T19:12:03.592524Z",
+        "finished_at": "2026-09-02T19:12:21.601766Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T19:12:22.553044Z",
+        "finished_at": "2026-09-02T19:12:28.831607Z"
+    },
+    "step_results": null
+}

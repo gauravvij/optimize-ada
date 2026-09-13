@@ -1,0 +1,142 @@
+{
+    "id": "07225295-a3ee-4c29-931b-2ba84b2f4cf6",
+    "task_name": "multi-source-data-merger",
+    "trial_name": "multi-source-data-merger__DRLW6Ns",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/multi-source-data-merger__DRLW6Ns",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "multi-source-data-merger"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "0f86ced6d81948760d828ee03060c28c44eb7244e7ef72442c18dc1c71115280",
+    "config": {
+        "task": {
+            "path": "multi-source-data-merger",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "multi-source-data-merger__DRLW6Ns",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 141919,
+        "n_cache_tokens": 133063,
+        "n_output_tokens": 5529,
+        "cost_usd": 0.053499050000000006,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_377ca74e-f3f2-4637-bb2a-cb59eaf340f0",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 11,
+            "ttft_ms": 2233,
+            "duration_ms": 57046,
+            "tool_calls": {
+                "Bash": 7,
+                "Read": 2,
+                "Write": 1
+            },
+            "n_events": 194,
+            "result_text": "## ✅ User Data Merge Complete\n\nI've successfully merged user data from three sources with different formats and schemas. Here's what was accomplished:\n\n### Key Results\n- **4 unique users** merged from 6 total records across 3 sources\n- **3 conflicts** detected and resolved using source priority\n- All field mappings applied correctly\n- Dates normalized to YYYY-MM-DD format\n- Data types correctly set (user_id as integer)\n\n### Merged Dataset (`/app/merged_users.parquet`)\nContains 4 rows with columns:\n- `user_id` (integer)\n- `name` (string)\n- `email` (string)\n- `created_date` (YYYY-MM-DD format)\n- `status` (string)\n\n### Conflict Resolution\nWhen user 101 appeared in all three sources with different values, the highest-priority source (A) was selected:\n- **Email**: Selected `john@a.com` from source_a (conflicted with source_b and source_c)\n- **Created date**: Selected `2024-01-15` from source_a (conflicted with different dates in other sources)\n- **Name**: Selected `John Doe` from source_a (conflicted with abbreviated name in source_c)\n\n### Output Files\n- **`/app/merged_users.parquet`** - Final merged dataset (4 users)\n- **`/app/conflicts.json`** - Detailed conflict report with all values and selections\n\nAll success criteria have been met. The merge prioritizes source_a > source_b > source_c and properly tracks all conflicts in the generated report."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T10:39:13.364545Z",
+    "finished_at": "2026-09-03T10:40:48.364378Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T10:39:13.365879Z",
+        "finished_at": "2026-09-03T10:39:21.858379Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T10:39:21.858407Z",
+        "finished_at": "2026-09-03T10:39:22.264343Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T10:39:22.264454Z",
+        "finished_at": "2026-09-03T10:40:23.509225Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T10:40:24.623130Z",
+        "finished_at": "2026-09-03T10:40:36.121931Z"
+    },
+    "step_results": null
+}

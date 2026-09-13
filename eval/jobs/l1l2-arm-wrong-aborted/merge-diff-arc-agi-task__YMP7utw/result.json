@@ -1,0 +1,142 @@
+{
+    "id": "25614605-c593-4e6e-8b1e-59ea4a6169b3",
+    "task_name": "merge-diff-arc-agi-task",
+    "trial_name": "merge-diff-arc-agi-task__YMP7utw",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/merge-diff-arc-agi-task__YMP7utw",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "merge-diff-arc-agi-task"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "1e69376aa87a540b46c4dea3ba4f8507ed18aeeeef6f8786dab68eff71b0b58d",
+    "config": {
+        "task": {
+            "path": "merge-diff-arc-agi-task",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "merge-diff-arc-agi-task__YMP7utw",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 706291,
+        "n_cache_tokens": 677167,
+        "n_output_tokens": 12026,
+        "cost_usd": 0.16555945,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_549a42b0-1487-42d6-8998-74f194c288bb",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 23,
+            "ttft_ms": 3327,
+            "duration_ms": 155129,
+            "tool_calls": {
+                "Bash": 19,
+                "Read": 2,
+                "Edit": 1
+            },
+            "n_events": 274,
+            "result_text": "## Summary\n\nI've successfully completed all the required tasks:\n\n✅ **Created and initialized repository**: `/app/repo` with git\n\n✅ **Fetched both bundles**:\n- `bundle1.bundle` → `branch1` (from HEAD reference)\n- `bundle2.bundle` → `branch2` (from HEAD reference)\n\n✅ **Merged branches**: Merged `branch2` into `branch1` as the base branch\n\n✅ **Resolved conflicts**: Fixed the merge conflict in `algo.py` with a correct implementation\n\n✅ **Implemented the `map` function** in `/app/repo/algo.py`:\n- Takes a 2D array of integers as input\n- Extracts the repeating pattern from non-zero values using the formula: `pattern[(i + j) % period]`\n- The period is determined by counting distinct non-zero values\n- Returns a 2D array tiled with this repeating pattern\n\n✅ **Verified correctness**: The implementation passes all 3 examples from `/app/examples.json`:\n- Example 1 (7×7): Pattern [2, 4, 1]\n- Example 2 (7×7): Pattern [2, 8, 3]\n- Example 3 (7×7): Pattern [4, 8, 3]\n\nThe algorithm works by extracting the implicit repeating pattern from the diagonal structure in each input, then tiling it cyclically across the entire output grid based on the sum of indices modulo the pattern length."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T09:11:44.985834Z",
+    "finished_at": "2026-09-03T09:14:48.982657Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T09:11:44.988312Z",
+        "finished_at": "2026-09-03T09:11:48.154669Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T09:11:48.154706Z",
+        "finished_at": "2026-09-03T09:11:48.744010Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T09:11:48.744128Z",
+        "finished_at": "2026-09-03T09:14:28.138543Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T09:14:29.229405Z",
+        "finished_at": "2026-09-03T09:14:36.716540Z"
+    },
+    "step_results": null
+}

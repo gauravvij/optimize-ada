@@ -1,0 +1,39 @@
+{
+    "id": "e344f0e2-c95c-484b-ab0d-73b8013a5600",
+    "started_at": "2026-09-04T18:53:59.417010",
+    "updated_at": "2026-09-04T18:59:05.219342",
+    "finished_at": "2026-09-04T18:59:05.219342",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada-bridge__claude-haiku-4-5__terminal-bench": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "large-scale-text-editing__iJ6XoDE"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 555411,
+        "n_cache_tokens": 526931,
+        "n_output_tokens": 21543,
+        "cost_usd": 0.19731585
+    }
+}

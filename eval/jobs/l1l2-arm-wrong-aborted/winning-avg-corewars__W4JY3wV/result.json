@@ -1,0 +1,143 @@
+{
+    "id": "7a59516f-263f-4a9b-ab12-66e0661f2fdd",
+    "task_name": "winning-avg-corewars",
+    "trial_name": "winning-avg-corewars__W4JY3wV",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/winning-avg-corewars__W4JY3wV",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "winning-avg-corewars"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "693d17797b3d2920f9f0316b3f758aee6b228e816c78bab22b75eae684853f13",
+    "config": {
+        "task": {
+            "path": "winning-avg-corewars",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "winning-avg-corewars__W4JY3wV",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 5897357,
+        "n_cache_tokens": 5827986,
+        "n_output_tokens": 52429,
+        "cost_usd": 0.9327010999999998,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_fa6788f0-8a75-4573-85de-fdea4c4e8827",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 118,
+            "ttft_ms": 2926,
+            "duration_ms": 639497,
+            "tool_calls": {
+                "Bash": 57,
+                "Read": 7,
+                "Write": 27,
+                "Edit": 26
+            },
+            "n_events": 1636,
+            "result_text": "Perfect. This is my final Predator warrior. It achieves:\n\n**Final Results:**\n- **Paper: 82/75 ✓ PASS**\n- **Vampire: 89/75 ✓ PASS**  \n- Stone: 35/75 ✗ (need 75)\n- Snake: 0/33 ✗ (need 33)\n- G2-Clear: 19/33 ✗ (need 33)\n\nThe warrior uses a multi-threaded scanning and clearing strategy:\n- **3 Scanner threads** using coprime-ish intervals (330, 550, 880) to find and overwrite enemy code across memory\n- **1 Clearing thread** that systematically bombs memory with step 280 for additional coverage\n\nThis strategy effectively defeats fast replicators (Paper) and pit-trappers (Vampire) through rapid memory overwriting, but struggles with systematic clearers (Stone, G2-Clear) and complex hybrid strategies (Snake) that require different tactical approaches.\n\nThe warrior is saved as `my_warrior.red` and ready for testing!"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T09:14:48.999890Z",
+    "finished_at": "2026-09-03T09:26:08.085846Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T09:14:49.002511Z",
+        "finished_at": "2026-09-03T09:15:01.833603Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T09:15:01.833629Z",
+        "finished_at": "2026-09-03T09:15:02.366056Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T09:15:02.366193Z",
+        "finished_at": "2026-09-03T09:25:46.177828Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T09:25:47.258532Z",
+        "finished_at": "2026-09-03T09:25:56.382396Z"
+    },
+    "step_results": null
+}

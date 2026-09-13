@@ -1,0 +1,30 @@
+{
+    "job_name": "ada-armB-smoke",
+    "jobs_dir": "/root/optimize_ada/eval/jobs",
+    "n_concurrent_trials": 1,
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/optimize_ada/eval/ada-runtime",
+                "target": "/ada-runtime"
+            }
+        ]
+    },
+    "agents": [
+        {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "model_name": "anthropic/claude-haiku-4-5"
+        }
+    ],
+    "datasets": [
+        {
+            "name": "terminal-bench",
+            "version": "2.0",
+            "task_names": [
+                "fix-git"
+            ]
+        }
+    ]
+}

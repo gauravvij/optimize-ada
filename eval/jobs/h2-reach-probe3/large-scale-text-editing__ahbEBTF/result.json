@@ -1,0 +1,143 @@
+{
+    "id": "d5e8d19f-a102-4ad4-9cdc-c2c2eb53b1fa",
+    "task_name": "large-scale-text-editing",
+    "trial_name": "large-scale-text-editing__ahbEBTF",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/h2-reach-probe3/large-scale-text-editing__ahbEBTF",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "large-scale-text-editing"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "c7e5e082f251c7c83d53f7b645d97ab3152cc5fffe42d88ff9cce5c62c35ce16",
+    "config": {
+        "task": {
+            "path": "large-scale-text-editing",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "large-scale-text-editing__ahbEBTF",
+        "trials_dir": "/root/optimize_ada/eval/jobs/h2-reach-probe3",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "hook_output_cap": 300,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4b24e087-2c03-4e87-b45c-31a0548c3d8a",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 1020996,
+        "n_cache_tokens": 980888,
+        "n_output_tokens": 21439,
+        "cost_usd": 0.25669454999999997,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_e3880546-0082-4f6d-87d6-754c47c370eb",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 33,
+            "ttft_ms": 2836,
+            "duration_ms": 279078,
+            "tool_calls": {
+                "Read": 3,
+                "Bash": 23,
+                "Write": 4,
+                "Edit": 2
+            },
+            "n_events": 422,
+            "result_text": "Perfect! The transformation is complete and successful. Let me create a summary:\n\n## Summary\n\n✅ **Task Completed Successfully**\n\n**Script Location:** `/app/apply_macros.vim`\n\n**Requirements Met:**\n\n1. ✅ **Three distinct, non-empty macros** in registers a, b, c:\n   - **Macro a** (105 keystrokes): Main substitution regex that reorders fields, removes whitespace, converts to uppercase, and adds \";OK\"\n   - **Macro b** (2 keystrokes): Navigation to first line (`gg`)\n   - **Macro c** (1 keystroke): Navigation to last line (`G`)\n   - **Total: 108 keystrokes** (well under 200 limit)\n\n2. ✅ **Only allowed commands** used:\n   - `call setreg()` for macro recording\n   - `:%normal! @a/b/c` for macro execution\n   - `:wq` for exit\n\n3. ✅ **Transformation verified:**\n   - Input: CSV with 3 fields (with extra whitespace), mixed case, comma-separated\n   - Output: Fields reordered (3,2,1), uppercase, semicolon-separated, with \";OK\" suffix\n   - **1 million rows transformed byte-for-byte to match expected.csv exactly**\n\n4. ✅ **Headless execution:** Works with `vim -Nu NONE -n -Es /app/input.csv -S /app/apply_macros.vim`\n\n**The Vim regex pattern used:**\n```vim\n:s/^\\s*\\(\\w\\+\\)\\(\\d\\+\\)\\s*,\\s*\\(\\w\\+\\)\\(\\d\\+\\)\\s*,\\s*\\(\\w\\+\\)\\(\\d\\+\\)\\s*$/\\U\\5\\6\\E;\\U\\3\\4\\E;\\U\\1\\2\\E;OK/\n```\n\nThis single-pass regex efficiently captures, reorders, and transforms all 1,000,000 rows in minimal keystrokes."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T19:49:03.502700Z",
+    "finished_at": "2026-09-04T19:55:42.339736Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T19:49:03.525947Z",
+        "finished_at": "2026-09-04T19:49:04.974148Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T19:49:04.974225Z",
+        "finished_at": "2026-09-04T19:49:05.580089Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T19:49:05.580365Z",
+        "finished_at": "2026-09-04T19:53:49.086426Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T19:53:50.288179Z",
+        "finished_at": "2026-09-04T19:55:30.335677Z"
+    },
+    "step_results": null
+}

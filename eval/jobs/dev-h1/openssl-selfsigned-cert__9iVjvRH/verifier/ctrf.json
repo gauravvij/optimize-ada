@@ -1,0 +1,77 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788544573.4658046,
+            "stop": 1788544573.6518095
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_directory_structure",
+                "status": "passed",
+                "duration": 0.0005725970258936286,
+                "start": 1788544573.4967852,
+                "stop": 1788544573.49763,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_key_file",
+                "status": "passed",
+                "duration": 0.006635882979026064,
+                "start": 1788544573.4978547,
+                "stop": 1788544573.504681,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_certificate_file",
+                "status": "passed",
+                "duration": 0.07090465401415713,
+                "start": 1788544573.504888,
+                "stop": 1788544573.5760117,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_combined_pem_file",
+                "status": "passed",
+                "duration": 0.031906391988741234,
+                "start": 1788544573.576295,
+                "stop": 1788544573.60841,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_verification_file",
+                "status": "passed",
+                "duration": 0.0008696650038473308,
+                "start": 1788544573.6087015,
+                "stop": 1788544573.6097772,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_python_verification_script",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.01658528298139572,
+                "start": 1788544573.6100223,
+                "stop": 1788544573.6515987,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_python_verification_script():\n        \"\"\"Test that the Python verification script exists and works correctly.\"\"\"\n        script_path = \"/app/check_cert.py\"\n        assert os.path.exists(script_path), \"Python verification script does not exist\"\n    \n        process = subprocess.run([\"python\", script_path], capture_output=True, text=True)\n    \n>       assert process.returncode == 0, (\n            f\"Verification script failed with error: {process.stderr}\"\n        )\nE       AssertionError: Verification script failed with error: \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python', '/app/check_cert.py'], returncode=1, stdout='Error: cryptography library is not installed\\nInstall it with: pip install cryptography\\n', stderr='').returncode\n\n/tests/test_outputs.py:146: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

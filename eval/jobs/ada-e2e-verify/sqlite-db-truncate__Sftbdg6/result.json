@@ -1,0 +1,138 @@
+{
+    "id": "8929889f-63db-434e-96f4-d3cb1391a8c1",
+    "task_name": "sqlite-db-truncate",
+    "trial_name": "sqlite-db-truncate__Sftbdg6",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/ada-e2e-verify/sqlite-db-truncate__Sftbdg6",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "sqlite-db-truncate"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "2346f11dbe5b7bad30e9a9bcb27e5276a73f324d62c452d898e4ce0e472583b1",
+    "config": {
+        "task": {
+            "path": "sqlite-db-truncate",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "sqlite-db-truncate__Sftbdg6",
+        "trials_dir": "/root/optimize_ada/eval/jobs/ada-e2e-verify",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "26ef3ebe-a856-4fc3-9dbf-6ec38aee5939",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 217912,
+        "n_cache_tokens": 209312,
+        "n_output_tokens": 4337,
+        "cost_usd": 0.054387950000000004,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_98fe3b3d-fa62-4d90-b51a-a37e2521e15e",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 13,
+            "ttft_ms": 1414,
+            "duration_ms": 38814,
+            "tool_calls": {
+                "Bash": 11,
+                "Read": 1
+            },
+            "n_events": 137,
+            "result_text": "Perfect! I've successfully recovered the data from the corrupted SQLite database. Here's what I found:\n\n**Recovery Summary:**\n- **Total records recovered:** 9 out of 10\n- **Records recovered:** testword01 through testword09 with their corresponding values\n- **Record lost:** testword00 (found in the corrupted file but had no recoverable value - the file was truncated at that point)\n\nThe recovered data has been saved to `/app/recover.json` in the requested format with 9 entries, each containing a \"word\" and \"value\" field. The values appear to be numeric data that was stored in the SQLite database before corruption."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T11:53:51.002190Z",
+    "finished_at": "2026-09-02T11:54:57.227671Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T11:53:51.004469Z",
+        "finished_at": "2026-09-02T11:53:52.617517Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T11:53:52.617557Z",
+        "finished_at": "2026-09-02T11:53:53.159686Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T11:53:53.159836Z",
+        "finished_at": "2026-09-02T11:54:36.335733Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T11:54:37.566441Z",
+        "finished_at": "2026-09-02T11:54:45.447365Z"
+    },
+    "step_results": null
+}

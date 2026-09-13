@@ -1,0 +1,138 @@
+{
+    "id": "1d894a71-09b9-4891-a5e8-29dcab251736",
+    "task_name": "fix-git",
+    "trial_name": "fix-git__mRtmtxz",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/dev-baseline/fix-git__mRtmtxz",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "fix-git"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "7fa0a681f751d73f290d862522a82a5e448fa529834987ee1b80e5665c51aa7e",
+    "config": {
+        "task": {
+            "path": "fix-git",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "fix-git__mRtmtxz",
+        "trials_dir": "/root/optimize_ada/eval/jobs/dev-baseline",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "ec261c93-1211-4a2e-b299-8b4af2cce4d2",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 131471,
+        "n_cache_tokens": 128064,
+        "n_output_tokens": 1630,
+        "cost_usd": 0.026182900000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_c44584e7-9035-457e-980a-d13d90180f95",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 9,
+            "ttft_ms": 2726,
+            "duration_ms": 24007,
+            "tool_calls": {
+                "Bash": 7,
+                "Read": 1
+            },
+            "n_events": 96,
+            "result_text": "I can see the conflict: your \"Move to Stanford\" commit updates your bio to say you're a Postdoctoral Researcher at Stanford CS, but the current master branch still has the old bio text about being a PhD candidate at UW.\n\nWhich version should I keep? I'm guessing you want the Stanford postdoc version since that's what your commit says, but let me confirm. Should I resolve this to use your \"Move to Stanford\" changes?"
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-04T07:27:39.130450Z",
+    "finished_at": "2026-09-04T07:28:29.009563Z",
+    "environment_setup": {
+        "started_at": "2026-09-04T07:27:39.131703Z",
+        "finished_at": "2026-09-04T07:27:40.619282Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-04T07:27:40.619320Z",
+        "finished_at": "2026-09-04T07:27:41.036449Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-04T07:27:41.036587Z",
+        "finished_at": "2026-09-04T07:28:09.499982Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-04T07:28:10.528758Z",
+        "finished_at": "2026-09-04T07:28:17.033984Z"
+    },
+    "step_results": null
+}

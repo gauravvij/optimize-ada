@@ -1,0 +1,10 @@
+[bridge] wrapper self-telemetry off (native Claude Code OTel is the source; set BRIDGE_SELF_TELEMETRY=1 + OTLP endpoint to also emit bridge spans)
+[bridge] store: in-memory (no POSTGRES_* injected)
+[bridge] provider=anthropic model=claude-haiku-4-5 apiKey=set (108 chars, ****oAAA) (direct)
+[bridge] github: not configured — an admin can provision it from chat with /setup-github
+[bridge] messaging: no GRPC_SERVER_ADDR — sidecar not attached, Slack/web chat off
+[bridge] listening on http://localhost:8090
+[bridge] open the test client at http://localhost:8090/
+[bridge] session sess_9582e7ff-f02e-4889-9536-1751d1cf3300 workspace /app
+[claude:run] starting model=claude-haiku-4-5
+[agent] session sess_9582e7ff-f02e-4889-9536-1751d1cf3300 turn failed: Claude Code native binary at /ada-runtime/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude exists but failed to launch. This usually means the binary does not match this system's libc — e.g. spawning a musl-linked binary on a glibc Linux host fails because the musl dynamic loader (/lib/ld-musl-*) is missing. Specify a matching binary with options.pathToClaudeCodeExecutable.

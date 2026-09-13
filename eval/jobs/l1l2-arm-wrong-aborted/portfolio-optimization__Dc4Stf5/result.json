@@ -1,0 +1,142 @@
+{
+    "id": "45e602bd-cda4-432a-a336-b687903fec46",
+    "task_name": "portfolio-optimization",
+    "trial_name": "portfolio-optimization__Dc4Stf5",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm/portfolio-optimization__Dc4Stf5",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "portfolio-optimization"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "da8a95d2c518a70ef66e47f3571fffd3f9172334c1c24e01d9ee232bdebd428c",
+    "config": {
+        "task": {
+            "path": "portfolio-optimization",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "portfolio-optimization__Dc4Stf5",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a31053ec-957e-4609-bd0f-241d2a7cab83",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 168642,
+        "n_cache_tokens": 153304,
+        "n_output_tokens": 10275,
+        "cost_usd": 0.08703765,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_9fc11c26-837d-4fe9-ba06-baef25feafef",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 12,
+            "ttft_ms": 2534,
+            "duration_ms": 154854,
+            "tool_calls": {
+                "Read": 6,
+                "Bash": 3,
+                "Edit": 2
+            },
+            "n_events": 172,
+            "result_text": "Excellent! Your C extension implementation is complete and working perfectly. Here's a summary of what was accomplished:\n\n## Implementation Summary\n\n**C Extension (portfolio_optimized.c)**\n- Implemented `portfolio_risk_c()`: Calculates portfolio risk using the formula sqrt(x^T * S * x)\n  - Step 1: Matrix-vector multiplication (S * x)\n  - Step 2: Dot product (x^T * temp)\n  - Step 3: Square root\n- Implemented `portfolio_return_c()`: Calculates portfolio return using x^T * r via dot product\n- Added proper validation for array dimensions, types, and memory handling\n\n**Python Wrapper (portfolio_optimized.py)**\n- Wraps the C functions with automatic conversion to float64 NumPy arrays\n- Ensures C-contiguous memory layout for efficient access\n- Maintains clean, simple API that matches the baseline\n\n## Test Results\n\n✅ **Correctness**: Results match Python baseline perfectly (differences ~1e-17, well within 1e-10 tolerance)\n- Portfolio size 5000: Risk and return match exactly\n- Portfolio size 8000: Risk and return match exactly\n\n✅ **Performance**: Achieved 2.0x speedup (exceeds 1.2x requirement)\n- 5000 assets: 2456.7ms → 1232.5ms (2.0x faster)\n- 8000 assets: 6358.4ms → 3202.2ms (2.0x faster)\n\n✅ **Scalability**: Successfully handles portfolios up to 8000 assets\n\nThe C implementation leverages compiler optimizations (-O3, -ffast-math, -funroll-loops) and zero-copy NumPy C API access to achieve significant performance gains over the pure Python baseline while maintaining numerical precision."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T09:29:22.022167Z",
+    "finished_at": "2026-09-03T09:33:58.903385Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T09:29:22.024637Z",
+        "finished_at": "2026-09-03T09:29:31.200498Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T09:29:31.200538Z",
+        "finished_at": "2026-09-03T09:29:31.712627Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T09:29:31.712746Z",
+        "finished_at": "2026-09-03T09:32:10.862030Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T09:32:11.920998Z",
+        "finished_at": "2026-09-03T09:33:47.186679Z"
+    },
+    "step_results": null
+}

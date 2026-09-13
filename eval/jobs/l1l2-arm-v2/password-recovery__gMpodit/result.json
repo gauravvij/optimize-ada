@@ -1,0 +1,143 @@
+{
+    "id": "65d4877e-8fd8-47a5-9ea2-9fa87113406d",
+    "task_name": "password-recovery",
+    "trial_name": "password-recovery__gMpodit",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm-v2/password-recovery__gMpodit",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "password-recovery"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "55e4df1aaefa8c3b2910a6a19ada0187b55ebf29358a05b22d52716029817cdb",
+    "config": {
+        "task": {
+            "path": "password-recovery",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "password-recovery__gMpodit",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4feeaa87-e915-47c0-99c1-b3004f5ce15e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 1571679,
+        "n_cache_tokens": 1536535,
+        "n_output_tokens": 16095,
+        "cost_usd": 0.27906625000000007,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_a531d357-6c70-4701-a7e2-44ffd1c755b8",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 102,
+            "ttft_ms": 4782,
+            "duration_ms": 351350,
+            "tool_calls": {
+                "Bash": 97,
+                "Read": 3,
+                "Write": 1
+            },
+            "n_events": 783,
+            "result_text": "Perfect! I have successfully recovered the deleted file and extracted the password. Here's a summary of what I found:\n\n## Recovery Process:\n1. Located the deleted `launchcode.txt` file in `/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat` (a 4MB disk image/archive)\n2. Found an embedded ZIP archive at offset 1048576 in the file\n3. Extracted and analyzed the ZIP contents\n4. Located the password entry: `PASSWORD=8XDP5Q2RT9Z`\n\n## Recovered Password:\nThe password extracted from the deleted `launchcode.txt` file is: **8XDP5Q2RT9Z**\n\nThis password has been written to `/app/recovered_passwords.txt` as requested."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T14:34:11.442203Z",
+    "finished_at": "2026-09-03T14:40:30.815833Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T14:34:11.443561Z",
+        "finished_at": "2026-09-03T14:34:12.779232Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T14:34:12.779286Z",
+        "finished_at": "2026-09-03T14:34:13.178084Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T14:34:13.178220Z",
+        "finished_at": "2026-09-03T14:40:08.764325Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T14:40:09.917650Z",
+        "finished_at": "2026-09-03T14:40:18.797567Z"
+    },
+    "step_results": null
+}

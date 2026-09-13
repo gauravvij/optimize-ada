@@ -1,0 +1,144 @@
+{
+    "id": "9f70378c-832f-4b43-bafe-c56e8e7b9a94",
+    "task_name": "filter-js-from-html",
+    "trial_name": "filter-js-from-html__GVULVD9",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm-v2/filter-js-from-html__GVULVD9",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "filter-js-from-html"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "885bb73e2797a54d5de860c25f481b5a60e2b91c0de30acaca9560603e9e1ff8",
+    "config": {
+        "task": {
+            "path": "filter-js-from-html",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "filter-js-from-html__GVULVD9",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4feeaa87-e915-47c0-99c1-b3004f5ce15e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 281756,
+        "n_cache_tokens": 267472,
+        "n_output_tokens": 10783,
+        "cost_usd": 0.09960395000000001,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_60be163e-ebb3-4844-a98c-b9acbd4f7c0d",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 12,
+            "ttft_ms": 58505,
+            "duration_ms": 102603,
+            "tool_calls": {
+                "Write": 4,
+                "Bash": 5,
+                "Edit": 1,
+                "Read": 1
+            },
+            "n_events": 152,
+            "result_text": "Perfect! I've successfully created `/app/filter.py`. The script is complete and tested.\n\n## What the script does:\n\nThe filter removes JavaScript from HTML files to prevent XSS attacks by:\n\n1. **Removing script tags** - Eliminates all `<script>` tags and their content\n2. **Removing event handlers** - Strips out attributes like `onclick`, `onload`, `onerror`, `onmouseover`, etc.\n3. **Removing JavaScript URLs** - Removes `javascript:` URLs from attributes like `href`, `src`, `action`, `data`, `formaction`, and `poster`\n\n## Key features:\n\n✓ Preserves all legitimate HTML structure (tables, headers, divs, etc.)  \n✓ Preserves safe attributes (`id`, `class`, `data-*`, `style`, `placeholder`, etc.)  \n✓ Preserves formatting and whitespace exactly  \n✓ Handles quoted, single-quoted, and unquoted attribute values  \n✓ Modifies files in-place as requested  \n✓ Provides usage error messages when arguments are missing  \n\n## Usage:\n\n```bash\npython filter.py <html_file>\n```\n\nThe script has been tested against multiple XSS vectors and correctly sanitizes dangerous content while preserving everything else."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T14:46:23.132389Z",
+    "finished_at": "2026-09-03T14:55:14.340416Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T14:46:23.133584Z",
+        "finished_at": "2026-09-03T14:46:24.752907Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T14:46:24.752932Z",
+        "finished_at": "2026-09-03T14:46:25.214896Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T14:46:25.215013Z",
+        "finished_at": "2026-09-03T14:48:12.083224Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T14:48:13.175198Z",
+        "finished_at": "2026-09-03T14:54:55.737412Z"
+    },
+    "step_results": null
+}

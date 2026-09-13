@@ -1,0 +1,138 @@
+{
+    "id": "b4e1b254-4c0f-4118-9a65-ea37ad0c5f7b",
+    "task_name": "vulnerable-secret",
+    "trial_name": "vulnerable-secret__z6QjdCm",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/baseline-armB/vulnerable-secret__z6QjdCm",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "vulnerable-secret"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "568760a9b221bd2efc27dc592833c1d2d99949b20995ba1321a3aa1567e6ba20",
+    "config": {
+        "task": {
+            "path": "vulnerable-secret",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "vulnerable-secret__z6QjdCm",
+        "trials_dir": "/root/optimize_ada/eval/jobs/baseline-armB",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "a4bcca35-c4ac-4407-968e-987e89054253",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 407426,
+        "n_cache_tokens": 390912,
+        "n_output_tokens": 5937,
+        "cost_usd": 0.09041845000000001,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_23059d1c-ea45-44c5-b414-2cbfb96d9bda",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 21,
+            "ttft_ms": 2009,
+            "duration_ms": 66585,
+            "tool_calls": {
+                "Bash": 19,
+                "Write": 1
+            },
+            "n_events": 220,
+            "result_text": "Successfully extracted the secret key! \n\n**Summary of the approach:**\n1. **Analyzed the binary** using `strings` and `objdump -d` to understand the program structure\n2. **Identified anti-debugging**: The program uses `ptrace()` to detect debugging\n3. **Bypassed ptrace** by creating a LD_PRELOAD library that mocks ptrace to return 0\n4. **Reverse-engineered the authentication logic**: The program reads 88 bytes of input via `gets()` and checks if a 4-byte integer at offset 0x40 (64 bytes) equals 1\n5. **Crafted the payload**: 64 'A' characters followed by a 0x01 byte to satisfy the authentication check\n6. **Extracted the flag**: `FLAG{b4ff3r_0v3rfl0w_m4st3r_k3y_2024}`\n7. **Saved to results.txt**: The secret key is now stored in `/app/results.txt`\n\nThe challenge was a buffer overflow vulnerability where proper input to a specific offset in the buffer triggers the secret decryption and display."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-02T16:50:55.127566Z",
+    "finished_at": "2026-09-02T16:52:28.396525Z",
+    "environment_setup": {
+        "started_at": "2026-09-02T16:50:55.128733Z",
+        "finished_at": "2026-09-02T16:50:56.517202Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-02T16:50:56.517232Z",
+        "finished_at": "2026-09-02T16:50:56.943782Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-02T16:50:56.943910Z",
+        "finished_at": "2026-09-02T16:52:07.774819Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-02T16:52:08.815951Z",
+        "finished_at": "2026-09-02T16:52:16.604601Z"
+    },
+    "step_results": null
+}

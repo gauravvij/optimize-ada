@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "cancel-async-tasks",
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "source": "terminal-bench"
+    },
+    "trial_name": "cancel-async-tasks__W3wsRVx",
+    "trials_dir": "/root/optimize_ada/eval/jobs/dev-x2",
+    "agent": {
+        "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+        "model_name": "anthropic/claude-haiku-4-5",
+        "kwargs": {
+            "verify_against_criteria": 1,
+            "lever_debug": 1
+        }
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/optimize_ada/eval/ada-runtime",
+                "target": "/ada-runtime"
+            }
+        ]
+    },
+    "job_id": "d0109460-2992-435c-ab41-8e893837ef9d"
+}

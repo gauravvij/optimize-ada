@@ -1,0 +1,129 @@
+{
+  "arm": "l1l2",
+  "job": "l1l2-arm-v2",
+  "results_file": "eval/results/l1l2-arm.jsonl",
+  "baseline": "eval/results/baseline-armB.jsonl",
+  "model": "anthropic/claude-haiku-4-5",
+  "dataset": "terminal-bench@2.0",
+  "n_tasks": 15,
+  "k": 4,
+  "n_trials": 60,
+  "treatment_reach": {
+    "bridge_logs_with_lever_debug": "60/60",
+    "bridge_logs_with_self_verification_requirement": "60/60",
+    "l2_gate_firing": {
+      "large-scale-text-editing": "4/4",
+      "password-recovery": "4/4",
+      "other_13_tasks": "0/4"
+    },
+    "hand_tuned_heuristic_tasks": 0
+  },
+  "arm_b": {
+    "pass": 33,
+    "n": 60,
+    "rate": 0.55,
+    "wilson_95": [0.42491714548981496, 0.6690654614623918],
+    "mean_cost": 0.10424443548495173,
+    "cost_n": 59,
+    "total_cost": 6.146822093812153
+  },
+  "l1l2": {
+    "pass": 32,
+    "n": 60,
+    "rate": 0.5333333333333333,
+    "wilson_95": [0.4090604783314144, 0.6540195175774776],
+    "mean_cost": 0.12482466556313823,
+    "cost_n": 60,
+    "total_cost": 7.489479933788294,
+    "pass_at_2": 0.656,
+    "pass_at_4": 0.733
+  },
+  "paired": {
+    "n_discordant": 13,
+    "n_regressed_b_only": 7,
+    "n_improved_v_only": 6,
+    "mcnemar_exact_two_sided_p": 1.0,
+    "cost_pairs": 59,
+    "cost_delta_mean": 0.02114564705080868,
+    "cost_delta_ci_95": [-0.0003214188775067758, 0.04261271297912414],
+    "cost_significant": false
+  },
+  "tokens": {
+    "B": {
+      "n_input_tokens": 26166326,
+      "n_output_tokens": 472179,
+      "n_cache_tokens": 25210843,
+      "mean_turns": 20.3,
+      "mean_turns_note": "sum of num_turns over 59 non-null trials / 60 (one timeout trial has null num_turns; non-null-only mean is 20.678, n=59)"
+    },
+    "V": {
+      "n_input_tokens": 32840797,
+      "n_output_tokens": 576108,
+      "n_cache_tokens": 31750650,
+      "mean_turns": 23.6
+    }
+  },
+  "criteria": {
+    "L1_mixed_task_pass_count": {
+      "target_tasks": [
+        "cancel-async-tasks",
+        "fix-git",
+        "git-multibranch",
+        "large-scale-text-editing",
+        "log-summary-date-ranges",
+        "openssl-selfsigned-cert",
+        "regex-log",
+        "sanitize-git-repo"
+      ],
+      "bar": 23,
+      "arm_b_value": 21,
+      "candidate_value": 19,
+      "kill": true,
+      "note": "KILL: candidate MIXED pass count (19/32) < bar (23 = B's 21 + 2)"
+    },
+    "L1_allpass_guards": {
+      "fix-code-vulnerability": {"B": 4, "V": 4},
+      "git-leak-recovery": {"B": 4, "V": 4},
+      "vulnerable-secret": {"B": 4, "V": 4},
+      "bar": "no task below 4/4 in >=2 trials",
+      "candidate_value": "all 3 tasks 4/4",
+      "kill": false
+    },
+    "L1_cost_guard": {
+      "bar": 0.1229,
+      "arm_b_mean_cost": 0.10424443548495173,
+      "candidate_mean_cost": 0.12482466556313823,
+      "kill": true,
+      "note": "KILL: candidate mean cost $0.1248 > bar $0.1229 (bar derives from the E-opt1-era arm-B mean $0.1024 x 1.2; this arm's B mean $0.1042 x 1.2 = $0.12509 — the kill holds under either derivation)"
+    },
+    "L2_large_scale_text_editing": {
+      "bar": 2,
+      "arm_b_value": 0,
+      "candidate_value": 2,
+      "kill": false,
+      "note": "PASS: candidate 2/4 meets the >=2/4 bar exactly (B was 0/4)"
+    },
+    "L2_fix_git_plus_regex_log": {
+      "bar": 6,
+      "arm_b_value": 7,
+      "candidate_value": 4,
+      "kill": true,
+      "note": "KILL: fix-git + regex-log combined 4 <= 5 (B was 7, drop of 3)"
+    },
+    "L2_suite_pass_rate": {
+      "bar": 0.424,
+      "arm_b_rate": 0.55,
+      "candidate_rate": 0.5333333333333333,
+      "kill": false,
+      "note": "PASS: 0.533 >= 0.424 (0.550 - 0.126 noise band)"
+    },
+    "L2_heuristic_hand_tuning": {
+      "bar": "no more than 3 hand-tuned tasks",
+      "candidate_value": 0,
+      "kill": false
+    }
+  },
+  "verdict": "REJECT",
+  "verdict_reason": "3 of 7 pre-registered kill criteria triggered: (1) L1 MIXED-task pass count 19/32 < 23; (2) L2 fix-git+regex-log combined 4 <= 5 (B=7); (3) mean cost $0.1248 > $0.1229 guard. Suite pass rate 0.533 vs B 0.550 is inside the k=4 noise band (McNemar exact p=1.0, 6 improved vs 7 regressed discordant pairs). The only confirmed L2-positive signal is large-scale-text-editing 0/4 -> 2/4, but it was offset by precision-task regressions (fix-git 4->2, regex-log 3->2, cancel-async-tasks 2->0).",
+  "followup": "If the combined arm is revisited, a decomposition run would be required to attribute effects, but with 3 kills the bundle is rejected as configured. E-opt1's earlier REJECT verdict is now suspect (same kwargs-swallowing defect rendered that run untreated); re-testing concision guidance with the fixed adapter kwargs path is a possible future arm, but is NOT part of this cycle."
+}

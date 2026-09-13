@@ -1,0 +1,143 @@
+{
+    "id": "7ce5d9e8-ab48-46cf-8d30-729c16764131",
+    "task_name": "regex-log",
+    "trial_name": "regex-log__oFqPJZu",
+    "trial_uri": "file:///root/optimize_ada/eval/jobs/l1l2-arm-v2/regex-log__oFqPJZu",
+    "task_id": {
+        "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+        "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+        "path": "regex-log"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "21c195b5984842dcef348132035504459514fc9ba31d1d813a82e59aa784dcc9",
+    "config": {
+        "task": {
+            "path": "regex-log",
+            "git_url": "https://github.com/laude-institute/terminal-bench-2.git",
+            "git_commit_id": "69671fbaac6d67a7ef0dfec016cc38a64ef7a77c",
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "regex-log__oFqPJZu",
+        "trials_dir": "/root/optimize_ada/eval/jobs/l1l2-arm-v2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "eval.ada-agent.ada_agent:AdaBridgeAgent",
+            "import_path": null,
+            "model_name": "anthropic/claude-haiku-4-5",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "self_verify": 1,
+                "adaptive_concision": 1,
+                "lever_debug": 1
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/optimize_ada/eval/ada-runtime",
+                    "target": "/ada-runtime"
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "4feeaa87-e915-47c0-99c1-b3004f5ce15e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada-bridge",
+        "version": "v24.11.0",
+        "model_info": {
+            "name": "claude-haiku-4-5",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 375121,
+        "n_cache_tokens": 340793,
+        "n_output_tokens": 32052,
+        "cost_usd": 0.23847705000000002,
+        "rollout_details": null,
+        "metadata": {
+            "ada_session_id": "sess_17081864-fc6f-47ec-9865-bb919a9f2373",
+            "ada_finished": true,
+            "ada_error": null,
+            "num_turns": 10,
+            "ttft_ms": 189977,
+            "duration_ms": 280818,
+            "tool_calls": {
+                "Write": 1,
+                "Bash": 7,
+                "Read": 1
+            },
+            "n_events": 208,
+            "result_text": "Perfect! The regex has been successfully saved to `/app/regex.txt` and thoroughly tested. Here's a summary of what the regex does:\n\n## Regex Features:\n\n1. **IPv4 Address Validation**: Matches 0-255 range without leading zeros using `(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])` for each octet\n\n2. **Date Format Matching**: Captures dates in YYYY-MM-DD format with proper month/day validation:\n   - January, March, May, July, August, October, December: 01-31 days\n   - April, June, September, November: 01-30 days  \n   - February: 01-29 days (as required, no leap year distinction)\n\n3. **Last Date Selection**: Uses negative lookahead `(?:(?![0-9]{4}-...)[^\\r\\n])*$` to ensure only the last date on a line is captured\n\n4. **Word Boundaries**: Enforces `(?<![a-zA-Z0-9])` before and `(?![a-zA-Z0-9])` after both IPv4 and dates to avoid false matches like:\n   - `user123.192.168.1.1` (alphanumeric prefix)\n   - `1234-56-78` (looks like date but isn't)\n   - `word2024-01-01word` (surrounded by alphanumerics)\n\n5. **MULTILINE Support**: Uses `^` and `$` anchors with `[^\\r\\n]` to work correctly with re.MULTILINE flag\n\nThe regex has been verified to correctly handle edge cases including leap day (Feb 29), boundary IP addresses (0.0.0.0 and 255.255.255.255), and multiple dates per line."
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-03T14:18:44.724410Z",
+    "finished_at": "2026-09-03T14:24:00.510963Z",
+    "environment_setup": {
+        "started_at": "2026-09-03T14:18:44.725557Z",
+        "finished_at": "2026-09-03T14:18:46.226449Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-03T14:18:46.226481Z",
+        "finished_at": "2026-09-03T14:18:46.812321Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-03T14:18:46.812497Z",
+        "finished_at": "2026-09-03T14:23:32.073005Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-03T14:23:33.327402Z",
+        "finished_at": "2026-09-03T14:23:48.594977Z"
+    },
+    "step_results": null
+}

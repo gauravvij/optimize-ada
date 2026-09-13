@@ -1,0 +1,51 @@
+{
+    "id": "4a8a83f7-9470-44c2-9c30-7777778f54c6",
+    "started_at": "2026-09-02T11:58:21.623762",
+    "updated_at": "2026-09-02T12:14:23.396927",
+    "finished_at": "2026-09-02T12:14:23.396927",
+    "n_total_trials": 9,
+    "stats": {
+        "n_completed_trials": 9,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "claude-code__claude-haiku-4-5__terminal-bench": {
+                "n_trials": 9,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.4444444444444444
+                    }
+                ],
+                "pass_at_k": {
+                    "2": 0.6666666666666666
+                },
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "fix-git__PEKeKbE",
+                            "sqlite-db-truncate__nHTaxqS",
+                            "regex-log__yzfY8ud",
+                            "sqlite-db-truncate__25DmbQP",
+                            "sqlite-db-truncate__J535xc6"
+                        ],
+                        "1.0": [
+                            "regex-log__8DvosAa",
+                            "fix-git__pU4a57B",
+                            "fix-git__CNpjiyD",
+                            "regex-log__jVAKsH7"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 1442264,
+        "n_cache_tokens": 1301995,
+        "n_output_tokens": 72102,
+        "cost_usd": 0.6725735
+    }
+}
