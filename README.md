@@ -1,217 +1,143 @@
-# optimize-ada
+# Ada optimization on SetupBench
 
-A measured, pre-registered optimization campaign for the **Ada agent harness** on
-Terminal-Bench 2.0, running a fixed-model paired A/B against the reference
-`claude-code` agent — both on **claude-haiku-4-5** (Claude Code CLI 2.1.258 pinned).
+This branch preserves one completed autoresearch campaign that attempted to
+optimize the [Ada agent](https://github.com/rabbah/ada) for SetupBench
+environment-setup tasks. It contains the frozen candidate that was evaluated,
+the candidate patch, and the resulting baseline-versus-candidate measurements.
 
-The campaign ran **9 lever arms across 3 mechanism classes** (prompt directives,
-deterministic SDK hooks, and a repackaged composite), every one gated by
-pre-registered promotion/kill criteria, and every one honestly adjudicated.
-**No lever cleared the pre-registered bar** — an honest null, with the evidence
-for *why* documented below.
+This is not an official Ada branch. It is also separate from the Terminal-Bench
+campaign on this repository's `main` branch.
 
-> The `ada/` directory is a flattened snapshot of
-> [github.com/rabbah/ada](https://github.com/rabbah/ada) at commit
-> `ebaeb9a` plus this campaign's env-gated lever modifications (all OFF by
-> default). The upstream `.git` history was preserved outside this repo during
-> packaging.
+## Research question
 
----
+Can the autoresearch loop improve Ada on SetupBench by modifying Ada, evaluating
+each candidate on a fixed development set, retaining promising mechanisms, and
+then comparing the frozen final candidate with original Ada on a separate
+validation set?
 
-## Campaign design
+## What was optimized
 
-- **Benchmark**: Terminal-Bench 2.0 (`terminal-bench@2.0` via Harbor), 15-task
-  full subset (loop v1) and a 10-task dev subset (loop v2), k=4 repeats
-  (measured from cost CV 0.19 — never below k=4 for paired claims).
-- **Arms**: reference `claude-code` agent (arm A) vs the Ada bridge
-  (`eval/ada-agent/ada_agent.py` `AdaBridgeAgent`) (arm B), same model, same CLI.
-- **Metrics**: binary pass/fail (benchmark's definition of success) plus a
-  **graded score** (`tests_passed / tests_total` from each verifier's
-  `ctrf.json`) introduced in loop v2 — zero-cost, higher-resolution instrument.
-- **Statistics**: position-based within-task pairing; McNemar exact (binary),
-  Wilcoxon (graded); Wilson 95% CIs; bootstrap power calibration.
-- **Discipline**: every lever was pre-registered in the experiment ledger
-  (`eval/experiments/dev-loop/ledger.md`) with explicit kill criteria BEFORE any
-  paid run; reach probes (≤$0.25) verified the mechanism actually fired before
-  full arms; no gate was ever relaxed.
+| Item | Value |
+|---|---|
+| Ada base | `0c5e1da7342ff86147b217a09c243cf17bf6c50d` |
+| Benchmark | SetupBench at `041a412f01348c2a6f8b1b6a910138fe01885aee` |
+| Ada model | `z-ai/glm-5.3-flash` through OpenRouter |
+| Development set | 12 fixed SetupBench tasks |
+| Candidate budget | 10 experiments |
+| Validation set | 12 separate SetupBench tasks |
+| Final validation | 3 repetitions per variant |
 
----
+The search retained mechanisms from experiments 4 and 7:
 
-## What was done, in order
+- `ada/agent/coding-guidance.ts` adds concise wall-clock-economy guidance:
+  batch operations, start long work early, detach persistent services, verify
+  using exit codes, and stop after the decisive check passes.
+- `ada/agent/claude/agent.ts` raises Bash default/max timeouts to 300/600
+  seconds and adds a tool-aware 90-second model-wait watchdog with bounded
+  restart attempts and a 360-second retry deadline.
 
-### 0. Infrastructure fixes (prerequisites)
+The complete frozen source is in `ada/`. The exact two-file delta is archived as
+[`frozen-candidate.patch`](eval/setupbench-2026-09/frozen-candidate.patch).
 
-- **Dataset-resolution blocker (fixed)**: Harbor's registry pinned terminal-bench
-  2.0 task URLs to a dead GitHub repo (404). Root-caused in harbor 0.22.0 source
-  (`TaskClient._download_git_tasks` shortuuid cache logic) and fixed WITHOUT
-  modifying Harbor: `eval/populate_task_cache.py` pre-populates the deterministic
-  cache path from the correct repo at the registry-pinned commit. Proven with an
-  oracle run on the previously-crashing task.
-- **Adapter kwargs-swallowing defect (found & fixed)**: `AdaBridgeAgent` base
-  classes dropped `--ak` kwargs, so env-gated levers silently never reached the
-  bridge — the first E-opt1 arm and first L1L2 arm were **untreated re-runs**
-  (invalidated, parked under `eval/jobs/*-untreated-invalid/` and
-  `*-wrong-aborted/`). Fixed with explicit `__init__` kwarg→env bindings; both
-  experiments were re-run as treated v2 arms.
+## Development search outcome
 
-### 1. Baseline (120 runs: 15 tasks × 2 arms × k=4)
+| Value | Result |
+|---|---:|
+| Original Ada's initial recorded score | 4/12 |
+| Best single recorded candidate roll | 10/12 |
+| Experiments consumed | 10/10 |
+| Retained experiments | 4 and 7 |
+| Experiment 4 independent confirmation | Failed |
+| Experiment 7 independent confirmation | Not completed |
+| Stop condition | Maximum experiments reached |
 
-| Metric | Arm A (claude-code) | Arm B (Ada bridge) | Delta |
-|---|---|---|---|
-| Pass rate | 0.450 (27/60) | 0.550 (33/60) | +0.100 (McNemar p=1.0, n.s.) |
-| Mean cost/trial | $0.1159 | $0.1042 | −$0.0074 (n.s.) |
-| Mean wall/trial | 296s | 187s | **−109s — significant** |
+The 10/12 development roll was not treated as the expected candidate quality.
+Repeated measurements of unchanged code varied substantially, so the final
+candidate was frozen and evaluated separately.
 
-**The one significant, reproducible finding of the whole campaign**: the Ada
-harness is a **~1.6× wall-time win at cost parity** vs the reference agent.
-Report: `eval/baseline-report.md`.
+## Final validation protocol
 
-### 2. Trace mining (signal source)
+- 12 validation tasks not used for the development search.
+- Original Ada and the frozen candidate each ran every task three times.
+- 72 total attempts: 12 tasks × 2 variants × 3 repetitions.
+- 900-second Ada timeout and 600-second grader timeout per attempt.
+- Fresh containers and official executable SetupBench graders.
+- 72/72 final attempts were valid.
+- Only one agent attempt was active at a time to avoid paired CPU/disk
+  contention.
 
-Over 60 arm-B trials: 22 tool results >10k chars carried **44% of all
-tool-result chars**; cache-read ratio mean **0.919** (near ceiling — cache
-stabilization rejected pre-run for lack of headroom); output tokens mean
-8,003/trial. See `eval/analysis/trace-signals.md`.
+## Final quantitative outcome
 
-### 3. Loop v1 — prompt-directive levers (5 arms, all null)
+### Passes
 
-| Lever | Mechanism | Result | Verdict |
-|---|---|---|---|
-| **E-opt1** (v1 + v2 treated re-test) | Operating-efficiency guidance (targeted reads, summarize-not-echo, no re-runs) | 0.483 vs 0.550; cost +$0.009 n.s.; wall +5.6s n.s. | **REJECT** |
-| **L1+L2** | Always-on self-verify-before-finish + task-adaptive concision gating (ex-ante prompt heuristic, 0 hand-tuned tasks) | 0.533 vs 0.550; cost +20% (turns 20.3→23.6); 3 of 7 pre-registered kills triggered | **REJECT** |
-| **X1 verify-once** | Run the deliverable once, fix once, re-run once, finish on evidence | **30/40 vs 24/40 (+0.150)**; graded **+0.122, Wilcoxon p=0.016 — the campaign's only significant effect**; but cost **1.386×** baseline | **KILL (cost)** |
-| **X2 verify-against-criteria** | Test against stated success criteria + edge cases, fix once, stop | 28/40 (+0.100 binary, p=0.424; graded +0.046, p=0.59 — noise) | **NOT PROMOTED** |
-| **X3 effort-realism** | Minimal working solution, switch approach after ≤3 failures, no speculative reads | 28/40 (+0.100 binary; graded +0.062, p=0.36 — noise); cost **1.317×** | **KILL (cost)** |
+| Repetition | Original Ada | Frozen candidate | Difference |
+|---|---:|---:|---:|
+| 1 | 6/12 | 8/12 | +2 |
+| 2 | 8/12 | 9/12 | +1 |
+| 3 | 9/12 | 7/12 | −2 |
+| **Total** | **23/36 (63.9%)** | **24/36 (66.7%)** | **+1/36 (+2.8 pp)** |
 
-### 4. Loop v2 Phase 0 — graded metric upgrade (zero API spend)
+### Aggregate comparison
 
-- `eval/analysis/graded_score.py` re-scored **546 trials across 12 arms** from
-  existing verifier output — binary retained, graded = tests_passed/tests_total.
-- **Headline finding**: X2/X3's +0.100 binary deltas were **noise** (graded
-  +0.046/+0.062, p≈0.36–0.59) — the "underpowered metric hid real effects"
-  hypothesis is refuted for them. The graded metric **did** rescue X1's signal
-  (+0.122, p=0.016), confirming verify-once as real but cost-killed.
-- Power calibration: at n=40 the graded MDE ≈ 0.146; paired within-task Wilcoxon
-  is the powerful test (detected +0.122 at p=0.016 where binary McNemar gave
-  p=0.109).
-- **Frozen promotion gate** (pre-registered before any paid Phase-1 run):
-  graded Δ ≥ +0.05 AND Wilcoxon p < 0.05; binary ≥ 24/40; guards 8/8;
-  cost ≤ $0.0967/trial; reach ≥ 95%.
+| Metric | Original Ada | Frozen candidate | Difference / result |
+|---|---:|---:|---:|
+| Passes | 23/36 | 24/36 | +1 pass |
+| Tasks passing in at least 2/3 runs | 8/12 | 8/12 | Tie |
+| Timeouts | 10/36 | 7/36 | −3 timeouts |
+| Total attempt duration | 19,553.258 s | 16,143.215 s | −3,410.043 s (−17.44%) |
+| Recorded turns | 543 | 449 | −94 turns |
+| Candidate faster | — | 30/36 pairs | — |
+| Candidate faster without either timing out | — | 22/24 pairs | — |
+| Median duration difference | — | −51.114 s | Candidate faster |
+| Median duration difference without timeouts | — | −78.819 s | Candidate faster |
+| Median candidate/baseline token ratio | — | 0.4785 | −52.15% on 21 comparable pairs |
 
-### 5. Loop v2 Phase 1 — deterministic SDK hooks (3 arms + spike)
+### Statistical checks
 
-Seam correction: the loop-v1 "no mid-loop seam without forking the adapter"
-finding was **wrong** — `@anthropic-ai/claude-agent-sdk` 0.3.193 exposes
-`hooks` (PreToolUse/PostToolUse/Stop/…) and `maxTurns`, reachable via a local
-edit in `ada/agent/claude/agent.ts` (`adaHookOptions`, env-gated OFF).
+| Test | Result |
+|---|---:|
+| Candidate-only passes | 3 |
+| Baseline-only passes | 2 |
+| Exact paired McNemar p-value for passes | 1.000 |
+| Baseline-only timeouts | 5 |
+| Candidate-only timeouts | 2 |
+| Exact paired McNemar p-value for timeouts | 0.453125 |
+| Task-level duration sign-test p-value | 0.145996 |
 
-| Arm | Mechanism | Result | Verdict |
-|---|---|---|---|
-| **H0** | no-op PostToolUse spike | hook fired in bridge log | seam works |
-| **H1** | Stop-hook verification gate (block stop once if no execution since last write) | graded +0.0508 but p=0.455; 9/40 real blocks; cost $0.1193 > cap | **KILL** |
-| **H2** | PostToolUse output capping (head+tail truncation) | graded −0.0483; cost only +0.5% (needed ≥10% below); shape-aware `capToolResponse()` fix documented in `h2-fix-provenance.md` | **KILL** |
-| **H3** | maxTurns hard cap | **pre-run structural rejection, $0 spent**: passing trials need up to 39 turns — long-turn trials are the passes, not the fails | **REJECT** |
+### Per-task pass outcomes
 
-### 6. X1r — verify-once repackage (the final arm)
+`P` means pass, `F` means completed but failed the grader, and `T` means Ada
+timed out. Each sequence shows repetitions 1, 2, and 3.
 
-X1 was the only significant graded effect, killed purely on cost (1.386×). X1r
-re-delivered the same mechanism inside the frozen gate by attacking the three
-zero-cost-trace-measured cost drivers: an **already-executed exemption** clause,
-a **hard 2-run verification budget**, and **ADA_HOOK_OUTPUT_CAP=3000**
-composition (reclaims 46.3% of tool-result chars vs 25.7% at cap=10000).
+| Task | Original Ada | Frozen candidate | Original passes | Candidate passes |
+|---|:---:|:---:|---:|---:|
+| bgsetup-filewatcher-daemon-2 | PPP | PPP | 3/3 | 3/3 |
+| dbsetup-mongodb-2 | PPP | PPP | 3/3 | 3/3 |
+| dbsetup-mysql-2 | FPP | PPF | 2/3 | 2/3 |
+| deps-gatsby-plugin-intl-2b7ac | TPP | PPP | 2/3 | 3/3 |
+| deps-ultimate-frontrunning-bot-449d6 | PPP | PPP | 3/3 | 3/3 |
+| dishait-tov-template-39c0898 | PPP | PPP | 3/3 | 3/3 |
+| fsspec-filesystem_spec-3ff5fca | TTF | FFF | 0/3 | 0/3 |
+| hackmdio-codimd-f00df50 | FTP | TFT | 1/3 | 0/3 |
+| microsoft-azure-pipelines-tasks-bfcd4b2 | TTT | TTT | 0/3 | 0/3 |
+| prometheus-bd5b2ea | PPP | PPP | 3/3 | 3/3 |
+| wagtail-wagtail-28fcd01 | TTT | TPT | 0/3 | 1/3 |
+| whisper-517a43e | PPP | PPP | 3/3 | 3/3 |
 
-Reach probe passed (marker + hook-cap firing verified, $0.12). Full 40-trial
-dev arm:
+## Conclusion
 
-| Criterion | Baseline | X1r | Pass? |
-|---|---|---|---|
-| Graded paired Δ (magnitude) | 0.7842 | 0.8400 (Δ +0.0558) | ✓ |
-| Wilcoxon p < 0.05 | — | **p = 0.3601** | ✗ |
-| Binary ≥ 24/40 | 24/40 | 29/40 (McNemar p=0.30) | ✓ |
-| Guards 8/8 | 8/8 | **7/8** (fix-code-vulnerability 4/4→3/4) | ✗ |
-| Cost ≤ $0.0967 | $0.0879 | **$0.1005 (1.144×)** | ✗ |
-| Reach ≥ 95% | — | 100% | ✓ |
+The candidate did **not** demonstrate an accuracy improvement. Its pass-rate
+advantage was only 1/36, task-majority accuracy tied 8/12, and the paired pass
+test was not significant. It showed descriptive efficiency improvements in
+this sample—fewer timeouts, lower aggregate duration, fewer turns, and fewer
+reported tokens—but those differences were not established as statistically
+conclusive either.
 
-**KILL / NOT PROMOTED** — three independent criteria failed. Phase 2 validation
-(~$28) correctly not run; zero validation spend.
+The complete 93-task SetupBench set was not run for this candidate.
 
----
+## Evidence
 
-## Learnings (what the evidence says)
-
-1. **The Ada harness itself is the win**: ~1.6× faster at cost parity vs the
-   reference claude-code agent on haiku-4.5. That's the campaign's significant,
-   reproducible result.
-2. **The prompt-directive class is exhausted on this model/dev set**: 5 arms,
-   5 nulls. The one real signal (X1 verify-once, +0.122 graded, p=0.016) was
-   real but **its cost is inseparable from its effect** — the verification
-   turns that convert near-misses ARE the dollars. Repackaging (X1r) halved
-   both the cost ratio (1.386×→1.144×) and the effect (+0.122→+0.0558, p=0.36):
-   trimming removed waste and repair together.
-3. **Exemptions that suppress needed verification are kills regardless of
-   savings**: X1r's already-executed clause cut fix-code-vulnerability cost
-   0.74× as designed but cost one guard pass (4/4→3/4).
-4. **Deterministic hooks fire reliably but can't reach the failure modes
-   cheaply**: Stop-gate and output-cap mechanisms were proven end-to-end
-   (reach 40/40), but the unexecuted-write condition is too rare and capping
-   didn't reduce cost (model re-reads truncated content).
-5. **maxTurns is not a free lunch when success correlates with turn count** —
-   the long-turn trials are the passes. Rejected pre-run on trace evidence, $0 spent.
-6. **Binary metrics hide graded signal, but also expose noise as signal**:
-   the graded upgrade rescued X1's real effect and simultaneously showed X2/X3's
-   binary deltas were noise. Both directions mattered.
-7. **Pass rate on this dev set is capability-bound, not process-bound** — no
-   process lever (prompt, hook, or composite) moved it past the pre-registered
-   bar. The cleanest uncaptured pool left: cancel-async-tasks (2.09× cost,
-   never converts); the untested successor hypothesis is a conditional
-   verify-only-when-runnable-artifact directive WITHOUT a repair mandate.
-8. **Process discipline that paid off**: pre-registration prevented every
-   temptation to relax gates; ≤$0.25 reach probes caught mechanism failures
-   before paid arms; the kwargs-binding defect was caught by reach verification
-   (invalid runs were parked, not deleted); power calibration told us exactly
-   what n=40 could and couldn't detect (MDE ≈ 0.146).
-
----
-
-## Budget
-
-Cumulative API spend ≈ **$70–71 of the $150 cap** (baseline ~$17; L1L2 cycle
-~$14.5 incl. ~$14 of documented invalid runs; E-opt1 re-test ~$6; loop-v2
-Phase-1 hooks ~$9; X1r ~$4; probes). Phase 2 validation (~$28) never ran —
-saved by the honest nulls.
-
----
-
-## Repository layout
-
-```
-ada/                     Agent source (rabbah/ada @ ebaeb9a + campaign levers,
-                         all env-gated OFF by default)
-  agent/lever-guidance.ts     X1/X2/X3/X1r + L1/L2 directives
-  agent/concision-guidance.ts  E-opt1 guidance
-  agent/claude/agent.ts        adaHookOptions SDK-hook seam (H0/H1/H2)
-  agent/index.ts               systemPromptAppend wiring
-eval/
-  ada-agent/ada_agent.py       AdaBridgeAgent (kwarg→env bindings)
-  driver/                      harness driver + collect
-  analysis/                    graded_score, regrade, power calibration,
-                               trace mining, per-arm paired analyses
-  results/                     per-arm JSONL records (+ graded/ re-scores)
-  jobs/                        raw trial data for every arm and probe
-  experiments/                 E-opt1, L1L2, dev-loop decision records
-  experiments/dev-loop/ledger.md   the pre-registration ledger (read this first)
-  campaign-report.md           the full campaign report (source of this README)
-  baseline-report.md           baseline A/B report
-plans/                   loop-v2 plan
-ada-audit.md             pre-campaign audit of the Ada codebase
-```
-
-## Reproducing / extending
-
-- All levers are **env-gated OFF by default** — the tree is inert for normal runs.
-- Enable a lever via adapter kwargs, e.g.
-  `--ak verify_once_trimmed=1 hook_output_cap=3000` (see `eval/ada-agent/ada_agent.py`).
-- Score any arm: `python3 eval/analysis/graded_score.py` (per-test extraction
-  from `verifier/ctrf.json`).
-- Read `eval/experiments/dev-loop/ledger.md` for every pre-registration and
-  `eval/campaign-report.md` for the full narrative with all tables.
+- [Direct quantitative outcome](eval/setupbench-2026-09/ADA_SETUPBENCH_DIRECT_OUTCOME.md)
+- [Detailed evaluation report](eval/setupbench-2026-09/ADA_SETUPBENCH_EVALUATION_REPORT.md)
+- [Candidate provenance](eval/setupbench-2026-09/README.md)
+- [Exact frozen patch](eval/setupbench-2026-09/frozen-candidate.patch)
