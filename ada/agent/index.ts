@@ -51,16 +51,7 @@ import { authorizeUrl, exchangeCode, getValidToken, listConnectedRepos } from ".
 import { githubConfigured, getAppCreds, saveAppCreds, loadAppCreds } from "./auth/app-config.ts";
 import { verifyState, buildManifest, convertManifestCode, renderManifestForm, isAdmin, adminListConfigured, canProvision } from "./auth/setup.ts";
 import { getServerSecret, verifyLink } from "./auth/connect.ts";
-import { githubPromptGuidance } from "./github-guidance.ts";
-import { concisionGuidance } from "./concision-guidance.ts";
-import {
-  selfVerifyGuidance,
-  verifyOnceGuidance,
-  verifyOnceTrimmedGuidance,
-  verifyAgainstCriteriaGuidance,
-  effortRealismGuidance,
-  adaptiveConcisionGuidance,
-} from "./lever-guidance.ts";
+import { systemPromptGuidance } from "./system-guidance.ts";
 import { Authorizer, oidcIdentity, oidcEmail, type AuthzResult } from "./auth/authz.ts";
 import { SSE_HEADERS, frameLogged, sseHeartbeat, parseLastEventId } from "./transport/sse.ts";
 import { EventType } from "./types/agui.ts";
@@ -149,12 +140,6 @@ interface TurnOpts {
   permissionMode: string;
   userKey: string; // bridge_uid, for GitHub token lookup
   userId?: string; // resolved platform id for tracing (null/local dev → "anonymous")
-  /**
-   * Explicit working directory for the claude child (eval-harness use: the
-   * benchmark task's /app). When set, NO workspace is created and the dir is
-   * NOT owned by the bridge — DELETE /sessions/:id must never remove it.
-   */
-  cwd?: string;
 }
 
 /**
@@ -180,33 +165,7 @@ async function runTurn(bridgeId: string, cwd: string, opts: TurnOpts): Promise<v
     permissionMode: opts.permissionMode,
     githubToken,
     // Tell the model GitHub auth is managed via /connect-github (no PATs).
-    // E-opt1: env-gated concision guidance (ADA_CONCISION_GUIDANCE=1). Targets
-    // the measured eval-traces lever: 22 oversized (>10k-char) tool results =
-    // 44% of all tool-result chars, and 8k mean output tokens per trial.
-    // L1L2: env-gated self-verification directive (ADA_SELF_VERIFY=1, always
-    // on in the candidate arm) + task-adaptive concision gating
-    // (ADA_ADAPTIVE_CONCISION=1, ex-ante prompt-property heuristic — never
-    // task names). Both OFF by default => baseline arms byte-identical.
-    systemPromptAppend: (() => {
-      const parts = [
-        githubPromptGuidance({ configured: githubConfigured(), connected: !!githubToken }),
-        concisionGuidance(),
-        selfVerifyGuidance(),
-        verifyOnceGuidance(),
-        verifyOnceTrimmedGuidance(),
-        verifyAgainstCriteriaGuidance(),
-        effortRealismGuidance(),
-        adaptiveConcisionGuidance(opts.prompt),
-      ].filter((s) => s && s.trim().length > 0);
-      if ((process.env.ADA_LEVER_DEBUG ?? "0") === "1" && parts.length > 0) {
-        console.log(
-          `[lever-debug] systemPromptAppend (${parts.length} part(s), ${parts
-            .map((s) => s.length)
-            .join("+")} chars):\n${parts.join("\n\n")}`,
-        );
-      }
-      return parts.join("\n\n");
-    })(),
+    systemPromptAppend: systemPromptGuidance({ configured: githubConfigured(), connected: !!githubToken }),
     cwd,
     userId: opts.userId,
     // Resume the prior Claude session (if any) so follow-up turns keep context.
@@ -245,16 +204,12 @@ async function runTurn(bridgeId: string, cwd: string, opts: TurnOpts): Promise<v
     }
   });
   source.on("exit", (code) => {
-    // The session may already have been DELETEd (eval harness cleanup) — a
-    // late child exit must not crash the bridge on an unknown session.
-    if (!registry.has(bridgeId)) return;
     if (registry.status(bridgeId) === "running") {
       registry.setStatus(bridgeId, code === 0 ? "finished" : "errored");
     }
   });
   source.on("spawnError", (err) => {
     console.error(`[agent] session ${bridgeId} turn failed: ${err.message}`);
-    if (!registry.has(bridgeId)) return;
     registry.setStatus(bridgeId, "errored");
   });
 
@@ -271,11 +226,8 @@ async function startSession(opts: TurnOpts): Promise<string> {
   // Each session gets its own writable temp workspace as its cwd (the process
   // cwd is the read-only /app source tree). Reused across turns; kept, no
   // cleanup. See session/workspace.ts.
-  // EXCEPT when the caller passed an explicit cwd (eval harness: the task's
-  // /app). Then we use it as-is and do NOT record it in `workspaces` — the
-  // bridge doesn't own that dir, so DELETE /sessions/:id must never remove it.
-  const cwd = opts.cwd ?? createWorkspace();
-  if (!opts.cwd) workspaces.set(bridgeId, cwd);
+  const cwd = createWorkspace();
+  workspaces.set(bridgeId, cwd);
   console.log(`[bridge] session ${bridgeId} workspace ${cwd}`);
   await runTurn(bridgeId, cwd, opts);
   return bridgeId;
@@ -768,9 +720,6 @@ async function main(): Promise<void> {
               permissionMode: b.permissionMode ?? "acceptEdits",
               userKey,
               userId: userId ?? undefined,
-              // Optional explicit cwd (eval harness: the task's /app). When set,
-              // no workspace is created and the dir is never deleted by the bridge.
-              ...(b.cwd ? { cwd: String(b.cwd) } : {}),
             });
             res.writeHead(201, { "Content-Type": "application/json" }).end(JSON.stringify({ sessionId }));
           } catch (e) {

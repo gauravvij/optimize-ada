@@ -1,0 +1,264 @@
+diff --git a/agent/claude/agent.ts b/agent/claude/agent.ts
+index 61691e9..a5bcd52 100644
+--- a/agent/claude/agent.ts
++++ b/agent/claude/agent.ts
+@@ -88,6 +88,33 @@ type Events = {
+   spawnError: [Error];
+ };
+ 
++/** Shape of the adapter's `query()` — an async stream of CLI envelope messages. */
++type QueryFn = (args: {
++  prompt: string;
++  options: unknown;
++}) => AsyncIterable<unknown> & { interrupt?: () => void };
++
++/**
++ * Model-wait watchdog. Benchmark traces show runs that emit NO model output for
++ * the entire task wall (~8 min) while healthy runs stream partial messages from
++ * the first seconds (TTFT 5-8s) — i.e. the model call (or the child CLI's stream)
++ * is dead, burning the whole budget for a guaranteed zero. While we are waiting
++ * ON THE MODEL (not while a tool the agent started is running — those can take
++ * minutes legitimately), total stream silence longer than this aborts the child
++ * via the SDK's `abortController` and the run restarts fresh. Re-armed on every
++ * assistant/stream_event, so a "trickle one event then hang" stall is also caught.
++ */
++const MODEL_WAIT_WATCHDOG_MS = 90_000;
++/** Total attempts (first try + restarts after dead model waits / stream deaths). */
++const MAX_RUN_ATTEMPTS = 4;
++/**
++ * Wall-clock age past which no NEW attempt is started, so the final attempt has
++ * at least ~2 min of wall to do real work instead of restarting into the wall.
++ * A run abandoned here exits gracefully — the same zero score as burning the
++ * wall, but without hanging the harness.
++ */
++const RETRY_WALL_DEADLINE_MS = 360_000;
++
+ /**
+  * Minimal slice of `@opentelemetry/api` used to tag a run's trace with the end
+  * user. Imported dynamically (see withUserTrace) so the bridge still runs when
+@@ -106,6 +133,17 @@ interface OtelTraceApi {
+   };
+ }
+ 
++/**
++ * True when an assistant message carries a `tool_use` block — i.e. the agent
++ * started a tool run whose duration is legitimate (Bash self-bounds via its
++ * timeout; the rest are local and fast). The watchdog pauses for these and
++ * re-arms when the tool's `user` result arrives.
++ */
++function assistantStartsToolRun(ev: unknown): boolean {
++  const content = (ev as { message?: { content?: Array<{ type?: string }> } })?.message?.content;
++  return Array.isArray(content) && content.some((b) => b?.type === "tool_use");
++}
++
+ export class ClaudeAgentSession extends EventEmitter<Events> {
+   private readonly opts: AgentSessionOptions;
+   private q: { interrupt?: () => void } | null = null;
+@@ -140,12 +178,10 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
+   }
+ 
+   private async run(prompt: string): Promise<void> {
+-    let query: (args: { prompt: string; options: unknown }) => AsyncIterable<unknown> & {
+-      interrupt?: () => void;
+-    };
++    let query: QueryFn;
+     try {
+       ({ query } = (await import("@astropods/adapter-claude-agent-sdk")) as {
+-        query: typeof query;
++        query: QueryFn;
+       });
+     } catch (err) {
+       throw new Error(`@astropods/adapter-claude-agent-sdk unavailable: ${(err as Error).message}`);
+@@ -156,6 +192,13 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
+     // handled by the adapter (OpenInference spans), so no native OTel env here.
+     const childEnv: NodeJS.ProcessEnv = {
+       ...claudeSpawnEnv(this.opts.model),
++      // Bash-tool time economy: the CLI's Bash tool kills commands at its short
++      // default timeout, so long installs (apt/npm/pip) die mid-flight and get
++      // re-run from scratch, burning the task's wall clock. Raise the default
++      // (still under the CLI maximum) so long operations complete instead of
++      // looping; agents can still pass explicit shorter/longer per-call values.
++      BASH_DEFAULT_TIMEOUT_MS: "300000",
++      BASH_MAX_TIMEOUT_MS: "600000",
+       ...(this.opts.githubToken ? { GH_TOKEN: this.opts.githubToken } : {}),
+     };
+     // On the gateway path the effective model id is bedrock/-prefixed and carried
+@@ -166,7 +209,7 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
+     // a no-op there.
+     const effectiveModel = childEnv.ANTHROPIC_MODEL ?? this.opts.model.id;
+ 
+-    const options = {
++    const baseOptions = {
+       model: effectiveModel,
+       allowedTools: this.opts.allowedTools,
+       disallowedTools: this.opts.disallowedTools ?? DEFAULT_DISALLOWED_TOOLS,
+@@ -203,23 +246,132 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
+     // the trace's user from the root span, and the OTLP ingester leaves the
+     // attribute intact. Mirrors the langchain/mastra adapters.
+     await this.withUserTrace(async () => {
+-      const q = query({ prompt, options });
+-      this.q = q;
+-      console.error(`[claude:run] starting model=${effectiveModel}`);
+-      // SDK messages mirror the CLI stream-json envelopes; the cast bridges the
+-      // SDK's typed union to ours so the Translator/telemetry consume them as-is.
++      const runStart = Date.now();
++      for (let attempt = 1; attempt <= MAX_RUN_ATTEMPTS; attempt++) {
++        let outcome: "completed" | "stalled";
++        try {
++          outcome = await this.runAttempt(query, prompt, baseOptions, effectiveModel, attempt);
++        } catch (err) {
++          // The stream died without a result and without the watchdog (spawn/API
++          // failure). The previous behavior surfaced this as spawnError + exit 1 =
++          // guaranteed task failure; a fresh attempt is strictly better while wall
++          // budget remains. Out of budget: rethrow to preserve that behavior.
++          if (attempt >= MAX_RUN_ATTEMPTS || Date.now() - runStart > RETRY_WALL_DEADLINE_MS) {
++            throw err;
++          }
++          console.error(
++            `[claude:watchdog] attempt=${attempt} died without a result ` +
++              `(${(err as Error).message}); retrying`,
++          );
++          outcome = "stalled";
++        }
++        if (outcome === "completed") return;
++        if (attempt >= MAX_RUN_ATTEMPTS || Date.now() - runStart > RETRY_WALL_DEADLINE_MS) {
++          console.error(
++            `[claude:watchdog] giving up after attempt=${attempt} ` +
++              `(elapsed=${Date.now() - runStart}ms); ending run`,
++          );
++          return;
++        }
++        // Brief settle before retrying so the killed child's resources are
++        // actually released before we respawn in this small container.
++        await new Promise((r) => setTimeout(r, 2_000));
++      }
++    });
++    this.emit("exit", 0);
++  }
++
++  /**
++   * One query() attempt under the model-wait watchdog. Returns "completed" when
++   * a result event was seen (success OR error — either is a terminal outcome the
++   * runner can grade), "stalled" when the attempt produced no result and the
++   * watchdog aborted a dead model wait, and throws when the stream died on its
++   * own without a result (spawn/API failure — retried by the caller while wall
++   * budget remains).
++   *
++   * Arming discipline: the watchdog runs ONLY while awaiting model output. The
++   * `system` envelopes (init, api_retry) neither arm nor disarm it — exp-6
++   * evidence showed a stall surviving a first-output watchdog that fired on
++   * init. Every `assistant`/`stream_event` re-arms it; an assistant message
++   * carrying `tool_use` pauses it (the agent's own Bash/Grep/... can take
++   * minutes legitimately and self-bound via the Bash timeout); the following
++   * `user` tool_result re-arms it for the next model wait.
++   */
++  private async runAttempt(
++    query: QueryFn,
++    prompt: string,
++    baseOptions: Record<string, unknown>,
++    effectiveModel: string,
++    attempt: number,
++  ): Promise<"completed" | "stalled"> {
++    const abortController = new AbortController();
++    // Lets the watchdog kill a hung child cleanly (the SDK's abort listener
++    // SIGTERM/SIGKILLs the spawned CLI) so the attempt can restart.
++    const options = { ...baseOptions, abortController };
++    const q = query({ prompt, options });
++    this.q = q;
++    console.error(`[claude:run] attempt=${attempt} starting model=${effectiveModel}`);
++
++    let sawResult = false;
++    let stalled = false;
++    let awaitingModel = true;
++    let lastModelActivity = Date.now();
++
++    const watchdog = setInterval(() => {
++      if (!awaitingModel || Date.now() - lastModelActivity <= MODEL_WAIT_WATCHDOG_MS) return;
++      stalled = true;
++      awaitingModel = false; // fire once per attempt
++      console.error(
++        `[claude:watchdog] attempt=${attempt} no model output for >` +
++          `${MODEL_WAIT_WATCHDOG_MS}ms while awaiting the model; aborting for restart`,
++      );
++      try {
++        abortController.abort();
++      } catch {
++        /* child already gone */
++      }
++    }, 5_000);
++
++    // SDK messages mirror the CLI stream-json envelopes; the cast bridges the
++    // SDK's typed union to ours so the Translator/telemetry consume them as-is.
++    const consume = (async (): Promise<void> => {
+       for await (const message of q) {
+         const ev = message as StreamJsonEvent;
++        switch (ev.type) {
++          case "assistant":
++            lastModelActivity = Date.now();
++            if (assistantStartsToolRun(ev)) awaitingModel = false;
++            break;
++          case "stream_event":
++            lastModelActivity = Date.now();
++            break;
++          case "user":
++            awaitingModel = true;
++            lastModelActivity = Date.now();
++            break;
++          case "result":
++            sawResult = true;
++            break;
++          default:
++            break; // system/init & friends: neither model output nor a tool boundary
++        }
+         // DEBUG: dump result / system / error-bearing events in full so a failed
+         // run reveals its real cause instead of the generic "Claude Code run failed".
+-        const t = (ev as { type?: string }).type;
+-        if (t === "result" || t === "system" || (ev as { is_error?: boolean }).is_error) {
+-          console.error(`[claude:event ${t}] ${JSON.stringify(ev)}`);
++        if (ev.type === "result" || ev.type === "system" || (ev as { is_error?: boolean }).is_error) {
++          console.error(`[claude:event ${ev.type}] ${JSON.stringify(ev)}`);
+         }
+         this.emit("event", ev);
+       }
+-    });
+-    this.emit("exit", 0);
++    })();
++
++    try {
++      await consume;
++    } finally {
++      clearInterval(watchdog);
++    }
++    if (sawResult) return "completed";
++    if (stalled) return "stalled";
++    throw new Error(`claude agent stream ended without a result (attempt ${attempt})`);
+   }
+ 
+   /**
+diff --git a/agent/coding-guidance.ts b/agent/coding-guidance.ts
+index 00f847d..4790037 100644
+--- a/agent/coding-guidance.ts
++++ b/agent/coding-guidance.ts
+@@ -3,5 +3,21 @@
+  *
+  * Kept in one isolated module so its effect can be measured independently.
+  * The empty baseline intentionally preserves Ada's upstream behavior.
++ *
++ * Current mechanism: wall-clock economy. Hard-bounded runs score zero if they
++ * are still working when the wall expires, even when the on-disk setup is
++ * already complete, and finished passes show 10-37 turns where per-turn model
++ * latency alone spans minutes. The guidance therefore makes economy of turns
++ * and command time the explicit priority, while keeping the verify-by-execution
++ * discipline (exit codes over appearance; detached, confirmed services) that
++ * the executed end state depends on. Kept short — long guidance dilutes the
++ * base preset.
+  */
+-export const CODING_PROMPT_GUIDANCE = "";
++export const CODING_PROMPT_GUIDANCE = `
++## Work within the wall clock
++This run has a hard wall-clock budget of roughly 8 minutes; a run still working at the deadline scores zero even if the setup is complete. Economy of turns and command time is the priority — the deliverable is the final on-disk state, not your narration.
++- Batch aggressively: combine related shell steps into one command (\`&&\`, \`;\`) or issue several independent tool calls in a single turn. Never re-read a file you already have or re-run a check that already passed.
++- Front-load the long pole: start the main install/build as your first action. If it may run longer than ~2 minutes, background it (\`nohup cmd > /tmp/build.log 2>&1 &\`) and poll the log while doing other work, or pass an explicit generous Bash timeout (e.g. \`timeout: 600000\`) instead of letting the default kill it and having to retry.
++- Anything that must stay available later (servers, databases, daemons) must be left running and detached; before finishing, confirm it is alive and accepting connections.
++- Judge success only by exit codes of the repo's own documented build/test pipeline, never by output looking right; fix forward until the decisive check exits 0 — then stop immediately. Extra polish wastes the budget.
++`.trim();

@@ -43,10 +43,6 @@ export function resolveModel(env: NodeJS.ProcessEnv = process.env): ResolvedMode
 const PASSTHROUGH_ENV = [
   "PATH", "HOME", "USER", "LOGNAME", "SHELL", "TERM", "TZ",
   "LANG", "LANGUAGE", "LC_ALL", "LC_CTYPE",
-  // Headless/container flag: Claude Code refuses --permission-mode bypassPermissions
-  // when running as root unless IS_SANDBOX=1 is set (same flag Harbor's claude-code
-  // agent sets). Needed for the eval harness, harmless elsewhere.
-  "IS_SANDBOX",
   "TMPDIR", "TEMP", "TMP",
   // networking / TLS — needed to reach the model API in some deployments
   "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY",

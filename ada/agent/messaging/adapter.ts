@@ -33,7 +33,7 @@ import type { SessionRegistry } from "../session/registry.ts";
 import { getValidToken } from "../auth/github-app.ts";
 import { githubConfigured } from "../auth/app-config.ts";
 import { getServerSecret, buildConnectUrl } from "../auth/connect.ts";
-import { githubPromptGuidance } from "../github-guidance.ts";
+import { systemPromptGuidance } from "../system-guidance.ts";
 
 const CONV_NS = "conv_claude_session"; // conversationId -> claude session_id (for --resume)
 const HINT_NS = "gh_connect_hint"; // conversationId -> "1" once the connect hint has been shown
@@ -205,7 +205,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
     const githubToken = await this.token(options.userId);
     // Tell the model how GitHub auth works here so it guides the user to
     // /connect-github instead of improvising PAT/`gh auth login` advice.
-    const systemPromptAppend = githubPromptGuidance({ configured: githubConfigured(), connected: !!githubToken });
+    const systemPromptAppend = systemPromptGuidance({ configured: githubConfigured(), connected: !!githubToken });
 
     const boundRepo = (await this.store.kvGet(REPO_NS, options.conversationId)) as RepoSpec | null;
     const useSandbox = sandboxEnabled();

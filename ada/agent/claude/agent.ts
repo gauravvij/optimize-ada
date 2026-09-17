@@ -61,187 +61,6 @@ export const DEFAULT_DISALLOWED_TOOLS = [
   "TaskUpdate",
 ];
 
-
-/**
- * SDK-hooks seam (autoresearch loop v2, Phase 1) — deterministic levers at
- * ~zero prompt-token cost, env-gated OFF by default (mirrors lever-guidance.ts).
- * The installed claude-agent-sdk (0.3.193) declares
- * `hooks?: Partial<Record<HookEvent, HookCallbackMatcher[]>>` and `maxTurns?`;
- * the astropods adapter is a passthrough, so these reach the CLI unmodified.
- *
- * Gates (read from the BRIDGE process env, set by ada_agent.py _bridge_env):
- *   ADA_HOOK_SPIKE=1        H0: no-op PostToolUse logging hook (seam probe).
- *   ADA_HOOK_VERIFY_GATE=1  H1: Stop-hook verification gate — block the stop
- *                           ONCE if a file write happened with no
- *                           execution-class tool call (Bash) since it.
- *   ADA_HOOK_OUTPUT_CAP=N   H2: PostToolUse output capping — truncate tool
- *                           results longer than N chars (head+tail, elision
- *                           marker) via updatedToolOutput.
- *   ADA_HOOK_MAX_TURNS=N    H3: hard maxTurns cap on the agentic loop.
- */
-interface HookRunState {
-  seq: number;
-  lastWriteSeq: number;
-  lastBashSeq: number;
-  blockedOnce: boolean;
-}
-
-type AdaHookFn = (input: unknown) => Promise<Record<string, unknown>>;
-
-/**
- * H2: truncate a tool response above `cap` chars (head+tail, elision marker),
- * preserving the ORIGINAL shape so the SDK can substitute it back via
- * updatedToolOutput. tool_response is typed `unknown` and in practice is:
- *   - a plain string (Read/Grep-style tools), or
- *   - an object with string fields (Bash: {stdout, stderr, ...}), or
- *   - an array of content blocks ({type: "text", text: "..."}).
- * Returns undefined when nothing needed truncating (leave output untouched).
- */
-function capString(s: string, cap: number): string | undefined {
-  if (s.length <= cap) return undefined;
-  const head = Math.floor(cap * 0.6);
-  const tail = Math.floor(cap * 0.25);
-  return (
-    s.slice(0, head) +
-    `\n[... harness: tool output truncated, ${s.length} chars -> head ${head} + tail ${tail}, middle elided ...]\n` +
-    s.slice(s.length - tail)
-  );
-}
-
-function capToolResponse(r: unknown, cap: number): unknown {
-  if (typeof r === "string") return capString(r, cap);
-  if (Array.isArray(r)) {
-    let changed = false;
-    const out = r.map((b) => {
-      if (b && typeof b === "object" && typeof (b as { text?: unknown }).text === "string") {
-        const t = capString((b as { text: string }).text, cap);
-        if (t !== undefined) {
-          changed = true;
-          return { ...b, text: t };
-        }
-      }
-      return b;
-    });
-    return changed ? out : undefined;
-  }
-  if (r && typeof r === "object") {
-    let changed = false;
-    const src = r as Record<string, unknown>;
-    const out: Record<string, unknown> = {};
-    for (const [k, v] of Object.entries(src)) {
-      if (typeof v === "string") {
-        const t = capString(v, cap);
-        if (t !== undefined) {
-          changed = true;
-          out[k] = t;
-          continue;
-        }
-      }
-      out[k] = v;
-    }
-    return changed ? out : undefined;
-  }
-  return undefined;
-}
-
-export function adaHookOptions(env: NodeJS.ProcessEnv = process.env): {
-  hooks?: Record<string, { hooks: AdaHookFn[] }[]>;
-  maxTurns?: number;
-} {
-  const spike = (env.ADA_HOOK_SPIKE ?? "0") === "1";
-  const gate = (env.ADA_HOOK_VERIFY_GATE ?? "0") === "1";
-  const capRaw = parseInt(env.ADA_HOOK_OUTPUT_CAP ?? "0", 10);
-  const cap = Number.isFinite(capRaw) && capRaw > 0 ? capRaw : 0;
-  const turnsRaw = parseInt(env.ADA_HOOK_MAX_TURNS ?? "0", 10);
-  const maxTurns = Number.isFinite(turnsRaw) && turnsRaw > 0 ? turnsRaw : undefined;
-
-  const state: HookRunState = { seq: 0, lastWriteSeq: 0, lastBashSeq: 0, blockedOnce: false };
-  const postToolUse: AdaHookFn[] = [];
-
-  if (spike) {
-    postToolUse.push(async (input: unknown) => {
-      const i = input as { tool_name?: string };
-      console.error(`[hook:spike] PostToolUse ${i?.tool_name} fired`);
-      return { continue: true };
-    });
-  }
-  if (gate) {
-    // Track write vs execution ordering for the Stop gate (H1).
-    postToolUse.push(async (input: unknown) => {
-      const i = input as { tool_name?: string };
-      state.seq += 1;
-      const n = i?.tool_name ?? "";
-      if (n === "Write" || n === "Edit" || n === "NotebookEdit") state.lastWriteSeq = state.seq;
-      if (n === "Bash") state.lastBashSeq = state.seq;
-      return { continue: true };
-    });
-  }
-  if (cap > 0) {
-    postToolUse.push(async (input: unknown) => {
-      const i = input as { tool_name?: string; tool_response?: unknown };
-      const r = i?.tool_response;
-      // Reach log: prove the hook fired even when nothing exceeds the cap.
-      // tool_response is `unknown` — log its actual shape for diagnosis.
-      const shape =
-        typeof r === "string"
-          ? `str:${r.length}`
-          : r && typeof r === "object"
-            ? Array.isArray(r)
-              ? `arr[${r.length}]`
-              : `obj[${Object.keys(r as Record<string, unknown>).join(",")}]`
-            : `${typeof r}`;
-      console.error(`[hook:cap] PostToolUse ${i?.tool_name} fired (resp ${shape})`);
-      const updated = capToolResponse(r, cap);
-      if (updated !== undefined) {
-        console.error(`[hook:cap] PostToolUse ${i?.tool_name} truncated (cap ${cap})`);
-        return {
-          hookSpecificOutput: { hookEventName: "PostToolUse", updatedToolOutput: updated },
-        };
-      }
-      return { continue: true };
-    });
-  }
-
-  const hooks: Record<string, { hooks: AdaHookFn[] }[]> = {};
-  if (postToolUse.length > 0) hooks.PostToolUse = [{ hooks: postToolUse }];
-  if (gate) {
-    hooks.Stop = [
-      {
-        hooks: [
-          async (input: unknown) => {
-            const i = input as { stop_hook_active?: boolean };
-            // Fire at most once per session: respect the SDK's own re-entrancy
-            // flag AND our own latch.
-            console.error(
-              `[hook:gate] Stop fired (writeSeq=${state.lastWriteSeq}, bashSeq=${state.lastBashSeq}, alreadyBlocked=${state.blockedOnce})`,
-            );
-            if (i?.stop_hook_active || state.blockedOnce) return { continue: true };
-            state.blockedOnce = true;
-            if (state.lastWriteSeq > 0 && state.lastBashSeq < state.lastWriteSeq) {
-              console.error(
-                "[hook:gate] Stop blocked once: no execution-class tool call since last write",
-              );
-              return {
-                decision: "block",
-                reason:
-                  "You wrote or edited files but nothing has been executed since the last write. " +
-                  "Run your solution against the task's real input (e.g. via Bash) and check the " +
-                  "observable output before finishing.",
-              };
-            }
-            return { continue: true };
-          },
-        ],
-      },
-    ];
-  }
-
-  const out: { hooks?: Record<string, { hooks: AdaHookFn[] }[]>; maxTurns?: number } = {};
-  if (Object.keys(hooks).length > 0) out.hooks = hooks;
-  if (maxTurns !== undefined) out.maxTurns = maxTurns;
-  return out;
-}
-
 export interface AgentSessionOptions {
   model: ResolvedModel;
   allowedTools: string[];
@@ -269,6 +88,33 @@ type Events = {
   spawnError: [Error];
 };
 
+/** Shape of the adapter's `query()` — an async stream of CLI envelope messages. */
+type QueryFn = (args: {
+  prompt: string;
+  options: unknown;
+}) => AsyncIterable<unknown> & { interrupt?: () => void };
+
+/**
+ * Model-wait watchdog. Benchmark traces show runs that emit NO model output for
+ * the entire task wall (~8 min) while healthy runs stream partial messages from
+ * the first seconds (TTFT 5-8s) — i.e. the model call (or the child CLI's stream)
+ * is dead, burning the whole budget for a guaranteed zero. While we are waiting
+ * ON THE MODEL (not while a tool the agent started is running — those can take
+ * minutes legitimately), total stream silence longer than this aborts the child
+ * via the SDK's `abortController` and the run restarts fresh. Re-armed on every
+ * assistant/stream_event, so a "trickle one event then hang" stall is also caught.
+ */
+const MODEL_WAIT_WATCHDOG_MS = 90_000;
+/** Total attempts (first try + restarts after dead model waits / stream deaths). */
+const MAX_RUN_ATTEMPTS = 4;
+/**
+ * Wall-clock age past which no NEW attempt is started, so the final attempt has
+ * at least ~2 min of wall to do real work instead of restarting into the wall.
+ * A run abandoned here exits gracefully — the same zero score as burning the
+ * wall, but without hanging the harness.
+ */
+const RETRY_WALL_DEADLINE_MS = 360_000;
+
 /**
  * Minimal slice of `@opentelemetry/api` used to tag a run's trace with the end
  * user. Imported dynamically (see withUserTrace) so the bridge still runs when
@@ -285,6 +131,17 @@ interface OtelTraceApi {
     active: () => unknown;
     with: <T>(ctx: unknown, fn: () => T) => T;
   };
+}
+
+/**
+ * True when an assistant message carries a `tool_use` block — i.e. the agent
+ * started a tool run whose duration is legitimate (Bash self-bounds via its
+ * timeout; the rest are local and fast). The watchdog pauses for these and
+ * re-arms when the tool's `user` result arrives.
+ */
+function assistantStartsToolRun(ev: unknown): boolean {
+  const content = (ev as { message?: { content?: Array<{ type?: string }> } })?.message?.content;
+  return Array.isArray(content) && content.some((b) => b?.type === "tool_use");
 }
 
 export class ClaudeAgentSession extends EventEmitter<Events> {
@@ -321,12 +178,10 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
   }
 
   private async run(prompt: string): Promise<void> {
-    let query: (args: { prompt: string; options: unknown }) => AsyncIterable<unknown> & {
-      interrupt?: () => void;
-    };
+    let query: QueryFn;
     try {
       ({ query } = (await import("@astropods/adapter-claude-agent-sdk")) as {
-        query: typeof query;
+        query: QueryFn;
       });
     } catch (err) {
       throw new Error(`@astropods/adapter-claude-agent-sdk unavailable: ${(err as Error).message}`);
@@ -337,6 +192,13 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
     // handled by the adapter (OpenInference spans), so no native OTel env here.
     const childEnv: NodeJS.ProcessEnv = {
       ...claudeSpawnEnv(this.opts.model),
+      // Bash-tool time economy: the CLI's Bash tool kills commands at its short
+      // default timeout, so long installs (apt/npm/pip) die mid-flight and get
+      // re-run from scratch, burning the task's wall clock. Raise the default
+      // (still under the CLI maximum) so long operations complete instead of
+      // looping; agents can still pass explicit shorter/longer per-call values.
+      BASH_DEFAULT_TIMEOUT_MS: "300000",
+      BASH_MAX_TIMEOUT_MS: "600000",
       ...(this.opts.githubToken ? { GH_TOKEN: this.opts.githubToken } : {}),
     };
     // On the gateway path the effective model id is bedrock/-prefixed and carried
@@ -346,9 +208,8 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
     // not found"). Direct mode leaves ANTHROPIC_MODEL as the bare id, so this is
     // a no-op there.
     const effectiveModel = childEnv.ANTHROPIC_MODEL ?? this.opts.model.id;
-    const hookOpts = adaHookOptions();
 
-    const options = {
+    const baseOptions = {
       model: effectiveModel,
       allowedTools: this.opts.allowedTools,
       disallowedTools: this.opts.disallowedTools ?? DEFAULT_DISALLOWED_TOOLS,
@@ -371,10 +232,6 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
       ...(this.opts.resumeSessionId ? { resume: this.opts.resumeSessionId } : {}),
       ...(this.opts.cwd ? { cwd: this.opts.cwd } : {}),
       env: childEnv,
-      // SDK-hooks seam (loop v2 Phase 1): env-gated, OFF by default — the
-      // options object simply omits hooks/maxTurns unless a gate is set.
-      ...(hookOpts.hooks ? { hooks: hookOpts.hooks } : {}),
-      ...(hookOpts.maxTurns ? { maxTurns: hookOpts.maxTurns } : {}),
       // DEBUG: capture the CLI's stderr — gateway/API failures (Bifrost "model
       // not found", 4xx, auth) print here and don't always reach the result event.
       stderr: (data: unknown) =>
@@ -389,23 +246,132 @@ export class ClaudeAgentSession extends EventEmitter<Events> {
     // the trace's user from the root span, and the OTLP ingester leaves the
     // attribute intact. Mirrors the langchain/mastra adapters.
     await this.withUserTrace(async () => {
-      const q = query({ prompt, options });
-      this.q = q;
-      console.error(`[claude:run] starting model=${effectiveModel}`);
-      // SDK messages mirror the CLI stream-json envelopes; the cast bridges the
-      // SDK's typed union to ours so the Translator/telemetry consume them as-is.
-      for await (const message of q) {
-        const ev = message as StreamJsonEvent;
-        // DEBUG: dump result / system / error-bearing events in full so a failed
-        // run reveals its real cause instead of the generic "Claude Code run failed".
-        const t = (ev as { type?: string }).type;
-        if (t === "result" || t === "system" || (ev as { is_error?: boolean }).is_error) {
-          console.error(`[claude:event ${t}] ${JSON.stringify(ev)}`);
+      const runStart = Date.now();
+      for (let attempt = 1; attempt <= MAX_RUN_ATTEMPTS; attempt++) {
+        let outcome: "completed" | "stalled";
+        try {
+          outcome = await this.runAttempt(query, prompt, baseOptions, effectiveModel, attempt);
+        } catch (err) {
+          // The stream died without a result and without the watchdog (spawn/API
+          // failure). The previous behavior surfaced this as spawnError + exit 1 =
+          // guaranteed task failure; a fresh attempt is strictly better while wall
+          // budget remains. Out of budget: rethrow to preserve that behavior.
+          if (attempt >= MAX_RUN_ATTEMPTS || Date.now() - runStart > RETRY_WALL_DEADLINE_MS) {
+            throw err;
+          }
+          console.error(
+            `[claude:watchdog] attempt=${attempt} died without a result ` +
+              `(${(err as Error).message}); retrying`,
+          );
+          outcome = "stalled";
         }
-        this.emit("event", ev);
+        if (outcome === "completed") return;
+        if (attempt >= MAX_RUN_ATTEMPTS || Date.now() - runStart > RETRY_WALL_DEADLINE_MS) {
+          console.error(
+            `[claude:watchdog] giving up after attempt=${attempt} ` +
+              `(elapsed=${Date.now() - runStart}ms); ending run`,
+          );
+          return;
+        }
+        // Brief settle before retrying so the killed child's resources are
+        // actually released before we respawn in this small container.
+        await new Promise((r) => setTimeout(r, 2_000));
       }
     });
     this.emit("exit", 0);
+  }
+
+  /**
+   * One query() attempt under the model-wait watchdog. Returns "completed" when
+   * a result event was seen (success OR error — either is a terminal outcome the
+   * runner can grade), "stalled" when the attempt produced no result and the
+   * watchdog aborted a dead model wait, and throws when the stream died on its
+   * own without a result (spawn/API failure — retried by the caller while wall
+   * budget remains).
+   *
+   * Arming discipline: the watchdog runs ONLY while awaiting model output. The
+   * `system` envelopes (init, api_retry) neither arm nor disarm it — exp-6
+   * evidence showed a stall surviving a first-output watchdog that fired on
+   * init. Every `assistant`/`stream_event` re-arms it; an assistant message
+   * carrying `tool_use` pauses it (the agent's own Bash/Grep/... can take
+   * minutes legitimately and self-bound via the Bash timeout); the following
+   * `user` tool_result re-arms it for the next model wait.
+   */
+  private async runAttempt(
+    query: QueryFn,
+    prompt: string,
+    baseOptions: Record<string, unknown>,
+    effectiveModel: string,
+    attempt: number,
+  ): Promise<"completed" | "stalled"> {
+    const abortController = new AbortController();
+    // Lets the watchdog kill a hung child cleanly (the SDK's abort listener
+    // SIGTERM/SIGKILLs the spawned CLI) so the attempt can restart.
+    const options = { ...baseOptions, abortController };
+    const q = query({ prompt, options });
+    this.q = q;
+    console.error(`[claude:run] attempt=${attempt} starting model=${effectiveModel}`);
+
+    let sawResult = false;
+    let stalled = false;
+    let awaitingModel = true;
+    let lastModelActivity = Date.now();
+
+    const watchdog = setInterval(() => {
+      if (!awaitingModel || Date.now() - lastModelActivity <= MODEL_WAIT_WATCHDOG_MS) return;
+      stalled = true;
+      awaitingModel = false; // fire once per attempt
+      console.error(
+        `[claude:watchdog] attempt=${attempt} no model output for >` +
+          `${MODEL_WAIT_WATCHDOG_MS}ms while awaiting the model; aborting for restart`,
+      );
+      try {
+        abortController.abort();
+      } catch {
+        /* child already gone */
+      }
+    }, 5_000);
+
+    // SDK messages mirror the CLI stream-json envelopes; the cast bridges the
+    // SDK's typed union to ours so the Translator/telemetry consume them as-is.
+    const consume = (async (): Promise<void> => {
+      for await (const message of q) {
+        const ev = message as StreamJsonEvent;
+        switch (ev.type) {
+          case "assistant":
+            lastModelActivity = Date.now();
+            if (assistantStartsToolRun(ev)) awaitingModel = false;
+            break;
+          case "stream_event":
+            lastModelActivity = Date.now();
+            break;
+          case "user":
+            awaitingModel = true;
+            lastModelActivity = Date.now();
+            break;
+          case "result":
+            sawResult = true;
+            break;
+          default:
+            break; // system/init & friends: neither model output nor a tool boundary
+        }
+        // DEBUG: dump result / system / error-bearing events in full so a failed
+        // run reveals its real cause instead of the generic "Claude Code run failed".
+        if (ev.type === "result" || ev.type === "system" || (ev as { is_error?: boolean }).is_error) {
+          console.error(`[claude:event ${ev.type}] ${JSON.stringify(ev)}`);
+        }
+        this.emit("event", ev);
+      }
+    })();
+
+    try {
+      await consume;
+    } finally {
+      clearInterval(watchdog);
+    }
+    if (sawResult) return "completed";
+    if (stalled) return "stalled";
+    throw new Error(`claude agent stream ended without a result (attempt ${attempt})`);
   }
 
   /**

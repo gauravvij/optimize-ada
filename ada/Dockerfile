@@ -7,7 +7,7 @@ FROM node:24-slim
 # PIN the version in production — the stream-json contract is not stable across
 # releases (see README "Pin list" #1). Override at build time:
 #   ast/docker build --build-arg CLAUDE_CODE_VERSION=<x.y.z>
-ARG CLAUDE_CODE_VERSION=2.1.258
+ARG CLAUDE_CODE_VERSION=latest
 # git + curl + ca-certs, then the GitHub CLI (`gh`) from its official apt repo,
 # then Claude Code. `gh` + git let the agent do authenticated GitHub work
 # (clone/push/PR) inside the container. NOTE: no inline `#` comments inside this
