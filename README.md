@@ -15,7 +15,7 @@ each candidate on a fixed development set, retaining promising mechanisms, and
 then comparing the frozen final candidate with original Ada on a separate
 validation set?
 
-## What was optimized
+## Process
 
 | Item | Value |
 |---|---|
@@ -27,14 +27,33 @@ validation set?
 | Validation set | 12 separate SetupBench tasks |
 | Final validation | 3 repetitions per variant |
 
-The search retained mechanisms from experiments 4 and 7:
+1. **Freeze the baseline.** Original Ada and the evaluator, task split, model,
+   timeouts, and official graders were fixed before optimization.
+2. **Search on development tasks.** Autoresearch inspected traces, proposed one
+   Ada change per experiment, and measured it against a fresh same-cycle control
+   on the same 12 development tasks.
+3. **Retain measured winners.** Regressions were rolled back; experiments 4 and
+   7 were retained. The loop stopped after its 10-experiment budget.
+4. **Freeze the candidate.** The final candidate combined only the retained
+   experiment 4 and 7 mechanisms. Development results were not used again.
+5. **Validate separately.** Original Ada and the frozen candidate were compared
+   on 12 different SetupBench tasks, with three runs per task and variant.
 
-- `ada/agent/coding-guidance.ts` adds concise wall-clock-economy guidance:
-  batch operations, start long work early, detach persistent services, verify
-  using exit codes, and stop after the decisive check passes.
-- `ada/agent/claude/agent.ts` raises Bash default/max timeouts to 300/600
-  seconds and adds a tool-aware 90-second model-wait watchdog with bounded
-  restart attempts and a 360-second retry deadline.
+## Retained candidate: what actually changed
+
+| Experiment | Observed problem and hypothesis | Retained implementation |
+|---|---|---|
+| **4 — wall-clock economy** | Long commands were being killed or repeated, and extra turns consumed the fixed task budget. | Added concise instructions to batch work, start long operations early, detach services, verify by exit code, and stop after success. Raised Bash default/max timeouts to 300/600 seconds. |
+| **7 — stalled-model recovery** | Some runs emitted no model output and consumed the remaining wall clock without useful work. | Added a tool-aware 90-second model-wait watchdog, up to four attempts, and a 360-second deadline for starting retries. The watchdog pauses during legitimate tool execution. |
+
+Experiment 4 initially scored 8/12 against a 4/12 control, but its separate
+confirmation failed at 5/12 against 7/12. Experiment 7 later scored 10/12
+against a 7/12 control but did not receive an independent confirmation run.
+Those caveats are why the combined candidate was evaluated on a separate split.
+
+The retained changes are limited to `ada/agent/coding-guidance.ts` and
+`ada/agent/claude/agent.ts`. No SetupBench success commands or task-specific
+solutions were added to Ada.
 
 The complete frozen source is in `ada/`. The exact two-file delta is archived as
 [`frozen-candidate.patch`](eval/setupbench-2026-09/frozen-candidate.patch).
@@ -104,25 +123,7 @@ candidate was frozen and evaluated separately.
 | Exact paired McNemar p-value for timeouts | 0.453125 |
 | Task-level duration sign-test p-value | 0.145996 |
 
-### Per-task pass outcomes
-
-`P` means pass, `F` means completed but failed the grader, and `T` means Ada
-timed out. Each sequence shows repetitions 1, 2, and 3.
-
-| Task | Original Ada | Frozen candidate | Original passes | Candidate passes |
-|---|:---:|:---:|---:|---:|
-| bgsetup-filewatcher-daemon-2 | PPP | PPP | 3/3 | 3/3 |
-| dbsetup-mongodb-2 | PPP | PPP | 3/3 | 3/3 |
-| dbsetup-mysql-2 | FPP | PPF | 2/3 | 2/3 |
-| deps-gatsby-plugin-intl-2b7ac | TPP | PPP | 2/3 | 3/3 |
-| deps-ultimate-frontrunning-bot-449d6 | PPP | PPP | 3/3 | 3/3 |
-| dishait-tov-template-39c0898 | PPP | PPP | 3/3 | 3/3 |
-| fsspec-filesystem_spec-3ff5fca | TTF | FFF | 0/3 | 0/3 |
-| hackmdio-codimd-f00df50 | FTP | TFT | 1/3 | 0/3 |
-| microsoft-azure-pipelines-tasks-bfcd4b2 | TTT | TTT | 0/3 | 0/3 |
-| prometheus-bd5b2ea | PPP | PPP | 3/3 | 3/3 |
-| wagtail-wagtail-28fcd01 | TTT | TPT | 0/3 | 1/3 |
-| whisper-517a43e | PPP | PPP | 3/3 | 3/3 |
+The task-level P/F/T matrix is in the [direct quantitative outcome](eval/setupbench-2026-09/ADA_SETUPBENCH_DIRECT_OUTCOME.md).
 
 ## Conclusion
 
