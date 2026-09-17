@@ -1,8 +1,9 @@
 # Ada optimization on SetupBench
 
-This branch preserves one completed autoresearch campaign that attempted to
-optimize the [Ada agent](https://github.com/rabbah/ada) for SetupBench
-environment-setup tasks. It contains the frozen candidate that was evaluated,
+This branch preserves one completed Neo-led campaign that attempted to optimize
+the [Ada agent](https://github.com/rabbah/ada) for SetupBench environment-setup
+tasks. Neo used Autoresearcher as its autonomous experiment engine. The branch
+contains the frozen candidate that was evaluated,
 the candidate patch, and the resulting baseline-versus-candidate measurements.
 
 This is not an official Ada branch. It is also separate from the Terminal-Bench
@@ -10,7 +11,7 @@ campaign on this repository's `main` branch.
 
 ## Research question
 
-Can the autoresearch loop improve Ada on SetupBench by modifying Ada, evaluating
+Can Neo improve Ada on SetupBench by modifying Ada, evaluating
 each candidate on a fixed development set, retaining promising mechanisms, and
 then comparing the frozen final candidate with original Ada on a separate
 validation set?
@@ -29,9 +30,9 @@ validation set?
 
 1. **Freeze the baseline.** Original Ada and the evaluator, task split, model,
    timeouts, and official graders were fixed before optimization.
-2. **Search on development tasks.** Autoresearch inspected traces, proposed one
-   Ada change per experiment, and measured it against a fresh same-cycle control
-   on the same 12 development tasks.
+2. **Search on development tasks.** Neo inspected traces and used Autoresearcher
+   to propose one Ada change per experiment. Each was measured against a fresh
+   same-cycle control on the same 12 development tasks.
 3. **Retain measured winners.** Regressions were rolled back; experiments 4 and
    7 were retained. The loop stopped after its 10-experiment budget.
 4. **Freeze the candidate.** The final candidate combined only the retained
