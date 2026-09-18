@@ -1,4 +1,7 @@
-# SetupBench frozen candidate
+# SetupBench frozen candidate — historical 900-second evidence index
+
+This index describes the earlier 900-second validation. For the separate
+1200-second validation and its results, see the [current branch README](../../README.md).
 
 This branch archives the exact Ada candidate evaluated in the accompanying
 12-task SetupBench validation reports. It is separate from the Terminal-Bench

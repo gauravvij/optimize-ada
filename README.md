@@ -8,7 +8,7 @@ Neo searched on 12 fixed SetupBench development tasks, with a 10-experiment budg
 
 | Pinned component | Value |
 |---|---|
-| Original Ada commit | `0c5e1da7342ff86147b217a09c243cf17bf6c50d` |
+| Ada evaluation base (used by original arm) | `0c5e1da7342ff86147b217a09c243cf17bf6c50d` |
 | Candidate | Same Ada commit plus tracked-diff SHA-256 `9e6a3fe04725f3c3ca43b5fcfcd53bde07f8fbbffc58d7e80793f6ffb408bd4a` |
 | SetupBench commit | `041a412f01348c2a6f8b1b6a910138fe01885aee` |
 | Model used by Ada | `z-ai/glm-5.3-flash` via OpenRouter |
@@ -32,7 +32,7 @@ Each of the 12 held-out SetupBench tasks ran three times for original Ada and th
 | Tasks passing at least 2 of 3 runs | 9/12 | 8/12 | Candidate −1 task |
 | Ada timeouts | 7/36 | 5/36 | Candidate −2 |
 | Sum of attempt durations | 23,814.406 s | 19,362.968 s | Candidate −4,451.438 s (−18.69%) |
-| Median attempt duration | 537.147 s | 417.536 s | Candidate −119.611 s |
+| Median attempt duration | 537.147 s | 417.536 s | Candidate ≈−119.6 s |
 
 Of the 36 matched pairs, **23 both passed, 3 candidate-only passed, 3 baseline-only passed, and 7 both failed**. The candidate was faster in **23/36** pairs (median paired duration difference **−101.795 s**). Neither side timed out in **27** pairs; the candidate was faster in **17/27** of those. Across the 12 distinct tasks, the candidate had a lower median duration on **8/12**. Duration includes container setup, execution, grading, and cleanup, and timeout durations are censored. Because attempts ran concurrently, summed durations are **not** validation-job wall-clock savings. Repetitions of the same 12 tasks are not 36 independent benchmark problems.
 
