@@ -9,7 +9,7 @@ family rather than one by one. Run IDs (R1–R10, BP, P3) are defined in
 | File | What it is |
 |---|---|
 | `RUN_REGISTRY.md` | Every scored SetupBench run, by ID. Read its re-check banner first. |
-| `verify_docs.py` | Checks every figure in `../blog.md` and `../README.md` against the raw rows. |
+| `verify_docs.py` | Checks every result stated in `../blog.md` and `../README.md`, sentence by sentence, against the raw rows or the file it cites. |
 | `baseline_vs_best_verify.py`, `ctrl_vs_t12_verify.py`, `fresh_rem81_verify.py` | Re-derive the confirmation run, the same-day ladder and the R5/R6 morning run from the raw rows. |
 | `harness/archive_integrity_check.py` | Row counts, pass counts and recorded build of every archived run. |
 | `confirmation_table.py` | Prints the full R9/R10 baseline-vs-shipped table. |

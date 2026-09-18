@@ -211,10 +211,10 @@ A re-check of the raw data before publication found errors in the campaign's own
 
 ## Check it yourself
 
-Every number in this article traces to a file in this repository. The first script below recomputes each one from the raw per-task diagnostics and checks it against the text. All of them need nothing but Python 3.
+Every number in this article traces to a file in this repository. The first script below checks each result against the raw per-task diagnostics or the file it cites, and against the text. All of them need nothing but Python 3.
 
 ```bash
-python3 bench/verify_docs.py                        # every figure in this article and the README
+python3 bench/verify_docs.py                        # every result in this article and the README
 python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R10)
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder and the run registry
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run

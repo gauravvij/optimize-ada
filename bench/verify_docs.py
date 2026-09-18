@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Every figure in blog.md and README.md, recomputed from the raw per-task diagnostics.
+"""Every result stated in blog.md and README.md, checked against the raw per-task diagnostics
+or the analysis file or record it cites.
 
 Each check names the document(s) it applies to, a short anchor that must appear there, and
 a condition the raw data must satisfy. Anchors are matched after collapsing whitespace and
@@ -323,6 +324,72 @@ claim("readme", "| R10a had 40 zero-turn rows (`bench/RUN_REGISTRY.md`) | 41,", 
 f31_raw = json.loads((B / P["F31"]).read_text())
 claim("readme", "rewrote one path field, `incumbent_source`",
       "autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json" in json.dumps(f31_raw), "the raw file carries its original path again")
+
+# ------------------------------------- figures restated elsewhere in each document
+# An anchor only proves one sentence; every other sentence that repeats a figure gets its own.
+pooled = pool[:3] == [157, 67, 98] and pool[3] - pool[4] == 31 and f"{pp:.2e}" == "7.92e-09"
+hung_c = len(h) == 82 and sum(y["passed"] for _, y in h) == 28
+claim("both", {"blog": "| **Pooled** | **157** | **67** | **98** | **+31** | **7.92e-09** |",
+               "readme": "| **Pooled** | **157** | **67** | **98** | **+31** | **p = 7.92e-09** |"}, pooled, "R9 + R10 pooled")
+claim("readme", "**67/157 → 98/157**, 32 gained and 1 lost", pooled and (pool[3], pool[4]) == (32, 1), "R9 + R10 pooled")
+claim("readme", "On the 82 paired runs where it recorded zero turns, the shipped build passes 28. On the 75 where it ran, it is 67/75 → 70/75 (p = 0.375)",
+      hung_c and ran_c, "R9 + R10 pairs split by origin turns")
+claim("blog", "On the 75 where the origin build ran, the two builds passed 67 and 70 (p = 0.375)", ran_c, "R9 + R10 pairs, origin turns > 0")
+claim("readme", "**Where the +31 comes from.** Split the 157 paired runs", pooled, "R9 + R10 pooled")
+claim("blog", "took a coding agent from 67 to 98 passed runs out of 157", pooled, "R9 + R10 pooled")
+claim("blog", "On SetupBench that took it from 67 to 98 passed runs out of 157", pooled, "R9 + R10 pooled")
+claim("blog", "98/157 against 67/157 on paired runs", pooled, "R9 + R10 pooled")
+claim("readme", "its other 2 timeouts had recorded turns. The shipped build's 3 are 2 harness errors and 1 graded run",
+      comp_ok and sum(bool(r["timed_out"]) and (r["turns"] or 0) > 0 for r in base) == 2, "R9/R10 rows")
+gained57 = {t for t in R5 if not R5[t]["passed"] and R7[t]["passed"]}
+claim("readme", "All 21 of its conversions come from the 46 tasks", hung_ok and len(gained57) == 21 and gained57 <= set(hung), "R5 -> R7 gained tasks")
+claim("both", "On the 35 tasks the origin build could actually run", ran_ok, "R5 tasks with turns")
+r78 = (passed(R7), passed(R8), net(R7, R8), f"{pair(R7, R8)[5]:.2f}") == (54, 50, -4, "0.42")
+claim("readme", "(−4, p = 0.42, inside the noise floor)", r78, "R7 -> R8")
+claim("readme", "Same-day: **54/81 → 50/81**, −4, p = 0.42", r78, "R7 -> R8")
+claim("blog", "scored 50/81 against 54/81. That −4 is inside the noise", r78, "R7 -> R8")
+claim("readme", "Fresh and whole on one day: **54/81** against the origin build's **34/81** (R7 vs R5)", (passed(R7), passed(R5)) == (54, 34), "R7, R5")
+claim("blog", "That 59 was assembled from 50 passes", hybrid, "R2 + failures31 rows")
+_, _, _, g37, l37, _ = pair(R3, R7)
+claim("readme", "The 24/81 control (R3) was a depressed run", passed(R3) == 24 and depressed, "R3, R7 rows")
+claim("readme", "moved 30 tasks on the same build between one run and the next", (g37, l37) == (30, 0), "R3 -> R7")
+claim("readme", "the +28 compared runs from different days", net(R3, R4) == 28, "R3 -> R4")
+claim("readme", "the same build scored 54/81 the next day", passed(R7) == 54, "R7 rows")
+claim("readme", "last written at 10:01 that day, which matches its summed task time",
+      proto(P["R3"])["concurrency"] == 4 and abs(7 * 60 + 28 + secs(R3) / 4 / 60 - (10 * 60 + 1)) < 10,
+      "R3: start 07:28 (run ID) plus summed task time over 4 slots")
+claim("blog", "The withdrawn result's 24/81 was a control run of the watchdog build (R3)", passed(R3) == 24 and r3commit.startswith("6672af8"), "R3 rows")
+claim("blog", "The 24/81 control was a depressed run", passed(R3) == 24 and depressed, "R3, R7 rows")
+claim("blog", "A control that moves 30 tasks on its own cannot anchor a claim of 28", (g37, l37, net(R3, R4)) == (30, 0, 28), "R3 -> R7, R3 -> R4")
+claim("blog", "the same build scored 24/81 and 54/81 a day apart", (passed(R3), passed(R7)) == (24, 54), "R3, R7 rows")
+claim("blog", "The withdrawn comparison had p = 7.66e-07", f"{pair(R3, R4)[5]:.2e}" == "7.66e-07", "R3 -> R4")
+z2_killed = sum(bool(r["timed_out"]) and r["grader_returncode"] is None for r in z2) == 2
+claim("readme", "and 2 hung until the harness killed them", r2_ok and z2_killed, "R2 zero-turn rows")
+claim("readme", "They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills", r2_ok and z2_killed, "R2 zero-turn rows")
+claim("readme", "each replicate net ≥ +10; at most 3 invalid rows per arm per replicate",
+      "net >= +10" in rule and "<= 3 invalid rows per arm" in rule, "run_baseline_vs_best.sh")
+claim("readme", "on the 38 evaluable tasks", tie, "FINAL40 per_task, evaluable")
+claim("blog", "On the remaining 38 the two builds tied", tie, "FINAL40 per_task, evaluable")
+claim("blog", "on 40 public tasks", len(tb["per_task"]) == 40, "FINAL40 per_task")
+tb_err = lambda arm: [v[f"{arm}_cost_usd"] for v in tb["per_task"].values() if v[f"{arm}_is_err"]]
+claim("readme", "because a run killed at the hard cap records $0", all(c == 0 for c in tb_err("baseline")) and all(c > 0 for c in tb_err("final")),
+      "FINAL40: the origin arm's hard-cap kills cost $0; 08a8d5d's watchdog stops report cost")
+tb_logs = [(B / "results-ada-final-40").glob(f"*/{t}__*/verifier/test-stdout.txt") for t in ex]
+tb_logs = [p.read_text() for g_ in tb_logs for p in g_]
+claim("blog", "a package mirror returned 404 and a tool was missing",
+      len(tb_logs) == len(ex) == 2 and all("404  Not Found" in s and "command not found" in s for s in tb_logs), "results-ada-final-40 verifier logs")
+claim("blog", "At 960 seconds it interrupted 8 of the 17 failures, 30 seconds before the longer budget ran out", probe and bp_ok and cutoff_ok, "budget probe rows")
+claim("readme", "8 of 17 failures in the 960 s probe", probe and bp_ok, "budget probe rows")
+summary_c = (B / "PHASE_C_SUMMARY.md").read_text()
+claim("readme", "Phase C found \"zero 480 s clock-outs\"", "zero 480 s clock-outs" in summary_c.lower(), "PHASE_C_SUMMARY.md")
+claim("readme", "Phase C's \"17 hard clock-outs\"", "17 hard clock-outs" in summary_c and len(bf) == 17, "PHASE_C_SUMMARY.md; budget probe failures")
+claim("blog", "thinking tokens took up to 93% of its output", "thinking tokens consuming up to 93% of output" in (ROOT / "ada/REPORT.md").read_text(),
+      "ada/REPORT.md, the record it cites")
+claim("blog", "taken here from the smoke test with its 120-second budget", "budget=120000ms" in smoke, "t12_smoke_a1_log.txt")
+claim("readme", "These are the budget probe's 17 valid failures", bp_ok, "budget probe failures")
+claim("readme", "R2's 43 zero-turn rows", r2_ok, "R2 zero-turn rows")
+claim("blog", "the pooled exact McNemar test must reach p < 0.001", "p < 0.001" in rule and pp < 0.001, "run_baseline_vs_best.sh; R9 + R10 pooled")
+claim("blog", "34% less execution time on the 38 tasks", tie and f"{dt('exec_s'):.0f}" == "34", "FINAL40 per_task, evaluable")
 
 print(f"\n{'ALL DOCUMENT CLAIMS VERIFIED' if not FAILS else f'{len(FAILS)} CLAIM(S) FAILED'}")
 sys.exit(1 if FAILS else 0)

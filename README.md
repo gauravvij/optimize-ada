@@ -307,7 +307,7 @@ One build cannot be rebuilt from history. The origin arm of R9/R10 ran as `417a8
 ## Checking the numbers yourself
 
 ```bash
-python3 bench/verify_docs.py                        # every figure in blog.md and this README
+python3 bench/verify_docs.py                        # every result in blog.md and this README
 python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R10);   exit 0
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder + run registry; exit 0
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run (R5/R6); exit 0
@@ -315,7 +315,7 @@ python3 bench/harness/archive_integrity_check.py    # every archived diagnostic 
 python3 bench/confirmation_table.py                 # the full R9/R10 table, from the raw rows
 ```
 
-`verify_docs.py` recomputes every figure the blog and this README state from the raw rows, and
+`verify_docs.py` checks every result the blog and this README state against the raw rows or the file it cites, and
 fails if a document or the data changes without the other. `bash bench/verify_builds.sh`
 recovers the campaign's git history and checks every build's agent tree; it needs git and
 network access. [`bench/README.md`](bench/README.md) says what every file in `bench/` is. The three verify scripts re-derive their figures from the
