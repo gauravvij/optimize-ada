@@ -65,7 +65,7 @@ The benchmark is [SetupBench](https://github.com/microsoft/SetupBench), where ea
 
 The harness is in [`bench/harness/`](bench/harness/). For every task it records whether the grader passed it, how many turns Ada took, how long it ran and whether it timed out. Every run also records the model, the budget, the SetupBench commit and the SHA-256 of both harness scripts.
 
-The runner that launches Ada inside the container is byte-identical to the one in `bench/harness/` in every run. The evaluator that drives the runs and calls the grader changed during the campaign. The exact versions that scored the runs were not kept, and the one in `bench/harness/` is a later revision.
+The runner that launches Ada inside the container is byte-identical to the one in `bench/harness/` in every run. The evaluator that drives the runs and calls the grader changed during the campaign. The exact versions that scored the runs were not kept, and the one in `bench/harness/` matches none of the versions the runs recorded.
 
 Two builds are compared on the same tasks, task by task, with an exact McNemar test on the tasks where they disagree. The runs up to R8 ran four tasks at a time; the confirmation ran one task at a time per build. Its two builds and two replicates overlapped, so up to four containers ran at once.
 
@@ -115,17 +115,17 @@ So the time hints are an efficiency result, not an accuracy result, and they are
 
 The time hints had not always looked like this. In a result since withdrawn, they were first reported at **52/81 against 24/81, +28, p = 7.66e-07**, and promoted.
 
-The withdrawn result's 24/81 was a control run of the watchdog build (R3). It was measured hours before the time-hints run it was compared with, rather than alongside it. The campaign's record dates R3 to 2026-09-10. But the commit it records was only created at 07:24 UTC on 2026-09-11, four minutes before R3's start time. So R3 almost certainly ran that morning, the same day as its candidate.
+The withdrawn result's 24/81 was a control run of the watchdog build (R3). It was measured before the time-hints run it was compared with, rather than alongside it.
 
 On 2026-09-12 the same build scored 54/81 on the same tasks: 30 tasks better and none worse, p = 1.9e-09. It took almost the same number of turns (1,544 against 1,554). The 24/81 control was a depressed run: the watchdog interrupted 63 of its runs against 34, and it ran 23% longer for no recorded reason. A control that moves 30 tasks on its own cannot anchor a claim of 28.
 
 ![The control moved more than the change](bench/figures/control-moved.svg)
 
-*Tasks passed out of 81. Hours apart on 2026-09-11, the watchdog build scored 24 and the time-hints build 52: +28 net, since withdrawn. On the same day, 2026-09-12, they scored 54 and 50: −4 net. The watchdog build is the control in both pairings.*
+*Tasks passed out of 81. In separate runs, the watchdog build scored 24 and the time-hints build 52: +28 net, since withdrawn. On the same day, 2026-09-12, they scored 54 and 50: −4 net. The watchdog build is the control in both pairings.*
 
 The first headline to go was Phase A's: 27/81 to 59/81. That 59 was assembled from 50 passes carried over from earlier runs plus a re-run of only the 31 failures. Run fresh and whole on one day, the same line of builds scores 54/81 against the origin's 34/81, so NEO withdrew that too.
 
-Both failures are the same failure: a comparison whose arms were not measured together. One carried scores across protocols; the other set a candidate against a control run hours earlier. After the second, NEO made same-day paired runs the only admissible evidence. It also built the run registry, so no document can say "the control" without saying which run. The confirmation that followed went further and ran both arms at the same time.
+Both failures are the same failure: a comparison whose arms were not measured together. One carried scores across protocols; the other set a candidate against a control run before it. After the second, NEO made same-day paired runs the only admissible evidence. It also built the run registry, so no document can say "the control" without saying which run. The confirmation that followed went further and ran both arms at the same time.
 
 ## Confirming what was left
 
@@ -199,7 +199,7 @@ A re-check of the raw data before publication found errors in the campaign's own
 
 ## What this approach demonstrates
 
-**The control is a measurement too:** the same build scored 24/81 and 54/81 a day apart, with almost the same number of turns. Every withdrawn headline in this campaign rested on a comparison whose arms were not measured together. Statistics on the candidate cannot fix a control that did not run alongside it.
+**The control is a measurement too:** the same build scored 24/81 and 54/81 on different days, with almost the same number of turns. Every withdrawn headline in this campaign rested on a comparison whose arms were not measured together. Statistics on the candidate cannot fix a control that did not run alongside it.
 
 **A small p-value is not a shield against a bad design.** The withdrawn comparison had p = 7.66e-07, and its 95% confidence interval ran from +19 to +48 points ([`bench/T12_REM81_PAIRED_ANALYSIS.json`](bench/T12_REM81_PAIRED_ANALYSIS.json)). Both were computed correctly, and they answered whether two particular runs differed, and they did, but not because of the code.
 

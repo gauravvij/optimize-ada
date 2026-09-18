@@ -47,8 +47,8 @@ report.
 
 `harness/setupbench_ada_runner.ts` launches Ada inside each task's container and is
 byte-identical to the runner every run recorded. `harness/setupbench_ada_domain_eval.py`
-drives a run and calls the grader. It is a later revision, and the exact versions that scored
-the runs, identified by `evaluator_sha256` in each run's protocol, were not kept.
+drives a run and calls the grader. It matches no `evaluator_sha256` that a run recorded; the exact
+versions that scored the runs were not kept.
 `harness/setupbench_ada_eval.py` is the matched two-arm evaluator. `harness/smoke1.txt` is a
 single-task smoke list. `harness/SETUPBENCH_ADA_RAW.json` and `harness/ADA_HOLDOUT_5X_RAW.json`
 are from an earlier exploratory evaluation (6 and 4 tasks, a 600 s budget, Ada at commit

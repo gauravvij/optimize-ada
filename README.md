@@ -132,15 +132,14 @@ commits.
 | Published | What was wrong | What it measures when run properly |
 |---|---|---|
 | Phase A: 27/81 → **59/81** | Assembled from 50 carried-over passes plus a re-run of only the 31 failures. Withdrawn. | Fresh and whole on one day: **54/81** against the origin build's **34/81** (R7 vs R5) |
-| Phase B: time hints 52/81 against 24/81, net +28, p = 7.66e-07 | The 24/81 control (R3) was a depressed run, measured hours before its candidate rather than alongside it; the same build scored 54/81 on 2026-09-12, 30 tasks better and none worse. Withdrawn. | Same-day: **54/81 → 50/81**, −4, p = 0.42 |
+| Phase B: time hints 52/81 against 24/81, net +28, p = 7.66e-07 | The 24/81 control (R3) was a depressed run, measured before its candidate rather than alongside it; the same build scored 54/81 on 2026-09-12, 30 tasks better and none worse. Withdrawn. | Same-day: **54/81 → 50/81**, −4, p = 0.42 |
 
 Both failed the same way: a comparison whose arms were not measured together. The harness
 moved 30 tasks on the same build between one run and the next. The campaign's rule became
 **same-day paired arms**, and every run is indexed by ID in
 [`bench/RUN_REGISTRY.md`](bench/RUN_REGISTRY.md) so that no document can name "the control"
-without naming which run it was. The re-check below found that R3 most likely ran on the same
-day as its candidate, eight hours earlier, so the rule that actually protects a result is the
-stricter one the confirmation run followed: both arms running at the same time.
+without naming which run it was. The confirmation run went
+further: both of its arms ran at the same time.
 
 ### Outside SetupBench
 
@@ -175,10 +174,7 @@ shipped build is unchanged. Ledger: [`bench/PHASE_C_SUMMARY.md`](bench/PHASE_C_S
 ### 1. Read the failures
 
 Ada, running `z-ai/glm-5.3-flash` through OpenRouter, lost **53 of 81** SetupBench tasks to
-timeouts on the first full run (R1, 27/81), and the grader never saw any of them. The
-campaign's report describes the typical shape: minutes of competent work, then a `sleep 300`
-poll or a fresh debugging tangent with seconds left, and a hard kill. According to the record,
-the budget was stated once at the start and never updated.
+timeouts on the first full run (R1, 27/81), and the grader never saw any of them.
 
 ### 2. Phase A — stop the kill (2026-09-08 → 09-10)
 
@@ -193,10 +189,8 @@ fix is real and ships. Phase A's pass-rate headline was not, and is withdrawn ab
 
 ### 3. Phase B — let the agent see the clock (2026-09-10 → 09-12)
 
-Two prompt-level ideas came first and failed. A precise "definition of done" section (T1.1)
-converted none of the ten failures it targeted and ships default off. Cutting the model's
-thinking was a dead end before any evaluation money was spent: the gateway rejects
-`thinking: disabled` and the SDK path never forwards a thinking budget. The third idea (T1.2)
+A prompt-level idea came first and failed: a precise "definition of done" section (T1.1)
+converted none of the ten failures it targeted and ships default off. The next idea (T1.2)
 injected the remaining time before every model request. It was promoted on a control that
 turned out to be a depressed run, and then withdrawn.
 
@@ -222,7 +216,7 @@ convert them is still open.
 ## What re-measuring taught us
 
 **Your control is a measurement too.** The same build scored 24/81 and then 54/81 on the same
-tasks a day apart, with almost the same number of turns (1,544 against 1,554). The depressed
+tasks on different days, with almost the same number of turns (1,544 against 1,554). The depressed
 run was slower — the watchdog interrupted 63 of its runs against 34, and it took 23% longer in total — and
 nothing recorded says why. Every withdrawn headline in this campaign came from a comparison
 whose arms were not measured together. A p-value of 7.66e-07 on the
@@ -265,7 +259,7 @@ blog.md    the campaign as a story, for readers new to it
 | Raw per-task diagnostics for every run | `bench/diagnostics/` (baseline arms in `ada-baseline/`, watchdog-only arms in `ada-t01gateoff/`), `bench/p3_evidence/` |
 | Terminal-Bench trials | `bench/results-*/` |
 | The blog's two charts | `bench/figures/` — each SVG states its values in its `<desc>`, and `bench/verify_docs.py` checks them against the raw rows |
-| The harness | `bench/harness/setupbench_ada_runner.ts` (byte-identical to the runner every run recorded), `bench/harness/setupbench_ada_domain_eval.py` (a later revision: the exact evaluator versions that scored the runs, identified by `evaluator_sha256` in each run's protocol, were not kept) |
+| The harness | `bench/harness/setupbench_ada_runner.ts` (byte-identical to the runner every run recorded), `bench/harness/setupbench_ada_domain_eval.py` (not a version any run recorded: the exact evaluator versions that scored the runs, identified by `evaluator_sha256` in each run's protocol, were not kept) |
 
 ### How the builds resolve
 
@@ -293,14 +287,16 @@ git rev-parse --short=12 5f4c5c0:agent     # dab704de524a, the shipped agent tre
 
 The records name the shipped build by four commits that share the agent tree `dab704de524a`:
 `5f4c5c0` (the build), `1d82e56` (as measured in R9/R10, with later documentation), `32f4754`
-(the tag) and `c6f917e` (the same build in the byte-identical mirror workspace, removed during
-packaging; it is in the bundle on branch `p3-late-wrapup`). `bash bench/verify_builds.sh` runs
+(the tag) and `c6f917e` (the same agent tree, committed in a mirror workspace that packaging
+removed; it is in the bundle on branch `p3-late-wrapup`). `bash bench/verify_builds.sh` runs
 the recipe above and checks every build the records name.
 
-One build cannot be rebuilt from history. The origin arm of R9/R10 ran as `417a8f1`, which is
-`df0c537` plus a runner shim committed in a workspace since removed. Its agent tree,
+One build cannot be rebuilt from history. The origin arm of R9/R10 ran as `417a8f1`, which the
+records describe as `df0c537` with its runner shim committed. R1 and R5 ran `df0c537` with one
+uncommitted file, `agent/system-guidance.ts`; R9/R10 record `417a8f1` with none. Its agent tree,
 `df8a18c09278`, is pinned in the diagnostics and asserted by
-`bench/baseline_vs_best_verify.py`, but the commit itself is not in the bundle.
+`bench/baseline_vs_best_verify.py`, but the commit itself is not in the bundle, so the shim
+cannot be compared byte for byte.
 
 ---
 
@@ -324,7 +320,7 @@ withdrawn number appears in this README, the blog or the record without being ma
 withdrawn. The integrity check confirms every archived run's row count, pass count and recorded
 build. They need only Python 3.
 
-Packaging on 2026-09-18 removed regenerable bulk: the SetupBench task-input cache (3.1 GB),
+Packaging on 2026-09-18 removed regenerable bulk: the SetupBench task-input cache,
 the variant tarballs, and the local SetupBench checkout. Re-running an evaluation needs
 [microsoft/SetupBench](https://github.com/microsoft/SetupBench) at `041a412` in
 `bench/harness/setupbench/`, Docker, and an OpenRouter key. The driver scripts in `bench/`
@@ -342,11 +338,11 @@ their original text, with a dated re-check banner at the top of each that points
 
 | The record says | The raw data shows |
 |---|---|
-| R3, the withdrawn control, ran on 2026-09-10 (its run ID is `20260910T0728Z`), so the +28 compared runs from different days | R3 records commit `6672af8`, which was created at 07:24 UTC on **2026-09-11**, four minutes before R3's start time; on the machine that ran it, its driver log (`bench/t04_control_run.log`) was last written at 10:01 that day, which matches its summed task time (file times are not preserved in git, so that part cannot be checked from a clone; the commit time can, from the bundle). R3 almost certainly ran on 2026-09-11, the same day as R4, about eight hours earlier. The comparison is still withdrawn: its arms were not run together, and the same build scored 54/81 the next day. |
+| R3, the withdrawn control, ran on 2026-09-10 (its run ID is `20260910T0728Z`), so the +28 compared runs from different days | R3 records commit `6672af8`, whose commit time in `bench/ada-campaign.bundle` is 07:24 UTC on **2026-09-11**, the day after the date in its run ID. Which day R3 ran is therefore uncertain. The comparison stays withdrawn either way: its arms were not run together, and the same build scored 54/81 on 2026-09-12. |
 | R3 and R7 did "identical work" | Almost identical turns (1,544 against 1,554), but the watchdog interrupted 63 of R3's runs against 34, and R3 took 23% longer in total. |
 | Phase C found "zero 480 s clock-outs", so the Bash clamp (P2) and install hook (P4) had nothing to fix | No run was killed by the harness, but the watchdog interrupted 28 of the shipped build's 41 failures in the P3 run, and 8 of 17 failures in the 960 s probe. P2 was only ever measured inside the time-hints bundle, and P4 never ran; neither has been tested alone. |
 | Phase C's "17 hard clock-outs" (`bench/PHASE_C_SUMMARY.md`) | These are the budget probe's 17 valid failures: the watchdog interrupted 8 of them, and 9 finished and failed grading. |
-| R2's 43 zero-turn rows came from the interrupt path | They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills (commit `6672af8`'s message). R2 ran on 2026-09-09, before `08a8d5d` existed. |
+| R2's 43 zero-turn rows came from the interrupt path | They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills (commit `6672af8`'s message). |
 | R10a had 40 zero-turn rows (`bench/RUN_REGISTRY.md`) | 41, in both the raw diagnostics and `bench/BASELINE_VS_BEST_20260915T0825Z.json`. |
 | Terminal-Bench compared arms under one protocol | The origin arm ran on 2026-09-07 and `08a8d5d` on 2026-09-10 — a cross-day comparison. |
 | Packaging (2026-09-18) only moved and repointed files | It also rewrote one path field, `incumbent_source`, in the raw file `bench/diagnostics/manual/remaining81_final_failures31.json`. That file is restored to its original bytes; every other packaging change is listed in `bench/packaging-20260918/changes.diff`. |

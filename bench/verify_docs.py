@@ -101,8 +101,8 @@ claim("blog", "byte-identical to the one in `bench/harness/` in every run", all(
       "protocol.runner_sha256 vs sha256(setupbench_ada_runner.ts)")
 claim("readme", "byte-identical to the runner every run recorded", all(p["runner_sha256"] == runner for p in conf),
       "protocol.runner_sha256 vs sha256(setupbench_ada_runner.ts)")
-claim("both", "a later revision", all(p["evaluator_sha256"] != evaluator for p in conf),
-      "protocol.evaluator_sha256 vs sha256(setupbench_ada_domain_eval.py)")
+claim("both", {"blog": "matches none of the versions the runs recorded", "readme": "not a version any run recorded"},
+      evaluator not in {proto(p).get("evaluator_sha256") for p in P.values()}, "every run's protocol.evaluator_sha256 vs sha256(setupbench_ada_domain_eval.py)")
 ev = (B / "harness/setupbench_ada_eval.py").read_text()
 claim("blog", "timed out: the grader never runs",
       "if not timed_out:" in ev and ev.index("if not timed_out:") < ev.index('task["success_command"]'), "setupbench_ada_eval.py")
@@ -187,7 +187,7 @@ ci = json.loads((B / "T12_REM81_PAIRED_ANALYSIS.json").read_text())["statistics"
 claim("blog", "95% confidence interval ran from +19 to +48 points", ci[0] > 0 and (round(100 * ci[0]), round(100 * ci[1])) == (19, 48),
       "T12_REM81_PAIRED_ANALYSIS.json statistics.newcombe_95ci_diff")
 r3commit = json.loads((B / P["R3"]).read_text())["workspace_commit"]
-claim("blog", "the commit it records was only created at 07:24 UTC on 2026-09-11", r3commit.startswith("6672af8"),
+claim("readme", "whose commit time in `bench/ada-campaign.bundle` is 07:24 UTC on **2026-09-11**", r3commit.startswith("6672af8"),
       "R3 workspace_commit (its commit time: bash bench/verify_builds.sh)")
 claim("readme", "R3 records commit `6672af8`", r3commit.startswith("6672af8"), "R3 workspace_commit")
 _, _, b, g, l, p = pair(R3, R7)
@@ -315,7 +315,7 @@ claim("blog", "![Where the 162 runs of each build went](bench/figures/runs-by-ou
 claim("blog", f"Origin: {fmt(o)}. Shipped: {fmt(s_)}.", True, "caption, same values as the <desc>")
 claim("blog", "54 more runs fail after grading and 31 more pass", (s_["failed"] - o["failed"], s_["passed"] - o["passed"]) == (54, 31), "R9/R10 rows")
 claim("blog", "![The control moved more than the change](bench/figures/control-moved.svg)",
-      desc("control-moved.svg") == f"Hours apart, 2026-09-11: control R3 {passed(R3)}, candidate R4 {passed(R4)}, net {net(R3, R4):+d}. "
+      desc("control-moved.svg") == f"Separate runs: control R3 {passed(R3)}, candidate R4 {passed(R4)}, net {net(R3, R4):+d}. "
                                    f"Same day, 2026-09-12: control R7 {passed(R7)}, candidate R8 {passed(R8)}, net {net(R7, R8):+d}.",
       "control-moved.svg <desc> vs R3 R4 R7 R8 rows")
 claim("blog", "the watchdog build scored 24 and the time-hints build 52: +28 net", (passed(R3), passed(R4), net(R3, R4)) == (24, 52, 28), "R3, R4")
@@ -354,14 +354,11 @@ _, _, _, g37, l37, _ = pair(R3, R7)
 claim("readme", "The 24/81 control (R3) was a depressed run", passed(R3) == 24 and depressed, "R3, R7 rows")
 claim("readme", "moved 30 tasks on the same build between one run and the next", (g37, l37) == (30, 0), "R3 -> R7")
 claim("readme", "the +28 compared runs from different days", net(R3, R4) == 28, "R3 -> R4")
-claim("readme", "the same build scored 54/81 the next day", passed(R7) == 54, "R7 rows")
-claim("readme", "last written at 10:01 that day, which matches its summed task time",
-      proto(P["R3"])["concurrency"] == 4 and abs(7 * 60 + 28 + secs(R3) / 4 / 60 - (10 * 60 + 1)) < 10,
-      "R3: start 07:28 (run ID) plus summed task time over 4 slots")
+claim("readme", "its arms were not run together, and the same build scored 54/81 on 2026-09-12", passed(R7) == 54 and "20260912" in P["R7"], "R7 rows")
 claim("blog", "The withdrawn result's 24/81 was a control run of the watchdog build (R3)", passed(R3) == 24 and r3commit.startswith("6672af8"), "R3 rows")
 claim("blog", "The 24/81 control was a depressed run", passed(R3) == 24 and depressed, "R3, R7 rows")
 claim("blog", "A control that moves 30 tasks on its own cannot anchor a claim of 28", (g37, l37, net(R3, R4)) == (30, 0, 28), "R3 -> R7, R3 -> R4")
-claim("blog", "the same build scored 24/81 and 54/81 a day apart", (passed(R3), passed(R7)) == (24, 54), "R3, R7 rows")
+claim("blog", "the same build scored 24/81 and 54/81 on different days", (passed(R3), passed(R7)) == (24, 54) and "20260912" in P["R7"], "R3, R7 rows")
 claim("blog", "The withdrawn comparison had p = 7.66e-07", f"{pair(R3, R4)[5]:.2e}" == "7.66e-07", "R3 -> R4")
 z2_killed = sum(bool(r["timed_out"]) and r["grader_returncode"] is None for r in z2) == 2
 claim("readme", "and 2 hung until the harness killed them", r2_ok and z2_killed, "R2 zero-turn rows")
@@ -385,6 +382,10 @@ claim("readme", "Phase C found \"zero 480 s clock-outs\"", "zero 480 s clock-out
 claim("readme", "Phase C's \"17 hard clock-outs\"", "17 hard clock-outs" in summary_c and len(bf) == 17, "PHASE_C_SUMMARY.md; budget probe failures")
 claim("blog", "thinking tokens took up to 93% of its output", "thinking tokens consuming up to 93% of output" in (ROOT / "ada/REPORT.md").read_text(),
       "ada/REPORT.md, the record it cites")
+origin_runs = [json.loads((B / P[k]).read_text()) for k in ("R1", "R5", "R9a", "R10a")]
+claim("readme", "R1 and R5 ran `df0c537` with one uncommitted file, `agent/system-guidance.ts`; R9/R10 record `417a8f1` with none",
+      [(j["workspace_commit"][:7], j["changed_paths"]) for j in origin_runs]
+      == [("df0c537", ["agent/system-guidance.ts"])] * 2 + [("417a8f1", [])] * 2, "R1 R5 R9a R10a workspace_commit, changed_paths")
 claim("blog", "taken here from the smoke test with its 120-second budget", "budget=120000ms" in smoke, "t12_smoke_a1_log.txt")
 claim("readme", "These are the budget probe's 17 valid failures", bp_ok, "budget probe failures")
 claim("readme", "R2's 43 zero-turn rows", r2_ok, "R2 zero-turn rows")

@@ -1,16 +1,14 @@
 # Run registry — every scored SetupBench `remaining81` run on disk
 
 > **Re-check — 2026-09-18.** This registry is left as written below. Checked against the raw rows,
-> three things in it do not hold:
+> three things in it are wrong or cannot be confirmed:
 >
-> - R3 is dated 2026-09-10 here, but it records commit `6672af8`, which was created at 07:24 UTC on
->   2026-09-11. R3 most likely ran that morning, the same day as R4 and about eight hours before it.
->   "Only same-day pairings" would not have caught that pairing; what protects a comparison is
->   running both arms at the same time, as R9/R10 did.
+> - R3 is dated 2026-09-10 here, from its run ID, but the commit it records, `6672af8`, is dated
+>   07:24 UTC on 2026-09-11. Which day R3 ran is uncertain.
 > - R10a has 41 zero-turn rows, not 40.
-> - Footnote ⁴, cited for `417a8f1`, is not defined. `417a8f1` is `df0c537` plus the runner shim
->   `systemPromptGuidance`, committed in the baseline workspace that packaging removed. It is not in
->   `ada-campaign.bundle`; its agent tree, `df8a18c09278`, is pinned in the R9a/R10a diagnostics.
+> - Footnote ⁴, cited for `417a8f1`, is not defined. The build table describes `417a8f1` as `df0c537`
+>   with the runner shim `systemPromptGuidance` committed. It is not in `ada-campaign.bundle`, so
+>   that cannot be checked byte for byte; its agent tree, `df8a18c09278`, is pinned in the R9a/R10a diagnostics.
 >
 > The evidence for each point is in the repository README, under "Re-checked against the raw data".
 

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 348" width="760" height="348" role="img" aria-labelledby="title desc">
 <title id="title">The control moved more than the change</title>
-<desc id="desc">Hours apart, 2026-09-11: control R3 24, candidate R4 52, net +28. Same day, 2026-09-12: control R7 54, candidate R8 50, net -4.</desc>
+<desc id="desc">Separate runs: control R3 24, candidate R4 52, net +28. Same day, 2026-09-12: control R7 54, candidate R8 50, net -4.</desc>
 <style>
   text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
   .surface { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .ink2 { fill: #52514e; } .grid { stroke: #e4e3df; }
@@ -27,7 +27,7 @@
 <text class="ink2" x="54" y="164.1" font-size="11" text-anchor="end">60</text>
 <line class="grid" x1="64" y1="118.1" x2="736" y2="118.1" stroke-width="1"/>
 <text class="ink2" x="54" y="122.1" font-size="11" text-anchor="end">80</text>
-<text class="ink" x="244" y="84" font-size="13" font-weight="600" text-anchor="middle">Hours apart, 2026-09-11</text>
+<text class="ink" x="244" y="84" font-size="13" font-weight="600" text-anchor="middle">Separate runs</text>
 <text class="ink2" x="244" y="101" font-size="11" text-anchor="middle">R3 → R4 · the result since withdrawn</text>
 <line class="l1" x1="154" y1="235.6" x2="334" y2="176.9" stroke-width="2" stroke-linecap="round"/>
 <circle class="s1 ring" cx="154" cy="235.6" r="5" stroke-width="2"/>
@@ -47,5 +47,5 @@
 <text class="ink2" x="682" y="202.1" font-size="12">−4 net</text>
 <text class="ink2" x="490" y="306" font-size="11" text-anchor="middle">control</text>
 <text class="ink2" x="670" y="306" font-size="11" text-anchor="middle">candidate</text>
-<text class="ink2" x="24" y="332" font-size="12">Both controls are the same watchdog build (6672af8): it passed 24 tasks on 2026-09-11 and 54 on 2026-09-12.</text>
+<text class="ink2" x="24" y="332" font-size="12">Both controls are the same watchdog build (6672af8): it passed 24 tasks in R3 and 54 in R7.</text>
 </svg>

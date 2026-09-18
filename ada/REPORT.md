@@ -1,9 +1,9 @@
 # The Watchdog That Worked, and the Clock That Didn't
 
 > **Re-check — 2026-09-18.** This narrative is left as written below. It says the control behind
-> the withdrawn time-hints result was a stored run from the previous day. That control, R3, most
-> likely ran on the morning of 2026-09-11, the same day as its candidate: hours earlier rather than
-> alongside it. The evidence for each point is in the repository README, under "Re-checked against the raw data".
+> the withdrawn time-hints result was a stored run from the previous day. That day is uncertain:
+> R3's run ID says 2026-09-10, but the commit it records is dated 2026-09-11. Either way it was not
+> run alongside its candidate. The evidence for each point is in the repository README, under "Re-checked against the raw data".
 
 > **This is the narrative account of the campaign.** Every figure in it is restated with
 > its statistics, its caveats and its artifact path in [`RESULTS.md`](RESULTS.md), which is
