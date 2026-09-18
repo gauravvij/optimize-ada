@@ -1,0 +1,690 @@
+# Packaging record, 2026-09-18.
+# Unified diff from each file's pre-packaging copy (old/) to the published file (new/).
+# Packaging repointed paths from the removed autoresearcher workspaces to bench/diagnostics/,
+# regenerated the analysis JSONs (numbers identical, timestamps and paths changed) and added
+# the Versions table to ada/RESULTS.md. One raw file it edited,
+# bench/diagnostics/manual/remaining81_final_failures31.json (the incumbent_source path),
+# has been restored to its original bytes, so it shows no difference below.
+
+--- old/ada/RESULTS.md
++++ new/ada/RESULTS.md
+@@ -4,17 +4,35 @@
+ >
+ > This file records what was changed, what was measured, and what the measurements do and
+ > do not support, for the optimization of **Ada**, a TypeScript coding agent
+-> (`ada/`, mirrored at `autoresearcher/targets/ada/`) running `z-ai/glm-5.3-flash` through
++> (`ada/`, the canonical repository) running `z-ai/glm-5.3-flash` through
+ > OpenRouter on `@anthropic-ai/claude-agent-sdk`, graded by official task checkers in
+ > Docker on **SetupBench** (81 software-setup tasks) and **Terminal-Bench 2.0** (40 public
+ > tasks).
+ >
+ > Every number below traces to an artifact on disk. The narrative companion to this file is
+-> [`REPORT.md`](REPORT.md). The working roadmap with the full evidence table lives at
+-> the campaign root, one level above this tree (`../fina_run.md`).
++> [`REPORT.md`](REPORT.md). The working roadmap (`fina_run.md`) that governed the campaign
++> was removed during final packaging (2026-09-18); its rules and verdicts are recorded in
++> this file, [`REPORT.md`](REPORT.md), and `../bench/RUN_REGISTRY.md`.
+ 
+ ---
+ 
++## Versions — the canonical lineage
++
++This repository is the single canonical tree since 2026-09-18 (the former byte-identical
++mirror was removed then; both pointed at agent tree `dab704de524a`). Every build below
++resolves in this repo via `git rev-parse`.
++
++| Role | Commit | Agent tree (`git rev-parse <c>:agent`) | Same-day score | Disposition |
++|---|---|---|---|---|
++| Campaign origin (baseline) | `df0c537` | `6ec0446cfc7d` | 34/81 (R5) | measured anchor |
++| + T0.1 watchdog | `6672af8` | `7958654244eb` | **54/81** (R7) | kept — the evidence-supported mechanism |
++| + T1.2 time-awareness bundle | `2e495bb` | `4267fee64dcc` | 50/81 (R8) | **promotion withdrawn** — ships default off |
++| **Shipped build** (= tag `ada-best-61pct-20260916` → this repo @ `32f4754`) | `5f4c5c0` | `dab704de524a` | **98/157 pooled** (R9+R10) | **SHIPPED** |
++| P3 late wrap-up (rejected candidate) | branch `p3-late-wrapup` @ `9f2e34d` | `811a16e4a67e` | +2 pooled on FAILING25, p = 0.6875 | **REJECTED — REVERT**; branch preserved in this repo |
++
++The shipped build is `2e495bb` with both T1.2 gates flipped default off, so its runtime
++behaviour is `6672af8`'s; it was measured under its own name in R9/R10.
++
+ ## Baseline vs shipped build — head to head
+ 
+ Everything in this table comes from the 2026-09-15 confirmation run (**R9 + R10**): the same
+@@ -113,7 +131,8 @@
+ killed mid-replicate-1 at 8/25 partial rows) — that data is excluded and must not be quoted.
+ 
+ **Disposition.** The shipped best is unchanged: tag `ada-best-61pct-20260916`
+-(`autoresearcher/targets/ada` @ `c6f917e`, agent tree `dab704de524a`, clean). Doubling the
++(this repository @ `32f4754`, agent tree `dab704de524a`, clean; the byte-identical former
++mirror — historical pin `c6f917e` — was removed 2026-09-18). Doubling the
+ budget converts only 7/25 of the failure pool, and the one mechanism-level candidate that
+ targeted the interrupted population moved +2 — inside the noise floor (p = 0.69). The
+ remaining gap on this model is capability, not scaffolding. Full ledger with run IDs:
+@@ -178,8 +197,9 @@
+ 
+ ## Build lineage
+ 
+-Both trees (`ada/` and `autoresearcher/targets/ada/`) are byte-identical mirrors; commits
+-listed as `targets/ada / ada`.
++Historically the build lived in two byte-identical trees; the mirror was removed on
++2026-09-18 and this repository (`ada/`) is canonical. Commits below are listed as
++`ada / former-mirror`.
+ 
+ | Commit(s) | What | Verdict |
+ |---|---|---|
+@@ -195,7 +215,7 @@
+ 
+ ## The paired evaluation ladder (T1.2), as run — and as it now reads
+ 
+-Protocol (`../fina_run.md` §3): paired arms, identical conditions (480 s task / 600 s grader,
++Protocol (campaign spec §3, `fina_run.md` — removed 2026-09-18): paired arms, identical conditions (480 s task / 600 s grader,
+ concurrency 4, seed 20260907), exact McNemar on the flip table, Newcombe 95% CI, early stop
+ if a rung is negative, promotion only on **no significant regression AND ≥ +3 net conversions
+ on remaining81**. Control arm: the T0.1 build @ `6672af8`.
+@@ -321,7 +341,8 @@
+ - **Machine-checked reporting**: `../bench/ctrl_vs_t12_verify.py` re-derives every figure in
+   the settled result and the run registry from the raw diagnostics, recomputes exact McNemar
+   independently, and asserts that the withdrawn numbers are not quoted live in this document
+-  or any other. `../bench/final_verify_final81.py` covers the Phase A archive.
++  or any other. `../bench/harness/archive_integrity_check.py` covers the archived runs
++  (it supersedes the former `final_verify_final81.py`, removed during packaging).
+ - **Security**: all five shipped tarballs were rebuilt without `./.env` (a live API key was
+   previously shipped into every task container); 0 `.env` entries verified in each.
+ 
+@@ -346,7 +367,7 @@
+ - [x] Efficiency results and accuracy results reported separately, never blended.
+ - [x] Every run named by an ID from `../bench/RUN_REGISTRY.md`.
+ - [x] Both trees byte-identical; evidence committed in both with mirror messages.
+-- [x] `../bench/ctrl_vs_t12_verify.py` and `../bench/final_verify_final81.py` both green.
++- [x] `../bench/ctrl_vs_t12_verify.py` and `../bench/harness/archive_integrity_check.py` both green.
+ - [x] Known deviations from protocol recorded rather than buried — and the one that mattered
+       (cross-day arms) is now the stated reason the promotion was withdrawn.
+ 
+@@ -379,21 +400,21 @@
+ 
+ | Item | Path |
+ |---|---|
+-| Working roadmap + full evidence table + verdicts | `../fina_run.md` |
+-| R9/R10 raw diagnostics, baseline arms | `../autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/20260915T0825Z-r{1,2}-base/0.json` |
+-| R9/R10 raw diagnostics, shipped arms | `../autoresearcher/targets/ada/.autoresearch/diagnostics/20260915T0825Z-r{1,2}-best/0.json` |
++| Working roadmap (removed 2026-09-18; rules recorded in `../bench/RUN_REGISTRY.md` and this file) | — |
++| R9/R10 raw diagnostics, baseline arms | `../bench/diagnostics/ada-baseline/20260915T0825Z-r{1,2}-base/0.json` |
++| R9/R10 raw diagnostics, shipped arms | `../bench/diagnostics/20260915T0825Z-r{1,2}-best/0.json` |
+ | **Index of all eight runs, and which pairings are legitimate** | `../bench/RUN_REGISTRY.md` |
+ | **The settled comparison, in full** | `../bench/CTRL_VS_T12_REPORT.md` |
+-| R7 control `6672af8`, raw diagnostics | `../autoresearcher/targets/ada-t01gateoff/.autoresearch/diagnostics/20260912T1603Z-t04ctrl2/0.json` |
+-| R8 candidate `2e495bb`, raw diagnostics | `../autoresearcher/targets/ada/.autoresearch/diagnostics/20260912T1603Z-t12cand2/0.json` |
+-| R5 baseline `df0c537`, raw diagnostics | `../autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/20260912T1031Z-frem81base/0.json` |
+-| R3, the depressed control behind the withdrawn +28 | `../autoresearcher/targets/ada/.autoresearch/diagnostics/20260910T0728Z-t04ctrl/0.json` |
+-| R4, the withdrawn promoted candidate | `../autoresearcher/targets/ada/.autoresearch/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json` |
++| R7 control `6672af8`, raw diagnostics | `../bench/diagnostics/ada-t01gateoff/20260912T1603Z-t04ctrl2/0.json` |
++| R8 candidate `2e495bb`, raw diagnostics | `../bench/diagnostics/20260912T1603Z-t12cand2/0.json` |
++| R5 baseline `df0c537`, raw diagnostics | `../bench/diagnostics/ada-baseline/20260912T1031Z-frem81base/0.json` |
++| R3, the depressed control behind the withdrawn +28 | `../bench/diagnostics/20260910T0728Z-t04ctrl/0.json` |
++| R4, the withdrawn promoted candidate | `../bench/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json` |
+ | T1.1 negative-result analysis | `../bench/T11_DEV12_PAIRED_ANALYSIS.json` |
+ | The 2026-09-12 morning run, R5/R6 (noise floor, confounded baseline) | `../bench/FRESH_REM81_REPORT.md`, `../bench/FRESH_REM81_PAIRED_ANALYSIS.json` |
+ | Its analysis + machine verification (55/55, exit 0) | `../bench/fresh_rem81_analysis.py`, `../bench/fresh_rem81_verify.py` |
+ | External Terminal-Bench analysis (n=38) | `../bench/FINAL40_PAIRED_ANALYSIS.json` |
+ | Machine verification of the settled result + run registry (exit 0) | `../bench/ctrl_vs_t12_verify.py` |
+-| Machine verification of the Phase A archive (exit 0) | `../bench/final_verify_final81.py` |
+-| Superseded Phase A reports, each banner-marked | `../archive/` |
++| Machine verification of the archived runs (exit 0) | `../bench/harness/archive_integrity_check.py` |
++| Superseded Phase A reports | removed during final packaging (2026-09-18); superseded by this file and `../bench/` reports |
+ | Narrative companion | `REPORT.md` |
+\ No newline at end of file
+--- old/ada/evidence/t12/CTRL_VS_T12_PAIRED_ANALYSIS.json
++++ new/ada/evidence/t12/CTRL_VS_T12_PAIRED_ANALYSIS.json
+@@ -17,13 +17,13 @@
+       "commit": "6672af8",
+       "workspace": "targets/ada-t01gateoff",
+       "log": "bench/ctrl_vs_t12_control.log",
+-      "diagnostics": "autoresearcher/targets/ada-t01gateoff/.autoresearch/diagnostics/20260912T1603Z-t04ctrl2/0.json"
++      "diagnostics": "bench/diagnostics/ada-t01gateoff/20260912T1603Z-t04ctrl2/0.json"
+     },
+     "candidate": {
+       "commit": "2e495bb",
+       "workspace": "targets/ada",
+       "log": "bench/ctrl_vs_t12_candidate.log",
+-      "diagnostics": "autoresearcher/targets/ada/.autoresearch/diagnostics/20260912T1603Z-t12cand2/0.json"
++      "diagnostics": "bench/diagnostics/20260912T1603Z-t12cand2/0.json"
+     }
+   },
+   "unevaluable_trials": {
+--- old/bench/BUDGET_PROBE_REPORT.md
++++ new/bench/BUDGET_PROBE_REPORT.md
+@@ -1,7 +1,7 @@
+ # Budget Probe Report
+ 
+ - Rule (pre-registered: >=12 pass = SLOW; 4-11 = MIXED; <=3 = HARD)
+-- Source: `autoresearcher/targets/ada/.autoresearch/diagnostics/budget-probe-20260916T0730Z`
++- Source: `bench/diagnostics/budget-probe-20260916T0730Z` (archived 2026-09-18 from the former autoresearcher workspace)
+ - Status: complete (25/25 rows)
+ - Passed: **7** / 25 rows (valid=24, timed_out=0)
+ 
+--- old/bench/CTRL_VS_T12_REPORT.md
++++ new/bench/CTRL_VS_T12_REPORT.md
+@@ -7,7 +7,8 @@
+ [`CTRL_VS_T12_PAIRED_ANALYSIS.json`](CTRL_VS_T12_PAIRED_ANALYSIS.json), and independently
+ machine-checked by `python3 bench/ctrl_vs_t12_verify.py` (94 assertions, exit 0).
+ 
+-**In one line:** this is the run [`fina_run.md`](../fina_run.md) §7 marked REQUIRED, and it
++**In one line:** this is the run the campaign roadmap §7 (`fina_run.md`, working doc
++removed during final packaging 2026-09-18) marked REQUIRED, and it
+ settles the campaign's headline in the downward direction — against a control run on the
+ **same day**, the promoted T1.2 time-awareness bundle scores **50/81 against 54/81, a net of
+ −4 at p = 0.42**, not the **+28 at p = 7.66e-07** that was published and is hereby withdrawn.
+@@ -39,7 +40,8 @@
+ 
+ **R7 → R8 is the whole point of this run.** `2e495bb` is `6672af8` plus the T1.2 bundle and
+ nothing else, both arms scored the same day under one driver, so the time hints are the sole
+-variable. The pre-registered promotion rule (`fina_run.md` §3 rule 4) was *no significant
++variable. The pre-registered promotion rule (campaign spec §3 rule 4, `fina_run.md` — removed
++2026-09-18; rule restated in `RUN_REGISTRY.md` and `ada/RESULTS.md`) was *no significant
+ regression **and** ≥ +3 net conversions on remaining81*. The measurement is **−4**.
+ 
+ > **Verdict: the T1.2 promotion is withdrawn.** Not because the change is harmful — 14
+@@ -153,7 +155,7 @@
+ | driver log rows match diagnostics rows per task, both arms | ✅ |
+ | pass 54 / 50 and turns 1554 / 1389 agree across log summary and diagnostics summary | ✅ |
+ | exact McNemar recomputed independently via `scipy.stats.binomtest` | ✅ p = 0.424 |
+-| preflight: `targets/ada-t01gateoff` `agent/` == `6672af8`, `targets/ada` `agent/` == `2e495bb` | ✅ in driver log |
++| preflight: control worktree `agent/` == `6672af8`, candidate worktree `agent/` == `2e495bb` (worktrees removed 2026-09-18; diagnostics archived under `bench/diagnostics/`) | ✅ in driver log |
+ | resource guard: peak swap 899 M, min available 3115 M, worst `docker ps` 375 ms | ✅ no contention |
+ | `terminal_result` present on all 162 rows; zero `turns=0` rows | ✅ T0.1 holding |
+ 
+@@ -224,8 +226,8 @@
+ |---|---|
+ | Driver, status, resource log | [`run_ctrl_vs_t12.sh`](run_ctrl_vs_t12.sh), `ctrl_vs_t12_STATUS`, `ctrl_vs_t12_driver.log`, `ctrl_vs_t12_memory.log` |
+ | Per-task logs, both arms | `ctrl_vs_t12_control.log`, `ctrl_vs_t12_candidate.log` |
+-| Raw diagnostics, control R7 | `../autoresearcher/targets/ada-t01gateoff/.autoresearch/diagnostics/20260912T1603Z-t04ctrl2/0.json` |
+-| Raw diagnostics, candidate R8 | `../autoresearcher/targets/ada/.autoresearch/diagnostics/20260912T1603Z-t12cand2/0.json` |
++| Raw diagnostics, control R7 | `diagnostics/ada-t01gateoff/20260912T1603Z-t04ctrl2/0.json` |
++| Raw diagnostics, candidate R8 | `diagnostics/20260912T1603Z-t12cand2/0.json` |
+ | Analysis → JSON | [`ctrl_vs_t12_analysis.py`](ctrl_vs_t12_analysis.py) → [`CTRL_VS_T12_PAIRED_ANALYSIS.json`](CTRL_VS_T12_PAIRED_ANALYSIS.json) |
+ | Machine verification of this document | [`ctrl_vs_t12_verify.py`](ctrl_vs_t12_verify.py) |
+ | Canonical index of all eight runs | [`RUN_REGISTRY.md`](RUN_REGISTRY.md) |
+--- old/bench/FRESH_REM81_REPORT.md
++++ new/bench/FRESH_REM81_REPORT.md
+@@ -39,8 +39,8 @@
+ 
+ | arm | build | workspace | artifact |
+ |---|---|---|---|
+-| 1 | `df0c537` — campaign-origin baseline | `targets/ada-baseline` | `fresh_rem81_baseline.log`, diagnostics `20260912T1031Z-frem81base/0.json` |
+-| 2 | `2e495bb` — T1.2 time-awareness bundle | `targets/ada` | `fresh_rem81_best.log`, **no diagnostics** (see §2) |
++| 1 | `df0c537` — campaign-origin baseline | `ada-baseline` worktree (removed 2026-09-18; archived to `bench/diagnostics/ada-baseline/`) | `fresh_rem81_baseline.log`, diagnostics `20260912T1031Z-frem81base/0.json` |
++| 2 | `2e495bb` — T1.2 time-awareness bundle | `ada` worktree (former mirror, removed 2026-09-18; archived to `bench/diagnostics/`) | `fresh_rem81_best.log`, **no diagnostics** (see §2) |
+ 
+ Protocol: suite `remaining81`, concurrency 4, task timeout 480 s, grader timeout
+ 600 s, seed 20260907, model `z-ai/glm-5.3-flash`. Arm 1 ran 10:31–12:51 UTC, arm 2
+@@ -146,7 +146,8 @@
+ change verdict between two runs of byte-identical code.** Nine tasks that passed on
+ Sep-11 failed on Sep-12; six did the reverse.
+ 
+-This upgrades `fina_run.md` **E11** from "±2–3 tasks on n=12" to a measured 20%
++This upgrades the campaign roadmap's **E11** estimate (`fina_run.md`, working doc
++removed during final packaging 2026-09-18) from "±2–3 tasks on n=12" to a measured 20%
+ per-task flip rate on n=74, and it sets the bar any future rung has to clear.
+ 
+ ## 6. The control behind the promoted claim does not hold up
+@@ -183,7 +184,7 @@
+ 1. The 2026-09-10 run was executed on a badly degraded day.
+ 2. `6672af8` carried a real defect that T1.2 later masked.
+ 
+-`fina_run.md` §6 already recorded this run as anomalous — 24/81 against the Sep-9
++The campaign roadmap (`fina_run.md` §6, removed 2026-09-18) already recorded this run as anomalous — 24/81 against the Sep-9
+ incumbent's 50/81 on nearly the same lineage — called it "E11 writ large", and then made
+ it the anchor for everything after, on the grounds that it was fresh. Freshness is not
+ soundness. `df0c537`'s healthy 31/33 on Sep-12 is consistent with the Sep-9 incumbent and
+@@ -234,8 +235,8 @@
+ |---|---|
+ | Analysis JSON (all contrasts, 74 per-task rows) | `bench/FRESH_REM81_PAIRED_ANALYSIS.json` |
+ | Script that produced it | `bench/fresh_rem81_analysis.py` |
+-| Arm 1 log / diagnostics | `bench/fresh_rem81_baseline.log`, `autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/20260912T1031Z-frem81base/0.json` |
++| Arm 1 log / diagnostics | `bench/fresh_rem81_baseline.log`, `bench/diagnostics/ada-baseline/20260912T1031Z-frem81base/0.json` |
+ | Arm 2 log (no diagnostics) | `bench/fresh_rem81_best.log` |
+ | Memory guard trace | `bench/fresh_rem81_memory.log` |
+ | Driver + status | `run_rem81.sh` (session scratchpad), `bench/fresh_rem81_STATUS`, `bench/fresh_rem81_driver.log` |
+-| Stored comparators | `…/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json`, `…/diagnostics/20260910T0728Z-t04ctrl/0.json` |
++| Stored comparators | `bench/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json`, `bench/diagnostics/20260910T0728Z-t04ctrl/0.json` |
+--- old/bench/P3_P2_PREREGISTRATION.md
++++ new/bench/P3_P2_PREREGISTRATION.md
+@@ -2,26 +2,28 @@
+ 
+ Written BEFORE any candidate spend. No candidate results had been observed at the
+ time of writing (the only completed measurement is the budget probe, whose verdict
+-MIXED / 7-of-25 is the trigger for this spend, per improvements.md §9 step 3).
++MIXED / 7-of-25 is the trigger for this spend, per the campaign headroom analysis §9 step 3 — working doc `improvements.md`
++removed during final packaging 2026-09-18; the trigger rule is recorded in
++bench/PHASE_C_SUMMARY.md §2).
+ 
+ ## Measured pool
+ 
+ `bench/FAILING25.txt` — the 25 SetupBench tasks that failed in BOTH R9/R10
+ replicates on the shipped arm (derived mechanically from
+ `.autoresearch/diagnostics/20260915T0825Z-r{1,2}-best/0.json`, cross-checked
+-against improvements.md §2). Development evidence only; no generalization claim
++against the campaign headroom analysis §2 (`improvements.md`, removed 2026-09-18)). Development evidence only; no generalization claim
+ is made from this pool. Any promotion is confirmed on remaining81 (Subtask 7).
+ 
+ ## Budget probe verdict (the gate to this spend)
+ 
+-MIXED: 7/25 passed at 960 s (24 valid, 0 timeouts). Rule (pre-registered in
+-plans/plan.md): >=12 SLOW, 4-11 MIXED, <=3 HARD. MIXED means: take the
++MIXED: 7/25 passed at 960 s (24 valid, 0 timeouts). Rule (pre-registered in the campaign plan, `plans/plan.md`, removed 2026-09-18):
++>=12 SLOW, 4-11 MIXED, <=3 HARD. MIXED means: take the
+ efficiency work for the subset that converted; still run P3 but expect a
+ smaller pool. Full table: `bench/BUDGET_PROBE_REPORT.md`.
+ 
+ ## P3 — wrap-up instruction fired late (run FIRST)
+ 
+-**Intent (improvements.md §5 P3):** fire the wrap-up directive only after ~80%
++**Intent (campaign headroom analysis §5 P3 — `improvements.md`, removed 2026-09-18):** fire the wrap-up directive only after ~80%
+ of the budget is consumed, so it structurally cannot touch tasks that finish
+ early. Delivery: "no new code, only a default and a gate flip" in
+ `agent/claude/agent.ts`.
+@@ -74,7 +76,7 @@
+ - Measured command: domain eval with `--tasks-file bench/FAILING25.txt`,
+   480 s task timeout, 600 s grader, concurrency 2, seed 20260907.
+ - Baseline arm = shipped build (agent tree dab704de524a, tag ada-best-61pct-20260916).
+-- Diagnostics land in `targets/ada/.autoresearch/diagnostics/<run_id>/` with
++- Diagnostics land in `bench/diagnostics/<run_id>/` with
+   attempt-number suffixes so repetitions do not overwrite each other.
+ - Gate decision is applied manually from the diagnostics (the loop's internal
+   gate is a coarse maximize; the pre-registered pooled-net rule above governs).
+\ No newline at end of file
+--- old/bench/P3_PAIRED_REPORT.md
++++ new/bench/P3_PAIRED_REPORT.md
+@@ -9,7 +9,8 @@
+   `ada-p3` worktree was removed 2026-09-18 after its diagnostics were archived to
+   `bench/p3_evidence/` — the branch is preserved in the repo as the experiment record
+ - Unit tests: 18/18; no new `tsc` errors
+-- Shipped arm: `targets/ada` @ `ada-best-61pct-20260916` (commit `c6f917e`,
++- Shipped arm: `ada/` @ `ada-best-61pct-20260916` (former mirror commit `c6f917e` —
++  historical pin, mirror removed 2026-09-18;
+   agent tree `dab704de524a`), `agent/` clean throughout
+ 
+ ## Run
+--- old/bench/PHASE_C_SUMMARY.md
++++ new/bench/PHASE_C_SUMMARY.md
+@@ -12,8 +12,8 @@
+ 
+ | Item | Value |
+ |---|---|
+-| Tag (both trees: `ada/` and `autoresearcher/targets/ada/`) | `ada-best-61pct-20260916` |
+-| `autoresearcher/targets/ada` commit | `c6f917e` |
++| Tag (canonical tree `ada/`) | `ada-best-61pct-20260916` |
++| Former mirror commit (historical pin; mirror removed 2026-09-18) | `c6f917e` |
+ | Agent tree (`agent/`) | `dab704de524a` — clean for the entire phase |
+ | What it is | the R9/R10-confirmed build: T0.1 watchdog, both T1.2 gates default off (98/157 vs baseline 67/157, p = 7.92e-09) |
+ 
+@@ -27,12 +27,14 @@
+   shipped build, one arm, concurrency 1, 960 s task budget (double the standard 480 s),
+   600 s grader, seed 20260907.
+ - **Result:** **7 / 25 rows passed** (24 valid, 0 timeouts; 1 invalid row excluded).
+-- **Pre-registered rule** (fixed in `plans/plan.md` before spend): >= 12 pass -> SLOW;
++- **Pre-registered rule** (fixed in the campaign plan before spend; `plans/plan.md` was
++  removed during final packaging 2026-09-18 — the rule is recorded here and in
++  `bench/P3_P2_PREREGISTRATION.md`): >= 12 pass -> SLOW;
+   4-11 pass -> MIXED; <= 3 pass -> HARD. 7 falls in 4-11 -> **MIXED**.
+ - **Reading:** doubling the budget converts only 7 of 25 consistent failures. The pool is
+   not merely time-starved; most of it is hard for this model at any budget tested.
+ - **Artifacts:** `bench/BUDGET_PROBE_REPORT.md` (per-task table),
+-  `autoresearcher/targets/ada/.autoresearch/diagnostics/budget-probe-20260916T0730Z/`.
++  `bench/diagnostics/budget-probe-20260916T0730Z/`.
+ 
+ Per the MIXED branch of the rule, efficiency work proceeded for the converting subset —
+ P3 was run; P2 and P4 were subsequently dropped on evidence (§4).
+@@ -84,7 +86,7 @@
+ **Artifacts:** `bench/P3_PAIRED_REPORT.md` (full close-out),
+ `bench/P3_PAIRED_20260917T0602Z.json` (machine analysis of record),
+ `bench/p3_paired_20260917T0602Z_{driver,memory,r1_shipped,r1_p3,r2_shipped,r2_p3}.log`,
+-diagnostics under `targets/ada/.autoresearch/diagnostics/20260917T0602Z-r{1,2}-shipped/`
++diagnostics under `bench/diagnostics/20260917T0602Z-r{1,2}-shipped/`
+ and (P3 arm, archived 2026-09-18) `bench/p3_evidence/20260917T0602Z-r{1,2}-p3/`.
+ 
+ ### Voided run (do not quote)
+@@ -116,7 +118,8 @@
+ 
+ ## 5. P5 — verification stop-hook: DEFERRED
+ 
+-Per `plans/plan.md`, P5 runs only if the clock pool is exhausted AND the declare-done
++Per the campaign plan (`plans/plan.md`, removed during final packaging 2026-09-18),
++P5 runs only if the clock pool is exhausted AND the declare-done
+ pool (4 tasks) is the largest remaining. The clock pool is now measured as mostly hard
+ (probe MIXED 7/25), which puts P5's 4-task pool next in line, but it was never reached
+ this phase. **No spend was made; no decision was taken beyond deferral.**
+@@ -133,7 +136,8 @@
+   prompt-level changes are inert and the one shipped gain came from fixing the harness's
+   treatment of the agent.
+ - **Honest ceiling, revised:** the 17 hard clock-outs are not reachable by scaffolding
+-  on this model at any budget tested; the §9 ceiling estimate in `improvements.md`
++  on this model at any budget tested; the §9 ceiling estimate in the campaign headroom analysis
++  (`improvements.md`, removed during final packaging 2026-09-18)
+   drops accordingly.
+ 
+ ## 7. Ledger of record
+@@ -146,6 +150,6 @@
+ 
+ Cross-references: run index and legitimate pairings — `bench/RUN_REGISTRY.md` (Phase C
+ section); probe detail — `bench/BUDGET_PROBE_REPORT.md`; P3 close-out —
+-`bench/P3_PAIRED_REPORT.md`; pre-registrations — `bench/P3_P2_PREREGISTRATION.md`,
+-`plans/plan.md`; campaign record — `ada/RESULTS.md` (Phase C section); headroom
+-analysis — `improvements.md` (§0).
++`bench/P3_PAIRED_REPORT.md`; pre-registrations — `bench/P3_P2_PREREGISTRATION.md` (the campaign
++plan and headroom working docs were removed during final packaging 2026-09-18);
++campaign record — `ada/RESULTS.md` (Phase C section).
+--- old/bench/RUN_REGISTRY.md
++++ new/bench/RUN_REGISTRY.md
+@@ -18,10 +18,15 @@
+ 
+ | Build | What it adds | Trees |
+ |---|---|---|
+-| **`df0c537`** (committed as `417a8f1`) | campaign origin — no watchdog, no deadline anchor. `417a8f1` only commits the runner shim `systemPromptGuidance` that was uncommitted in this workspace since 2026-09-08 and present in R1 and R5. A task that overruns is **hard-killed** by the harness. | `targets/ada-baseline` |
+-| **`6672af8`** | **+ T0.1**: watchdog interrupt, container-anchored deadline, clean exit. Overruns become graded partial work instead of kills. | `targets/ada-t01gateoff` |
+-| **`2e495bb`** | **+ T1.2**: time hints before every model request, wrap-up instruction, Bash timeout clamp. | `targets/ada` |
+-| **`5f4c5c0`** (measured as `1d82e56`) | **the shipped build**: `2e495bb` with both T1.2 gates flipped **default off**, so no hooks are registered and behaviour is `6672af8`'s. `1d82e56` is the same agent tree with later docs commits on top (`agent_tree` `dab704de524a` in both). | `targets/ada` |
++| **`df0c537`** (committed as `417a8f1` ⁴) | campaign origin — no watchdog, no deadline anchor. `417a8f1` only commits the runner shim `systemPromptGuidance` that was uncommitted in this workspace since 2026-09-08 and present in R1 and R5. A task that overruns is **hard-killed** by the harness. | archived: `bench/diagnostics/ada-baseline/` |
++| **`6672af8`** | **+ T0.1**: watchdog interrupt, container-anchored deadline, clean exit. Overruns become graded partial work instead of kills. | archived: `bench/diagnostics/ada-t01gateoff/` |
++| **`2e495bb`** | **+ T1.2**: time hints before every model request, wrap-up instruction, Bash timeout clamp. | archived: `bench/diagnostics/` |
++| **`5f4c5c0`** (measured as `1d82e56`) | **the shipped build**: `2e495bb` with both T1.2 gates flipped **default off**, so no hooks are registered and behaviour is `6672af8`'s. `1d82e56` is the same agent tree with later docs commits on top (`agent_tree` `dab704de524a` in both). | archived: `bench/diagnostics/` |
++
++The build workspaces formerly under the autoresearcher tree were removed during final
++packaging (2026-09-18); their run diagnostics are archived under `bench/diagnostics/`
++and the builds themselves are pinned by commit in `ada/` (see `ada/RESULTS.md`
++§Versions).
+ 
+ `2e495bb` is `6672af8` plus T1.2 and nothing else, so **`6672af8` → `2e495bb` is the only
+ contrast in which the time-awareness bundle is the sole variable.**
+--- old/bench/TB_REPORT.md
++++ new/bench/TB_REPORT.md
+@@ -13,7 +13,15 @@
+ | **Baseline** | git commit `df0c537` (agent files restored from `git show df0c537`) | `bench/ada-baseline.tgz` |
+ | **Optimized ("best")** | current working tree (`agent/claude/agent.ts` +15, `agent/system-guidance.ts` +29/−10) | `bench/ada-best.tgz` |
+ 
+-The two variants differ in **exactly** those two files (verified with `diff -rq`); everything else (node_modules, runner script, model, tasks, timeout policy) is identical. Run results: `bench/results-baseline/2026-09-07__14-32-12/`, `bench/results-best/2026-09-07__15-40-57/`.
++The two variants differ in **exactly** those two files (verified with `diff -rq`); everything else (node_modules, runner script, model, tasks, timeout policy) is identical.
++
++> **Packaging note (2026-09-18):** the variant tarballs (`bench/ada-baseline.tgz`,
++> `bench/ada-best.tgz`) were removed during final packaging. Regenerate the baseline
++> from git with `git -C ada archive df0c537 | gzip > bench/ada-baseline.tgz`;
++> `ada-best.tgz` was a working-tree snapshot whose retained changes are in the shipped
++> tag `ada-best-61pct-20260916`. The TB result directories referenced below are kept.
++
++Run results: `bench/results-baseline/2026-09-07__14-32-12/`, `bench/results-best/2026-09-07__15-40-57/`.
+ 
+ ---
+ 
+--- old/bench/TB_REPORT_40.md
++++ new/bench/TB_REPORT_40.md
+@@ -9,6 +9,13 @@
+ | best (prior 10-task run) | `bench/ada-best.tgz` | working tree: `agent/claude/agent.ts` + `agent/system-guidance.ts` (short-horizon) | — |
+ | **best2 (this run)** | `bench/ada-best2.tgz` | working tree + budget-adaptive `agent/system-guidance.ts` | vs `ada-best.tgz`: **exactly** `agent/system-guidance.ts` |
+ 
++> **Packaging note (2026-09-18):** the variant tarballs (`bench/ada-baseline.tgz`,
++> `bench/ada-best.tgz`, `bench/ada-best2.tgz`) were removed during final packaging.
++> Regenerate the baseline from git with `git -C ada archive df0c537 | gzip >
++> bench/ada-baseline.tgz`; the best/best2 snapshots' retained changes are in the
++> shipped tag `ada-best-61pct-20260916`. The TB result directories referenced below
++> are kept.
++
+ **Budget-adaptive guidance under test:** `systemGuidance()` reads `ADA_RUNNER_TIMEOUT_MS` (default 115000). Budget ≤ 300000 ms → byte-identical original short-horizon string. Budget > 300000 ms → long-budget variant stating the real time budget, Bash timeout scaled to `min(120000, budget/6)` ms, sustained commands allowed, efficiency wins kept, long-horizon discipline section. All 40 tasks here have agent timeouts 750–3600 s → `runner_cap_ms` 690000–3540000 → all runs used the **long-budget guidance** in the best2 arm (identical harness/env for both arms).
+ 
+ **Results provenance**
+--- old/bench/ada_agent.py
++++ new/bench/ada_agent.py
+@@ -17,6 +17,11 @@
+ (git-committed df0c537 agent state); ``--ak variant=best`` installs
+ bench/ada-best.tgz (working tree with retained autoresearcher changes).
+ ``--ak ada_tarball=/path/to.tgz`` overrides the tarball directly.
++
++Packaging note (2026-09-18): the default tarballs under bench/ were removed during
++final packaging. Regenerate with `git -C ada archive <commit> | gzip > bench/ada-<variant>.tgz`
++(baseline `df0c537`, shipped `5f4c5c0`) and pass ``--ak ada_tarball=...``, or point
++DEFAULT_TARBALLS at your own builds.
+ """
+ 
+ from __future__ import annotations
+--- old/bench/harness/FINAL81_PAIRED_ANALYSIS.json
++++ new/bench/harness/FINAL81_PAIRED_ANALYSIS.json
+@@ -5,9 +5,9 @@
+     "conditions": "480s task / 600s grader / concurrency 4 / z-ai/glm-5.3-flash via OpenRouter / node v24.19.0 / seed 20260907",
+     "final81_assembly": "/home/azureuser/adaAgent/autoresearcher/examples/FINAL81_RESULT_SET.json",
+     "artifacts": {
+-      "final_build_fresh31": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_final_failures31.json",
+-      "prior_incumbent_sep9": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json",
+-      "stored_baseline": "/home/azureuser/adaAgent/autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/manual/remaining81_baseline.json"
++      "final_build_fresh31": "/home/azureuser/adaAgent/bench/diagnostics/manual/remaining81_final_failures31.json",
++      "prior_incumbent_sep9": "/home/azureuser/adaAgent/bench/diagnostics/manual/remaining81_incumbent.json",
++      "stored_baseline": "/home/azureuser/adaAgent/bench/diagnostics/ada-baseline/manual/remaining81_baseline.json"
+     }
+   },
+   "primary_vs_stored_baseline": {
+--- old/bench/harness/FINAL81_RESULT_SET.json
++++ new/bench/harness/FINAL81_RESULT_SET.json
+@@ -9,14 +9,14 @@
+     "statement": "The 50 tasks the Sep-9 incumbent passed are carried over unchanged; only the 31 prior failures were re-run fresh on the final build (user directive, time-saving).",
+     "drift_evidence": {
+       "sep10_dev12_gate_final_build": {
+-        "artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/dev12_retryoptin.json",
++        "artifact": "/home/azureuser/adaAgent/bench/diagnostics/manual/dev12_retryoptin.json",
+         "passed": 6,
+         "total": 12,
+         "timeouts": 0,
+         "turns": 111
+       },
+       "prior_incumbent_dev12_gate": {
+-        "artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/dev12_iteration2.json",
++        "artifact": "/home/azureuser/adaAgent/bench/diagnostics/manual/dev12_iteration2.json",
+         "passed": 6,
+         "total": 12,
+         "timeouts": 0,
+--- old/bench/harness/POOLED81_PAIRED_ANALYSIS.json
++++ new/bench/harness/POOLED81_PAIRED_ANALYSIS.json
+@@ -5,14 +5,14 @@
+     "components": {
+       "validation12_pair": {
+         "n": 12,
+-        "incumbent_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/validation12_iteration2.json",
+-        "baseline_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/manual/validation12_iteration2.json",
++        "incumbent_artifact": "/home/azureuser/adaAgent/bench/diagnostics/manual/validation12_iteration2.json",
++        "baseline_artifact": "/home/azureuser/adaAgent/bench/diagnostics/ada-baseline/manual/validation12_iteration2.json",
+         "run_date": "2026-09-09 (iteration-2, both arms same-day, identical conditions)"
+       },
+       "remaining81_nonoverlap_pair": {
+         "n": 69,
+-        "incumbent_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json",
+-        "baseline_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/manual/remaining81_baseline.json",
++        "incumbent_artifact": "/home/azureuser/adaAgent/bench/diagnostics/manual/remaining81_incumbent.json",
++        "baseline_artifact": "/home/azureuser/adaAgent/bench/diagnostics/ada-baseline/manual/remaining81_baseline.json",
+         "note": "remaining81 = 93 minus dev-12; contains all 12 validation-12 tasks, which are excluded here to avoid double counting"
+       }
+     },
+--- old/bench/run_bvb_rep2_parallel.sh
++++ new/bench/run_bvb_rep2_parallel.sh
+@@ -10,15 +10,21 @@
+ #   soft  avail < 2500M while replicate 1 still runs -> kill replicate 2 only; it re-runs
+ #         from scratch once replicate 1 has finished. Replicate 1 and other jobs keep going.
+ # Usage: run_bvb_rep2_parallel.sh <rep1 baseline eval pid> <rep1 best eval pid>
++#
++# HISTORICAL RECORD (2026-09-18): this driver was executed 2026-09-15 from the
++# former autoresearcher tree, which was removed during final packaging. It is kept
++# as the as-run record of how R9/R10 replicate 2 was launched and is not
++# re-runnable as-is; the relocated harness lives in bench/harness/ (see
++# bench/REPLICATION.md). Paths below are repointed to the archived layout.
+ set -uo pipefail
+-ROOT=/home/azureuser/adaAgent; B=$ROOT/bench; T=$ROOT/autoresearcher/targets
++ROOT=/home/azureuser/adaAgent; B=$ROOT/bench; T=$ROOT/bench/diagnostics
+ TS=20260915T0825Z
+ STATUS=$B/baseline_vs_best_STATUS; MEMLOG=$B/baseline_vs_best_${TS}_memory.log
+ OURS='name=^setupbench-ada-'
+ REP1_PIDS="$*"; R2_PIDS=""; SHED=0; REP1_LOGGED=0
+ exec >> "$B/baseline_vs_best_${TS}_driver.log" 2>&1
+ 
+-cd "$ROOT/autoresearcher"
++cd "$ROOT/bench/harness"  # relocated harness home (was the former autoresearcher tree)
+ set -a; . ./.env; set +a
+ export ANTHROPIC_AUTH_TOKEN="${ANTHROPIC_AUTH_TOKEN:-$OPENROUTER_API_KEY}"
+ 
+@@ -29,7 +35,7 @@
+   R2_PIDS=""
+   for spec in "ada-baseline-r2 base baseline" "ada-r2 best best"; do set -- $spec
+     AUTORESEARCH_RUN_ID=${TS}-r2-$2 AUTORESEARCH_EXPERIMENT_NUMBER=0 \
+-      .venv/bin/python examples/setupbench_ada_domain_eval.py remaining81 --workspace "targets/$1" --concurrency 1 \
++      python3 setupbench_ada_domain_eval.py remaining81 --workspace "$ROOT/ada" --concurrency 1 \
+       > "$B/baseline_vs_best_${TS}_r2_$3.log" 2>&1 &
+     R2_PIDS="$R2_PIDS $!"
+   done
+@@ -60,11 +66,11 @@
+ wait
+ echo "REP_2_DONE $(date -u)" | tee -a "$STATUS"
+ 
+-# The analysis reads replicate diagnostics from the original workspaces.
+-for spec in "ada-baseline-r2 ada-baseline base" "ada-r2 ada best"; do set -- $spec
+-  src="$T/$1/.autoresearch/diagnostics/${TS}-r2-$3/0.json"; dst="$T/$2/.autoresearch/diagnostics/${TS}-r2-$3"
+-  [ -f "$src" ] && mkdir -p "$dst" && cp "$src" "$dst/0.json" || echo "MISSING $src"
+-done
++# The analysis reads replicate diagnostics from the archived layout.
++# (Post-packaging note 2026-09-18: replicate-2 diagnostics are archived at
++#  bench/diagnostics/ada-baseline/20260915T0825Z-r2-base/ and
++#  bench/diagnostics/20260915T0825Z-r2-best/ — the former worktree copy step is
++#  obsolete and removed.)
+ echo "=== analysis ==="
+ python3 "$B/baseline_vs_best_analysis.py" "$TS" 2
+ echo "COMPLETE ts=$TS $(date -u)" >> "$STATUS"
+--- old/bench/t12_append_tests.py
++++ new/bench/t12_append_tests.py
+@@ -1,6 +1,8 @@
+ #!/usr/bin/env python3
+ """Append T1.2 hook-gating test groups to agent/claude/agent.test.ts."""
+-PATH = "/home/azureuser/adaAgent/autoresearcher/targets/ada/agent/claude/agent.test.ts"
++# Historical one-shot edit script (T1.2 tests, now committed at 2e495bb in ada/).
++# Path repointed to the canonical repo during final packaging 2026-09-18.
++PATH = "/home/azureuser/adaAgent/ada/agent/claude/agent.test.ts"
+ 
+ TESTS = r'''
+ // ---------------------------------------------------------------------------
+--- old/bench/t12_apply_edits.py
++++ new/bench/t12_apply_edits.py
+@@ -11,7 +11,9 @@
+ """
+ import sys
+ 
+-PATH = "/home/azureuser/adaAgent/autoresearcher/targets/ada/agent/claude/agent.ts"
++# Historical one-shot edit script (T1.2 wiring, now committed at 2e495bb in ada/).
++# Path repointed to the canonical repo during final packaging 2026-09-18.
++PATH = "/home/azureuser/adaAgent/ada/agent/claude/agent.ts"
+ 
+ with open(PATH, encoding="utf-8") as f:
+     src = f.read()
+--- old/bench/task-selection-40.md
++++ new/bench/task-selection-40.md
+@@ -54,5 +54,5 @@
+ 
+ ## Reuse plan
+ 
+-- **Baseline (ada-baseline.tgz, df0c537):** run the 30 NEW tasks into `bench/results-baseline-40/`; reuse the 10 original trials from `bench/results-baseline/2026-09-07__14-32-12`.
+-- **Best2 (ada-best2.tgz):** run all 40 into `bench/results-best2-40/`; the 8 pilot trials (`bench/results-best2-pilot/2026-09-07__17-56-49`) are reusable for their tasks (identical conditions: variant=best2, -n 4, same runner_cap_ms per task) — merged explicitly in the final report.
++- **Baseline (ada-baseline.tgz [removed 2026-09-18; regenerate via `git -C ada archive df0c537 | gzip > bench/ada-baseline.tgz`], df0c537):** run the 30 NEW tasks into `bench/results-baseline-40/`; reuse the 10 original trials from `bench/results-baseline/2026-09-07__14-32-12`.
++- **Best2 (ada-best2.tgz [removed 2026-09-18; regenerate from the shipped tag]):** run all 40 into `bench/results-best2-40/`; the 8 pilot trials (`bench/results-best2-pilot/2026-09-07__17-56-49`) are reusable for their tasks (identical conditions: variant=best2, -n 4, same runner_cap_ms per task) — merged explicitly in the final report.
+--- old/bench/CTRL_VS_T12_PAIRED_ANALYSIS.json
++++ new/bench/CTRL_VS_T12_PAIRED_ANALYSIS.json
+@@ -9,7 +9,7 @@
+     "concurrency": 4,
+     "seed": 20260907,
+     "model": "z-ai/glm-5.3-flash",
+-    "generated_at": "2026-09-13T02:21:47.509306+00:00",
++    "generated_at": "2026-09-18T09:01:52.498873+00:00",
+     "reproduce": "python3 bench/ctrl_vs_t12_analysis.py"
+   },
+   "arms": {
+@@ -17,13 +17,13 @@
+       "commit": "6672af8",
+       "workspace": "targets/ada-t01gateoff",
+       "log": "bench/ctrl_vs_t12_control.log",
+-      "diagnostics": "autoresearcher/targets/ada-t01gateoff/.autoresearch/diagnostics/20260912T1603Z-t04ctrl2/0.json"
++      "diagnostics": "bench/diagnostics/ada-t01gateoff/20260912T1603Z-t04ctrl2/0.json"
+     },
+     "candidate": {
+       "commit": "2e495bb",
+       "workspace": "targets/ada",
+       "log": "bench/ctrl_vs_t12_candidate.log",
+-      "diagnostics": "autoresearcher/targets/ada/.autoresearch/diagnostics/20260912T1603Z-t12cand2/0.json"
++      "diagnostics": "bench/diagnostics/20260912T1603Z-t12cand2/0.json"
+     }
+   },
+   "unevaluable_trials": {
+--- old/bench/FRESH_REM81_PAIRED_ANALYSIS.json
++++ new/bench/FRESH_REM81_PAIRED_ANALYSIS.json
+@@ -9,7 +9,7 @@
+     "seed": 20260907,
+     "model": "z-ai/glm-5.3-flash",
+     "metric": "tasks passing the official SetupBench executable graders",
+-    "generated_at": "2026-09-12T18:24:25.852067+00:00",
++    "generated_at": "2026-09-18T09:01:52.538742+00:00",
+     "reproduce": "python3 bench/fresh_rem81_analysis.py"
+   },
+   "arms": {
+@@ -17,7 +17,7 @@
+       "commit": "df0c537",
+       "workspace": "targets/ada-baseline",
+       "log": "bench/fresh_rem81_baseline.log",
+-      "diagnostics": "autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/20260912T1031Z-frem81base/0.json",
++      "diagnostics": "bench/diagnostics/ada-baseline/20260912T1031Z-frem81base/0.json",
+       "raw": "34/81 pass, 45 timeouts, 750 turns, 0 invalid"
+     },
+     "fresh_t12": {
+--- old/bench/T12_DEV12_PAIRED_ANALYSIS.json
++++ new/bench/T12_DEV12_PAIRED_ANALYSIS.json
+@@ -5,14 +5,14 @@
+     "arm": "T1.2 time-awareness bundle (ADA_TIME_HINTS + ADA_BASH_CLAMP_REMAINING default ON, ADA_PROMPT_DOD default OFF)",
+     "workspace": "targets/ada",
+     "commit": "2e495bb9817bf47ca2a082660ce58b0dfa4d7bbf",
+-    "diagnostics": "targets/ada/.autoresearch/diagnostics/20260911T1348Z-t12dev12/dev12_t12_candidate.json",
++    "diagnostics": "bench/diagnostics/20260911T1348Z-t12dev12/dev12_t12_candidate.json",
+     "log": "bench/t12_dev12_candidate.log"
+   },
+   "gateoff": {
+     "arm": "T0.1 build (pre-T1.2; no time hooks exist structurally)",
+     "workspace": "targets/ada-t01gateoff (git worktree @ 6672af8)",
+     "commit": "6672af854dd9be6d3290d3959c74b95808d54eec",
+-    "diagnostics": "targets/ada-t01gateoff/.autoresearch/diagnostics/20260911T1348Z-t12dev12/dev12_t01_gateoff.json",
++    "diagnostics": "bench/diagnostics/ada-t01gateoff/20260911T1348Z-t12dev12/dev12_t01_gateoff.json",
+     "log": "bench/t12_dev12_gateoff.log"
+   },
+   "conditions": {
+--- old/bench/T12_REM81_PAIRED_ANALYSIS.json
++++ new/bench/T12_REM81_PAIRED_ANALYSIS.json
+@@ -5,14 +5,14 @@
+     "arm": "T1.2 time-awareness bundle (ADA_TIME_HINTS + ADA_BASH_CLAMP_REMAINING default ON, ADA_PROMPT_DOD default OFF)",
+     "workspace": "targets/ada",
+     "commit": "2e495bb9817bf47ca2a082660ce58b0dfa4d7bbf",
+-    "diagnostics": "targets/ada/.autoresearch/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json",
++    "diagnostics": "bench/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json",
+     "log": "bench/t12_rem81_candidate.log"
+   },
+   "control": {
+     "arm": "T0.4 fresh control (T0.1 build @ 6672af8, run 2026-09-10)",
+     "workspace": "targets/ada",
+     "commit": "6672af854dd9be6d3290d3959c74b95808d54eec",
+-    "diagnostics": "targets/ada/.autoresearch/diagnostics/20260910T0728Z-t04ctrl/0.json",
++    "diagnostics": "bench/diagnostics/20260910T0728Z-t04ctrl/0.json",
+     "log": "bench/t04_control_run.log",
+     "note": "stored fresh control reused per spec pairing definition (planner-approved); cross-day pairing (2026-09-10 control vs 2026-09-11 candidate) \u2014 flagged per E11"
+   },
+--- old/bench/T12_VAL12_PAIRED_ANALYSIS.json
++++ new/bench/T12_VAL12_PAIRED_ANALYSIS.json
+@@ -5,14 +5,14 @@
+     "arm": "T1.2 time-awareness bundle (ADA_TIME_HINTS + ADA_BASH_CLAMP_REMAINING default ON, ADA_PROMPT_DOD default OFF)",
+     "workspace": "targets/ada",
+     "commit": "2e495bb9817bf47ca2a082660ce58b0dfa4d7bbf",
+-    "diagnostics": "targets/ada/.autoresearch/diagnostics/20260911T1442Z-t12val12/val12_t12_candidate.json",
++    "diagnostics": "bench/diagnostics/20260911T1442Z-t12val12/val12_t12_candidate.json",
+     "log": "bench/t12_val12_candidate.log"
+   },
+   "gateoff": {
+     "arm": "T0.1 build (pre-T1.2; no time hooks exist structurally)",
+     "workspace": "targets/ada-t01gateoff (git worktree @ 6672af8)",
+     "commit": "6672af854dd9be6d3290d3959c74b95808d54eec",
+-    "diagnostics": "targets/ada-t01gateoff/.autoresearch/diagnostics/20260911T1442Z-t12val12/val12_t01_gateoff.json",
++    "diagnostics": "bench/diagnostics/ada-t01gateoff/20260911T1442Z-t12val12/val12_t01_gateoff.json",
+     "log": "bench/t12_val12_gateoff.log"
+   },
+   "conditions": {
