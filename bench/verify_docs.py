@@ -200,9 +200,11 @@ gf, lf = sum(not x["passed"] and y["passed"] for x, y in fp), sum(x["passed"] an
 split_to = (len(tp), sum(x["passed"] for x, _ in tp), sum(y["passed"] for _, y in tp),
             sum(y["passed"] and bool(y["agent_is_error"]) for _, y in tp), sum(y["passed"] and not y["agent_is_error"] for _, y in tp)) == (83, 0, 29, 18, 11)
 split_fin = (len(fp), sum(x["passed"] for x, _ in fp), sum(y["passed"] for _, y in fp), gf, lf, f"{mcnemar(lf, gf):.3f}") == (74, 67, 69, 3, 1, "0.625")
-claim("blog", "On the 83 paired runs where the origin build timed out, the shipped build passed 29. Of those, 18 passed after its watchdog stopped it, and 11 finished in time on their own",
+claim("blog", "Where the origin build timed out (83 pairs), it passed none, and the shipped build passed 29. In 18 of those 29 the watchdog stopped Ada and the check still passed; in the other 11, Ada finished in time on its own.",
       split_to, "R9 + R10 pairs, origin timed out")
-claim("blog", "On the 74 where the origin build was graded, the two builds passed 67 and 69 (p = 0.625)", split_fin, "R9 + R10 pairs, origin graded")
+claim("blog", "Where the origin build finished in time (74 pairs), both builds passed about the same number: 67 and 69.", split_fin, "R9 + R10 pairs, origin finished; p = 0.625")
+claim("blog", "The extra passes come from tasks the original build ran out of time on. On tasks it already finished in time, both builds did about equally well.",
+      split_to and split_fin and pool[:3] == [157, 67, 98], "R9 + R10 pairs split by the origin attempt")
 base = [r for X in (R9a, R10a) for r in X.values()]
 best = [r for X in (R9b, R10b) for r in X.values()]
 comp = lambda Z: (sum(bool(r["timed_out"]) for r in Z), sum(not r.get("valid", True) for r in Z), sum(r.get("valid", True) and not r["timed_out"] for r in Z))

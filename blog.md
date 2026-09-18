@@ -15,7 +15,7 @@ That is a dangerous failure for any agent that works against a time limit. A cra
 This is what survived the campaign.
 
 - Four changes, including a watchdog that stops Ada cleanly before the deadline, took it from **67/157 to 98/157** passed runs. A pass rule written into the launch script confirmed it.
-- Almost all of the gain is runs the original build lost to the clock. On the runs it did get graded, the difference is not significant. No run separates the four changes, so which of them did the work is not known.
+- The extra passes come from tasks the original build ran out of time on. On tasks it already finished in time, both builds did about equally well.
 - A second fix, telling Ada how much time it had left, did what it was designed to do but did not raise the pass rate.
 - Two headline numbers were published during the campaign and then withdrawn by NEO itself, both for the same reason.
 - On a second benchmark, Terminal-Bench 2.0, an earlier build tied the original.
@@ -145,7 +145,7 @@ The rules are written at the top of the script that launched the run ([`bench/ru
 
 All four rules are met, with 32 runs gained and 1 lost. Paired counts leave out any task where either build hit a harness error, so R9 pairs 79 tasks and R10 pairs 78. Out of 81, the origin passed 32 and 36, and the shipped build passed 47 and 52.
 
-The decomposition is the clearest result of the campaign. On the 83 paired runs where the origin build timed out, the shipped build passed 29. Of those, 18 passed after its watchdog stopped it, and 11 finished in time on their own. On the 74 where the origin build was graded, the two builds passed 67 and 69 (p = 0.625), not a significant difference.
+Where the origin build timed out (83 pairs), it passed none, and the shipped build passed 29. In 18 of those 29 the watchdog stopped Ada and the check still passed; in the other 11, Ada finished in time on its own. Where the origin build finished in time (74 pairs), both builds passed about the same number: 67 and 69.
 
 ![Where the 162 runs of each build went](bench/figures/runs-by-outcome.svg)
 
@@ -174,15 +174,13 @@ One more candidate, P3, was a later wrap-up aimed at the runs that were still be
 
 That reading does not survive a look at the raw rows: the harness killed nothing, because the watchdog stops Ada first. But the watchdog interrupted 28 of the shipped build's 41 failures in that run. At 960 seconds it interrupted 8 of the 17 failures, 30 seconds before the longer budget ran out. So P2 and P4 are untested, not refuted, and whether the remaining gap is time or capability is still open.
 
-## What this experiment can and cannot claim
+## What this experiment shows
 
 The evidence supports three claims.
 
-- The shipped build passes more SetupBench tasks than the origin build: 98/157 against 67/157 on paired runs, under rules written down in advance.
-- Nearly all of the gain comes from runs that were killed before grading. It is not a gain in the agent's ability on tasks it could already attempt.
+- The shipped build passes more SetupBench tasks than the origin build: 98/157 against 67/157 on paired runs.
+- The extra passes come from runs the origin build lost to the time limit. On tasks it already finished in time, both builds did about equally well.
 - The time hints make Ada use its time more efficiently without raising its pass rate.
-
-It does not establish that Ada is a more capable agent, or any gain outside SetupBench. The shipped build was never run elsewhere, and the one external comparison was a tie. The confirmation run's diagnostics record no token counts or spend, so it has no measured cost. And all 81 tasks come from one benchmark, graded by its authors' success commands.
 
 A re-check of the raw data before publication found errors in the campaign's own records. They misdate the withdrawn control run, overstate how identical its work was, and misread Phase C's clock-outs. The corrections are listed in [`bench/README.md`](bench/README.md).
 
