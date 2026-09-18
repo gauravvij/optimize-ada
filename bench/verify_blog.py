@@ -240,5 +240,39 @@ claim("28 of the shipped build's 41 failures in that run were stopped at the dea
 claim("8 of the 17 failures at 960 seconds still ran out of time", (sum(bool(r["agent_is_error"]) for r in bf), len(bf)) == (8, 17),
       "budget probe failures")
 
+# ------------------------------------------------------------------ the charts
+# The SVGs are published without the script that drew them; each one's <desc> states the
+# values it plots, so check those against the raw rows, and the captions against the same.
+import re
+
+
+def desc(name):
+    return re.search(r"<desc[^>]*>(.*?)</desc>", (B / "figures" / name).read_text(), re.S).group(1)
+
+
+def outcomes(*runs):
+    c = {"passed": 0, "failed": 0, "timeout": 0, "error": 0}
+    for R in runs:
+        for r in R.values():
+            k = "error" if not r.get("valid", True) else "timeout" if r["timed_out"] else "passed" if r["passed"] else "failed"
+            c[k] += 1
+    return c
+
+
+o, s_ = outcomes(R9a, R10a), outcomes(R9b, R10b)
+fmt = lambda c: f"{c['passed']} passed, {c['failed']} failed after grading, {c['timeout']} timed out, {c['error']} harness errors"
+claim("![Where the 162 runs of each build went](bench/figures/runs-by-outcome.svg)",
+      desc("runs-by-outcome.svg") == f"Origin df0c537: {fmt(o)}. Shipped 5f4c5c0: {fmt(s_)}.", "runs-by-outcome.svg <desc> vs R9/R10 rows")
+claim(f"Origin: {fmt(o)}. Shipped: {fmt(s_)}.", sum(o.values()) == sum(s_.values()) == 162, "caption vs R9/R10 rows")
+claim("54 more runs fail after grading and 31 more pass", (s_["failed"] - o["failed"], s_["passed"] - o["passed"]) == (54, 31),
+      "R9/R10 rows")
+nt = lambda a, b: pair(a, b)[3] - pair(a, b)[4]
+claim("![The control moved more than the change](bench/figures/control-moved.svg)",
+      desc("control-moved.svg") == f"Hours apart, 2026-09-11: control R3 {passed(R3)}, candidate R4 {passed(R4)}, net {nt(R3, R4):+d}. "
+                                   f"Same day, 2026-09-12: control R7 {passed(R7)}, candidate R8 {passed(R8)}, net {nt(R7, R8):+d}.",
+      "control-moved.svg <desc> vs R3 R4 R7 R8 rows")
+claim("the watchdog build scored 24 and the time-hints build 52: +28 net", (passed(R3), passed(R4), nt(R3, R4)) == (24, 52, 28), "R3, R4")
+claim("they scored 54 and 50: −4 net", (passed(R7), passed(R8), nt(R7, R8)) == (54, 50, -4), "R7, R8")
+
 print(f"\n{'ALL BLOG CLAIMS VERIFIED' if not FAILS else f'{len(FAILS)} CLAIM(S) FAILED'}")
 sys.exit(1 if FAILS else 0)

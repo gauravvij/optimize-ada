@@ -111,6 +111,10 @@ The time hints had not always looked like this. They were first reported — in 
 
 The withdrawn result's 24/81 was a control run of the watchdog build (R3), measured hours before the time-hints run it was compared with rather than alongside it. The campaign's record dates R3 to 2026-09-10, but the commit it records was only created at 07:24 UTC on 2026-09-11, four minutes before R3's start time, so it almost certainly ran that morning — the same day as its candidate. On 2026-09-12 the same build, on the same tasks, scored 54/81 — 30 tasks better and none worse, p = 1.9e-09 — with almost the same number of turns (1,544 against 1,554). The 24/81 control was a depressed run: it hit the deadline on 63 runs against 34 and ran 23% longer, and nothing recorded says why. A control that moves 30 tasks on its own cannot anchor a claim of 28.
 
+![The control moved more than the change](bench/figures/control-moved.svg)
+
+*Tasks passed out of 81. Hours apart on 2026-09-11, the watchdog build scored 24 and the time-hints build 52: +28 net, the result since withdrawn. On the same day, 2026-09-12, they scored 54 and 50: −4 net. The watchdog build is the control in both pairings.*
+
 The first headline to go was Phase A's: 27/81 to 59/81. That 59 was assembled from 50 passes carried over from earlier runs plus a re-run of only the 31 failures. Run fresh and whole on one day, the same line of builds scores 54/81 against the origin's 34/81. NEO withdrew that too.
 
 Both failures are the same failure: a comparison whose arms were not measured together. One carried scores across protocols; the other set a candidate against a control run hours earlier. After the second, NEO made same-day paired runs the only admissible evidence and built the run registry, so that no document can say "the control" without saying which run. The confirmation that followed went further, and ran both arms at the same time.
@@ -130,6 +134,10 @@ On 2026-09-15 it ran the origin build and the shipped build side by side, twice,
 All four rules are met. 32 runs were gained and 1 was lost.
 
 The decomposition is the clearest result of the campaign. On the 82 paired runs where the origin build recorded zero turns — almost all of them hard-killed at the deadline — the shipped build passed 28. On the 75 where the origin build ran, the two builds passed 67 and 70 — p = 0.375, not a significant difference.
+
+![Where the 162 runs of each build went](bench/figures/runs-by-outcome.svg)
+
+*Each bar is one build's 162 runs in the confirmation. Origin: 68 passed, 7 failed after grading, 84 timed out, 3 harness errors. Shipped: 99 passed, 61 failed after grading, 0 timed out, 2 harness errors. The orange block is the runs the grader never saw. In the shipped build it is gone: 54 more runs fail after grading and 31 more pass.*
 
 Here is everything the confirmation run measured, computed from its four raw result files (`python3 bench/confirmation_table.py` prints this table):
 

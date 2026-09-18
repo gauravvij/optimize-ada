@@ -251,6 +251,7 @@ blog.md    the campaign as a story, for readers new to it
 | The same-day ladder (R5 / R7 / R8) | `bench/CTRL_VS_T12_PAIRED_ANALYSIS.json` |
 | Raw per-task diagnostics for every run | `bench/diagnostics/` (baseline arms in `ada-baseline/`, watchdog-only arms in `ada-t01gateoff/`), `bench/p3_evidence/` |
 | Terminal-Bench trials | `bench/results-*/` |
+| The blog's two charts | `bench/figures/` — each SVG states its values in its `<desc>`, and `bench/verify_blog.py` checks them against the raw rows |
 | The harness | `bench/harness/setupbench_ada_runner.ts` (byte-identical to the runner every run recorded), `bench/harness/setupbench_ada_domain_eval.py` (a later revision: the exact evaluator versions that scored the runs, identified by `evaluator_sha256` in each run's protocol, were not kept) |
 
 ### How the builds resolve
