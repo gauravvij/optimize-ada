@@ -29,18 +29,25 @@ overran on 40 to 53 of the 81 tasks, depending on the run. Each overrun was hard
 deadline, and the grader never ran. The work it had done was lost.
 
 **The fix that held is a watchdog.** Anchor the deadline to the container's real start time,
-interrupt the agent before the external kill, and exit cleanly so the partial work gets
-graded. It changes nothing about the model and everything about whether its work is counted.
+interrupt the agent 30 seconds before the budget runs out (the 450-second mark on a 480-second
+task, `ADA_DEADLINE_MARGIN_MS` in `ada/agent/claude/agent.ts`), and exit cleanly so the
+partial work gets graded. Everywhere below, "interrupted by the watchdog" means that cut-off. It changes nothing about the model and everything about whether its work is counted.
 
-**It was confirmed on 2026-09-15** by a two-replicate run whose pass rule was fixed before any
-money was spent — the confirmation run R9/R10, both builds running side by side on one
-machine, nothing but the build differing:
+**It was confirmed on 2026-09-15** by a two-replicate run, R9/R10, with both builds running
+side by side on one machine and nothing but the build differing. Its pass rule is written at
+the top of the script that launched it (`bench/run_baseline_vs_best.sh`), and the run's log
+shows that script applying the rule when the run finished; no timestamped copy of the rule
+predates the run.
 
 | Replicate | n evaluable | origin `df0c537` | shipped `5f4c5c0` | Net | Exact McNemar |
 |---|---:|---:|---:|---:|---|
 | R9 | 79 | 31 | **47** | **+16** | p = 1.45e-04 |
 | R10 | 78 | 36 | **51** | **+15** | p = 6.10e-05 |
 | **Pooled** | **157** | **67** | **98** | **+31** | **p = 7.92e-09** |
+
+Paired counts leave out any task where either build hit a harness error, so R9 pairs 79 tasks
+and R10 pairs 78. Out of all 81, the origin build passed 32 and 36 and the shipped build 47 and
+52; those raw counts appear in the table below.
 
 All four pre-registered conditions are met: **67/157 → 98/157**, 32 gained and 1 lost.
 Almost all of the gain is runs the origin build lost to the clock. On the 82 paired runs where
@@ -69,22 +76,26 @@ build differs. Every cell is computed from the four raw diagnostics by
 | Tasks passed (162 runs) | 68 (42.0%) | **99 (61.1%)** | +31 tasks, +19.1 pts, +46% relative |
 | Paired result, evaluable runs | 67/157 | **98/157** | net +31, 32 gained / 1 lost, exact McNemar p = 7.92e-09 |
 | Per replicate (R9, R10) | 32/81, 36/81 | 47/81, 52/81 | paired +16 (p = 1.45e-04), +15 (p = 6.10e-05) |
-| **Timed out** — killed by the harness, never graded | 84 | **0** | −84 — this is the mechanism |
+| **Timed out**: killed by the harness, never graded | 84 | **0** | −84: this is the mechanism |
 | Runs recorded with zero turns | 86 | 3 | −83 (mostly the timeouts above) |
-| Interrupted at the deadline, then graded | — | 69 | the partial work now counts |
-| Turns, total | 1,386 | 2,825 | +104% — the agent actually gets to work |
+| Interrupted by the watchdog, then graded | 0 | 69 | the partial work now counts |
+| Turns, total | 1,386 | 2,825 | +104%: the agent actually gets to work |
 | Turns, median per task | 0 | 17 | the baseline's median run never took a turn |
 | Latency, mean per task | 406 s | **383 s** | −6% |
 | Latency, median per task | 485 s | 417 s | −14% |
-| Latency on tasks that passed | 313 s mean / 299 s median | 333 s mean / 313 s median | +6% — passing takes slightly longer |
+| Latency on tasks that passed | 313 s mean / 299 s median | 333 s mean / 313 s median | +6%: passing takes slightly longer |
 | Total wall time (162 runs) | 18.3 h | **17.2 h** | −6% |
-| Invalid rows (excluded from pairing) | 3 | 2 | — |
+| Invalid rows (excluded from pairing) | 3 | 2 | −1 |
 | Tasks still failing | 94/162 | 63/162 | −31 |
 | Cost | not captured | not captured | the R9/R10 diagnostics record no tokens or spend |
 
 The baseline's 86 zero-turn runs are 82 of its 84 timeouts, 3 harness errors and 1 run that was
 graded; its other 2 timeouts had recorded turns. The shipped build's 3 are 2 harness errors and
 1 graded run — none of its runs was killed by the clock.
+
+R1 to R8 ran four tasks at a time. R9/R10 ran one task at a time per build, with both builds and
+both replicates overlapping (replicate 2 started at 12:11 while replicate 1 ran until 17:42), so
+up to four containers ran at once, as before.
 
 **Where the +31 comes from.** Split the 157 paired runs by what the baseline did:
 
@@ -109,7 +120,7 @@ run, it scored 34/35 — the watchdog build lost one of them — and nothing bui
 improved on that.
 
 **The time hints are an efficiency result, not an accuracy result.** They do what they were
-designed to do: runs interrupted at the deadline 34 → 7, turns −10.6%, wall time −5.0%. They
+designed to do: runs interrupted by the watchdog 34 → 7, turns −10.6%, wall time −5.0%. They
 do not raise the pass rate (−4, p = 0.42, inside the noise floor), so they ship in the code
 **default off**. The shipped build `5f4c5c0` is `2e495bb` with both time-hint gates off,
 which makes its behaviour `6672af8`'s. It was measured directly in R9/R10 rather than
@@ -151,8 +162,10 @@ confirmation replicates are slow or hard. At twice the budget (960 s) it passes 
 p = 0.6875, and was rejected against its pre-registered gate. Two further candidates were
 dropped before any spend, on the reading that no runs were being cut off by the clock any
 more. The raw rows do not support that reading: the harness killed nothing, because the
-watchdog stops Ada first, but 28 of the shipped build's 41 failures in the P3 run were stopped
-at the deadline. Those two candidates are untested, not refuted. Nothing was promoted; the
+watchdog stops Ada first, but the watchdog interrupted 28 of the shipped build's 41 failures in
+the P3 run. P2, the Bash timeout clamp, was only ever measured inside the time-hints bundle
+(R7 → R8, −4) and never on its own; P4, the install hook, never ran. Neither has been tested
+alone. Nothing was promoted; the
 shipped build is unchanged. Ledger: [`bench/PHASE_C_SUMMARY.md`](bench/PHASE_C_SUMMARY.md).
 
 ---
@@ -194,8 +207,8 @@ the same harness. It is the only measurement in which the time hints are the sol
 
 ### 5. Confirm the build that ships
 
-A pre-registered two-replicate run on 2026-09-15 (R9/R10): both replicates complete with both
-diagnostics; each replicate net ≥ +10; at most 3 invalid rows per arm per replicate; pooled
+A two-replicate run on 2026-09-15 (R9/R10), under the rule at the top of
+`bench/run_baseline_vs_best.sh`: both replicates complete with both diagnostics; each replicate net ≥ +10; at most 3 invalid rows per arm per replicate; pooled
 exact McNemar p < 0.001. All four are met. **VERDICT: HOLDS.**
 
 ### 6. Look for what is left
@@ -210,7 +223,7 @@ convert them is still open.
 
 **Your control is a measurement too.** The same build scored 24/81 and then 54/81 on the same
 tasks a day apart, with almost the same number of turns (1,544 against 1,554). The depressed
-run was slower — 63 runs hit the deadline against 34, and it took 23% longer in total — and
+run was slower — the watchdog interrupted 63 of its runs against 34, and it took 23% longer in total — and
 nothing recorded says why. Every withdrawn headline in this campaign came from a comparison
 whose arms were not measured together. A p-value of 7.66e-07 on the
 withdrawn comparison was computed correctly; it answered whether those two particular runs
@@ -251,20 +264,22 @@ blog.md    the campaign as a story, for readers new to it
 | The same-day ladder (R5 / R7 / R8) | `bench/CTRL_VS_T12_PAIRED_ANALYSIS.json` |
 | Raw per-task diagnostics for every run | `bench/diagnostics/` (baseline arms in `ada-baseline/`, watchdog-only arms in `ada-t01gateoff/`), `bench/p3_evidence/` |
 | Terminal-Bench trials | `bench/results-*/` |
-| The blog's two charts | `bench/figures/` — each SVG states its values in its `<desc>`, and `bench/verify_blog.py` checks them against the raw rows |
+| The blog's two charts | `bench/figures/` — each SVG states its values in its `<desc>`, and `bench/verify_docs.py` checks them against the raw rows |
 | The harness | `bench/harness/setupbench_ada_runner.ts` (byte-identical to the runner every run recorded), `bench/harness/setupbench_ada_domain_eval.py` (a later revision: the exact evaluator versions that scored the runs, identified by `evaluator_sha256` in each run's protocol, were not kept) |
 
 ### How the builds resolve
 
 `ada/` is a snapshot of tag `ada-best-61pct-20260916` (commit `32f4754`, the shipped build
-`5f4c5c0` plus documentation). No agent code differs from that tag. Eight files do:
+`5f4c5c0` plus documentation). No agent code differs from that tag. Nine files do:
 
 - `ada/RESULTS.md`, and five scripts in `ada/evidence/`, edited during final packaging on
-  2026-09-18 to point at the archived evidence. The two verify scripts among them also find
+  2026-09-18 to point at the archived evidence. `ada/RESULTS.md` also carries a dated re-check
+  banner at the top. The two verify scripts among them also find
   the repository root themselves and check `blog.md` alongside this README.
 - `ada/evidence/t12/CTRL_VS_T12_PAIRED_ANALYSIS.json`, regenerated from the archived
   diagnostics during packaging. Only its timestamp and file paths changed; every number is
   identical.
+- `ada/REPORT.md`, which carries a dated re-check banner at the top; the text below it is unchanged.
 - `ada/scripts/probe-thinking.ts`, the thinking-budget probe, which was never committed.
 
 The campaign's own history — its commits, the three build branches and both tags the records
@@ -276,6 +291,12 @@ git fetch ../bench/ada-campaign.bundle 'refs/heads/*:refs/remotes/campaign/*' 'r
 git rev-parse --short=12 5f4c5c0:agent     # dab704de524a, the shipped agent tree
 ```
 
+The records name the shipped build by four commits that share the agent tree `dab704de524a`:
+`5f4c5c0` (the build), `1d82e56` (as measured in R9/R10, with later documentation), `32f4754`
+(the tag) and `c6f917e` (the same build in the byte-identical mirror workspace, removed during
+packaging; it is in the bundle on branch `p3-late-wrapup`). `bash bench/verify_builds.sh` runs
+the recipe above and checks every build the records name.
+
 One build cannot be rebuilt from history. The origin arm of R9/R10 ran as `417a8f1`, which is
 `df0c537` plus a runner shim committed in a workspace since removed. Its agent tree,
 `df8a18c09278`, is pinned in the diagnostics and asserted by
@@ -286,7 +307,7 @@ One build cannot be rebuilt from history. The origin arm of R9/R10 ran as `417a8
 ## Checking the numbers yourself
 
 ```bash
-python3 bench/verify_blog.py                        # every figure in blog.md, from the raw data
+python3 bench/verify_docs.py                        # every figure in blog.md and this README
 python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R10);   exit 0
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder + run registry; exit 0
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run (R5/R6); exit 0
@@ -294,8 +315,10 @@ python3 bench/harness/archive_integrity_check.py    # every archived diagnostic 
 python3 bench/confirmation_table.py                 # the full R9/R10 table, from the raw rows
 ```
 
-`verify_blog.py` recomputes every figure the blog states from the raw rows and fails if the blog
-or the data changes without the other. The three verify scripts re-derive their figures from the
+`verify_docs.py` recomputes every figure the blog and this README state from the raw rows, and
+fails if a document or the data changes without the other. `bash bench/verify_builds.sh`
+recovers the campaign's git history and checks every build's agent tree; it needs git and
+network access. [`bench/README.md`](bench/README.md) says what every file in `bench/` is. The three verify scripts re-derive their figures from the
 raw diagnostics rather than trusting the prose and recompute exact McNemar independently; `ctrl_vs_t12_verify.py` also fails if a
 withdrawn number appears in this README, the blog or the record without being marked as
 withdrawn. The integrity check confirms every archived run's row count, pass count and recorded
@@ -312,19 +335,21 @@ paths of the machine they ran on.
 
 Before this branch was published, every claim in this README and the blog was checked against
 the raw per-task diagnostics. The confirmation run, the same-day ladder and the Terminal-Bench
-tie all reproduce exactly. Six statements in the campaign's own records do not, and are
+tie all reproduce exactly. Eight statements in the campaign's own records do not, and are
 corrected above. The records themselves — `ada/RESULTS.md`, `ada/REPORT.md`,
-`bench/RUN_REGISTRY.md` and the reports in `bench/` — are left as written, because the verify
-scripts check them.
+`bench/RUN_REGISTRY.md`, `bench/PHASE_C_SUMMARY.md` and `bench/CTRL_VS_T12_REPORT.md` — keep
+their original text, with a dated re-check banner at the top of each that points here.
 
 | The record says | The raw data shows |
 |---|---|
 | R3, the withdrawn control, ran on 2026-09-10 (its run ID is `20260910T0728Z`), so the +28 compared runs from different days | R3 records commit `6672af8`, which was created at 07:24 UTC on **2026-09-11**, four minutes before R3's start time; on the machine that ran it, its driver log (`bench/t04_control_run.log`) was last written at 10:01 that day, which matches its summed task time (file times are not preserved in git, so that part cannot be checked from a clone; the commit time can, from the bundle). R3 almost certainly ran on 2026-09-11, the same day as R4, about eight hours earlier. The comparison is still withdrawn: its arms were not run together, and the same build scored 54/81 the next day. |
-| R3 and R7 did "identical work" | Almost identical turns (1,544 against 1,554), but R3 hit the deadline on 63 runs against 34 and took 23% longer in total. |
-| Phase C found "zero 480 s clock-outs", so the Bash clamp (P2) and install hook (P4) had nothing to fix | No run was killed by the harness, but 28 of the shipped build's 41 failures in the P3 run, and 8 of 17 failures in the 960 s probe, were stopped by the watchdog at the deadline. P2 and P4 were dropped on a premise that does not hold; they are untested. |
+| R3 and R7 did "identical work" | Almost identical turns (1,544 against 1,554), but the watchdog interrupted 63 of R3's runs against 34, and R3 took 23% longer in total. |
+| Phase C found "zero 480 s clock-outs", so the Bash clamp (P2) and install hook (P4) had nothing to fix | No run was killed by the harness, but the watchdog interrupted 28 of the shipped build's 41 failures in the P3 run, and 8 of 17 failures in the 960 s probe. P2 was only ever measured inside the time-hints bundle, and P4 never ran; neither has been tested alone. |
+| Phase C's "17 hard clock-outs" (`bench/PHASE_C_SUMMARY.md`) | These are the budget probe's 17 valid failures: the watchdog interrupted 8 of them, and 9 finished and failed grading. |
 | R2's 43 zero-turn rows came from the interrupt path | They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills (commit `6672af8`'s message). R2 ran on 2026-09-09, before `08a8d5d` existed. |
 | R10a had 40 zero-turn rows (`bench/RUN_REGISTRY.md`) | 41, in both the raw diagnostics and `bench/BASELINE_VS_BEST_20260915T0825Z.json`. |
 | Terminal-Bench compared arms under one protocol | The origin arm ran on 2026-09-07 and `08a8d5d` on 2026-09-10 — a cross-day comparison. |
+| Packaging (2026-09-18) only moved and repointed files | It also rewrote one path field, `incumbent_source`, in the raw file `bench/diagnostics/manual/remaining81_final_failures31.json`. That file is restored to its original bytes; every other packaging change is listed in `bench/packaging-20260918/changes.diff`. |
 
 `bench/RUN_REGISTRY.md` also cites a footnote ⁴ for `417a8f1` that it never defines; the
 paragraph "How the builds resolve" above says what is known about that build.

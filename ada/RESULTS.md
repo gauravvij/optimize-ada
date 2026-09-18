@@ -1,5 +1,11 @@
 # Ada Agent — Optimization Results
 
+> **Re-check — 2026-09-18.** This record is left as written below. Checked against the raw rows,
+> some statements in it do not hold. The withdrawn control R3 most likely ran on 2026-09-11, the
+> same day as its candidate, not on 2026-09-10. Phase C's "zero 480 s clock-outs" means no harness
+> kills; the watchdog still interrupted 28 of the shipped build's 41 P3 failures. P2 was only ever
+> measured inside the T1.2 bundle. The evidence for each point is in the repository README, under "Re-checked against the raw data".
+
 > **Campaign record — last updated 2026-09-16**
 >
 > This file records what was changed, what was measured, and what the measurements do and

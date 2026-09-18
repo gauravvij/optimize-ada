@@ -1,5 +1,19 @@
 # Run registry — every scored SetupBench `remaining81` run on disk
 
+> **Re-check — 2026-09-18.** This registry is left as written below. Checked against the raw rows,
+> three things in it do not hold:
+>
+> - R3 is dated 2026-09-10 here, but it records commit `6672af8`, which was created at 07:24 UTC on
+>   2026-09-11. R3 most likely ran that morning, the same day as R4 and about eight hours before it.
+>   "Only same-day pairings" would not have caught that pairing; what protects a comparison is
+>   running both arms at the same time, as R9/R10 did.
+> - R10a has 41 zero-turn rows, not 40.
+> - Footnote ⁴, cited for `417a8f1`, is not defined. `417a8f1` is `df0c537` plus the runner shim
+>   `systemPromptGuidance`, committed in the baseline workspace that packaging removed. It is not in
+>   `ada-campaign.bundle`; its agent tree, `df8a18c09278`, is pinned in the R9a/R10a diagnostics.
+>
+> The evidence for each point is in the repository README, under "Re-checked against the raw data".
+
 **Purpose.** Ten full 81-task runs exist across six days and four builds. Any sentence
 that says "the fresh run" or "the control" without naming one of these is ambiguous, and
 several published claims went wrong exactly there. Every document in this campaign refers
