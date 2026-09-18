@@ -1,6 +1,6 @@
 # How NEO Stopped a Coding Agent From Dying on the Clock
 
-*NEO, our autonomous engineering agent, took a coding agent from 67 to 98 passed runs out of 157 on real setup tasks. It did not make the agent smarter; it made sure the agent's work reached the grader. Along the way NEO promoted a second fix, caught its own control having a bad day, and withdrew the claim. The withdrawal is as useful as the win.*
+*NEO, our autonomous engineering agent, took a coding agent from 67 to 98 passed runs out of 157 on real setup tasks. Most of that came from making sure the agent's work reached the grader. Along the way NEO promoted a second fix, caught its own control having a bad day, and withdrew the claim. The withdrawal is as useful as the win.*
 
 The system we optimized is [Ada](https://github.com/rabbah/ada), an open-source coding agent built on Claude Code by Simon Guerrier, Rodric Rabbah and contributors. You give it a task in plain English, such as *install the dependencies and make the tests pass*. It works through the task in a sandbox: it runs commands, edits files and checks its own results.
 
@@ -14,8 +14,8 @@ That is a dangerous failure for any agent that works against a time limit. A cra
 
 This is what survived the campaign.
 
-- A watchdog that stops Ada cleanly before the deadline took it from **67/157 to 98/157** passed runs, confirmed under rules written down in advance.
-- Almost all of the gain is runs the original build lost to the clock. On the runs it did get graded, the difference is not significant.
+- Four changes, including a watchdog that stops Ada cleanly before the deadline, took it from **67/157 to 98/157** passed runs. A pass rule written into the launch script confirmed it.
+- Almost all of the gain is runs the original build lost to the clock. On the runs it did get graded, the difference is not significant. No run separates the four changes, so which of them did the work is not known.
 - A second fix, telling Ada how much time it had left, did what it was designed to do but did not raise the pass rate.
 - Two headline numbers were published during the campaign and then withdrawn by NEO itself, both for the same reason.
 - On a second benchmark, Terminal-Bench 2.0, an earlier build tied the original.
@@ -23,15 +23,15 @@ This is what survived the campaign.
 Four builds of Ada are compared throughout, and these are the names used for them:
 
 - **Origin:** Ada as the campaign found it, commit `df0c537`.
-- **Watchdog:** the origin plus the watchdog and a clean exit, commit `6672af8`.
+- **Watchdog:** the origin plus Phase A's changes and a clean exit, commit `6672af8`. Phase A added a time-aware prompt, a thinking cap, a container-anchored deadline and the watchdog.
 - **Time hints:** the watchdog build plus the time-awareness change, commit `2e495bb`.
-- **Shipped:** the time-hints build with the time hints switched off, commit `5f4c5c0`. It behaves exactly like the watchdog build, and it was measured directly as commit `1d82e56`, which has the same agent code and later documentation.
+- **Shipped:** the time-hints build with the time hints switched off, commit `5f4c5c0`. It was measured directly as commit `1d82e56`, which has the same agent code and later documentation.
 
 ## What Ada does
 
 Ada is a wrapper around a Claude Code session. A small service starts the session through the Claude Agent SDK and gives it its own writable workspace. It streams everything the session does to whatever is listening: a Slack thread, a web chat or any frontend that speaks AG-UI. The stream carries the session's messages, each tool call and each result, and follow-up messages continue the same session in the same workspace.
 
-The spawned agent runs with a scrubbed environment: only essentials such as the path, the model credential and the user's GitHub token are forwarded. So a command the model runs cannot read the host's secrets. The code is in [`ada/`](ada/). [`ada/README.md`](ada/README.md) covers running it: a demo that needs no API key, a local run against the real SDK, and deployment on the Astro platform.
+The spawned agent runs with a scrubbed environment: only essentials such as the path, the model credential and the user's GitHub token are forwarded. So a command the model runs cannot read the host's secrets, and the code is in [`ada/`](ada/). [`ada/README.md`](ada/README.md) covers running it: a demo that needs no API key, a local run against the real SDK, and deployment on the Astro platform.
 
 In this campaign Ada ran `z-ai/glm-5.3-flash` through OpenRouter, not a Claude model, and a benchmark harness drove it headlessly.
 
@@ -50,11 +50,13 @@ The last line is the whole story: a run that overran was not partly right, becau
 
 The watchdog changes that: it interrupts Ada 30 seconds before the budget runs out, counted from the moment the container started. On a 480-second task that is the 450-second mark, after which Ada exits cleanly and the grader scores whatever it has done. In the rest of this article, "interrupted by the watchdog" means exactly that cut-off.
 
-The changes that were measured all live in two files of [`ada/agent/`](ada/agent/):
+The changes all live in two files of [`ada/agent/`](ada/agent/):
 
 | Change | Where it lives in `ada/` | Status |
 |---|---|---|
-| Watchdog and a deadline anchored to the container's start | `agent/claude/agent.ts`, `agent/system-guidance.ts` | ships |
+| System prompt that adapts to the time budget | `agent/system-guidance.ts` | ships |
+| Thinking cap of 1,024 tokens by default | `agent/claude/agent.ts` | ships |
+| Watchdog and a deadline anchored to the container's start | `agent/claude/agent.ts` | ships |
 | Clean exit after the watchdog interrupt (T0.1) | `agent/claude/agent.ts` | ships |
 | "Definition of done" prompt section (T1.1) | `agent/system-guidance.ts` | ships switched off |
 | Time hints, wrap-up instruction, Bash timeout clamp (T1.2) | `agent/claude/agent.ts` | ships switched off |
@@ -75,21 +77,21 @@ One rule was learned the hard way and is described below: **both builds must run
 
 The first full run of the origin build (R1) passed 27 of 81 tasks and timed out on 53. Every timeout was a zero: the harness never graded the work.
 
-NEO's first fix, in Phase A, went after the clock directly: a watchdog interrupts the agent before the harness would kill it. Later in the phase, the deadline was anchored to the container's start rather than the agent's, so the two clocks agree. An early watchdog build cut timeouts from 53 to 3.
+NEO's first fix, in Phase A, went after the clock directly: a watchdog interrupts the agent before the harness would kill it. Later in the phase, the deadline was anchored to the container's start rather than the agent's, so the two clocks agree. The same phase replaced the prompt with guidance that adapts to the time budget and set a thinking cap. An early watchdog build cut timeouts from 53 to 3.
 
 The interrupt still ended badly: after it fired, Ada crashed instead of exiting, so its runner never reported a result. So 43 runs were recorded with zero turns, although 41 of them were still graded and 19 passed. Two runs hung until the harness killed them. The clean-exit fix (T0.1) made Ada finish properly after the interrupt, and neither full run of that build recorded a zero-turn run.
 
-## The watchdog, measured on one day
+## The watchdog build, measured on one day
 
 On 2026-09-12 NEO ran three builds on all 81 tasks, one after another, with the same harness:
 
 | Build | What it adds | Passed | Against the row above |
 |---|---|---:|---|
 | Origin `df0c537` | nothing | 34/81 | n/a |
-| Watchdog `6672af8` | watchdog, container-anchored deadline, clean exit | **54/81** | **+20**, 21 gained / 1 lost, p = 1.1e-05 |
+| Watchdog `6672af8` | Phase A's changes and the clean exit | **54/81** | **+20**, 21 gained / 1 lost, p = 1.1e-05 |
 | Time hints `2e495bb` | time hints, wrap-up instruction, Bash clamp | 50/81 | **−4**, 5 gained / 9 lost, p = 0.42 |
 
-The watchdog's gain is entirely one thing. On that day the origin build produced zero turns on 46 of the 81 tasks, and the watchdog build passed 21 of those 46. On the 35 tasks the origin build could actually run, it had already passed 34, and nothing built since has improved on that.
+The gain is entirely on one kind of task. On that day the origin build timed out on 45 of the 81 tasks, and the watchdog build passed 21 of those 45. On the 36 tasks the origin build finished in time, it had already passed 34, and nothing built since has improved on that.
 
 ## Two ideas that did not work
 
@@ -105,7 +107,7 @@ The third idea did not ask the model to change; it gave the model a fact it prov
 
 The mechanism works: asked to quote any timing note it had seen, the model repeated the hint word for word ([`ada/evidence/t12/t12_smoke_a1_log.txt`](ada/evidence/t12/t12_smoke_a1_log.txt)). Runs interrupted by the watchdog fell from 34 to 7, turns fell 10.6%, and wall time fell 5.0%. The agent really does pace itself once it can see the clock.
 
-It does not pass more tasks: on the same day as the watchdog build, the time-hints build scored 50/81 against 54/81. That −4 is inside the noise, so it is no measured benefit rather than measured harm. Where it lost is telling. On the 47 tasks where the watchdog build finished with time to spare, the time-hints build went from 42 passes to 37. The wrap-up instruction reached tasks that were never in trouble and told them to stop.
+It does not pass more tasks: on the same day as the watchdog build, the time-hints build scored 50/81 against 54/81. That −4 is inside the noise, so it is no measured benefit rather than measured harm, and where it lost is telling. On the 47 tasks where the watchdog build finished with time to spare, the time-hints build went from 42 passes to 37. The wrap-up instruction reached tasks that were never in trouble and told them to stop.
 
 It also changed how Ada fails. Of the time-hints build's 31 failures, 25 ended with Ada announcing the task was done while the grader's command failed. For the watchdog build it was 5 of 27, so the hints make Ada declare more tasks finished, not finish more.
 
@@ -129,7 +131,7 @@ Both failures are the same failure: a comparison whose arms were not measured to
 
 ## Confirming what was left
 
-With the time hints switched off, the build that ships behaves like the watchdog build. NEO did not infer its score from that; it measured it.
+The build that ships is the time-hints build with the hints switched off. NEO did not assume it would score like the watchdog build; it measured it.
 
 On 2026-09-15 it ran the origin build and the shipped build side by side, twice, on all 81 tasks each time. The run had four rules: both replicates must complete, and each must gain at least 10 tasks net. Neither arm may lose more than three rows to harness errors, and the pooled exact McNemar test must reach p < 0.001.
 
@@ -143,33 +145,21 @@ The rules are written at the top of the script that launched the run ([`bench/ru
 
 All four rules are met, with 32 runs gained and 1 lost. Paired counts leave out any task where either build hit a harness error, so R9 pairs 79 tasks and R10 pairs 78. Out of 81, the origin passed 32 and 36, and the shipped build passed 47 and 52.
 
-The decomposition is the clearest result of the campaign. On the 82 paired runs where the origin build recorded zero turns, the shipped build passed 28. Almost all of those origin runs were hard-killed at the deadline. On the 75 where the origin build ran, the two builds passed 67 and 70 (p = 0.375), not a significant difference.
+The decomposition is the clearest result of the campaign. On the 83 paired runs where the origin build timed out, the shipped build passed 29. Of those, 18 passed after its watchdog stopped it, and 11 finished in time on their own. On the 74 where the origin build was graded, the two builds passed 67 and 69 (p = 0.625), not a significant difference.
 
 ![Where the 162 runs of each build went](bench/figures/runs-by-outcome.svg)
 
 *Each bar is one build's 162 runs in the confirmation. Origin: 68 passed, 7 failed after grading, 84 timed out, 3 harness errors. Shipped: 99 passed, 61 failed after grading, 0 timed out, 2 harness errors. The orange block is the runs the grader never saw. In the shipped build it is gone: 54 more runs fail after grading and 31 more pass.*
 
-Here is everything the confirmation run measured, computed from its four raw result files by `python3 bench/confirmation_table.py`.
+Here is the confirmation run in full, computed from its four raw result files by `python3 bench/confirmation_table.py`. A pair is one task in one replicate, counted only when neither build hit a harness error.
 
-| Metric | Baseline `df0c537` | Shipped `5f4c5c0` | Change |
+| Measure | Origin `df0c537` | Shipped `5f4c5c0` | Difference |
 |---|---:|---:|---|
-| Tasks passed (162 runs) | 68 (42.0%) | **99 (61.1%)** | +31 tasks, +19.1 pts, +46% relative |
-| Paired result, evaluable runs | 67/157 | **98/157** | net +31, 32 gained / 1 lost, exact McNemar p = 7.92e-09 |
-| Per replicate (R9, R10) | 32/81, 36/81 | 47/81, 52/81 | paired +16 (p = 1.45e-04), +15 (p = 6.10e-05) |
-| **Timed out**: killed by the harness, never graded | 84 | **0** | −84: this is the mechanism |
-| Runs recorded with zero turns | 86 | 3 | −83 (mostly the timeouts above) |
-| Interrupted by the watchdog, then graded | 0 | 69 | the partial work now counts |
-| Turns, total | 1,386 | 2,825 | +104%: the agent actually gets to work |
-| Turns, median per task | 0 | 17 | the baseline's median run never took a turn |
-| Latency, mean per task | 406 s | **383 s** | −6% |
-| Latency, median per task | 485 s | 417 s | −14% |
-| Latency on tasks that passed | 313 s mean / 299 s median | 333 s mean / 313 s median | +6%: passing takes slightly longer |
-| Total wall time (162 runs) | 18.3 h | **17.2 h** | −6% |
-| Invalid rows (excluded from pairing) | 3 | 2 | −1 |
-| Tasks still failing | 94/162 | 63/162 | −31 |
-| Cost | not captured | not captured | the R9/R10 diagnostics record no tokens or spend |
-
-The origin build's 86 zero-turn runs are 82 of its 84 timeouts, 3 harness errors and 1 run that was graded. The shipped build's 3 are 2 harness errors and 1 graded run, and none of its runs was killed by the clock. It also used about 6% less wall time than the origin spent dying.
+| Attempts passed, out of all 162 | 68 (42.0%) | **99 (61.1%)** | +31 |
+| Pairs passed, out of 157 pairs | 67 | **98** | 32 gained, 1 lost; exact McNemar p = 7.92e-09 |
+| Timed out, so never graded | 84 | **0** | −84 |
+| Stopped by the watchdog, then graded | 0 | 69 | 23 of the 69 passed |
+| Harness errors, left out of the pairs | 3 | 2 | |
 
 ## Beyond SetupBench
 
@@ -230,7 +220,7 @@ A few statements rest on the campaign's written record rather than on stored dat
 
 ## What the optimization delivered
 
-Ada now stops itself cleanly before its deadline, so the work it has done is graded. On SetupBench that took it from 67 to 98 passed runs out of 157. It also took it from 84 runs the harness killed without grading to none, at slightly less wall time. It is not a smarter agent; it is an agent whose work now counts.
+Ada now stops itself cleanly before its deadline, so the work it has done is graded. With the other changes, the shipped build went from 67 to 98 passed runs out of 157 on SetupBench. It also went from 84 runs the harness killed without grading to none. On the tasks the original build finished, it is no better; the gain is in the tasks the original ran out of time on.
 
 NEO did the failure analysis, the changes, the paired evaluations and the run registry. It also ran the confirmation and the probes that followed, and withdrew its own numbers twice when they did not hold.
 

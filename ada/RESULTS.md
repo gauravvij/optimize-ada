@@ -4,7 +4,9 @@
 > some statements in it do not hold or cannot be confirmed. The date of the withdrawn control R3 is uncertain: its run ID
 > says 2026-09-10, but the commit it records is dated 2026-09-11. Phase C's "zero 480 s clock-outs" means no harness
 > kills; the watchdog still interrupted 28 of the shipped build's 41 P3 failures. P2 was only ever
-> measured inside the T1.2 bundle. The evidence for each point is in the repository README, under "Re-checked against the raw data".
+> measured inside the T1.2 bundle. Its attribution of the whole gain to the T0.1 watchdog is not
+> supported: `6672af8` also carries Phase A's prompt and thinking cap, and no run separates them.
+> The evidence for each point is in the repository README, under "Re-checked against the raw data".
 
 > **Campaign record — last updated 2026-09-16**
 >

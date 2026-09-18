@@ -32,6 +32,15 @@ check ada-best-61pct-20260916 dab704de524a "tag of the shipped build (32f4754)"
 check 9f2e34d 811a16e4a67e "P3 candidate, rejected"
 check ada-final-59of81 3c5d1f1d32f9 "Phase A final build (08a8d5d)"
 
+# What the README says changed between the origin build and the shipped build
+code=$(git diff --name-only df0c537 5f4c5c0 | grep -v -E '^evidence/|\.md$' | tr '\n' ' ')
+[ "$code" = "agent/claude/agent.test.ts agent/claude/agent.ts agent/system-guidance.test.ts agent/system-guidance.ts " ] \
+  && echo "PASS  df0c537 -> 5f4c5c0 changes code only in agent.ts and system-guidance.ts (plus their tests)" \
+  || { echo "FAIL  df0c537 -> 5f4c5c0 code files: $code"; fail=1; }
+if ! git grep -q MAX_THINKING_TOKENS df0c537 -- agent && git grep -q 'MAX_THINKING_TOKENS ?? "1024"' 6672af8 -- agent/claude/agent.ts; then
+  echo "PASS  thinking cap: absent in df0c537, 1024 by default from 6672af8"; else echo "FAIL  thinking cap"; fail=1; fi
+if ! git show df0c537:agent/system-guidance.ts | grep -q -i -E 'second|minute|time limit|budget|deadline'; then
+  echo "PASS  df0c537's prompt addition says nothing about time"; else echo "FAIL  df0c537's prompt mentions time"; fail=1; fi
 echo "6672af8 was committed at $(git log -1 --format=%cI 6672af8); R3 records it, under run ID 20260910T0728Z"
 [ "$fail" = 0 ] && echo "ALL BUILDS RESOLVE" || echo "SOME BUILDS DO NOT RESOLVE"
 exit "$fail"
