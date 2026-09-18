@@ -7,11 +7,19 @@ SetupBench tasks: what was changed, how it was measured, and what held up.
 
 ## In short
 
-- Run side by side on the same tasks, the shipped build passed **98 of 157** attempts. The build
-  the campaign started from, the **origin build**, passed **67 of 157** (p = 7.92e-09).
-- The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.
-- The extra passes come from tasks the origin build ran out of time on. On tasks it already
-  finished in time, both builds did about equally well.
+**Before.** The build the campaign started from, the **origin build**, passed **68 of 162**
+attempts on SetupBench (81 tasks, each run twice). Most of its failures were never checked at all:
+**84 of its 94 failures** were attempts still running at the 480-second time limit, which the
+harness stopped without ever checking the work.
+
+**What changed.** The shipped build stops itself 30 seconds before the limit and exits cleanly,
+so its work gets checked. It also has a time-aware prompt and a limit on the model's
+thinking.
+
+**After.** The shipped build passed **99 of 162** attempts and never ran out of time. Counting
+only tasks where neither build hit a harness error, it passed 98 of 157 against the origin
+build's 67 (p = 7.92e-09). The extra passes are on tasks the origin build used to run out of
+time on; where the origin build finished in time, both builds did about the same.
 
 > **Every change, evaluation run and verification in this campaign was carried out
 > autonomously by [NEO](https://heyneo.com) — Your Autonomous AI Engineering Agent.**

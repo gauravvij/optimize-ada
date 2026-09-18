@@ -333,11 +333,14 @@ no_origin_watchdog = not any(r["agent_is_error"] for r in base)
 invalid = [r for r in base + best if not r.get("valid", True)]
 off = ('(process.env.ADA_TIME_HINTS ?? "0") === "1"' in agent and '(process.env.ADA_BASH_CLAMP_REMAINING ?? "0") === "1"' in agent
        and '(process.env.ADA_PROMPT_DOD ?? "0") === "1"' in guide and "process.env.ADA_STALL_RETRIES ?? 0)" in agent)
-claim(RM, "Run side by side on the same tasks, the shipped build passed **98 of 157** attempts", pooled, "R9 + R10 pooled")
-claim(RM, "the **origin build**, passed **67 of 157** (p = 7.92e-09)", pooled, "R9 + R10 pooled")
-claim(RM, "The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.", timeouts_ok, "R9/R10 timed_out")
-claim(RM, "The extra passes come from tasks the origin build ran out of time on. On tasks it already finished in time, both builds did about equally well.",
-      split_to and split_fin and pooled, "R9 + R10 pairs split by the origin attempt: 0 -> 29 of 83; 67 -> 69 of 74, p = 0.625")
+claim(RM, "the **origin build**, passed **68 of 162** attempts on SetupBench (81 tasks, each run twice)", sum(r["passed"] for r in base) == 68 and len(base) == 162, "R9a + R10a rows")
+claim(RM, "**84 of its 94 failures** were attempts still running at the 480-second time limit, which the harness stopped without ever checking the work",
+      sum(not r["passed"] for r in base) == 94 and sum(bool(r["timed_out"]) for r in base if not r["passed"]) == 84 and unchecked_timeouts, "R9a + R10a rows")
+claim(RM, "The shipped build stops itself 30 seconds before the limit and exits cleanly", cutoff_ok, "agent.ts margin; interrupted rows")
+claim(RM, "The shipped build passed **99 of 162** attempts and never ran out of time", sum(r["passed"] for r in best) == 99 and timeouts_ok, "R9b + R10b rows")
+claim(RM, "it passed 98 of 157 against the origin build's 67 (p = 7.92e-09)", pooled, "R9 + R10 pooled")
+claim(RM, "The extra passes are on tasks the origin build used to run out of time on; where the origin build finished in time, both builds did about the same",
+      split_to and split_fin and pooled, "R9 + R10 pairs split by the origin attempt")
 claim(RM, "If Ada is still working at 480 seconds, the harness stops it and **never runs the check**", unchecked_timeouts, "timed-out rows have no check result")
 claim(RM, "The origin build ran out of time on 40 to 53 of the 81 tasks, depending on the run",
       (min(map(timeouts, (R1, R5, R9a, R10a))), max(map(timeouts, (R1, R5, R9a, R10a)))) == (40, 53), "origin runs R1 R5 R9a R10a")
