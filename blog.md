@@ -61,7 +61,7 @@ The changes that were measured all live in two files of [`ada/agent/`](ada/agent
 
 The benchmark is [SetupBench](https://github.com/microsoft/SetupBench): real repositories, each with a task such as installing dependencies, configuring a database, or getting a test suite running, and a success command written by the benchmark's authors that decides pass or fail. The campaign used 81 of its tasks, each with a 480-second budget.
 
-The harness is in [`bench/harness/`](bench/harness/). It records, for every task, whether the grader passed it, how many turns Ada took, how long it ran, and whether it timed out. Two builds are compared on the same tasks, task by task, with an exact McNemar test on the tasks where they disagree.
+The harness is in [`bench/harness/`](bench/harness/). It records, for every task, whether the grader passed it, how many turns Ada took, how long it ran, and whether it timed out. Every run also records the model, the budget, the SetupBench commit, and the SHA-256 of the two harness scripts it used. The runner that launches Ada inside the container is byte-identical to the one in `bench/harness/` in every run. The evaluator that drives the runs and calls the grader was revised during the campaign, and the exact versions that scored the runs were not kept; the one in `bench/harness/` is a later revision. Two builds are compared on the same tasks, task by task, with an exact McNemar test on the tasks where they disagree.
 
 One rule was learned the hard way and is described below: **both builds must run side by side, at the same time.** Every run ever scored is listed with its ID in [`bench/RUN_REGISTRY.md`](bench/RUN_REGISTRY.md), and every document in the campaign names its runs by those IDs.
 
@@ -91,13 +91,13 @@ Before the time hints, NEO tried two changes that asked the model to behave diff
 
 The first was a careful "definition of done" section in the prompt: reproduce paths, ports and values exactly, use the project's own toolchain, and run the success check in a fresh shell before claiming victory. The model provably received it. It converted none of the ten failing tasks it was written for, and on a 12-task paired check it scored 2 against the control's 3. It ships switched off.
 
-The second was to make the model think less, because the campaign's traces showed thinking tokens taking up to 93% of its output on some runs. Its probe found that the gateway rejects turning thinking off, a low-effort setting had no effect, and the thinking budget that did work at the raw API level is never forwarded by the SDK path Ada uses. NEO dropped it before spending anything on an evaluation.
+The second was to make the model think less, because, according to the campaign's record, thinking tokens took up to 93% of its output on some runs. The record says its probe ([`ada/scripts/probe-thinking.ts`](ada/scripts/probe-thinking.ts)) found that the gateway rejects turning thinking off, a low-effort setting had no effect, and the thinking budget that did work at the raw API level is never forwarded by the SDK path Ada uses; the probe's output was not kept. NEO dropped the idea before spending anything on an evaluation.
 
 ## The time hints: a working mechanism that did not help
 
-The third idea did not ask the model to change. It gave the model a fact it provably lacked. Before every model request, a hook inserts a line such as `⏱ 74 s of 480 s remain.` Near the end, the line becomes an instruction to stop exploring and make the success command pass. And any Bash command's timeout is capped so a single `sleep` cannot eat the rest of the budget.
+The third idea did not ask the model to change. It gave the model a fact it provably lacked. Before every model request, a hook inserts a line such as `⏱ 78 s of 120 s remain.` (that one is from the smoke test, which used a 120-second budget). Near the end, the line becomes an instruction to stop exploring and make the success command pass. And any Bash command's timeout is capped so a single `sleep` cannot eat the rest of the budget.
 
-The mechanism works. Asked to quote any timing note it had seen, the model repeated the hint word for word. Runs cut off at the deadline fell from 34 to 7, turns fell 10.6%, and wall time fell 5.0%. The agent really does pace itself once it can see the clock.
+The mechanism works. Asked to quote any timing note it had seen, the model repeated the hint word for word ([`ada/evidence/t12/t12_smoke_a1_log.txt`](ada/evidence/t12/t12_smoke_a1_log.txt)). Runs cut off at the deadline fell from 34 to 7, turns fell 10.6%, and wall time fell 5.0%. The agent really does pace itself once it can see the clock.
 
 It does not pass more tasks. On the same day as the watchdog build, the time-hints build scored 50/81 against 54/81. That −4 is inside the noise, so it is no measured benefit rather than measured harm. Where it lost is telling: on the 47 tasks where the watchdog build finished with time to spare, the time-hints build went from 42 passes to 37. The wrap-up instruction reached tasks that were never in trouble and told them to stop.
 
@@ -109,7 +109,7 @@ So the time hints are an efficiency result, not an accuracy result, and they are
 
 The time hints had not always looked like this. They were first reported — in a result since withdrawn — at **52/81 against 24/81, +28, p = 7.66e-07**, and promoted.
 
-The withdrawn result's 24/81 was a control run of the watchdog build (R3), measured hours before the time-hints run it was compared with rather than alongside it. The campaign's record dates R3 to 2026-09-10, but the commit it records was only created at 07:24 UTC on 2026-09-11, four minutes before R3's start time, so it almost certainly ran that morning — the same day as its candidate. On 2026-09-12 the same build, on the same tasks, scored 54/81 — 30 tasks better and none worse, p = 1.9e-09 — with almost the same number of turns (1,544 against 1,554). The 24/81 control was a depressed run: it hit the deadline on 62 runs against 34 and ran 23% longer, and nothing recorded says why. A control that moves 30 tasks on its own cannot anchor a claim of 28.
+The withdrawn result's 24/81 was a control run of the watchdog build (R3), measured hours before the time-hints run it was compared with rather than alongside it. The campaign's record dates R3 to 2026-09-10, but the commit it records was only created at 07:24 UTC on 2026-09-11, four minutes before R3's start time, so it almost certainly ran that morning — the same day as its candidate. On 2026-09-12 the same build, on the same tasks, scored 54/81 — 30 tasks better and none worse, p = 1.9e-09 — with almost the same number of turns (1,544 against 1,554). The 24/81 control was a depressed run: it hit the deadline on 63 runs against 34 and ran 23% longer, and nothing recorded says why. A control that moves 30 tasks on its own cannot anchor a claim of 28.
 
 The first headline to go was Phase A's: 27/81 to 59/81. That 59 was assembled from 50 passes carried over from earlier runs plus a re-run of only the 31 failures. Run fresh and whole on one day, the same line of builds scores 54/81 against the origin's 34/81. NEO withdrew that too.
 
@@ -168,7 +168,7 @@ That reading does not survive a look at the raw rows. The harness killed nothing
 The evidence supports these claims:
 
 - The shipped build passes more SetupBench tasks than the origin build: 98/157 against 67/157 on paired runs, confirmed under rules fixed in advance.
-- The gain comes from runs that were killed before grading. It is not a gain in the agent's ability on tasks it could already attempt.
+- Nearly all of the gain comes from runs that were killed before grading. It is not a gain in the agent's ability on tasks it could already attempt.
 - The time hints make Ada use its time more efficiently without raising its pass rate.
 
 It does not establish that Ada is a more capable agent. It does not establish any gain outside SetupBench: the shipped build was never run elsewhere, and the one external comparison was a tie. The confirmation run's diagnostics record no token counts or spend, so it has no measured cost. And all 81 tasks come from one benchmark, graded by its authors' success commands.
@@ -189,9 +189,10 @@ A re-check of the raw data before publication also found that the campaign's own
 
 ## Check it yourself
 
-Every number in this article traces to a file in [`bench/`](bench/), and these scripts re-check them against the raw per-task diagnostics, with nothing but Python 3:
+Every number in this article traces to a file in this repository, and the first script below recomputes each one from the raw per-task diagnostics and checks it against the text of this article. All of them need nothing but Python 3:
 
 ```bash
+python3 bench/verify_blog.py                        # every figure in this article, from the raw data
 python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R10)
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder and the run registry
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run
@@ -199,7 +200,7 @@ python3 bench/harness/archive_integrity_check.py    # every archived run against
 python3 bench/confirmation_table.py                 # the full confirmation table above
 ```
 
-Two of them also check this article: they fail if a withdrawn figure appears here without being marked as withdrawn. The full record is [`ada/RESULTS.md`](ada/RESULTS.md), and the campaign's own narrative is [`ada/REPORT.md`](ada/REPORT.md). The [README](README.md) explains how to recover the exact commit behind each build.
+Three of them check this article: `verify_blog.py` fails if any figure here stops matching the data, `baseline_vs_best_verify.py` if the confirmation result stops being quoted, and `ctrl_vs_t12_verify.py` if a withdrawn figure appears without being marked as withdrawn. A few statements rest on the campaign's written record rather than on stored data — the typical failing run, the budget being stated once, the thinking-token share and the probe's findings — and are marked as such where they appear. The full record is [`ada/RESULTS.md`](ada/RESULTS.md), and the campaign's own narrative is [`ada/REPORT.md`](ada/REPORT.md). The [README](README.md) explains how to recover the exact commit behind each build.
 
 ## What the optimization delivered
 

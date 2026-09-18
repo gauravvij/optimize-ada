@@ -210,7 +210,7 @@ convert them is still open.
 
 **Your control is a measurement too.** The same build scored 24/81 and then 54/81 on the same
 tasks a day apart, with almost the same number of turns (1,544 against 1,554). The depressed
-run was slower — 62 runs hit the deadline against 34, and it took 23% longer in total — and
+run was slower — 63 runs hit the deadline against 34, and it took 23% longer in total — and
 nothing recorded says why. Every withdrawn headline in this campaign came from a comparison
 whose arms were not measured together. A p-value of 7.66e-07 on the
 withdrawn comparison was computed correctly; it answered whether those two particular runs
@@ -251,7 +251,7 @@ blog.md    the campaign as a story, for readers new to it
 | The same-day ladder (R5 / R7 / R8) | `bench/CTRL_VS_T12_PAIRED_ANALYSIS.json` |
 | Raw per-task diagnostics for every run | `bench/diagnostics/` (baseline arms in `ada-baseline/`, watchdog-only arms in `ada-t01gateoff/`), `bench/p3_evidence/` |
 | Terminal-Bench trials | `bench/results-*/` |
-| The harness | `bench/harness/setupbench_ada_eval.py`, `bench/harness/setupbench_ada_runner.ts` |
+| The harness | `bench/harness/setupbench_ada_runner.ts` (byte-identical to the runner every run recorded), `bench/harness/setupbench_ada_domain_eval.py` (a later revision: the exact evaluator versions that scored the runs, identified by `evaluator_sha256` in each run's protocol, were not kept) |
 
 ### How the builds resolve
 
@@ -285,6 +285,7 @@ One build cannot be rebuilt from history. The origin arm of R9/R10 ran as `417a8
 ## Checking the numbers yourself
 
 ```bash
+python3 bench/verify_blog.py                        # every figure in blog.md, from the raw data
 python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R10);   exit 0
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder + run registry; exit 0
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run (R5/R6); exit 0
@@ -292,8 +293,9 @@ python3 bench/harness/archive_integrity_check.py    # every archived diagnostic 
 python3 bench/confirmation_table.py                 # the full R9/R10 table, from the raw rows
 ```
 
-The three verify scripts re-derive their figures from the raw diagnostics rather than trusting
-the prose and recompute exact McNemar independently; `ctrl_vs_t12_verify.py` also fails if a
+`verify_blog.py` recomputes every figure the blog states from the raw rows and fails if the blog
+or the data changes without the other. The three verify scripts re-derive their figures from the
+raw diagnostics rather than trusting the prose and recompute exact McNemar independently; `ctrl_vs_t12_verify.py` also fails if a
 withdrawn number appears in this README, the blog or the record without being marked as
 withdrawn. The integrity check confirms every archived run's row count, pass count and recorded
 build. They need only Python 3.
@@ -316,8 +318,8 @@ scripts check them.
 
 | The record says | The raw data shows |
 |---|---|
-| R3, the withdrawn control, ran on 2026-09-10 (its run ID is `20260910T0728Z`), so the +28 compared runs from different days | R3 records commit `6672af8`, which was created at 07:24 UTC on **2026-09-11**, four minutes before R3's start time; its driver log (`bench/t04_control_run.log`) was last written at 10:01 that day, which matches its summed task time. R3 almost certainly ran on 2026-09-11, the same day as R4, about eight hours earlier. The comparison is still withdrawn: its arms were not run together, and the same build scored 54/81 the next day. |
-| R3 and R7 did "identical work" | Almost identical turns (1,544 against 1,554), but R3 hit the deadline on 62 runs against 34 and took 23% longer in total. |
+| R3, the withdrawn control, ran on 2026-09-10 (its run ID is `20260910T0728Z`), so the +28 compared runs from different days | R3 records commit `6672af8`, which was created at 07:24 UTC on **2026-09-11**, four minutes before R3's start time; on the machine that ran it, its driver log (`bench/t04_control_run.log`) was last written at 10:01 that day, which matches its summed task time (file times are not preserved in git, so that part cannot be checked from a clone; the commit time can, from the bundle). R3 almost certainly ran on 2026-09-11, the same day as R4, about eight hours earlier. The comparison is still withdrawn: its arms were not run together, and the same build scored 54/81 the next day. |
+| R3 and R7 did "identical work" | Almost identical turns (1,544 against 1,554), but R3 hit the deadline on 63 runs against 34 and took 23% longer in total. |
 | Phase C found "zero 480 s clock-outs", so the Bash clamp (P2) and install hook (P4) had nothing to fix | No run was killed by the harness, but 28 of the shipped build's 41 failures in the P3 run, and 8 of 17 failures in the 960 s probe, were stopped by the watchdog at the deadline. P2 and P4 were dropped on a premise that does not hold; they are untested. |
 | R2's 43 zero-turn rows came from the interrupt path | They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills (commit `6672af8`'s message). R2 ran on 2026-09-09, before `08a8d5d` existed. |
 | R10a had 40 zero-turn rows (`bench/RUN_REGISTRY.md`) | 41, in both the raw diagnostics and `bench/BASELINE_VS_BEST_20260915T0825Z.json`. |
