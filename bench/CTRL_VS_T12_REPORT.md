@@ -3,7 +3,7 @@
 > **Re-check — 2026-09-18.** This report is left as written below. It dates the withdrawn control,
 > R3, to 2026-09-10 (`sep10` in the analysis JSON). The commit R3 records, `6672af8`, is dated
 > 07:24 UTC on 2026-09-11, so that date is uncertain. The conclusion stands either way: R3 was not
-> run alongside its candidate R4. The evidence for each point is in the repository README, under "Re-checked against the raw data".
+> run alongside its candidate R4. The evidence for each point is in `bench/README.md`, under "Corrections to the campaign's records".
 
 Run `20260912T1603Z`, driver [`run_ctrl_vs_t12.sh`](run_ctrl_vs_t12.sh), both arms on one
 machine on one day. Runs **R7** and **R8** in [`RUN_REGISTRY.md`](RUN_REGISTRY.md).

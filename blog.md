@@ -151,15 +151,14 @@ The decomposition is the clearest result of the campaign. On the 83 paired runs 
 
 *Each bar is one build's 162 runs in the confirmation. Origin: 68 passed, 7 failed after grading, 84 timed out, 3 harness errors. Shipped: 99 passed, 61 failed after grading, 0 timed out, 2 harness errors. The orange block is the runs the grader never saw. In the shipped build it is gone: 54 more runs fail after grading and 31 more pass.*
 
-Here is the confirmation run in full, computed from its four raw result files by `python3 bench/confirmation_table.py`. A pair is one task in one replicate, counted only when neither build hit a harness error.
+Here is what happened to every attempt in the confirmation run, computed from its four raw result files by `python3 bench/confirmation_table.py`.
 
-| Measure | Origin `df0c537` | Shipped `5f4c5c0` | Difference |
-|---|---:|---:|---|
-| Attempts passed, out of all 162 | 68 (42.0%) | **99 (61.1%)** | +31 |
-| Pairs passed, out of 157 pairs | 67 | **98** | 32 gained, 1 lost; exact McNemar p = 7.92e-09 |
-| Timed out, so never graded | 84 | **0** | −84 |
-| Stopped by the watchdog, then graded | 0 | 69 | 23 of the 69 passed |
-| Harness errors, left out of the pairs | 3 | 2 | |
+| Every attempt, both replicates | Origin `df0c537` | Shipped `5f4c5c0` |
+|---|---:|---:|
+| Passed, out of 162 | 68 (42.0%) | **99 (61.1%)** |
+| Timed out, so never checked | 84 | **0** |
+| Stopped by the watchdog, then checked | 0 | 69 (23 passed) |
+| Harness errors, left out | 3 | 2 |
 
 ## Beyond SetupBench
 
@@ -185,7 +184,7 @@ The evidence supports three claims.
 
 It does not establish that Ada is a more capable agent, or any gain outside SetupBench. The shipped build was never run elsewhere, and the one external comparison was a tie. The confirmation run's diagnostics record no token counts or spend, so it has no measured cost. And all 81 tasks come from one benchmark, graded by its authors' success commands.
 
-A re-check of the raw data before publication found errors in the campaign's own records. They misdate the withdrawn control run, overstate how identical its work was, and misread Phase C's clock-outs. The corrections are in the README, under "Re-checked against the raw data".
+A re-check of the raw data before publication found errors in the campaign's own records. They misdate the withdrawn control run, overstate how identical its work was, and misread Phase C's clock-outs. The corrections are listed in [`bench/README.md`](bench/README.md).
 
 ## What this approach demonstrates
 

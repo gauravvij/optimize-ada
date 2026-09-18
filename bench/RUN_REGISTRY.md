@@ -10,7 +10,7 @@
 >   with the runner shim `systemPromptGuidance` committed. It is not in `ada-campaign.bundle`, so
 >   that cannot be checked byte for byte; its agent tree, `df8a18c09278`, is pinned in the R9a/R10a diagnostics.
 >
-> The evidence for each point is in the repository README, under "Re-checked against the raw data".
+> The evidence for each point is in `bench/README.md`, under "Corrections to the campaign's records".
 
 **Purpose.** Ten full 81-task runs exist across six days and four builds. Any sentence
 that says "the fresh run" or "the control" without naming one of these is ambiguous, and

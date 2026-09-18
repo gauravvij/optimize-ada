@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Every result stated in blog.md and README.md, checked against the raw per-task diagnostics
+"""Every result stated in README.md, blog.md and bench/README.md, checked against the raw per-task diagnostics
 or the analysis file or record it cites.
 
 Each check names the document(s) it applies to, a short anchor that must appear there, and
@@ -27,7 +27,8 @@ def norm(text):
     return re.sub(r"\s+", " ", re.sub("[—–−]", "-", text.replace("→", "->")))
 
 
-DOCS = {"blog": norm((ROOT / "blog.md").read_text()), "readme": norm((ROOT / "README.md").read_text())}
+DOCS = {"blog": norm((ROOT / "blog.md").read_text()), "readme": norm((ROOT / "README.md").read_text()),
+        "guide": norm((ROOT / "bench/README.md").read_text())}
 FAILS = []
 
 
@@ -210,7 +211,7 @@ claim("blog", "84 of its 94 failed runs were timeouts the grader never saw", (le
 claim("blog", "from 84 runs the harness killed without grading to none", sum(bool(r["timed_out"]) for r in base) == 84 and not any(r["timed_out"] for r in best), "R9/R10")
 table = subprocess.run([sys.executable, str(B / "confirmation_table.py")], capture_output=True, text=True, check=True).stdout
 lines = [l for l in table.strip().splitlines()]
-claim("both", "| Attempts passed, out of all 162 | 68 (42.0%) | **99 (61.1%)** |", all(norm(l) in DOCS["blog"] and norm(l) in DOCS["readme"] for l in lines),
+claim("both", "| Passed, out of 162 | 68 (42.0%) | **99 (61.1%)** |", all(norm(l) in DOCS["blog"] and norm(l) in DOCS["readme"] for l in lines),
       "every row printed by confirmation_table.py, in both documents")
 
 # -------------------------------------------------------------- Terminal-Bench
@@ -324,123 +325,132 @@ claim("blog", "34% less execution time on the 38 tasks", tie and f"{dt('exec_s')
 # Each check anchors one statement of README.md, in the order the README makes them.
 RM = "readme"
 timeouts_ok = sum(bool(r["timed_out"]) for r in base) == 84 and not any(r["timed_out"] for r in best)
-claim(RM, "The shipped build passed **98** of 157 paired attempts, against **67** for the", pooled, "R9 + R10 pooled")
-claim(RM, "build the campaign started from (exact McNemar p = 7.92e-09)", pooled, "R9 + R10 pooled")
-claim(RM, "the shipped build ran out of time **0** times, against 84", timeouts_ok, "R9/R10 timed_out")
-claim(RM, "Of the net gain of 31, 29 came from tasks on which the starting build had run out of time", pooled and split_to, "R9 + R10 pairs, origin timed out")
-claim(RM, "the difference is not significant (67 against 69 of 74)", split_fin, "R9 + R10 pairs, origin graded")
-claim(RM, "| Model | `z-ai/glm-5.3-flash` through OpenRouter |", all(q["model"] == "z-ai/glm-5.3-flash" for q in conf), "R9/R10 protocol.model")
-claim(RM, "| Benchmark | SetupBench at `041a412`, 81 tasks |",
-      all(q["setupbench_commit"].startswith("041a412") and len(q["tasks"]) == 81 for q in conf), "R9/R10 protocol")
-claim(RM, "| Time budget per attempt | 480 s for Ada; 600 s for the success command |",
-      all((q["task_timeout_seconds"], q["grader_timeout_seconds"]) == (480, 600) for q in conf), "R9/R10 protocol")
-claim(RM, "The harness stopped it and never ran the success command, so the attempt failed",
-      all(r["grader_returncode"] is None and not r["passed"] for r in base + best if r["timed_out"]), "R9/R10 timed-out rows")
-claim(RM, "The shipped build's watchdog stopped Ada 30 s before the budget ran out", cutoff_ok, "agent.ts margin; interrupted rows")
+unchecked_timeouts = all(r["grader_returncode"] is None and not r["passed"] for r in base + best if r["timed_out"])
+watchdog_checked = all(r["grader_returncode"] is not None for r in best if r["agent_is_error"]) and sum(r["passed"] for r in best if r["agent_is_error"]) == 23
+no_origin_watchdog = not any(r["agent_is_error"] for r in base)
 invalid = [r for r in base + best if not r.get("valid", True)]
-claim(RM, "The harness's own check on the container failed (a `docker exec` call timed out)",
-      len(invalid) == 5 and all(str(r["harness_error"]).startswith("TimeoutExpired") and "'docker', 'exec'" in str(r["harness_error"]) for r in invalid),
-      "R9/R10 invalid rows: harness_error")
-claim(RM, "The origin build ran out of time on 40 to 53 of the 81 tasks, depending on the run",
-      (min(map(timeouts, (R1, R5, R9a, R10a))), max(map(timeouts, (R1, R5, R9a, R10a)))) == (40, 53), "origin runs R1 R5 R9a R10a")
-claim(RM, "Sets a default cap of 1,024 thinking tokens (`MAX_THINKING_TOKENS`)",
-      'MAX_THINKING_TOKENS: process.env.MAX_THINKING_TOKENS ?? "1024"' in agent, "agent.ts default")
-claim(RM, "guidance that adapts to the time budget Ada is given", "process.env.ADA_RUNNER_TIMEOUT_MS" in guide, "system-guidance.ts reads the budget")
-claim(RM, "stops Ada 30 s before the budget runs out: the 450-second mark on a 480-second task", cutoff_ok, "agent.ts margin; interrupted rows")
 off = ('(process.env.ADA_TIME_HINTS ?? "0") === "1"' in agent and '(process.env.ADA_BASH_CLAMP_REMAINING ?? "0") === "1"' in agent
        and '(process.env.ADA_PROMPT_DOD ?? "0") === "1"' in guide and "process.env.ADA_STALL_RETRIES ?? 0)" in agent)
-claim(RM, "Three later changes are in the code but **switched off by default**", off, "agent.ts and system-guidance.ts gate defaults")
-claim(RM, "In each replicate the two builds ran at the same time on one machine",
+claim(RM, "The shipped build passed **98/157** paired attempts", pooled, "R9 + R10 pooled")
+claim(RM, "the **origin build**, passed **67/157** (p = 7.92e-09)", pooled, "R9 + R10 pooled")
+claim(RM, "The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.", timeouts_ok, "R9/R10 timed_out")
+claim(RM, "**29 of the 31** extra passes came on tasks where the origin build ran out of time", split_to and pooled, "R9 + R10 pairs, origin timed out")
+claim(RM, "the difference is not significant: 67 against 69 of 74", split_fin, "R9 + R10 pairs, origin finished")
+claim(RM, "If Ada is still working at 480 seconds, the harness stops it and **never runs the check**", unchecked_timeouts, "timed-out rows have no check result")
+claim(RM, "The origin build ran out of time on 40 to 53 of the 81 tasks, depending on the run",
+      (min(map(timeouts, (R1, R5, R9a, R10a))), max(map(timeouts, (R1, R5, R9a, R10a)))) == (40, 53), "origin runs R1 R5 R9a R10a")
+evaluator_src = (B / "harness/setupbench_ada_eval.py").read_text()
+routing = ('"ANTHROPIC_BASE_URL=https://openrouter.ai/api"' in evaluator_src and '"ANTHROPIC_MODEL=z-ai/glm-5.3-flash"' in evaluator_src
+           and "from setupbench_ada_eval import" in (B / "harness/setupbench_ada_domain_eval.py").read_text()
+           and "model: resolveModel()" in (B / "harness/setupbench_ada_runner.ts").read_text()
+           and "env.ANTHROPIC_MODEL ??" in (ROOT / "ada/agent/config/model.ts").read_text())
+usage_models, usage_records = set(), 0
+for f in [*(B / "diagnostics").rglob("*.json"), *(B / "p3_evidence").rglob("*.json"), *B.glob("results-*/**/*.*"), *(ROOT / "ada/evidence").rglob("*.*")]:
+    if not f.is_file() or f.suffix not in (".json", ".jsonl", ".log", ".txt"):
+        continue
+    text = f.read_text(errors="replace")
+    for body in (text, text.replace('\\"', '"')):
+        for m in re.finditer(r'"modelUsage"\s*:\s*', body):
+            try:
+                obj, _ = json.JSONDecoder().raw_decode(body, m.end())
+            except ValueError:
+                continue
+            if isinstance(obj, dict) and obj:
+                usage_records += 1
+                usage_models |= set(obj)
+claim(RM, "The harness points the SDK at OpenRouter and sets the model to `z-ai/glm-5.3-flash`. Every model-usage record the runs saved names only that model",
+      routing and usage_records > 800 and usage_models == {"z-ai/glm-5.3-flash"}, f"harness env; {usage_records} saved model-usage records")
+claim(RM, "A timer inside Ada that stops it 30 seconds before the time limit: at 450 s of 480 s, counting from when the container started", cutoff_ok, "agent.ts margin; interrupted rows")
+claim(RM, "ones that adapt to the time limit Ada is given", "process.env.ADA_RUNNER_TIMEOUT_MS" in guide, "system-guidance.ts reads the time limit")
+claim(RM, "`MAX_THINKING_TOKENS`, of 1,024 tokens by default", 'MAX_THINKING_TOKENS: process.env.MAX_THINKING_TOKENS ?? "1024"' in agent, "agent.ts default")
+claim(RM, "| 450 s | keeps working | the watchdog stops Ada, and Ada exits normally |", no_origin_watchdog and cutoff_ok, "R9a/R10a: no watchdog stops")
+claim(RM, "| **Is the task checked?** | **No: it counts as a fail** | **Yes: it can still pass** |", unchecked_timeouts and watchdog_checked, "R9/R10 rows")
+claim(RM, "Three more changes are in the code but switched off by default", off, "agent.ts and system-guidance.ts gate defaults")
+claim(RM, "Ada was still working at 480 s, so the harness stopped it and the check never ran", unchecked_timeouts, "timed-out rows")
+claim(RM, "The shipped build's watchdog stopped Ada at 450 s. The check then ran.", watchdog_checked and cutoff_ok, "watchdog-stopped rows have a check result")
+claim(RM, "The harness itself failed during the attempt, so there is no result",
+      len(invalid) == 5 and all(r["harness_error"] and r["grader_returncode"] is None for r in invalid), "R9/R10 invalid rows")
+claim(RM, "Within each replicate the two builds ran at the same time on the same machine",
       "REPLICATE 1/2 both arms concurrently" in drv and re.search(r"REPLICATE 2/2 launched \(pids \d+ \d+\)", drv) is not None, "driver log")
-claim(RM, "R1 to R8 ran four tasks at a time. R9/R10 ran one task at a time per build",
-      all(proto(P[k]).get("concurrency") == 4 for k in ("R1", "R2", "R3", "R4", "R5", "R7", "R8")) and all(q["concurrency"] == 1 for q in conf), "protocol.concurrency")
-claim(RM, "replicate 2 started at 12:11 while replicate 1 ran until 17:42",
-      "12:11:42" in drv and "REP_1_DONE Tue Sep 15 17:42" in drv, "driver log")
-claim(RM, "[`bench/run_baseline_vs_best.sh`](bench/run_baseline_vs_best.sh), and the run's log shows the script checking it at the end",
-      "PRE-REGISTERED RULE" in rule and "rule: {'all_replicates_complete': True, 'each_replicate_net_ge_10': True, 'each_replicate_invalid_le_3': True, 'pooled_p_lt_0.001': True}" in drv,
-      "rule in the script; its application in the log")
-claim(RM, "| In each replicate, the shipped build gains at least 10 more pairs than it loses | Met: +16 and +15 |",
-      "net >= +10" in rule and (c9[3] - c9[4], c10[3] - c10[4]) == (16, 15), "rule; R9, R10 pairs")
-claim(RM, "| In each replicate, each build has at most 3 harness errors | Met: at most 2 |",
-      "<= 3 invalid rows per arm" in rule and max(sum(not r.get("valid", True) for r in X.values()) for X in (R9a, R9b, R10a, R10b)) == 2, "rule; R9/R10 rows")
-claim(RM, "| Over both replicates, the shipped build is better with exact McNemar p < 0.001 | Met: p = 7.92e-09 |", "p < 0.001" in rule and pooled, "rule; pooled")
 claim(RM, "| R9 | 79 | 31 | **47** | 17 | 1 | 1.45e-04 |", c9[:5] == (79, 31, 47, 17, 1) and f"{c9[5]:.2e}" == "1.45e-04", "R9a vs R9b")
 claim(RM, "| R10 | 78 | 36 | **51** | 15 | 0 | 6.10e-05 |", c10[:5] == (78, 36, 51, 15, 0) and f"{c10[5]:.2e}" == "6.10e-05", "R10a vs R10b")
 claim(RM, "| **Both** | **157** | **67** | **98** | **32** | **1** | **7.92e-09** |", pooled and (pool[3], pool[4]) == (32, 1), "R9 + R10 pooled")
-claim(RM, "R9 counts 79 pairs and R10 counts 78 because a pair is left out when either build had a harness error", raw_ok, "raw vs paired")
-claim(RM, "the origin build passed 32 and 36 and the shipped build 47 and 52", raw_ok, "raw vs paired")
-claim(RM, "| Timed out, never graded | 83 | 0 | **29** | 29 of the net gain of 31 |", split_to and pooled, "R9 + R10 pairs, origin timed out")
-claim(RM, "| Finished in time and graded | 74 | 67 | 69 | 3 gained, 1 lost, p = 0.625: no significant difference |", split_fin, "R9 + R10 pairs, origin graded")
-claim(RM, "the shipped build passed **18** after its watchdog stopped it, and **11** by finishing inside the budget on its own", split_to, "R9 + R10 pairs, origin timed out")
-claim(RM, "| `df0c537` | the origin build | 34/81 |", passed(R5) == 34, "R5")
-claim(RM, "| `6672af8` | the four default-on changes above | **54/81** | 21 gained / 1 lost, exact McNemar **p = 1.1e-05** |",
+claim(RM, "There are fewer than 81 pairs per replicate because pairs with a harness error are left out", (c9[0], c10[0]) == (79, 78) and len(invalid) == 5, "R9/R10 pairs")
+claim(RM, "([`bench/run_baseline_vs_best.sh`](bench/run_baseline_vs_best.sh)). The run's log shows the script checking it at the end",
+      "PRE-REGISTERED RULE" in rule and "rule: {'all_replicates_complete': True, 'each_replicate_net_ge_10': True, 'each_replicate_invalid_le_3': True, 'pooled_p_lt_0.001': True}" in drv,
+      "rule in the script; its application in the log")
+claim(RM, "| Both replicates finish | Yes |", "REP_1_DONE" in drv and "REP_2_DONE" in drv, "driver log")
+claim(RM, "| In each replicate, at least 10 more pairs gained than lost | Yes: 16 and 15 |", "net >= +10" in rule and (c9[3] - c9[4], c10[3] - c10[4]) == (16, 15), "rule; R9, R10")
+claim(RM, "| In each replicate, at most 3 harness errors per build | Yes: at most 2 |",
+      "<= 3 invalid rows per arm" in rule and max(sum(not r.get("valid", True) for r in X.values()) for X in (R9a, R9b, R10a, R10b)) == 2, "rule; R9/R10 rows")
+claim(RM, "| Over both replicates, p below 0.001 | Yes: 7.92e-09 |", "p < 0.001" in rule and pooled, "rule; pooled")
+claim(RM, "| Timed out | 83 | 0 | **29** |", split_to, "R9 + R10 pairs, origin timed out")
+claim(RM, "| Finished in time | 74 | 67 | 69 |", split_fin, "R9 + R10 pairs, origin finished")
+claim(RM, "the shipped build passed 29: 18 after the watchdog stopped it, and 11 by finishing in time on its own", split_to, "R9 + R10 pairs, origin timed out")
+claim(RM, "the shipped build gained 3 and lost 1 (p = 0.625)", split_fin, "R9 + R10 pairs, origin finished")
+claim(RM, "| Origin (`df0c537`) | 34/81 |", passed(R5) == 34, "R5")
+claim(RM, "| Plus the four changes above (`6672af8`) | **54/81** | 21 gained, 1 lost, p = 1.1e-05 |",
       (pair(R5, R7)[3], pair(R5, R7)[4], f"{pair(R5, R7)[5]:.1e}", passed(R7)) == (21, 1, "1.1e-05", 54), "R5 -> R7")
-claim(RM, "| `2e495bb` | time hints, wrap-up instruction, Bash timeout cap (T1.2), switched on | 50/81 | 5 gained / 9 lost, **p = 0.42** |",
-      (pair(R7, R8)[3], pair(R7, R8)[4], passed(R8)) == (5, 9, 50) and r78, "R7 -> R8")
-claim(RM, "The origin build (R5) timed out on 45 of the 81 tasks; `6672af8` passed 21 of them, and all 21 of its gained pairs are among them", to5_ok, "R5 timed-out tasks, R7")
-claim(RM, "On the other 36 tasks, the ones the origin build finished in time, the three builds passed 34, 33 and 30", fin5_ok, "R5 finished tasks; R7, R8")
-claim(RM, "stopped by the watchdog fell from 34 to 7, but passes went from 54 to 50", (interrupted(R7), interrupted(R8)) == (34, 7) and r78, "R7, R8")
-r9b_raw = json.loads((B / P["R9b"]).read_text())
-claim(RM, "measured directly in R9/R10 as commit `1d82e56`, which has the same agent code (tree `dab704de524a`)",
-      r9b_raw["workspace_commit"].startswith("1d82e56") and r9b_raw.get("agent_tree", "dab704de524a").startswith("dab704de524a"), "R9b workspace_commit, agent_tree")
-claim(RM, "| Phase A: 27/81 → **59/81** | Assembled from 50 passes carried over from one run plus a re-run of only that run's 31 failures.", hybrid and passed(R1) == 27, "R1; R2 + failures31")
-claim(RM, "**54/81** against the origin build's **34/81** (R7 vs R5)", (passed(R7), passed(R5)) == (54, 34), "R7, R5")
-claim(RM, "| Phase B: time hints 52/81 against 24/81, net +28, p = 7.66e-07 |", (passed(R4), passed(R3), net(R3, R4), f"{pair(R3, R4)[5]:.2e}") == (52, 24, 28, "7.66e-07"), "R3 -> R4")
-claim(RM, "The same build scored 54/81 on 2026-09-12, 30 tasks better and none worse", (passed(R7), g37, l37) == (54, 30, 0), "R3 -> R7")
-claim(RM, "**54/81 → 50/81**, −4, p = 0.42", r78, "R7 -> R8")
-claim(RM, "build moved 30 tasks between one run and the next", (g37, l37) == (30, 0), "R3 -> R7")
-claim(RM, "tied the origin build: 26 against 26 of 38 tasks, p = 1.0", tie, "FINAL40 per_task, evaluable")
-claim(RM, "because the benchmark's own checker failed to install its tools; the origin build had passed both, so counting all 40 gives 28/40 against 26/40",
-      raw40 and len(tb_logs) == 2 and all("404  Not Found" in s and "command not found" in s for s in tb_logs), "FINAL40; results-ada-final-40 verifier logs")
-claim(RM, "(2026-09-07 and 2026-09-10)", "baseline 2026-09-07" in tb["protocol"]["run_dates"] and "final 2026-09-10" in tb["protocol"]["run_dates"], "FINAL40 protocol.run_dates")
-claim(RM, "40% fewer turns and 34% less execution time on the 38 evaluable tasks", tie and (f"{dt('turns'):.0f}", f"{dt('exec_s'):.0f}") == ("40", "34"), "FINAL40 per_task")
-claim(RM, "25 tasks failed in both confirmation replicates for the shipped build", len(failing25) == 25 and failing25 == both_failed, "FAILING25.txt vs R9b/R10b")
-claim(RM, "(960 s), the shipped build passed 7 of them", probe, "budget probe rows")
-claim(RM, "gained 2 pairs net across two replicates, p = 0.6875",
+claim(RM, "| Plus time reminders (`2e495bb`) | 50/81 | 5 gained, 9 lost, p = 0.42 |", (pair(R7, R8)[3], pair(R7, R8)[4], passed(R8)) == (5, 9, 50) and r78, "R7 -> R8")
+claim(RM, "All 21 tasks gained in the second row were tasks the origin build had timed out on", to5_ok, "R5 timed-out tasks, R7")
+claim(RM, "the watchdog had to stop Ada 7 times instead of 34, but passes fell from 54 to 50", (interrupted(R7), interrupted(R8)) == (34, 7) and r78, "R7, R8")
+claim(RM, "| Phase A: 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures.", hybrid and passed(R1) == 27, "R1; R2 + failures31")
+claim(RM, "| 54/81 (with the four changes) against 34/81, both builds on one day |", (passed(R7), passed(R5)) == (54, 34), "R7, R5")
+claim(RM, "| Time reminders: 52/81 against 24/81, net +28, p = 7.66e-07 |", (passed(R4), passed(R3), net(R3, R4), f"{pair(R3, R4)[5]:.2e}") == (52, 24, 28, "7.66e-07"), "R3 -> R4")
+r7commit = json.loads((B / P["R7"]).read_text())["workspace_commit"]
+claim(RM, "The 24/81 comparison run (R3) was run separately, before the time-reminders run. The same build scored 54/81 on 2026-09-12.",
+      passed(R3) == 24 and P["R3"].split("/")[1] < P["R4"].split("/")[1] and r3commit == r7commit and passed(R7) == 54, "R3, R4 run IDs; R3 and R7 record one commit")
+claim(RM, "| 50/81 against 54/81, both builds on one day |", r78, "R7 -> R8")
+claim(RM, "the same build moved 30 tasks between two runs", (g37, l37) == (30, 0), "R3 -> R7")
+claim(RM, "tied the origin build: 26 against 26 of 38 tasks", tie, "FINAL40 per_task, evaluable")
+claim(RM, "Two more tasks were left out because the benchmark's own checker broke; the origin build had passed both",
+      len(ex) == 2 and all(tb["per_task"][x]["baseline_reward"] >= 1 for x in ex) and len(tb_logs) == 2
+      and all("404  Not Found" in s and "command not found" in s for s in tb_logs), "FINAL40; results-ada-final-40 verifier logs")
+claim(RM, "The two builds also ran on different days", "baseline 2026-09-07" in tb["protocol"]["run_dates"] and "final 2026-09-10" in tb["protocol"]["run_dates"], "FINAL40 protocol.run_dates")
+claim(RM, "25 tasks failed in both replicates for the shipped build. With twice the time (960 s), it passed 7 of them.",
+      len(failing25) == 25 and failing25 == both_failed and probe, "FAILING25.txt; budget probe rows")
+claim(RM, "gained 2 pairs net. It was rejected by its own rule (p = 0.6875)",
       ((q1[3] + q2[3]) - (q1[4] + q2[4]), f"{mcnemar(q1[4] + q2[4], q1[3] + q2[3]):.4f}") == (2, "0.6875"), "P3 shipped vs P3 arms")
-claim(RM, "[`bench/P3_P2_PREREGISTRATION.md`](bench/P3_P2_PREREGISTRATION.md)", (B / "P3_P2_PREREGISTRATION.md").is_file(), "the file exists")
-claim(RM, "the watchdog stopped 28 of the shipped build's 41 failed attempts in the P3 run", p3_ok, "P3 shipped arms")
-claim(RM, "P2 was only ever measured inside the time-hints bundle (R7 → R8, −4)", "ADA_BASH_CLAMP_REMAINING" in agent and net(R7, R8) == -4, "agent.ts gate; R7 -> R8")
-claim(RM, "A fifth (P5) was deferred", "P5" in summary_c and "DEFERRED" in summary_c, "PHASE_C_SUMMARY.md")
-claim(RM, "Ada passed 27 of 81 tasks and timed out on **53 of 81**, none of which were graded",
-      passed(R1) == 27 and timeouts(R1) == 53 and all(r["grader_returncode"] is None for r in R1.values() if r["timed_out"]), "R1 rows")
-claim(RM, "cut timeouts from 53 (R1) to 3 (R2, whose exact build was not recorded)", timeouts(R2) == 3, "R2 rows")
-claim(RM, "43 attempts were recorded with zero turns — 41 of them were still graded and 19 passed — and 2 hung until the harness killed them",
-      r2_ok and z2_killed, "R2 zero-turn rows")
-claim(RM, "neither of its full runs (R3, R7) recorded a zero-turn attempt", not zero(R3) and not zero(R7), "R3, R7 rows")
-claim(RM, "it converted none of the ten failures it targeted", t11["e3_smoke_precursor"]["result"].startswith("0/10"), "T11_DEV12 e3_smoke_precursor")
-claim(RM, "98/157 pairs against 67/157", pooled, "R9 + R10 pooled")
-claim(RM, "29 of the net gain of 31 is on tasks where the origin build ran out of time", split_to and pooled, "R9 + R10 pairs")
-claim(RM, "the difference is not significant (67 against 69 of 74, p = 0.625)", split_fin, "R9 + R10 pairs, origin graded")
-claim(RM, "18 of the 29 recovered passes came after a watchdog stop; the other 11 did not involve the watchdog", split_to, "R9 + R10 pairs")
-claim(RM, "the result files record no token counts or spend",
+claim(RM, "Timeouts fell from 53 of 81 to 3.", (timeouts(R1), timeouts(R2)) == (53, 3), "R1, R2")
+claim(RM, "| 98/157 against 67/157 |", pooled, "R9 + R10 pooled")
+claim(RM, "Cost. The result files record no token counts or spend.",
       not any(k for r in base + best for k in r if "token" in k.lower() or "cost" in k.lower() or "spend" in k.lower()), "R9/R10 row fields")
-claim(RM, "byte-identical to the runner every run recorded", all(q["runner_sha256"] == runner for q in conf), "protocol.runner_sha256")
-claim(RM, "not a version any run recorded", evaluator not in {proto(v).get("evaluator_sha256") for v in P.values()}, "every run's protocol.evaluator_sha256")
-claim(RM, "Of the 29 passes recovered where the origin build timed out, 18 came after a watchdog stop and 11 did not involve the watchdog", split_to, "R9 + R10 pairs")
-claim(RM, "whose commit time in `bench/ada-campaign.bundle` is 07:24 UTC on **2026-09-11**", r3commit.startswith("6672af8"),
-      "R3 workspace_commit (its commit time: bash bench/verify_builds.sh)")
-claim(RM, "the +28 compared runs from different days", net(R3, R4) == 28, "R3 -> R4")
-claim(RM, "its arms were not run together, and the same build scored 54/81 on 2026-09-12", passed(R7) == 54 and "20260912" in P["R7"], "R7")
-claim(RM, "Almost the same number of turns (1,544 against 1,554), but the watchdog stopped 63 of R3's attempts against 34, and R3 took 23% longer in total",
-      (turns(R3), turns(R7)) == (1544, 1554) and depressed, "R3, R7 rows")
-claim(RM, "the watchdog stopped 28 of the shipped build's 41 failed attempts in the P3 run, and 8 of 17 failed attempts at 960 s", p3_ok and bp_ok, "P3 shipped arms; budget probe")
-claim(RM, "These are the 960-second run's 17 failed attempts without a harness error: the watchdog stopped 8 of them, and 9 finished and failed their success command",
-      bp_ok and sum(not r["agent_is_error"] and r["grader_returncode"] is not None for r in bf) == 9, "budget probe failures")
-claim(RM, "They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills", r2_ok and z2_killed, "R2 zero-turn rows")
-claim(RM, "| R10a had 40 zero-turn attempts (`bench/RUN_REGISTRY.md`) | 41,", len(zero(R10a)) == 41, "R10a rows")
-claim(RM, "The origin build ran on 2026-09-07 and `08a8d5d` on 2026-09-10", "baseline 2026-09-07" in tb["protocol"]["run_dates"], "FINAL40 protocol.run_dates")
-claim(RM, "rewrote one path field, `incumbent_source`",
-      "autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json" in json.dumps(f31_raw), "the raw file carries its original path again")
-claim(RM, "The 24/81 control run (R3) was run separately, before the time-hints run", passed(R3) == 24 and P["R3"].split("/")[1] < P["R4"].split("/")[1], "R3, R4 run IDs")
-claim(RM, "Two of the 40 tasks were left out", len(ex) == 2 and len(tb["per_task"]) == 40, "FINAL40 unevaluable_trials")
-claim(RM, "Phase C found \"zero 480 s clock-outs\"", "zero 480 s clock-outs" in summary_c.lower(), "PHASE_C_SUMMARY.md")
-claim(RM, "Phase C's \"17 hard clock-outs\"", "17 hard clock-outs" in summary_c and len(bf) == 17, "PHASE_C_SUMMARY.md; budget probe failures")
-claim(RM, "R2's 43 zero-turn attempts", r2_ok, "R2 zero-turn rows")
+claim(RM, "| Model | `z-ai/glm-5.3-flash` through OpenRouter |", all(q["model"] == "z-ai/glm-5.3-flash" for q in conf), "R9/R10 protocol.model")
+claim(RM, "| Benchmark | SetupBench at `041a412`, 81 tasks |", all(q["setupbench_commit"].startswith("041a412") and len(q["tasks"]) == 81 for q in conf), "R9/R10 protocol")
+claim(RM, "| Time limits | 480 s for Ada, 600 s for the check |",
+      all((q["task_timeout_seconds"], q["grader_timeout_seconds"]) == (480, 600) for q in conf), "R9/R10 protocol")
+claim(RM, "R9/R10 ran it as `417a8f1`", all(json.loads((B / P[k]).read_text())["workspace_commit"].startswith("417a8f1") for k in ("R9a", "R10a")), "R9a/R10a workspace_commit")
+
+# -------------------------------------------------------- the file guide, bench/README.md
+GD = "guide"
 origin_runs = [json.loads((B / P[k]).read_text()) for k in ("R1", "R5", "R9a", "R10a")]
-claim(RM, "R1 and R5 ran `df0c537` with one uncommitted file, `agent/system-guidance.ts`; R9/R10 record `417a8f1` with none",
+claim(GD, "R1 and R5 ran `df0c537` with one uncommitted file, `agent/system-guidance.ts`; R9/R10 record `417a8f1` with none",
       [(j["workspace_commit"][:7], j["changed_paths"]) for j in origin_runs] == [("df0c537", ["agent/system-guidance.ts"])] * 2 + [("417a8f1", [])] * 2,
       "R1 R5 R9a R10a workspace_commit, changed_paths")
+claim(GD, "`df8a18c09278`, is recorded in the results", all(j["agent_tree"].startswith("df8a18c09278") for j in origin_runs[2:]), "R9a/R10a agent_tree")
+claim(GD, "byte-identical to the runner every run recorded", all(q["runner_sha256"] == runner for q in conf), "protocol.runner_sha256")
+claim(GD, "It matches no `evaluator_sha256` that a run recorded", evaluator not in {proto(v).get("evaluator_sha256") for v in P.values()}, "every run's protocol")
+explo = [json.loads((B / "harness" / f).read_text())["protocol"] for f in ("SETUPBENCH_ADA_RAW.json", "ADA_HOLDOUT_5X_RAW.json")]
+claim(GD, "exploratory evaluation of Ada at commit `0c5e1da` (not in the bundle), with a 600 s limit",
+      all("0c5e1da" in json.dumps(q) and ("timeout_seconds" in q and q["timeout_seconds"] == 600 or q.get("variant_timeout_seconds") == 600) for q in explo), "the two protocols")
+claim(GD, "Of the 29 passes recovered where the origin build timed out, 18 came after a watchdog stop and 11 did not involve the watchdog", split_to, "R9 + R10 pairs")
+claim(GD, "whose commit time in `ada-campaign.bundle` is 07:24 UTC on **2026-09-11**", r3commit.startswith("6672af8"), "R3 workspace_commit (commit time: bash bench/verify_builds.sh)")
+claim(GD, "the +28 compared runs from different days", net(R3, R4) == 28, "R3 -> R4")
+claim(GD, "its arms were not run together, and the same build scored 54/81 on 2026-09-12", passed(R7) == 54 and r3commit == r7commit, "R3, R7")
+claim(GD, "Almost the same number of turns, or model responses (1,544 against 1,554), but the watchdog stopped 63 of R3's attempts against 34, and R3 took 23% longer in total",
+      (turns(R3), turns(R7)) == (1544, 1554) and depressed, "R3, R7 rows")
+claim(GD, "Phase C found \"zero 480 s clock-outs\"", "zero 480 s clock-outs" in summary_c.lower(), "PHASE_C_SUMMARY.md")
+claim(GD, "the watchdog stopped 28 of the shipped build's 41 failed attempts in the P3 run, and 8 of 17 failed attempts at 960 s", p3_ok and bp_ok, "P3 shipped arms; budget probe")
+claim(GD, "P2 was only ever measured inside the time-reminders bundle (T1.2)", "ADA_BASH_CLAMP_REMAINING" in agent and net(R7, R8) == -4, "agent.ts gate; R7 -> R8")
+claim(GD, "Phase C's \"17 hard clock-outs\"", "17 hard clock-outs" in summary_c and len(bf) == 17, "PHASE_C_SUMMARY.md; budget probe")
+claim(GD, "These are the 960-second run's 17 failed attempts without a harness error: the watchdog stopped 8 of them, and 9 finished and failed their check",
+      bp_ok and sum(not r["agent_is_error"] and r["grader_returncode"] is not None for r in bf) == 9, "budget probe failures")
+claim(GD, "R2's 43 zero-turn attempts", r2_ok, "R2 zero-turn rows")
+claim(GD, "They were a reporting bug: 41 were checked and 19 passed. Only 2 were stopped by the harness", r2_ok and z2_killed, "R2 zero-turn rows")
+claim(GD, "| R10a had 40 zero-turn attempts (`RUN_REGISTRY.md`) | 41,", len(zero(R10a)) == 41, "R10a rows")
+claim(GD, "The origin build ran on 2026-09-07 and `08a8d5d` on 2026-09-10", "baseline 2026-09-07" in tb["protocol"]["run_dates"] and "final 2026-09-10" in tb["protocol"]["run_dates"], "FINAL40 protocol.run_dates")
+claim(GD, "rewrote one path field, `incumbent_source`",
+      "autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json" in json.dumps(f31_raw), "the raw file carries its original path again")
 
 print(f"\n{'ALL DOCUMENT CLAIMS VERIFIED' if not FAILS else f'{len(FAILS)} CLAIM(S) FAILED'}")
 sys.exit(1 if FAILS else 0)

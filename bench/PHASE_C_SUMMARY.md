@@ -4,7 +4,7 @@
 > means that the harness killed no run. The watchdog still interrupted 28 of the shipped build's 41
 > failures in the P3 run, and 8 of the budget probe's 17 valid failures, which are the "17 hard
 > clock-outs" below. P2 was only ever measured inside the T1.2 bundle (R7 → R8) and P4 never ran,
-> so "dropped" means untested. The evidence for each point is in the repository README, under "Re-checked against the raw data".
+> so "dropped" means untested. The evidence for each point is in `bench/README.md`, under "Corrections to the campaign's records".
 
 **Phase C asked one question:** are the 25 consistently-failing SetupBench tasks
 (`bench/FAILING25.txt`, failed in both R9/R10 replicates on the shipped arm) **slow or

@@ -6,7 +6,7 @@
 > kills; the watchdog still interrupted 28 of the shipped build's 41 P3 failures. P2 was only ever
 > measured inside the T1.2 bundle. Its attribution of the whole gain to the T0.1 watchdog is not
 > supported: `6672af8` also carries Phase A's prompt and thinking cap, and no run separates them.
-> The evidence for each point is in the repository README, under "Re-checked against the raw data".
+> The evidence for each point is in `bench/README.md`, under "Corrections to the campaign's records".
 
 > **Campaign record — last updated 2026-09-16**
 >
