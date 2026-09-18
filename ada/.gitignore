@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+
+# Astro CLI local state (can hold credentials from `ast configure`)
+.ast/
+
+# env / secrets — never commit
+.env
+.env.*
+*.local
+*.key
+*.pem
+
+# build output
+dist/
+build/
+
+# logs
+*.log
+npm-debug.log*
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# runtime traces (JSONL per session) — read by external tooling, never committed
+agent/traces/

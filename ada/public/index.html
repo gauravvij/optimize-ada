@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ada · test client</title>
+<!-- Markdown rendering for assistant messages. Pinned + SRI so a changed/compromised
+     CDN file can't execute; DOMPurify sanitizes marked's output (see renderMarkdown). -->
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"
+        integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"
+        integrity="sha384-XQqX/4yiUGu+oyr87jvWzRuqBUK/adrY0DunhL+tID9m/9dwSpV8h9Fk/Sg6ifVQ"
+        crossorigin="anonymous"></script>
+<style>
+  /* Ada theme — Ada Lovelace lavender + gold on a deep-purple dark base. */
+  :root {
+    --bg:#15111f; --panel:#1e1930; --line:#2f2747; --code:#100d1a;
+    --fg:#ece9f5; --muted:#9d94b8;
+    --accent:#9b7dff;   /* lavender — primary accent */
+    --gold:#e6b64a;     /* gold — secondary accent */
+    --user:#241d3a; --asst:#1a1626; --tool:#2a2214;
+    --err:#ff6b6b; --ok:#5bd08b;
+  }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:var(--fg);
+         background-color:var(--bg);
+         background-image:radial-gradient(900px 420px at 50% -10%, rgba(155,125,255,.13), transparent 70%);
+         height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  header { flex:0 0 auto; padding:12px 16px; border-bottom:1px solid var(--line); display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+           background:linear-gradient(180deg, rgba(155,125,255,.07), transparent); }
+  .brand { display:flex; align-items:center; gap:9px; margin-right:4px; }
+  .brand-mark { display:block; flex:0 0 auto; }
+  header h1 { font-size:15px; margin:0; font-weight:700; letter-spacing:.02em;
+              background:linear-gradient(90deg, #cbbcff, var(--gold)); background-clip:text; -webkit-background-clip:text;
+              color:var(--fg); -webkit-text-fill-color:transparent; }
+  .chip { font-size:12px; color:var(--muted); border:1px solid var(--line); border-radius:99px; padding:2px 10px; }
+  .chip b { color:var(--fg); font-weight:600; }
+  #status.running { color:var(--accent); } #status.finished { color:var(--ok); } #status.errored { color:var(--err); }
+  main { flex:1 1 auto; min-height:0; display:grid; grid-template-columns: 1fr; gap:0; }
+  body.debug main { grid-template-columns: 1fr 380px; }
+  #timeline { overflow:auto; padding:16px;
+    background-image:radial-gradient(rgba(155,125,255,.055) 1px, transparent 1.6px); background-size:22px 22px; }
+  .welcome { max-width:660px; margin:7vh auto 0; text-align:center; }
+  .welcome .ascii { display:inline-block; text-align:left; white-space:pre; margin:0 0 20px; font-size:12px; line-height:1.05; font-weight:700;
+    background:linear-gradient(120deg, #cbbcff 15%, var(--gold)); background-clip:text; -webkit-background-clip:text;
+    color:var(--accent); -webkit-text-fill-color:transparent; }
+  .welcome .tagline { color:var(--fg); font-size:15px; margin:0 0 6px; }
+  .welcome .hint { color:var(--muted); margin:0 0 20px; }
+  .welcome .hint code { background:var(--code); color:var(--fg); padding:1px 6px; border-radius:5px; }
+  .welcome .flourish { color:var(--gold); opacity:.55; font-size:11px; letter-spacing:.22em; }
+  #side { display:none; border-left:1px solid var(--line); overflow:auto; padding:16px; background:var(--code); }
+  body.debug #side { display:block; }
+  .chip-debug { display:none; }            /* debug-only chips (e.g. lastEventId) — shown with ?debug */
+  body.debug .chip-debug { display:inline; }
+  form { flex:0 0 auto; display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--line); background:var(--panel); }
+  input[type=text] { flex:1; background:var(--panel); border:1px solid var(--line); color:var(--fg); border-radius:8px; padding:8px 10px; font:inherit; }
+  button { background:var(--panel); border:1px solid var(--line); color:var(--fg); border-radius:8px; padding:8px 12px; cursor:pointer; font:inherit; }
+  button:hover { border-color:var(--accent); }
+  #send { background:linear-gradient(180deg, #8b6dff, #7654f0); border-color:transparent; color:#fff; font-weight:600; }
+  #send:hover:not(:disabled) { filter:brightness(1.08); border-color:transparent; }
+  label.demo { color:var(--muted); display:flex; align-items:center; gap:6px; }
+  .bubble { border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:0 0 12px; white-space:pre-wrap; }
+  .bubble.user { background:var(--user); } .bubble.assistant { background:var(--asst); }
+  .role { font-size:11px; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; }
+  /* Assistant bodies render markdown to HTML, so use normal wrapping; user bodies
+     keep the raw prompt verbatim (pre-wrap). */
+  .bubble .body { white-space:normal; }
+  .bubble.user .body { white-space:pre-wrap; }
+  .bubble .body > :first-child { margin-top:0; } .bubble .body > :last-child { margin-bottom:0; }
+  .bubble .body p { margin:0 0 8px; }
+  .bubble .body h1, .bubble .body h2, .bubble .body h3, .bubble .body h4 { margin:10px 0 6px; font-size:14px; color:var(--fg); text-transform:none; letter-spacing:0; }
+  .bubble .body ul, .bubble .body ol { margin:0 0 8px; padding-left:20px; }
+  .bubble .body li { margin:2px 0; }
+  .bubble .body code { background:var(--code); padding:1px 5px; border-radius:4px; font-size:12px; }
+  .bubble .body pre { background:var(--code); padding:8px 10px; border-radius:6px; overflow:auto; margin:0 0 8px; }
+  .bubble .body pre code { background:none; padding:0; }
+  .bubble .body a { color:var(--accent); }
+  .bubble .body strong { color:var(--fg); font-weight:600; }
+  .tool { background:var(--tool); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:0 0 12px; }
+  .tool > summary { cursor:pointer; list-style:none; user-select:none; }
+  .tool > summary::-webkit-details-marker { display:none; }
+  .tool > summary::before { content:"▸"; color:var(--muted); margin-right:6px; }
+  .tool[open] > summary::before { content:"▾"; }
+  .tool.done > summary .name::after { content:" ✓"; color:var(--ok); }
+  .tool .name { color:var(--accent); font-weight:600; }
+  .summary-hint { color:var(--muted); margin-left:8px; }
+  .tool pre { margin:6px 0 0; padding:8px; background:var(--code); border-radius:6px; overflow:auto; }
+  .tool .result { margin-top:8px; border-top:1px dashed var(--line); padding-top:8px; color:var(--ok); }
+  .tool .result.err { color:var(--err); }
+  .notice { color:var(--muted); font-style:italic; margin:0 0 12px; }
+  .final { border-left:3px solid var(--ok); padding-left:10px; margin:8px 0; }
+  #status.starting { color:var(--gold); }
+  .pending { color:var(--muted); display:flex; align-items:center; gap:8px; margin:4px 0 12px; }
+  .pending .dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 1s infinite ease-in-out; }
+  @keyframes pulse { 0%,100%{opacity:.25} 50%{opacity:1} }
+  input[type=text]:disabled, button:disabled { opacity:.5; cursor:not-allowed; }
+  h2 { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin:0 0 8px; }
+  #rawlog { font-size:12px; }
+  #rawlog div { padding:3px 0; border-bottom:1px solid var(--line); word-break:break-all; }
+  #rawlog .seq { color:var(--accent); }
+  .toolbar { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+  .chip-btn { cursor:pointer; font:inherit; text-decoration:none; }
+  .chip-btn:hover { border-color:var(--accent); color:var(--fg); }
+  #settings-btn { margin-left:auto; display:inline-flex; align-items:center; }
+  #settings-panel { position:fixed; top:52px; right:16px; z-index:10; width:min(360px,calc(100vw - 32px));
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+    box-shadow:0 8px 28px rgba(0,0,0,.45); }
+  #settings-panel h2 { margin:0 0 10px; }
+  #settings-close { position:absolute; top:8px; right:8px; background:none; border:none; color:var(--muted);
+    cursor:pointer; font-size:14px; padding:2px 6px; }
+  #settings-close:hover { color:var(--fg); }
+  #settings-dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 12px; }
+  #settings-dl dt { color:var(--muted); }
+  #settings-dl dd { margin:0; word-break:break-all; }
+  #settings-dl dd.ok { color:var(--ok); } #settings-dl dd.warn { color:var(--gold); }
+  #settings-dl .repo-list { margin:0; padding-left:1.1em; }
+  #settings-dl .repo-list li { word-break:break-all; }
+  #settings-dl .repo-note { color:var(--muted); font-size:12px; margin-top:4px; }
+  #settings-actions:not(:empty) { margin-top:14px; padding-top:12px; border-top:1px solid var(--line);
+    display:flex; flex-direction:column; gap:8px; }
+  .settings-action { display:block; text-align:center; text-decoration:none; color:var(--fg);
+    border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
+  .settings-action:hover { border-color:var(--accent); }
+  .caret { color:var(--muted); }
+  #session-menu, #review-menu { position:fixed; top:52px; left:16px; z-index:10; width:min(420px,calc(100vw - 32px));
+    max-height:60vh; overflow:auto; background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:6px; box-shadow:0 8px 28px rgba(0,0,0,.45); }
+  #session-menu .empty, #review-menu .empty { color:var(--muted); padding:8px 10px; }
+  .sess-item .tags { display:block; color:var(--muted); font-size:11px; margin-top:2px; }
+  .sess-item .tags b { color:var(--fg); font-weight:600; }
+  .sess-item { display:block; width:100%; text-align:left; background:none; border:1px solid transparent;
+    border-radius:8px; padding:8px 10px; cursor:pointer; color:var(--fg); font:inherit; }
+  .sess-item:hover { background:var(--code); }
+  .sess-item.sess-new { color:var(--accent); font-weight:600; margin-bottom:4px; }
+  /* Past-session row: clickable label/meta on the left, delete (✕) on the right.
+     A row (not a nested button) so the ✕ isn't a button-inside-a-button. */
+  .sess-row { display:flex; align-items:center; border:1px solid transparent; border-radius:8px; }
+  .sess-row:hover { background:var(--code); }
+  .sess-row.active { border-color:var(--accent); }
+  .sess-row .sess-item { flex:1; min-width:0; width:auto; border:none; border-radius:8px 0 0 8px; }
+  .sess-row .sess-item:hover { background:none; }
+  .sess-del { flex:0 0 auto; background:none; border:none; color:var(--muted); cursor:pointer;
+    font:inherit; line-height:1; padding:8px 12px; border-radius:0 8px 8px 0; }
+  .sess-del:hover { color:var(--err); }
+  .sess-item .label { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .sess-item .meta { display:block; color:var(--muted); font-size:11px; margin-top:2px; }
+  #toast { position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:20;
+    background:var(--panel); border:1px solid var(--ok); color:var(--fg); border-radius:8px;
+    padding:8px 14px; box-shadow:0 8px 28px rgba(0,0,0,.45); transition:opacity .3s; }
+  #toast[hidden] { display:none; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <!-- Punch-card mark (gold dots + lavender dashes) — nods to Ada Lovelace / the Analytical Engine. -->
+    <svg class="brand-mark" width="26" height="26" viewBox="0 0 26 26" role="img" aria-label="Ada">
+      <rect x="0.75" y="0.75" width="24.5" height="24.5" rx="7" fill="#241d3a" stroke="#3a2d5c" stroke-width="1"/>
+      <g fill="#e6b64a"><circle cx="6.5" cy="7" r="1.5"/><circle cx="6.5" cy="13" r="1.5"/><circle cx="6.5" cy="19" r="1.5"/></g>
+      <g stroke="#9b7dff" stroke-width="1.7" stroke-linecap="round">
+        <line x1="10.5" y1="7" x2="20" y2="7"/>
+        <line x1="10.5" y1="13" x2="16.5" y2="13"/>
+        <line x1="10.5" y1="19" x2="20" y2="19"/>
+      </g>
+    </svg>
+    <h1>Ada</h1>
+  </div>
+  <button id="sid-btn" class="chip chip-btn" title="Switch session">session <b id="sid">—</b> <span class="caret">▾</span></button>
+  <span class="chip">status <b id="status">idle</b></span>
+  <span class="chip">model <b id="model">—</b></span>
+  <span class="chip">tokens <b id="tok">—</b></span>
+  <span class="chip">cost <b id="cost">—</b></span>
+  <span class="chip">conn <b id="conn">—</b></span>
+  <span class="chip chip-debug">lastEventId <b id="lei">—</b></span>
+  <button id="review-btn" class="chip chip-btn" title="Review conversations Ada handled" hidden>Review <span class="caret">▾</span></button>
+  <button id="settings-btn" class="chip chip-btn" title="Settings" aria-label="Settings">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+  </button>
+</header>
+
+<div id="toast" hidden></div>
+
+<div id="settings-panel" hidden>
+  <button id="settings-close" title="Close">✕</button>
+  <h2>Settings</h2>
+  <dl id="settings-dl"></dl>
+  <div id="settings-actions"></div>
+</div>
+
+<div id="session-menu" hidden></div>
+<div id="review-menu" hidden></div>
+
+<main>
+  <section id="timeline"></section>
+  <aside id="side">
+    <div class="toolbar">
+      <button id="disconnect">Disconnect</button>
+      <button id="reconnect">Reconnect (replay)</button>
+    </div>
+    <h2>Raw AG-UI events</h2>
+    <div id="rawlog"></div>
+  </aside>
+</main>
+
+<form id="composer">
+  <input id="prompt" type="text" placeholder="Prompt (e.g. bump retries in config.json)" autocomplete="off" />
+  <button id="send" type="submit">Send</button>
+</form>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const timeline = $("timeline"), rawlog = $("rawlog");
+let es = null, sessionId = null, lastEventId = null, pendingEl = null;
+// AG-UI seqs already rendered into the timeline. The timeline isn't cleared on
+// an SSE reconnect, so a replayed event we've already shown must be skipped —
+// otherwise a reconnect loop re-appends the whole buffer over and over. Reset
+// wherever the timeline is cleared (switch / new session).
+const renderedSeqs = new Set();
+
+// The raw AG-UI event inspector (right pane) is a dev tool, hidden by default.
+// Reveal it with ?debug — e.g. http://localhost:8080/?debug
+if (new URLSearchParams(location.search).has("debug")) document.body.classList.add("debug");
+
+// GitHub connection state + Connect / Set-up actions now live in the Settings
+// panel (the gear button) — see showSettings().
+
+// Just returned from the GitHub connect flow (server redirects here with the
+// hint). Flash a brief confirmation, then strip the param so a reload/back
+// doesn't re-show it. The Settings panel reflects the connected state on open.
+if (new URLSearchParams(location.search).get("github") === "connected") {
+  const t = $("toast");
+  t.textContent = "✓ GitHub connected";
+  t.hidden = false;
+  setTimeout(() => { t.hidden = true; }, 4000);
+  history.replaceState(null, "", location.pathname);
+}
+
+// Settings panel (gear button): shows the caller's identity and — depending on
+// GitHub state — a link to set up or connect GitHub. Everything from /api/whoami.
+function row(dl, term, value, cls){
+  const dt = document.createElement("dt"); dt.textContent = term;
+  const dd = document.createElement("dd"); dd.textContent = value; if (cls) dd.classList.add(cls);
+  dl.appendChild(dt); dl.appendChild(dd);
+}
+function actionLink(container, label, href, external){
+  const a = document.createElement("a");
+  a.className = "settings-action"; a.href = href; a.textContent = label;
+  // External (github.com) links open in a new tab so the user keeps the app open.
+  if (external){ a.target = "_blank"; a.rel = "noopener"; }
+  container.appendChild(a);
+}
+// Fetch the connected repos/installations and render them under the github row,
+// plus a per-installation "Manage on GitHub" link (or an "Add a repository" link
+// when connected but not installed anywhere). Best-effort: a failure just omits
+// the list rather than breaking the panel.
+async function renderRepos(dl, actions){
+  const gh = await (await fetch("/api/github/repos")).json();
+  const insts = gh.installations || [];
+  const repos = insts.flatMap((i) => i.repos || []);
+  const total = insts.reduce((n, i) => n + (i.totalRepos || 0), 0);
+  if (repos.length){
+    const dt = document.createElement("dt"); dt.textContent = "repos";
+    const dd = document.createElement("dd");
+    const ul = document.createElement("ul"); ul.className = "repo-list";
+    for (const r of repos){ const li = document.createElement("li"); li.textContent = r; ul.appendChild(li); }
+    dd.appendChild(ul);
+    if (total > repos.length){
+      const note = document.createElement("div"); note.className = "repo-note";
+      note.textContent = `showing ${repos.length} of ${total}`; dd.appendChild(note);
+    }
+    dl.appendChild(dt); dl.appendChild(dd);
+  }
+  if (insts.length){
+    for (const i of insts){
+      actionLink(actions, `Manage ${i.account || "repos"} on GitHub →`, i.manageUrl, true);
+    }
+  } else if (gh.appSlug){
+    actionLink(actions, "Add a repository on GitHub →", `https://github.com/apps/${gh.appSlug}/installations/new`, true);
+  }
+}
+async function showSettings(){
+  const panel = $("settings-panel"), dl = $("settings-dl"), actions = $("settings-actions");
+  dl.innerHTML = ""; actions.innerHTML = "";
+  panel.hidden = false;
+  try {
+    const w = await (await fetch("/api/whoami")).json();
+    if (!w.allowed){ row(dl, "access", "denied by grants", "warn"); return; }
+    if (w.email) row(dl, "email", w.email);
+    // Only show the admin row when an admin allowlist is actually defined —
+    // otherwise "admin: no" is misleading (there's no admin concept in play).
+    if (w.adminConfigured) row(dl, "admin", w.admin ? "yes" : "no", w.admin ? "ok" : null);
+    row(dl, "github", w.github, w.githubConnected ? "ok" : "warn");
+    // GitHub action, chosen by state: set up the App (not configured + caller may
+    // provision), else connect the user's GitHub (configured but not connected).
+    if (!w.githubConfigured){
+      if (w.canSetup) actionLink(actions, "Set up GitHub App", "/api/setup/github/start");
+    } else if (!w.githubConnected){
+      actionLink(actions, "Connect GitHub", "/auth/github/login");
+    } else {
+      // Connected: list the repos the App reaches + a link to add/remove them.
+      try { await renderRepos(dl, actions); } catch { /* omit list on failure */ }
+    }
+  } catch { row(dl, "error", "could not load settings", "warn"); }
+}
+$("settings-btn").addEventListener("click", () => {
+  const panel = $("settings-panel");
+  if (panel.hidden) showSettings(); else panel.hidden = true;
+});
+$("settings-close").addEventListener("click", () => { $("settings-panel").hidden = true; });
+
+// ---- Session history --------------------------------------------------------
+// Sessions are per-browser and the server registry is in-memory, so the history
+// lives in localStorage. Switching replays a past session from the server's
+// existing replay buffer (connect(-1) -> GET /sessions/:id/events?lastEventId=-1),
+// which works as long as the server hasn't restarted (handled in connect()).
+const SESS_KEY = "ada.sessions";
+function loadSessions(){ try { return JSON.parse(localStorage.getItem(SESS_KEY) || "[]"); } catch { return []; } }
+function saveSessions(list){ try { localStorage.setItem(SESS_KEY, JSON.stringify(list.slice(0, 20))); } catch {} }
+function addSession(id, label){
+  const list = loadSessions().filter(s => s.id !== id);
+  list.unshift({ id, label: (label || "").slice(0, 80), ts: Date.now() });
+  saveSessions(list);
+  renderSessionMenu();
+}
+function relTime(ts){
+  const s = Math.max(0, Math.round((Date.now() - ts) / 1000));
+  if (s < 60) return s + "s ago";
+  const m = Math.round(s / 60); if (m < 60) return m + "m ago";
+  const h = Math.round(m / 60); if (h < 24) return h + "h ago";
+  return Math.round(h / 24) + "d ago";
+}
+function renderSessionMenu(){
+  const menu = $("session-menu"), list = loadSessions();
+  menu.innerHTML = "";
+  const nw = document.createElement("button");
+  nw.className = "sess-item sess-new";
+  nw.textContent = "＋ New session";
+  nw.addEventListener("click", () => { $("session-menu").hidden = true; newSession(); });
+  menu.appendChild(nw);
+  if (!list.length){ const d = document.createElement("div"); d.className = "empty"; d.textContent = "no past sessions"; menu.appendChild(d); return; }
+  for (const s of list){
+    const row = document.createElement("div");
+    row.className = "sess-row" + (s.id === sessionId ? " active" : "");
+    const b = document.createElement("button");
+    b.className = "sess-item";
+    b.innerHTML = `<span class="label"></span><span class="meta"></span>`;
+    b.querySelector(".label").textContent = s.label || "(no prompt)";
+    b.querySelector(".meta").textContent = s.id.slice(0, 14) + " · " + relTime(s.ts);
+    b.addEventListener("click", () => { $("session-menu").hidden = true; switchSession(s.id); });
+    const del = document.createElement("button");
+    del.className = "sess-del"; del.textContent = "✕";
+    del.title = "Delete session"; del.setAttribute("aria-label", "Delete session");
+    del.addEventListener("click", (e) => { e.stopPropagation(); deleteSession(s.id); });
+    row.appendChild(b); row.appendChild(del);
+    menu.appendChild(row);
+  }
+}
+// Delete a session: free its server-side state, drop it from local history, and
+// detach the view if it's the one on screen. The menu stays open so you can
+// delete several. Best-effort on the server (it may have restarted / GC'd).
+async function deleteSession(id){
+  try { await fetch(`/sessions/${encodeURIComponent(id)}`, { method: "DELETE" }); }
+  catch { /* still remove it locally */ }
+  saveSessions(loadSessions().filter(s => s.id !== id));
+  if (id === sessionId){
+    if (es){ es.close(); es = null; }
+    sessionId = null; lastEventId = null; pendingEl = null;
+    timeline.innerHTML = ""; rawlog.innerHTML = ""; messages.clear(); tools.clear(); renderedSeqs.clear(); stickToBottom = true;
+    resetUsage(); setStatus("idle"); setComposerEnabled(true);
+    $("sid").textContent = "—"; $("lei").textContent = "—";
+  }
+  renderSessionMenu();
+}
+// Switch the live view to a past session and replay its full history.
+function switchSession(id){
+  if (!id || id === sessionId) return;
+  timeline.innerHTML = ""; rawlog.innerHTML = ""; messages.clear(); tools.clear();
+  lastEventId = null; pendingEl = null; renderedSeqs.clear(); stickToBottom = true;
+  resetUsage(); setStatus("idle"); setComposerEnabled(true);
+  sessionId = id;
+  $("sid").textContent = id.slice(0, 14);
+  renderSessionMenu();
+  connect(-1); // replay everything from the server's buffer, then live-tail
+}
+// Detach from the current session and clear the view; the next prompt starts fresh.
+// ASCII "ADA" welcome, shown on an empty timeline (initial load + New session)
+// and replaced the moment a turn starts (the timeline is cleared). Built from
+// per-line strings so source indentation can't corrupt the art.
+const WELCOME_HTML =
+  '<div class="welcome"><pre class="ascii" aria-hidden="true">'
+  + ' █████╗ ██████╗  █████╗ \n'
+  + '██╔══██╗██╔══██╗██╔══██╗\n'
+  + '███████║██║  ██║███████║\n'
+  + '██╔══██║██║  ██║██╔══██║\n'
+  + '██║  ██║██████╔╝██║  ██║\n'
+  + '╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝'
+  + '</pre>'
+  + '<p class="tagline">A coding agent you converse with — on Slack, web chat, or right here.</p>'
+  + '<p class="hint">Try <code>work on owner/repo</code> to start a task, or <code>connect github</code> to link your account.</p>'
+  + '<p class="flourish">· · — · ·  named for Ada Lovelace, 1815–1852  · · — · ·</p></div>';
+function renderWelcome(){ timeline.innerHTML = WELCOME_HTML; }
+
+function newSession(){
+  if (es){ es.close(); es = null; }
+  reviewing = false;
+  $("prompt").placeholder = "Prompt (e.g. bump retries in config.json)";
+  sessionId = null; lastEventId = null; pendingEl = null;
+  timeline.innerHTML = ""; rawlog.innerHTML = ""; messages.clear(); tools.clear(); renderedSeqs.clear(); stickToBottom = true;
+  resetUsage(); setStatus("idle"); setComposerEnabled(true);
+  $("sid").textContent = "—"; $("lei").textContent = "—";
+  renderSessionMenu();
+  renderWelcome();
+  $("prompt").focus();
+}
+$("sid-btn").addEventListener("click", (e) => {
+  e.stopPropagation();
+  const menu = $("session-menu");
+  if (menu.hidden){ renderSessionMenu(); menu.hidden = false; } else menu.hidden = true;
+});
+document.addEventListener("click", (e) => {
+  const menu = $("session-menu"), btn = $("sid-btn");
+  if (!menu.hidden && !menu.contains(e.target) && !btn.contains(e.target)) menu.hidden = true;
+});
+
+// ---- Conversation review (admin) -------------------------------------------
+// Browse the conversations Ada handled over Slack/web and replay any one of
+// them READ-ONLY. GET /conversations is admin-gated server-side; if it 403s we
+// never show the Review button.
+let reviewing = false;
+function escHtml(s){ return String(s).replace(/[&<>"']/g, (m) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[m])); }
+async function initReview(){
+  try { if ((await fetch("/conversations")).ok) $("review-btn").hidden = false; } catch { /* leave hidden */ }
+}
+async function renderReviewMenu(){
+  const menu = $("review-menu");
+  menu.innerHTML = '<div class="empty">Loading…</div>';
+  let convos = [];
+  try {
+    const res = await fetch("/conversations");
+    if (!res.ok){ menu.innerHTML = '<div class="empty">Not available.</div>'; return; }
+    ({ conversations: convos } = await res.json());
+  } catch { menu.innerHTML = '<div class="empty">Failed to load.</div>'; return; }
+  if (!convos.length){ menu.innerHTML = '<div class="empty">No conversations yet.</div>'; return; }
+  menu.innerHTML = "";
+  for (const c of convos){
+    const b = document.createElement("button");
+    b.className = "sess-item" + (c.sessionId === sessionId ? " active" : "");
+    const where = c.kind === "slack" ? "slack" : (c.kind || "web");
+    b.innerHTML = `<span class="label">${escHtml(c.title || c.sessionId)}</span>`
+      + `<span class="tags">${escHtml(where)}${c.repo ? " · <b>" + escHtml(c.repo) + "</b>" : ""}`
+      + `${c.userId ? " · " + escHtml(c.userId) : ""} · ${c.events} events · ${escHtml(c.status)} · ${relTime(c.updatedAt)}</span>`;
+    b.addEventListener("click", () => { $("review-menu").hidden = true; openConversation(c); });
+    menu.appendChild(b);
+  }
+}
+function openConversation(c){
+  reviewing = true;
+  if (es){ es.close(); es = null; }
+  timeline.innerHTML = ""; rawlog.innerHTML = ""; messages.clear(); tools.clear();
+  lastEventId = null; pendingEl = null; resetUsage(); setStatus("idle");
+  sessionId = c.sessionId;
+  $("sid").textContent = (c.repo || c.sessionId).slice(0, 20);
+  setComposerEnabled(false);
+  $("prompt").placeholder = "Read-only review — start a New session to chat";
+  note(`Reviewing ${c.kind === "slack" ? "Slack" : "web"} conversation${c.repo ? " on " + c.repo : ""}${c.userId ? " · user " + c.userId : ""} — read-only`);
+  connect(-1); // replay the whole conversation from the server buffer
+}
+$("review-btn").addEventListener("click", (e) => {
+  e.stopPropagation();
+  const menu = $("review-menu");
+  if (menu.hidden){ renderReviewMenu(); menu.hidden = false; } else menu.hidden = true;
+});
+document.addEventListener("click", (e) => {
+  const menu = $("review-menu"), btn = $("review-btn");
+  if (!menu.hidden && !menu.contains(e.target) && !btn.contains(e.target)) menu.hidden = true;
+});
+initReview();
+
+renderWelcome();  // show the ASCII banner on first load (cleared once a turn starts)
+
+// ---- Token / cost display ---------------------------------------------------
+function fmtTokens(n){
+  n = Number(n) || 0;
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "k";
+  return String(n);
+}
+// Accumulated across all turns of the current session (a session's total spend).
+// Reset when starting/switching sessions; re-summed as usage events replay.
+let sessionUsage = null;
+function resetUsage(){
+  sessionUsage = null;
+  $("tok").textContent = "—"; $("cost").textContent = "—";
+  $("tok").removeAttribute("title"); $("cost").removeAttribute("title");
+}
+function updateUsage(u){
+  if (!u) return;
+  const s = sessionUsage || (sessionUsage = { in:0, out:0, cr:0, cw:0, cost:0, hasCost:false });
+  s.in += Number(u.inputTokens) || 0;
+  s.out += Number(u.outputTokens) || 0;
+  s.cr += Number(u.cacheReadTokens) || 0;
+  s.cw += Number(u.cacheCreationTokens) || 0;
+  if (u.costUsd != null){ s.cost += Number(u.costUsd) || 0; s.hasCost = true; }
+  $("tok").textContent = `${fmtTokens(s.in)}↑ ${fmtTokens(s.out)}↓`;
+  $("tok").title = `session total — input ${s.in} · output ${s.out} · cache read ${s.cr} · cache write ${s.cw}`;
+  $("cost").textContent = s.hasCost ? "$" + s.cost.toFixed(4) : "n/a";
+}
+
+const messages = new Map();  // messageId -> {el, buf}
+const tools = new Map();     // toolCallId -> {el, argsEl, resultEl, buf}
+
+function setStatus(s){ const el=$("status"); el.textContent=s; el.className=""; el.classList.add(s); }
+function setConn(s){ $("conn").textContent = s; }
+
+function messageBubble(messageId, role){
+  let m = messages.get(messageId);
+  if (m) return m;
+  const el = document.createElement("div");
+  el.className = "bubble " + (role === "user" ? "user" : "assistant");
+  el.innerHTML = `<div class="role">${role}</div><div class="body"></div>`;
+  timeline.appendChild(el);
+  m = { el, body: el.querySelector(".body"), buf: "" };
+  messages.set(messageId, m);
+  scroll();
+  return m;
+}
+
+function toolCard(toolCallId, name){
+  let t = tools.get(toolCallId);
+  if (t) return t;
+  const el = document.createElement("details"); // collapsed by default; unfold for full args + result
+  el.className = "tool";
+  el.innerHTML = `<summary><span class="name">🔧 ${name}</span><span class="summary-hint"></span></summary>`
+    + `<pre class="args"></pre>`;
+  timeline.appendChild(el);
+  t = { el, argsEl: el.querySelector(".args"), hintEl: el.querySelector(".summary-hint"), resultEl: null, buf: "" };
+  tools.set(toolCallId, t);
+  scroll();
+  return t;
+}
+
+// A concise one-line descriptor for the collapsed summary (the useful bit).
+function toolHint(args){
+  if (!args || typeof args !== "object") return "";
+  const key = ["file_path","path","command","pattern","query","url"].find(k => args[k] != null);
+  if (!key) return "";
+  const v = String(args[key]).replace(/\s+/g, " ").trim();
+  return v.length > 64 ? v.slice(0, 61) + "…" : v;
+}
+
+// Stick-to-bottom: auto-scroll only when the user is already pinned to the
+// bottom (live-tailing). Once they scroll up to read, new content must not yank
+// them back down; scrolling back to the bottom re-arms it. The flag is recomputed
+// on every scroll (user- or programmatic); the threshold absorbs sub-pixel
+// rounding so "close enough" still counts as pinned. Re-armed on timeline clears.
+let stickToBottom = true;
+function atBottom(){ return timeline.scrollHeight - timeline.scrollTop - timeline.clientHeight < 40; }
+timeline.addEventListener("scroll", () => { stickToBottom = atBottom(); });
+function scroll(){ if (stickToBottom) timeline.scrollTop = timeline.scrollHeight; }
+
+// Render assistant markdown to HTML with marked, then sanitize with DOMPurify
+// (loaded from CDN in <head>, pinned + SRI). marked does NOT sanitize, and
+// model/tool output can carry injected HTML, so the DOMPurify pass is required —
+// never innerHTML the raw marked output. Falls back to null (caller uses plain
+// text) if the CDN scripts didn't load, so a message never renders as raw HTML.
+function renderMarkdown(src){
+  if (typeof marked === "undefined" || typeof DOMPurify === "undefined") return null;
+  return DOMPurify.sanitize(marked.parse(String(src), { breaks: true }));
+}
+
+function setComposerEnabled(on){
+  $("prompt").disabled = !on;
+  $("send").disabled = !on;
+  $("send").textContent = on ? "Send" : "Working…";
+  if (on) $("prompt").focus();
+}
+function clearPending(){ if (pendingEl){ pendingEl.remove(); pendingEl = null; } }
+
+function handle(ev){
+  switch (ev.type){
+    case "RUN_STARTED":
+      $("sid").textContent = ev.threadId ? ev.threadId.slice(0,14) : sessionId.slice(0,14);
+      setStatus("running");
+      if (pendingEl) pendingEl.innerHTML = `<span class="dot"></span> Claude is working…`;
+      break;
+    case "STATE_SNAPSHOT":
+      if (ev.snapshot){ $("model").textContent = ev.snapshot.model ?? "—";
+        note(`state: model=${ev.snapshot.model}, tools=[${(ev.snapshot.tools||[]).join(", ")}]`); }
+      break;
+    case "TEXT_MESSAGE_START": clearPending(); messageBubble(ev.messageId, ev.role || "assistant"); break;
+    case "TEXT_MESSAGE_CONTENT": { const m = messageBubble(ev.messageId, "assistant"); m.buf += ev.delta; const html = renderMarkdown(m.buf); if (html == null) m.body.textContent = m.buf; else m.body.innerHTML = html; scroll(); break; }
+    case "TEXT_MESSAGE_END": break;
+    case "TOOL_CALL_START": clearPending(); toolCard(ev.toolCallId, ev.toolCallName); break;
+    case "TOOL_CALL_ARGS": { const t = toolCard(ev.toolCallId, "?"); t.buf += ev.delta; t.argsEl.textContent = t.buf; scroll(); break; }
+    case "TOOL_CALL_END": { const t = tools.get(ev.toolCallId); if (t){ try { const a = JSON.parse(t.buf); t.argsEl.textContent = JSON.stringify(a, null, 2); if (t.hintEl) t.hintEl.textContent = toolHint(a); } catch(_){} } break; }
+    case "TOOL_CALL_RESULT": {
+      const t = tools.get(ev.toolCallId); if (!t) break;
+      if (!t.resultEl){ t.resultEl = document.createElement("div"); t.resultEl.className = "result"; t.el.appendChild(t.resultEl); }
+      t.resultEl.textContent = "→ " + ev.content;
+      t.el.classList.add("done"); // ✓ on the summary
+      scroll(); break;
+    }
+    case "CUSTOM":
+      if (ev.name === "claude.usage") updateUsage(ev.value);
+      else note(`custom(${ev.name}): ${JSON.stringify(ev.value)}`);
+      break;
+    case "RUN_FINISHED": { clearPending(); setStatus("finished"); setComposerEnabled(true); const d=document.createElement("div"); d.className="final"; d.textContent="✓ finished"; d.title = ev.result ?? ""; timeline.appendChild(d); scroll(); break; }
+    case "RUN_ERROR": { clearPending(); setStatus("errored"); setComposerEnabled(true); note(`✗ error: ${ev.message} (${ev.code||""})`); break; }
+    // REASONING_* intentionally not rendered (off by default in the translator)
+  }
+}
+
+function note(text){ const d=document.createElement("div"); d.className="notice"; d.textContent=text; timeline.appendChild(d); scroll(); }
+
+function logRaw(seq, ev){ const d=document.createElement("div"); d.innerHTML=`<span class="seq">#${seq ?? "?"}</span> ${ev.type}`; d.title=JSON.stringify(ev,null,2); rawlog.prepend(d); }
+
+function connect(fromSeq){
+  if (es) es.close();
+  const q = fromSeq != null ? `?lastEventId=${fromSeq}` : "";
+  es = new EventSource(`/sessions/${sessionId}/events${q}`);
+  let sawMessage = false;
+  es.onopen = () => setConn("connected");
+  es.onerror = () => {
+    // A CLOSED state is a fatal response (e.g. 404 — the session no longer
+    // exists because the server restarted); anything else is a transient drop
+    // the browser auto-reconnects from (w/ Last-Event-ID header).
+    if (es.readyState === EventSource.CLOSED){
+      setConn("closed");
+      if (!sawMessage) note("session unavailable — the server may have restarted");
+    } else {
+      setConn("reconnecting…");
+    }
+  };
+  es.onmessage = (e) => {
+    sawMessage = true;
+    // Skip anything already rendered: a reconnect can replay events we've shown
+    // (the server resumes from Last-Event-ID, but the boundary or a forced -1
+    // replay can overlap). Without this, a reconnect loop duplicates the timeline.
+    const seq = Number(e.lastEventId);
+    if (Number.isFinite(seq)) {
+      if (renderedSeqs.has(seq)) return;
+      renderedSeqs.add(seq);
+    }
+    lastEventId = e.lastEventId || lastEventId;
+    $("lei").textContent = lastEventId ?? "—";
+    const ev = JSON.parse(e.data);
+    handle(ev);
+    logRaw(e.lastEventId, ev);
+  };
+}
+
+// Each turn's user bubble needs a unique id (a session now has many turns).
+let turnSeq = 0;
+function addUserBubble(text){ messageBubble("user-" + (++turnSeq), "user").body.textContent = text; }
+function showPending(text){
+  clearPending();
+  pendingEl = document.createElement("div");
+  pendingEl.className = "pending";
+  pendingEl.innerHTML = `<span class="dot"></span> ${text}`;
+  timeline.appendChild(pendingEl); scroll();
+}
+
+$("composer").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const prompt = $("prompt").value.trim();
+  if (!prompt) return;
+  if (reviewing){ note("read-only review — open the session ▾ menu → New session to chat"); return; }
+
+  // With an active session a prompt is a FOLLOW-UP turn on it; otherwise it
+  // starts a NEW session. Only a new session clears the timeline + usage.
+  const following = !!sessionId;
+  if (!following){
+    timeline.innerHTML = ""; rawlog.innerHTML = ""; messages.clear(); tools.clear(); lastEventId = null; renderedSeqs.clear(); stickToBottom = true;
+    resetUsage();
+  }
+  addUserBubble(prompt);
+  $("prompt").value = "";
+  setComposerEnabled(false);
+  setStatus("starting");
+  showPending(following ? "Claude is thinking…" : "starting Claude… (spawning; first tokens can take a few seconds)");
+
+  try {
+    if (following){
+      const res = await fetch(`/sessions/${sessionId}/messages`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      if (!res.ok){ clearPending(); note("failed to continue session: " + await res.text()); setComposerEnabled(true); }
+      // Don't trust the existing SSE to still be live: a proxy can silently drop
+      // an idle stream half-open (readyState stays OPEN, so EventSource never
+      // reconnects), and the turn would then stream into a dead socket — its
+      // events reaching only the registry, leaving the UI stuck until a manual
+      // refresh. Re-establish the stream, resuming from lastEventId (client
+      // dedupe keeps it gap-free), so this turn is guaranteed a live connection.
+      else connect(lastEventId != null ? Number(lastEventId) : -1);
+    } else {
+      const res = await fetch("/sessions", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      if (!res.ok){ clearPending(); note("failed to start session: " + await res.text()); setComposerEnabled(true); return; }
+      ({ sessionId } = await res.json());
+      $("sid").textContent = sessionId.slice(0, 14);
+      addSession(sessionId, prompt);
+      connect(null);
+    }
+  } catch (err){
+    clearPending(); note("request failed: " + err.message); setComposerEnabled(true);
+  }
+});
+
+$("disconnect").addEventListener("click", () => { if (es){ es.close(); setConn("disconnected"); } });
+$("reconnect").addEventListener("click", () => { if (sessionId) connect(lastEventId != null ? Number(lastEventId) : -1); });
+</script>
+</body>
+</html>
