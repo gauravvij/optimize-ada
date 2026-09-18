@@ -1,8 +1,8 @@
 # Ada on SetupBench — an optimisation campaign
 
 [Ada](https://github.com/rabbah/ada) is an open-source coding agent built on Claude Code
-through the Claude Agent SDK, written by Simon Guerrier and Rodric Rabbah and released
-under the MIT licence. This branch records one campaign to make it pass more real
+through the Claude Agent SDK, written by Simon Guerrier, Rodric Rabbah and contributors and
+released under the MIT licence. This branch records one campaign to make it pass more real
 software-setup tasks: what was changed, what was measured, and which claims survived being
 measured again.
 
@@ -26,7 +26,7 @@ The agent is ordinary. What is unusual is where its gain came from, and how that
 **Ada was being killed by the clock.** On SetupBench — 81 real software-setup tasks, each
 with a 480-second budget and graded by the task's own checker in Docker — the original build
 overran on 40 to 53 of the 81 tasks, depending on the run. Each overrun was hard-killed at the
-deadline with zero turns recorded, and the grader never ran. The work it had done was lost.
+deadline, and the grader never ran. The work it had done was lost.
 
 **The fix that held is a watchdog.** Anchor the deadline to the container's real start time,
 interrupt the agent before the external kill, and exit cleanly so the partial work gets
@@ -42,11 +42,11 @@ machine, nothing but the build differing:
 | R10 | 78 | 36 | **51** | **+15** | p = 6.10e-05 |
 | **Pooled** | **157** | **67** | **98** | **+31** | **p = 7.92e-09** |
 
-All four pre-registered conditions are met: **67/157 → 98/157**, 32 gained and 1 lost. The
-whole gain is hang conversion. On the 82 paired runs where the origin build hung with zero
-turns, the shipped build passes 28. On the 75 where the origin build ran normally, it is
-67/75 → 70/75 (p = 0.375) — no real difference. **The shipped build is not a more capable
-agent. It stops being killed.**
+All four pre-registered conditions are met: **67/157 → 98/157**, 32 gained and 1 lost.
+Almost all of the gain is runs the origin build lost to the clock. On the 82 paired runs where
+it recorded zero turns, the shipped build passes 28. On the 75 where it ran, it is
+67/75 → 70/75 (p = 0.375) — not a significant difference. **The shipped build is not a more
+capable agent. It stops being killed.**
 
 Two more things are equally part of the result. A second change — telling the agent how much
 time it has left — works exactly as designed and does not raise the pass rate. And two
@@ -57,23 +57,45 @@ them. Both are reported here in full.
 
 ## Results
 
-### Origin vs shipped, head to head — R9 + R10, 162 task-runs per build
+### Baseline vs shipped build, head to head — R9 + R10
 
-| Measure | Origin `df0c537` | **Shipped `5f4c5c0`** | Change |
+The confirmation run: the same 81 SetupBench tasks, run twice per build, both arms of each
+replicate running at the same time on one machine — 162 task-runs per build. Nothing but the
+build differs. Every cell is computed from the four raw diagnostics by
+`python3 bench/confirmation_table.py`.
+
+| Metric | Baseline `df0c537` | Shipped `5f4c5c0` | Change |
 |---|---:|---:|---|
-| **Tasks passed** | 68 (42.0%) | **99 (61.1%)** | **+31 tasks, +19.1 points** |
-| Paired result, evaluable runs | 67/157 | **98/157** | net +31, exact McNemar p = 7.92e-09 |
-| **Killed before grading** (zero turns) | 86 | **3** | −83 — this is the entire mechanism |
-| Timed out | 84 | **0** | −84 |
+| Tasks passed (162 runs) | 68 (42.0%) | **99 (61.1%)** | +31 tasks, +19.1 pts, +46% relative |
+| Paired result, evaluable runs | 67/157 | **98/157** | net +31, 32 gained / 1 lost, exact McNemar p = 7.92e-09 |
+| Per replicate (R9, R10) | 32/81, 36/81 | 47/81, 52/81 | paired +16 (p = 1.45e-04), +15 (p = 6.10e-05) |
+| **Timed out** — killed by the harness, never graded | 84 | **0** | −84 — this is the mechanism |
+| Runs recorded with zero turns | 86 | 3 | −83 (mostly the timeouts above) |
 | Interrupted at the deadline, then graded | — | 69 | the partial work now counts |
 | Turns, total | 1,386 | 2,825 | +104% — the agent actually gets to work |
+| Turns, median per task | 0 | 17 | the baseline's median run never took a turn |
 | Latency, mean per task | 406 s | **383 s** | −6% |
-| Total wall time | 18.3 h | **17.2 h** | −6% |
-| Cost | not captured | not captured | the harness records no tokens or spend |
+| Latency, median per task | 485 s | 417 s | −14% |
+| Latency on tasks that passed | 313 s mean / 299 s median | 333 s mean / 313 s median | +6% — passing takes slightly longer |
+| Total wall time (162 runs) | 18.3 h | **17.2 h** | −6% |
+| Invalid rows (excluded from pairing) | 3 | 2 | — |
+| Tasks still failing | 94/162 | 63/162 | −31 |
+| Cost | not captured | not captured | the R9/R10 diagnostics record no tokens or spend |
+
+The baseline's 86 zero-turn runs are 82 of its 84 timeouts, 3 harness errors and 1 run that was
+graded; its other 2 timeouts had recorded turns. The shipped build's 3 are 2 harness errors and
+1 graded run — none of its runs was killed by the clock.
+
+**Where the +31 comes from.** Split the 157 paired runs by what the baseline did:
+
+| Baseline behaviour | n | Baseline passed | Shipped passed | Verdict |
+|---|---:|---:|---:|---|
+| Recorded zero turns (almost all hard-killed at the deadline) | 82 | 0 | **28** | nearly the whole gain |
+| Ran with turns | 75 | 67 | 70 | not significant, p = 0.375 |
 
 ### The same-day ladder — 2026-09-12, runs R5 / R7 / R8
 
-Three builds, all 81 tasks, one driver, one day. Each row adds one change to the row above.
+Three builds, all 81 tasks, the same harness, one day. Each row adds one change to the row above.
 
 | Build | What it adds | Passed | Against the row above |
 |---|---|---:|---|
@@ -81,48 +103,57 @@ Three builds, all 81 tasks, one driver, one day. Each row adds one change to the
 | `6672af8` | **+ T0.1** watchdog, container-anchored deadline, clean exit | **54/81** | **+20 net**, 21 gained / 1 lost, exact McNemar **p = 1.1e-05** |
 | `2e495bb` | **+ T1.2** time hints, wrap-up instruction, Bash timeout clamp | 50/81 | **−4 net**, 5 gained / 9 lost, **p = 0.42** |
 
-**What works is the watchdog.** All 20 of its net conversions come from the 46 tasks the
-origin build hung on with zero turns: 0/46 → 21/46. On the 35 tasks the origin build could
-actually run, it scored 34/35, and nothing built since has improved on that.
+**What works is the watchdog.** All 21 of its conversions come from the 46 tasks the origin
+build hung on with zero turns: 0/46 → 21/46. On the 35 tasks the origin build could actually
+run, it scored 34/35 — the watchdog build lost one of them — and nothing built since has
+improved on that.
 
 **The time hints are an efficiency result, not an accuracy result.** They do what they were
 designed to do: runs interrupted at the deadline 34 → 7, turns −10.6%, wall time −5.0%. They
 do not raise the pass rate (−4, p = 0.42, inside the noise floor), so they ship in the code
 **default off**. The shipped build `5f4c5c0` is `2e495bb` with both time-hint gates off,
-which makes its behaviour `6672af8`'s — and it was measured under its own name in R9/R10
-rather than inferred.
+which makes its behaviour `6672af8`'s. It was measured directly in R9/R10 rather than
+inferred, as commit `1d82e56`: the same agent tree (`dab704de524a`) with later documentation
+commits.
 
 ### Two numbers that were withdrawn
 
 | Published | What was wrong | What it measures when run properly |
 |---|---|---|
 | Phase A: 27/81 → **59/81** | Assembled from 50 carried-over passes plus a re-run of only the 31 failures. Withdrawn. | Fresh and whole on one day: **54/81** against the origin build's **34/81** (R7 vs R5) |
-| Phase B: time hints 52/81 against 24/81, net +28, p = 7.66e-07 | The 24/81 control was a depressed run; the same build scored 54/81 two days later, 30 tasks better and none worse. Withdrawn. | Same-day: **54/81 → 50/81**, −4, p = 0.42 |
+| Phase B: time hints 52/81 against 24/81, net +28, p = 7.66e-07 | The 24/81 control (R3) was a depressed run, measured hours before its candidate rather than alongside it; the same build scored 54/81 on 2026-09-12, 30 tasks better and none worse. Withdrawn. | Same-day: **54/81 → 50/81**, −4, p = 0.42 |
 
-Both failed the same way: a comparison anchored to a run measured under conditions that no
-longer held. The harness moves 30 tasks on identical code between two days. **Same-day paired
-arms are now the only admissible evidence**, and every run is indexed by ID in
+Both failed the same way: a comparison whose arms were not measured together. The harness
+moved 30 tasks on the same build between one run and the next. The campaign's rule became
+**same-day paired arms**, and every run is indexed by ID in
 [`bench/RUN_REGISTRY.md`](bench/RUN_REGISTRY.md) so that no document can name "the control"
-without naming which run it was.
+without naming which run it was. The re-check below found that R3 most likely ran on the same
+day as its candidate, eight hours earlier, so the rule that actually protects a result is the
+stricter one the confirmation run followed: both arms running at the same time.
 
 ### Outside SetupBench
 
 On Terminal-Bench 2.0 an earlier build (`08a8d5d`, from Phase A) tied the origin build,
 26/38 against 26/38 evaluable tasks, p = 1.0. Two tasks were excluded because the
-verifier's own infrastructure failed. The pass-rate gain did not carry over; efficiency did,
-with 39% fewer turns and 35% less execution time. Reported cost is not comparable between the
+verifier's own infrastructure failed; both were origin-build passes, so the raw 40-task count
+is 28/40 against 26/40. The two arms were run on different days (2026-09-07 and 2026-09-10),
+which the campaign's own rule would not now admit. The pass-rate gain did not carry over;
+efficiency did, with 40% fewer turns and 34% less execution time on the 38 evaluable tasks. Reported cost is not comparable between the
 arms, because a run killed at the hard cap records $0. The shipped build has not been run
 outside SetupBench. Analysis: `bench/FINAL40_PAIRED_ANALYSIS.json`; the earlier 2026-09-07
 comparison of a prompt-only variant is [`bench/TB_REPORT_40.md`](bench/TB_REPORT_40.md).
 
 ### Where the remaining gap is
 
-Phase C (2026-09-16 → 09-17) asked whether the 25 tasks that fail on every run are slow or
-hard. **Mostly hard.** At twice the budget (960 s) the shipped build passes 7 of them. A late
-wrap-up candidate (P3) moved +2 pooled, p = 0.6875, and was rejected against its
-pre-registered gate. Two further candidates were dropped before any spend because no
-clock-out population remained for them to fix. Nothing was promoted; the shipped build is
-unchanged. Ledger: [`bench/PHASE_C_SUMMARY.md`](bench/PHASE_C_SUMMARY.md).
+Phase C (2026-09-16 → 09-17) asked whether the 25 tasks the shipped build failed in both
+confirmation replicates are slow or hard. At twice the budget (960 s) it passes 7 of them —
+**MIXED** by the pre-registered rule. A late wrap-up candidate (P3) moved +2 pooled,
+p = 0.6875, and was rejected against its pre-registered gate. Two further candidates were
+dropped before any spend, on the reading that no runs were being cut off by the clock any
+more. The raw rows do not support that reading: the harness killed nothing, because the
+watchdog stops Ada first, but 28 of the shipped build's 41 failures in the P3 run were stopped
+at the deadline. Those two candidates are untested, not refuted. Nothing was promoted; the
+shipped build is unchanged. Ledger: [`bench/PHASE_C_SUMMARY.md`](bench/PHASE_C_SUMMARY.md).
 
 ---
 
@@ -131,19 +162,20 @@ unchanged. Ledger: [`bench/PHASE_C_SUMMARY.md`](bench/PHASE_C_SUMMARY.md).
 ### 1. Read the failures
 
 Ada, running `z-ai/glm-5.3-flash` through OpenRouter, lost **53 of 81** SetupBench tasks to
-timeouts on the first full run (R1, 27/81). The traces showed the same shape again and again:
-seven minutes of competent work, then a `sleep 300` poll or a fresh debugging tangent with
-seconds left, and a hard kill. The only mention of the budget was a line in the system prompt,
-written once and never updated.
+timeouts on the first full run (R1, 27/81), and the grader never saw any of them. The
+campaign's report describes the typical shape: minutes of competent work, then a `sleep 300`
+poll or a fresh debugging tangent with seconds left, and a hard kill. According to the record,
+the budget was stated once at the start and never updated.
 
 ### 2. Phase A — stop the kill (2026-09-08 → 09-10)
 
-Phase A's final build (`08a8d5d`) added a watchdog that interrupts before the harness does,
-a deadline anchored to the container's start rather than the agent's, and a thinking cap.
-Timeouts fell from 53 (R1) to 3 (R2) — but 43 runs were still recorded with zero turns,
-because after the interrupt the agent process was force-killed instead of exiting. T0.1
-(`6672af8`) made it exit cleanly after the interrupt; in its next full run (R7), not one run was recorded
-with zero turns. That
+Phase A added a watchdog that interrupts the agent before the harness would kill it, and then
+a deadline anchored to the container's start rather than the agent's and a thinking cap (final
+build `08a8d5d`). An early watchdog build cut timeouts from 53 (R1) to 3 (R2, whose exact build
+was not recorded). After an interrupt, though, the agent crashed instead of exiting: the runner
+never printed its result, so 43 runs were recorded with zero turns — 41 of them were still
+graded and 19 passed — and 2 hung until the harness killed them. T0.1 (`6672af8`) made the agent
+exit cleanly after the interrupt; neither of its full runs (R3, R7) recorded a zero-turn run. That
 fix is real and ships. Phase A's pass-rate headline was not, and is withdrawn above.
 
 ### 3. Phase B — let the agent see the clock (2026-09-10 → 09-12)
@@ -158,7 +190,7 @@ turned out to be a depressed run, and then withdrawn.
 ### 4. Settle it on one day
 
 The same-day ladder above: origin, watchdog, watchdog plus time hints, all on 2026-09-12 with
-one driver. It is the only measurement in which the time hints are the sole variable.
+the same harness. It is the only measurement in which the time hints are the sole variable.
 
 ### 5. Confirm the build that ships
 
@@ -169,16 +201,18 @@ exact McNemar p < 0.001. All four are met. **VERDICT: HOLDS.**
 ### 6. Look for what is left
 
 Phase C, above: a budget probe, one rejected candidate, two dropped, one deferred. The
-remaining gap on this model is capability, not scaffolding: most of the tasks that still fail
-end with a setup the grader rejects, not with the clock running out.
+deadline still ends most of the remaining failures, so whether more time or better work would
+convert them is still open.
 
 ---
 
 ## What re-measuring taught us
 
 **Your control is a measurement too.** The same build scored 24/81 and then 54/81 on the same
-tasks two days apart, doing provably identical work. Every wrong headline in this campaign came
-from a control measured under conditions that no longer held. A p-value of 7.66e-07 on the
+tasks a day apart, with almost the same number of turns (1,544 against 1,554). The depressed
+run was slower — 62 runs hit the deadline against 34, and it took 23% longer in total — and
+nothing recorded says why. Every withdrawn headline in this campaign came from a comparison
+whose arms were not measured together. A p-value of 7.66e-07 on the
 withdrawn comparison was computed correctly; it answered whether those two particular runs
 differed, and they did — just not because of the code.
 
@@ -255,11 +289,14 @@ python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder + run registry; exit 0
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run (R5/R6); exit 0
 python3 bench/harness/archive_integrity_check.py    # every archived diagnostic against the registry
+python3 bench/confirmation_table.py                 # the full R9/R10 table, from the raw rows
 ```
 
-Each script re-derives its figures from the raw diagnostics rather than trusting the prose,
-recomputes exact McNemar independently, and asserts that withdrawn numbers are never quoted in
-this README, the blog or the record without being marked as withdrawn. They need only Python 3.
+The three verify scripts re-derive their figures from the raw diagnostics rather than trusting
+the prose and recompute exact McNemar independently; `ctrl_vs_t12_verify.py` also fails if a
+withdrawn number appears in this README, the blog or the record without being marked as
+withdrawn. The integrity check confirms every archived run's row count, pass count and recorded
+build. They need only Python 3.
 
 Packaging on 2026-09-18 removed regenerable bulk: the SetupBench task-input cache (3.1 GB),
 the variant tarballs, and the local SetupBench checkout. Re-running an evaluation needs
@@ -267,6 +304,27 @@ the variant tarballs, and the local SetupBench checkout. Re-running an evaluatio
 `bench/harness/setupbench/`, Docker, and an OpenRouter key. The driver scripts in `bench/`
 (`run_*.sh` and friends) are the record of how each run was launched, and keep the absolute
 paths of the machine they ran on.
+
+## Re-checked against the raw data, 2026-09-18
+
+Before this branch was published, every claim in this README and the blog was checked against
+the raw per-task diagnostics. The confirmation run, the same-day ladder and the Terminal-Bench
+tie all reproduce exactly. Six statements in the campaign's own records do not, and are
+corrected above. The records themselves — `ada/RESULTS.md`, `ada/REPORT.md`,
+`bench/RUN_REGISTRY.md` and the reports in `bench/` — are left as written, because the verify
+scripts check them.
+
+| The record says | The raw data shows |
+|---|---|
+| R3, the withdrawn control, ran on 2026-09-10 (its run ID is `20260910T0728Z`), so the +28 compared runs from different days | R3 records commit `6672af8`, which was created at 07:24 UTC on **2026-09-11**, four minutes before R3's start time; its driver log (`bench/t04_control_run.log`) was last written at 10:01 that day, which matches its summed task time. R3 almost certainly ran on 2026-09-11, the same day as R4, about eight hours earlier. The comparison is still withdrawn: its arms were not run together, and the same build scored 54/81 the next day. |
+| R3 and R7 did "identical work" | Almost identical turns (1,544 against 1,554), but R3 hit the deadline on 62 runs against 34 and took 23% longer in total. |
+| Phase C found "zero 480 s clock-outs", so the Bash clamp (P2) and install hook (P4) had nothing to fix | No run was killed by the harness, but 28 of the shipped build's 41 failures in the P3 run, and 8 of 17 failures in the 960 s probe, were stopped by the watchdog at the deadline. P2 and P4 were dropped on a premise that does not hold; they are untested. |
+| R2's 43 zero-turn rows came from the interrupt path | They were a reporting bug: 41 were graded and 19 passed. Only 2 were true force-kills (commit `6672af8`'s message). R2 ran on 2026-09-09, before `08a8d5d` existed. |
+| R10a had 40 zero-turn rows (`bench/RUN_REGISTRY.md`) | 41, in both the raw diagnostics and `bench/BASELINE_VS_BEST_20260915T0825Z.json`. |
+| Terminal-Bench compared arms under one protocol | The origin arm ran on 2026-09-07 and `08a8d5d` on 2026-09-10 — a cross-day comparison. |
+
+`bench/RUN_REGISTRY.md` also cites a footnote ⁴ for `417a8f1` that it never defines; the
+paragraph "How the builds resolve" above says what is known about that build.
 
 ## Running Ada
 

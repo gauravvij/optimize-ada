@@ -2,20 +2,20 @@
 
 *NEO, our autonomous engineering agent, took a coding agent from 67 to 98 passed runs out of 157 on real software-setup tasks — not by making it smarter, but by making sure its work reached the grader. Along the way it promoted a second fix, caught its own control being a bad day, and withdrew the claim. The withdrawal is as useful as the win.*
 
-The system we optimized is [Ada](https://github.com/rabbah/ada), an open-source coding agent built on Claude Code by Simon Guerrier and Rodric Rabbah. You give it a task in plain English — *install the dependencies and make the tests pass* — and it works through it in a sandbox, running commands, editing files, and checking its own results.
+The system we optimized is [Ada](https://github.com/rabbah/ada), an open-source coding agent built on Claude Code by Simon Guerrier, Rodric Rabbah and contributors. You give it a task in plain English — *install the dependencies and make the tests pass* — and it works through it in a sandbox, running commands, editing files, and checking its own results.
 
-A typical failing run looked like this. Given a task with an eight-minute budget, Ada would work competently for seven minutes: install packages, fix a config, start a service. Then, with a minute left, it would start a `sleep 300` poll or a fresh debugging tangent. The budget ran out mid-flight, the harness killed the container, and the task was scored as a failure.
+A typical failing run, as the campaign's report describes it, looked like this. Given a task with an eight-minute budget, Ada would work competently for seven minutes: install packages, fix a config, start a service. Then, with a minute left, it would start a `sleep 300` poll or a fresh debugging tangent. The budget ran out mid-flight, the harness killed the container, and the task was scored as a failure.
 
 The grader never ran. Everything Ada had done was thrown away.
 
-Nothing looked broken. There was no crash in Ada and no error in the model. The agent simply did not know the deadline was coming: the only mention of the budget was one line in its system prompt, written once at the start and never updated.
+Nothing looked broken. There was no crash in Ada and no error in the model. The agent simply did not know the deadline was coming: according to the campaign's record, the budget was stated once at the start and never updated.
 
 That is a dangerous failure for any agent that works against a time limit. A crash gets noticed. A run that does most of the work and then vanishes looks exactly like a run that did nothing.
 
 This is what survived the campaign:
 
 - A watchdog that stops Ada cleanly before the deadline took it from **67/157 to 98/157** passed runs, confirmed by a two-replicate run whose rules were fixed before it was paid for.
-- The whole gain is runs that used to be killed before grading. On the runs where the original build did get graded, nothing changed.
+- Almost all of the gain is runs the original build lost to the clock. On the runs where it did get graded, the difference is not significant.
 - A second fix — telling Ada how much time it has left — did everything it was designed to do and did not raise the pass rate. It ships switched off.
 - Two headline numbers were published during the campaign and then withdrawn by NEO itself, both for the same reason.
 - On a second benchmark, Terminal-Bench 2.0, an earlier build tied the original.
@@ -25,7 +25,7 @@ Four builds of Ada are compared throughout, and these are the names used for the
 - **Origin** — Ada as the campaign found it, commit `df0c537`.
 - **Watchdog** — the origin plus the watchdog and a clean exit, commit `6672af8`.
 - **Time hints** — the watchdog build plus the time-awareness change, commit `2e495bb`.
-- **Shipped** — the time-hints build with the time hints switched off, commit `5f4c5c0`. It behaves exactly like the watchdog build, and it was measured under its own name.
+- **Shipped** — the time-hints build with the time hints switched off, commit `5f4c5c0`. It behaves exactly like the watchdog build, and it was measured directly (as commit `1d82e56`, the same agent code with later documentation).
 
 ## What Ada does
 
@@ -63,19 +63,19 @@ The benchmark is [SetupBench](https://github.com/microsoft/SetupBench): real rep
 
 The harness is in [`bench/harness/`](bench/harness/). It records, for every task, whether the grader passed it, how many turns Ada took, how long it ran, and whether it timed out. Two builds are compared on the same tasks, task by task, with an exact McNemar test on the tasks where they disagree.
 
-One rule was learned the hard way and is described below: **both builds must run on the same day, side by side.** Every run ever scored is listed with its ID in [`bench/RUN_REGISTRY.md`](bench/RUN_REGISTRY.md), and every document in the campaign names its runs by those IDs.
+One rule was learned the hard way and is described below: **both builds must run side by side, at the same time.** Every run ever scored is listed with its ID in [`bench/RUN_REGISTRY.md`](bench/RUN_REGISTRY.md), and every document in the campaign names its runs by those IDs.
 
 ## The first full run: killed by the clock
 
 The first full run of the origin build (R1) passed 27 of 81 tasks and timed out on 53. Every timeout was a zero: the harness never graded the work.
 
-NEO's first fix, in Phase A, went after the clock directly. A watchdog interrupts the agent before the harness would kill it, and the deadline is measured from the container's start rather than the agent's, so Ada's clock and the harness's clock agree. Timeouts fell from 53 to 3.
+NEO's first fix, in Phase A, went after the clock directly. A watchdog interrupts the agent before the harness would kill it; later in the phase, the deadline was anchored to the container's start rather than the agent's, so Ada's clock and the harness's clock agree. An early watchdog build cut timeouts from 53 to 3.
 
-The interrupt still ended badly: after it fired, the agent process was force-killed instead of exiting, and 43 runs were recorded with zero turns. The clean-exit fix (T0.1) made Ada finish properly after the interrupt. In the next full run of that build (R7), not one run was recorded with zero turns.
+The interrupt still ended badly. After it fired, Ada crashed instead of exiting, so its runner never reported a result: 43 runs were recorded with zero turns, although 41 of them were still graded and 19 passed. Two runs hung until the harness killed them. The clean-exit fix (T0.1) made Ada finish properly after the interrupt, and neither full run of that build recorded a zero-turn run.
 
 ## The watchdog, measured on one day
 
-On 2026-09-12 NEO ran three builds on all 81 tasks, one after another, with the same driver:
+On 2026-09-12 NEO ran three builds on all 81 tasks, one after another, with the same harness:
 
 | Build | What it adds | Passed | Against the row above |
 |---|---|---:|---|
@@ -91,7 +91,7 @@ Before the time hints, NEO tried two changes that asked the model to behave diff
 
 The first was a careful "definition of done" section in the prompt: reproduce paths, ports and values exactly, use the project's own toolchain, and run the success check in a fresh shell before claiming victory. The model provably received it. It converted none of the ten failing tasks it was written for, and on a 12-task paired check it scored 2 against the control's 3. It ships switched off.
 
-The second was to make the model think less, because thinking tokens were eating up to 93% of its output on some runs. The gateway rejects turning thinking off, a low-effort setting had no effect, and the thinking budget that did work at the raw API level is never forwarded by the SDK path Ada uses. NEO dropped it before spending anything on an evaluation.
+The second was to make the model think less, because the campaign's traces showed thinking tokens taking up to 93% of its output on some runs. Its probe found that the gateway rejects turning thinking off, a low-effort setting had no effect, and the thinking budget that did work at the raw API level is never forwarded by the SDK path Ada uses. NEO dropped it before spending anything on an evaluation.
 
 ## The time hints: a working mechanism that did not help
 
@@ -109,11 +109,11 @@ So the time hints are an efficiency result, not an accuracy result, and they are
 
 The time hints had not always looked like this. They were first reported — in a result since withdrawn — at **52/81 against 24/81, +28, p = 7.66e-07**, and promoted.
 
-The withdrawn result's 24/81 was a control run of the watchdog build from 2026-09-10, the day before the time-hints run it was compared with. On 2026-09-12 the same build, on the same tasks, scored 54/81 — 30 tasks better and none worse, p = 1.9e-09 — while doing measurably identical work: 1,544 turns against 1,554, no timeouts either day. The 24/81 control was a depressed run. The model behind it was having a worse day. A control that moves 30 tasks on its own cannot anchor a claim of 28.
+The withdrawn result's 24/81 was a control run of the watchdog build (R3), measured hours before the time-hints run it was compared with rather than alongside it. The campaign's record dates R3 to 2026-09-10, but the commit it records was only created at 07:24 UTC on 2026-09-11, four minutes before R3's start time, so it almost certainly ran that morning — the same day as its candidate. On 2026-09-12 the same build, on the same tasks, scored 54/81 — 30 tasks better and none worse, p = 1.9e-09 — with almost the same number of turns (1,544 against 1,554). The 24/81 control was a depressed run: it hit the deadline on 62 runs against 34 and ran 23% longer, and nothing recorded says why. A control that moves 30 tasks on its own cannot anchor a claim of 28.
 
 The first headline to go was Phase A's: 27/81 to 59/81. That 59 was assembled from 50 passes carried over from earlier runs plus a re-run of only the 31 failures. Run fresh and whole on one day, the same line of builds scores 54/81 against the origin's 34/81. NEO withdrew that too.
 
-Both failures are the same failure: a comparison anchored to a run measured under conditions that no longer held. One carried scores across protocols; the other carried a control across days. After the second, NEO made same-day paired runs the only admissible evidence and built the run registry, so that no document can say "the control" without saying which run.
+Both failures are the same failure: a comparison whose arms were not measured together. One carried scores across protocols; the other set a candidate against a control run hours earlier. After the second, NEO made same-day paired runs the only admissible evidence and built the run registry, so that no document can say "the control" without saying which run. The confirmation that followed went further, and ran both arms at the same time.
 
 ## Confirming what was left
 
@@ -129,17 +129,39 @@ On 2026-09-15 it ran the origin build and the shipped build side by side, twice,
 
 All four rules are met. 32 runs were gained and 1 was lost.
 
-The decomposition is the clearest result of the campaign. On the 82 paired runs where the origin build hung and was killed with zero turns, the shipped build passed 28. On the 75 where the origin build ran normally, the two builds passed 67 and 70 — p = 0.375, no real difference. Across all 162 runs, runs killed before grading fell from 86 to 3 and timeouts from 84 to 0, and the shipped build used about 6% less wall time than the origin spent dying.
+The decomposition is the clearest result of the campaign. On the 82 paired runs where the origin build recorded zero turns — almost all of them hard-killed at the deadline — the shipped build passed 28. On the 75 where the origin build ran, the two builds passed 67 and 70 — p = 0.375, not a significant difference.
+
+Here is everything the confirmation run measured, computed from its four raw result files (`python3 bench/confirmation_table.py` prints this table):
+
+| Metric | Baseline `df0c537` | Shipped `5f4c5c0` | Change |
+|---|---:|---:|---|
+| Tasks passed (162 runs) | 68 (42.0%) | **99 (61.1%)** | +31 tasks, +19.1 pts, +46% relative |
+| Paired result, evaluable runs | 67/157 | **98/157** | net +31, 32 gained / 1 lost, exact McNemar p = 7.92e-09 |
+| Per replicate (R9, R10) | 32/81, 36/81 | 47/81, 52/81 | paired +16 (p = 1.45e-04), +15 (p = 6.10e-05) |
+| **Timed out** — killed by the harness, never graded | 84 | **0** | −84 — this is the mechanism |
+| Runs recorded with zero turns | 86 | 3 | −83 (mostly the timeouts above) |
+| Interrupted at the deadline, then graded | — | 69 | the partial work now counts |
+| Turns, total | 1,386 | 2,825 | +104% — the agent actually gets to work |
+| Turns, median per task | 0 | 17 | the baseline's median run never took a turn |
+| Latency, mean per task | 406 s | **383 s** | −6% |
+| Latency, median per task | 485 s | 417 s | −14% |
+| Latency on tasks that passed | 313 s mean / 299 s median | 333 s mean / 313 s median | +6% — passing takes slightly longer |
+| Total wall time (162 runs) | 18.3 h | **17.2 h** | −6% |
+| Invalid rows (excluded from pairing) | 3 | 2 | — |
+| Tasks still failing | 94/162 | 63/162 | −31 |
+| Cost | not captured | not captured | the R9/R10 diagnostics record no tokens or spend |
+
+The origin build's 86 zero-turn runs are 82 of its 84 timeouts, 3 harness errors and 1 run that was graded. The shipped build's 3 are 2 harness errors and 1 graded run; none of its runs was killed by the clock. It also used about 6% less wall time than the origin spent dying.
 
 ## Beyond SetupBench
 
-On Terminal-Bench 2.0, a different benchmark of terminal tasks, NEO compared the origin build with Phase A's final build (`08a8d5d`) on 40 public tasks. Two tasks were excluded because the verifier's own infrastructure failed — a package mirror returned 404 and a tool was missing — which says nothing about the agent. On the remaining 38 the two builds tied, 26 against 26, p = 1.0. The efficiency carried over, with 39% fewer turns and 35% less execution time. The pass-rate gain did not. The shipped build has not been run outside SetupBench.
+On Terminal-Bench 2.0, a different benchmark of terminal tasks, NEO compared the origin build with Phase A's final build (`08a8d5d`) on 40 public tasks. Two tasks were excluded because the verifier's own infrastructure failed — a package mirror returned 404 and a tool was missing — which says nothing about the agent. Both were origin passes, so the raw count is 28/40 against 26/40. On the remaining 38 the two builds tied, 26 against 26, p = 1.0. The two arms were run three days apart, which the campaign's own rule would not now admit. The efficiency carried over, with 40% fewer turns and 34% less execution time on the 38 tasks. The pass-rate gain did not. The shipped build has not been run outside SetupBench.
 
 ## Where the remaining gap is
 
-After the confirmation, NEO asked whether the 25 tasks that fail on every run are slow or hard. It re-ran them at twice the budget, 960 seconds. Seven passed, and none timed out. One more candidate, a later wrap-up aimed at the runs that were still being interrupted, gained 2 across two replicates (p = 0.6875) and failed its pre-registered gate. Two others were dropped without spending anything, because the fresh runs showed no clock-outs left for them to fix.
+After the confirmation, NEO asked whether the 25 tasks the shipped build failed in both confirmation replicates are slow or hard. It re-ran them at twice the budget, 960 seconds. Seven passed — MIXED, by the rule it had written down beforehand. One more candidate, a later wrap-up aimed at the runs that were still being interrupted, gained 2 across two replicates (p = 0.6875) and failed its pre-registered gate. Two others were dropped without spending anything, on the reading that the clock was no longer cutting runs off.
 
-The remaining failures are mostly setups the grader rejects, not runs that ran out of time. On this model, the gap that is left is capability, not scaffolding.
+That reading does not survive a look at the raw rows. The harness killed nothing, because the watchdog stops Ada first — but 28 of the shipped build's 41 failures in that run were stopped at the deadline, and 8 of the 17 failures at 960 seconds still ran out of time. Those two candidates are untested, not refuted, and whether the remaining gap is time or capability is still open.
 
 ## What this experiment can and cannot claim
 
@@ -149,11 +171,13 @@ The evidence supports these claims:
 - The gain comes from runs that were killed before grading. It is not a gain in the agent's ability on tasks it could already attempt.
 - The time hints make Ada use its time more efficiently without raising its pass rate.
 
-It does not establish that Ada is a more capable agent. It does not establish any gain outside SetupBench: the shipped build was never run elsewhere, and the one external comparison was a tie. The harness records no token counts or spend, so there is no measured cost for the confirmation run. And all 81 tasks come from one benchmark, graded by its authors' success commands.
+It does not establish that Ada is a more capable agent. It does not establish any gain outside SetupBench: the shipped build was never run elsewhere, and the one external comparison was a tie. The confirmation run's diagnostics record no token counts or spend, so it has no measured cost. And all 81 tasks come from one benchmark, graded by its authors' success commands.
+
+A re-check of the raw data before publication also found that the campaign's own records misdate the withdrawn control run, overstate how identical its work was, and misread Phase C's clock-outs. The corrections are in the README, under "Re-checked against the raw data".
 
 ## What this approach demonstrates
 
-**The control is a measurement too.** The same build scored 24/81 and 54/81 two days apart on identical work. Every withdrawn headline in this campaign rested on a control measured under conditions that no longer held. Statistics on the candidate cannot fix a control from a different day.
+**The control is a measurement too.** The same build scored 24/81 and 54/81 a day apart, with almost the same number of turns. Every withdrawn headline in this campaign rested on a comparison whose arms were not measured together. Statistics on the candidate cannot fix a control that did not run alongside it.
 
 **A small p-value is not a shield against a bad design.** The withdrawn comparison had p = 7.66e-07 and a confidence interval far from zero. Both were computed correctly. They answered whether two particular runs differed, and they did — but not because of the code.
 
@@ -161,24 +185,25 @@ It does not establish that Ada is a more capable agent. It does not establish an
 
 **A working mechanism is not a working change.** The model received the hint, quoted it, and paced itself. It did exactly what it was asked and did not get better at the task.
 
-**Look at what the grader actually sees.** The biggest gain in the campaign came from noticing that most of the original build's failures were never graded at all: 86 of its 94 failed runs in the confirmation.
+**Look at what the grader actually sees.** The biggest gain in the campaign came from noticing that most of the original build's failures were never graded at all: 84 of its 94 failed runs in the confirmation were timeouts the grader never saw.
 
 ## Check it yourself
 
-Every number in this article traces to a file in [`bench/`](bench/), and four scripts re-derive them from the raw per-task diagnostics, with nothing but Python 3:
+Every number in this article traces to a file in [`bench/`](bench/), and these scripts re-check them against the raw per-task diagnostics, with nothing but Python 3:
 
 ```bash
 python3 bench/baseline_vs_best_verify.py            # the confirmation run (R9/R10)
 python3 bench/ctrl_vs_t12_verify.py                 # the same-day ladder and the run registry
 python3 bench/fresh_rem81_verify.py                 # the 2026-09-12 morning run
 python3 bench/harness/archive_integrity_check.py    # every archived run against the registry
+python3 bench/confirmation_table.py                 # the full confirmation table above
 ```
 
-The scripts also check this article: they fail if a withdrawn figure appears here without being marked as withdrawn. The full record is [`ada/RESULTS.md`](ada/RESULTS.md), and the campaign's own narrative is [`ada/REPORT.md`](ada/REPORT.md). The [README](README.md) explains how to recover the exact commit behind each build.
+Two of them also check this article: they fail if a withdrawn figure appears here without being marked as withdrawn. The full record is [`ada/RESULTS.md`](ada/RESULTS.md), and the campaign's own narrative is [`ada/REPORT.md`](ada/REPORT.md). The [README](README.md) explains how to recover the exact commit behind each build.
 
 ## What the optimization delivered
 
-Ada now stops itself cleanly before its deadline, so the work it has done is always graded. On SetupBench that took it from 67 to 98 passed runs out of 157, and from 86 runs killed before grading to 3, at slightly less wall time. It is not a smarter agent. It is an agent whose work now counts.
+Ada now stops itself cleanly before its deadline, so the work it has done is graded. On SetupBench that took it from 67 to 98 passed runs out of 157, and from 84 runs the harness killed without grading to none, at slightly less wall time. It is not a smarter agent. It is an agent whose work now counts.
 
 NEO did the failure analysis, the changes, the paired evaluations, the run registry, the confirmation run and the probes that followed — and withdrew its own numbers twice when they did not hold.
 
