@@ -1,161 +1,70 @@
-# Ada optimization on SetupBench
+# Ada on SetupBench: 1200-second validation
 
-This branch preserves one completed Neo-led campaign that attempted to optimize
-the [Ada agent](https://github.com/rabbah/ada) for SetupBench environment-setup
-tasks. Neo used Autoresearcher as its autonomous experiment engine. The branch
-contains the frozen candidate that was evaluated,
-the candidate patch, and the resulting baseline-versus-candidate measurements.
+This branch contains a frozen Ada candidate produced by Neo using Autoresearcher and its paired evaluation against original Ada. The **1200-second validation found no accuracy improvement**: both versions passed **26/36** attempts (72.2%). The candidate was descriptively faster and used fewer tokens on the attempts with comparable telemetry; a complete-run or provider-billed cost saving was **not** established.
 
-This is not an official Ada branch. It is also separate from the Terminal-Bench
-campaign on this repository's `main` branch.
+## What was optimized
 
-## Research question
+Neo searched on 12 fixed SetupBench development tasks, with a 10-experiment budget. Autoresearcher changed Ada, ran candidate/control comparisons, and retained two mechanisms: experiment 4's wall-clock guidance and longer Bash timeouts, and experiment 7's tool-aware recovery from a stalled model response. The final candidate was frozen before evaluation on 12 **separate** validation tasks. Experiment 4's initial gain failed its independent development confirmation; experiment 7 had no independent confirmation, so neither development score is a validated quality claim. The exact changes are in [the candidate patch](eval/setupbench-2026-09/frozen-candidate.patch) and the frozen source is in [ada/](ada/).
 
-Can Neo improve Ada on SetupBench by modifying Ada, evaluating
-each candidate on a fixed development set, retaining promising mechanisms, and
-then comparing the frozen final candidate with original Ada on a separate
-validation set?
-
-## Process
-
-| Item | Value |
+| Pinned component | Value |
 |---|---|
-| Ada base | `0c5e1da7342ff86147b217a09c243cf17bf6c50d` |
-| Benchmark | SetupBench at `041a412f01348c2a6f8b1b6a910138fe01885aee` |
-| Ada model | `z-ai/glm-5.3-flash` through OpenRouter |
-| Development set | 12 fixed SetupBench tasks |
-| Candidate budget | 10 experiments |
-| Validation set | 12 separate SetupBench tasks |
-| Validation | 3 repetitions per variant under each of two later protocols (900 s and 1200 s) |
+| Original Ada commit | `0c5e1da7342ff86147b217a09c243cf17bf6c50d` |
+| Candidate | Same Ada commit plus tracked-diff SHA-256 `9e6a3fe04725f3c3ca43b5fcfcd53bde07f8fbbffc58d7e80793f6ffb408bd4a` |
+| SetupBench commit | `041a412f01348c2a6f8b1b6a910138fe01885aee` |
+| Model used by Ada | `z-ai/glm-5.3-flash` via OpenRouter |
 
-1. **Freeze the baseline.** Original Ada and the evaluator, task split, model,
-   timeouts, and official graders were fixed before optimization.
-2. **Search on development tasks.** Neo inspected traces and used Autoresearcher
-   to propose one Ada change per experiment. Each was measured against a fresh
-   same-cycle control on the same 12 development tasks.
-3. **Retain measured winners.** Regressions were rolled back; experiments 4 and
-   7 were retained. The loop stopped after its 10-experiment budget.
-4. **Freeze the candidate.** The final candidate combined only the retained
-   experiment 4 and 7 mechanisms. Development results were not used again.
-5. **Validate separately.** Original Ada and the frozen candidate were compared
-   on 12 different SetupBench tasks, with three runs per task and variant.
+## 1200-second evaluation protocol
 
-## Retained candidate: what actually changed
+Each of the 12 held-out SetupBench tasks ran three times for original Ada and three times for the frozen candidate: **36 matched pairs, 72 attempts, 72/72 valid records**. Baseline and candidate ran concurrently within each pair; at most three pairs (six attempts) were active together. Ada had **1200 seconds** per attempt and the grader **600 seconds**. Fresh containers and the pinned SetupBench graders determined pass/fail. This is one validation under one protocol, **not** a continuation of the earlier 900-second run.
 
-| Experiment | Observed problem and hypothesis | Retained implementation |
-|---|---|---|
-| **4 — wall-clock economy** | Long commands were being killed or repeated, and extra turns consumed the fixed task budget. | Added concise instructions to batch work, start long operations early, detach services, verify by exit code, and stop after success. Raised Bash default/max timeouts to 300/600 seconds. |
-| **7 — stalled-model recovery** | Some runs emitted no model output and consumed the remaining wall clock without useful work. | Added a tool-aware 90-second model-wait watchdog, up to four attempts, and a 360-second deadline for starting retries. The watchdog pauses during legitimate tool execution. |
+## Quantitative outcome: all 36 original pairs
 
-Experiment 4 initially scored 8/12 against a 4/12 control, but its separate
-confirmation failed at 5/12 against 7/12. Experiment 7 later scored 10/12
-against a 7/12 control but did not receive an independent confirmation run.
-Those caveats are why the combined candidate was evaluated on a separate split.
+| Repetition | Original passes | Candidate passes | Original timeouts | Candidate timeouts |
+|---|---:|---:|---:|---:|
+| 1 | 7/12 | 9/12 | 4/12 | 2/12 |
+| 2 | 9/12 | 9/12 | 2/12 | 0/12 |
+| 3 | 10/12 | 8/12 | 1/12 | 3/12 |
+| **Total** | **26/36** | **26/36** | **7/36** | **5/36** |
 
-The retained changes are limited to `ada/agent/coding-guidance.ts` and
-`ada/agent/claude/agent.ts`. No SetupBench success commands or task-specific
-solutions were added to Ada.
+| Measure | Original Ada | Frozen candidate | Difference / interpretation |
+|---|---:|---:|---|
+| Grader passes | 26/36 (72.2%) | 26/36 (72.2%) | Tie; 0 percentage points |
+| Tasks passing at least 2 of 3 runs | 9/12 | 8/12 | Candidate −1 task |
+| Ada timeouts | 7/36 | 5/36 | Candidate −2 |
+| Sum of attempt durations | 23,814.406 s | 19,362.968 s | Candidate −4,451.438 s (−18.69%) |
+| Median attempt duration | 537.147 s | 417.536 s | Candidate −119.611 s |
 
-The complete frozen source is in `ada/`. The exact two-file delta is archived as
-[`frozen-candidate.patch`](eval/setupbench-2026-09/frozen-candidate.patch).
+Of the 36 matched pairs, **23 both passed, 3 candidate-only passed, 3 baseline-only passed, and 7 both failed**. The candidate was faster in **23/36** pairs (median paired duration difference **−101.795 s**). Neither side timed out in **27** pairs; the candidate was faster in **17/27** of those. Across the 12 distinct tasks, the candidate had a lower median duration on **8/12**. Duration includes container setup, execution, grading, and cleanup, and timeout durations are censored. Because attempts ran concurrently, summed durations are **not** validation-job wall-clock savings. Repetitions of the same 12 tasks are not 36 independent benchmark problems.
 
-## Development search outcome
+## Turns, tokens, and estimated cost
 
-| Value | Result |
-|---|---:|
-| Original Ada's initial recorded score | 4/12 |
-| Best single recorded candidate roll | 10/12 |
-| Experiments consumed | 10/10 |
-| Retained experiments | 4 and 7 |
-| Experiment 4 independent confirmation | Failed |
-| Experiment 7 independent confirmation | Not completed |
-| Stop condition | Maximum experiments reached |
+Terminal token usage was available for **28/36 baseline** attempts and **27/36 candidate** attempts, but on **both** sides of only **24/36 pairs**. The following turn, token, and cost comparison uses **only those 24 matched original pairs**; missing telemetry is not zero usage.
 
-The 10/12 development roll was not treated as the expected candidate quality.
-Repeated measurements of unchanged code varied substantially, so the final
-candidate was frozen and evaluated separately.
-
-## Earlier 900-second validation protocol
-
-- 12 validation tasks not used for the development search.
-- Original Ada and the frozen candidate each ran every task three times.
-- 72 total attempts: 12 tasks × 2 variants × 3 repetitions.
-- 900-second Ada timeout and 600-second grader timeout per attempt.
-- Fresh containers and official executable SetupBench graders.
-- 72/72 final attempts were valid.
-- Only one agent attempt was active at a time to avoid paired CPU/disk
-  contention.
-
-## Earlier 900-second quantitative outcome
-
-### Passes
-
-| Repetition | Original Ada | Frozen candidate | Difference |
+| Original 24 matched-usage pairs | Original Ada | Frozen candidate | Candidate / baseline |
 |---|---:|---:|---:|
-| 1 | 6/12 | 8/12 | +2 |
-| 2 | 8/12 | 9/12 | +1 |
-| 3 | 9/12 | 7/12 | −2 |
-| **Total** | **23/36 (63.9%)** | **24/36 (66.7%)** | **+1/36 (+2.8 pp)** |
+| Agent turns | 693 | 432 | 0.6234 (−37.7%) |
+| Input tokens | 1,542,588 | 960,527 | 0.6227 |
+| Output tokens | 253,448 | 142,486 | 0.5622 |
+| Cache-read tokens | 10,011,840 | 3,943,936 | 0.3939 |
+| Total reported tokens | 11,807,876 | 5,046,949 | 0.4274 |
+| Estimated token cost at rates below | $0.395080 | $0.200184 | 0.5067 (−49.33%) |
 
-### Aggregate comparison
+The candidate used fewer turns in **20/24** pairs and fewer total reported tokens in **21/24**; the median per-pair total-token ratio was **0.4617**. A total-token ratio is not a cost ratio because cache reads have a different assumed price.
 
-| Metric | Original Ada | Frozen candidate | Difference / result |
+For estimated cost, the specified illustrative rates were **$0.09 per million input**, **$0.30 per million output**, and **$0.018 per million cache-read tokens**. Three fresh pairs were rerun *only to obtain telemetry*: one Prometheus pair and two Whisper pairs. All **6/6** fresh attempts were valid, passed, avoided timeout, and returned usage. They did **not** replace any of the original 36 quality pairs.
+
+| Measured sample | Baseline estimated cost | Candidate estimated cost | Candidate difference |
 |---|---:|---:|---:|
-| Passes | 23/36 | 24/36 | +1 pass |
-| Tasks passing in at least 2/3 runs | 8/12 | 8/12 | Tie |
-| Timeouts | 10/36 | 7/36 | −3 timeouts |
-| Total attempt duration | 19,553.258 s | 16,143.215 s | −3,410.043 s (−17.44%) |
-| Recorded turns | 543 | 449 | −94 turns |
-| Candidate faster | — | 30/36 pairs | — |
-| Candidate faster without either timing out | — | 22/24 pairs | — |
-| Median duration difference | — | −51.114 s | Candidate faster |
-| Median duration difference without timeouts | — | −78.819 s | Candidate faster |
-| Median candidate/baseline token ratio | — | 0.4785 | −52.15% on 21 comparable pairs |
+| Original validation: 24 comparable pairs | $0.395080 | $0.200184 | −$0.194896 (−49.33%) |
+| Separate three-pair follow-up | $0.040869 | $0.024488 | −$0.016381 (−40.08%) |
+| Combined measured sample: 24 original + 3 fresh | $0.435949 | $0.224672 | −$0.211277 (−48.46%) |
 
-### Statistical checks
+The combined row is **not 27/36 original pairs**. The original 12 pairs without comparable usage still lack it; nine of those involved an Ada timeout. The follow-up estimates also exclude invalid provider-limit retries and an aborted disk-protection attempt, whose spend cannot be allocated here. The OpenRouter key-wide billed-usage counter rose **$13.52195424** over the original run interval, but concurrent requests and possible other key activity make that figure **unattributable by variant**. Neither it nor the measured subset establishes full-run, provider-billed savings.
 
-| Test | Result |
-|---|---:|
-| Candidate-only passes | 3 |
-| Baseline-only passes | 2 |
-| Exact paired McNemar p-value for passes | 1.000 |
-| Baseline-only timeouts | 5 |
-| Candidate-only timeouts | 2 |
-| Exact paired McNemar p-value for timeouts | 0.453125 |
-| Task-level duration sign-test p-value | 0.145996 |
+## Conclusion and evidence
 
-The task-level P/F/T matrix is in the [direct quantitative outcome](eval/setupbench-2026-09/ADA_SETUPBENCH_DIRECT_OUTCOME.md).
+The frozen candidate **tied original Ada on SetupBench success at the 1200-second limit**. It showed lower aggregate duration and timeout counts, and lower turns, tokens, and *estimated* cost in the telemetry-complete subset. These are descriptive efficiency results with missing-usage and repeated-task limitations, not a proven general quality or total-bill improvement. The complete 93-task SetupBench set was **not** run for this candidate.
 
-## 1200-second revalidation and cost follow-up (2026-09-18)
-
-The same 12 held-out SetupBench tasks were run three times per version again, now with a **1200-second Ada limit** and simultaneous baseline/candidate within each pair (up to three pairs active). All **72/72** final attempts were valid. This is a new protocol, not another repetition of the 900-second run.
-
-| Measure | Original Ada | Frozen candidate |
-|---|---:|---:|
-| Grader passes | **26/36** | **26/36** |
-| Ada timeouts | 7/36 | 5/36 |
-| Aggregate attempt duration | 23,814.406 s | 19,362.968 s |
-| Tasks passing in at least 2/3 runs | 9/12 | 8/12 |
-
-The candidate alone passed 3 pairs and the baseline alone passed 3: **no accuracy gain**. The candidate was faster on 23/36 pairs. Original-run terminal usage was comparable on only 24/36 pairs; at assumed rates of $0.09/M input, $0.30/M output and $0.018/M cache-read, those 24 pairs estimate **$0.395080 baseline vs $0.200184 candidate** (49.33% lower candidate cost within that measured subset).
-
-A separate three-pair telemetry follow-up reran only the original Prometheus and Whisper usage gaps. All 6 new attempts passed and returned usage. At the same assumed rates they estimate **$0.040869 baseline vs $0.024488 candidate** (40.08% lower for those *new* attempts). They **do not replace** original pass/fail rows, reconstruct the missing original token usage, or establish provider-billed cost savings. The full [1200-second report](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_PARALLEL3_REPORT.md) and [compact metric evidence](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_COMPACT.json) contain the protocol, per-task outcomes, exact coverage, cost arithmetic, and caveats.
-
-## Conclusion
-
-Neither validation demonstrated an accuracy improvement. At 900 seconds the
-candidate led by only 1/36 passes; at 1200 seconds the score tied 26/36 each.
-The candidate showed descriptive efficiency advantages on the original
-matched-usage subset, and lower estimated token cost in the separate three-pair
-follow-up at assumed rates. Neither protocol established a complete-run or
-provider-billed cost saving. The two validations used different timeouts and
-execution schedules; their scores are not interchangeable repetitions.
-
-The complete 93-task SetupBench set was not run for this candidate.
-
-## Evidence
-
-- [Direct quantitative outcome](eval/setupbench-2026-09/ADA_SETUPBENCH_DIRECT_OUTCOME.md)
-- [Detailed evaluation report](eval/setupbench-2026-09/ADA_SETUPBENCH_EVALUATION_REPORT.md)
-- [Candidate provenance](eval/setupbench-2026-09/README.md)
-- [Exact frozen patch](eval/setupbench-2026-09/frozen-candidate.patch)
+- [Detailed 1200-second report, including per-task outcomes and caveats](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_PARALLEL3_REPORT.md)
+- [Compact, trace-free metrics for all 72 original and 6 follow-up attempts](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_COMPACT.json)
+- [Historical 900-second README (v0; different timeout and execution schedule)](docs/README_900S_V0.md)
