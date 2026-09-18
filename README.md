@@ -23,10 +23,6 @@ SetupBench tasks: what was changed, how it was measured, and what held up.
 [![Cursor Extension](https://img.shields.io/badge/Cursor-Get%20the%20Extension-1F1F1F?style=for-the-badge&logo=cursor&logoColor=white)](https://marketplace.cursorapi.com/items/?itemName=NeoResearchInc.heyneo)
 [![Neo MCP Docs](https://img.shields.io/badge/Neo%20MCP-Documentation-6E56CF?style=for-the-badge&logo=readthedocs&logoColor=white)](https://docs.heyneo.com/neo-mcp)
 
-This is not an official Ada branch. It is separate from the Terminal-Bench campaign on this
-repository's `main` branch. It is also separate from the 1200-second validation on
-`setupbench-frozen-candidate`, which starts from a different version of Ada.
-
 ---
 
 ## The problem
