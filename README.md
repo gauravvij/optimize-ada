@@ -26,7 +26,7 @@ validation set?
 | Development set | 12 fixed SetupBench tasks |
 | Candidate budget | 10 experiments |
 | Validation set | 12 separate SetupBench tasks |
-| Final validation | 3 repetitions per variant |
+| Validation | 3 repetitions per variant under each of two later protocols (900 s and 1200 s) |
 
 1. **Freeze the baseline.** Original Ada and the evaluator, task split, model,
    timeouts, and official graders were fixed before optimization.
@@ -75,7 +75,7 @@ The 10/12 development roll was not treated as the expected candidate quality.
 Repeated measurements of unchanged code varied substantially, so the final
 candidate was frozen and evaluated separately.
 
-## Final validation protocol
+## Earlier 900-second validation protocol
 
 - 12 validation tasks not used for the development search.
 - Original Ada and the frozen candidate each ran every task three times.
@@ -86,7 +86,7 @@ candidate was frozen and evaluated separately.
 - Only one agent attempt was active at a time to avoid paired CPU/disk
   contention.
 
-## Final quantitative outcome
+## Earlier 900-second quantitative outcome
 
 ### Passes
 
@@ -126,14 +126,30 @@ candidate was frozen and evaluated separately.
 
 The task-level P/F/T matrix is in the [direct quantitative outcome](eval/setupbench-2026-09/ADA_SETUPBENCH_DIRECT_OUTCOME.md).
 
+## 1200-second revalidation and cost follow-up (2026-09-18)
+
+The same 12 held-out SetupBench tasks were run three times per version again, now with a **1200-second Ada limit** and simultaneous baseline/candidate within each pair (up to three pairs active). All **72/72** final attempts were valid. This is a new protocol, not another repetition of the 900-second run.
+
+| Measure | Original Ada | Frozen candidate |
+|---|---:|---:|
+| Grader passes | **26/36** | **26/36** |
+| Ada timeouts | 7/36 | 5/36 |
+| Aggregate attempt duration | 23,814.406 s | 19,362.968 s |
+| Tasks passing in at least 2/3 runs | 9/12 | 8/12 |
+
+The candidate alone passed 3 pairs and the baseline alone passed 3: **no accuracy gain**. The candidate was faster on 23/36 pairs. Original-run terminal usage was comparable on only 24/36 pairs; at assumed rates of $0.09/M input, $0.30/M output and $0.018/M cache-read, those 24 pairs estimate **$0.395080 baseline vs $0.200184 candidate** (49.33% lower candidate cost within that measured subset).
+
+A separate three-pair telemetry follow-up reran only the original Prometheus and Whisper usage gaps. All 6 new attempts passed and returned usage. At the same assumed rates they estimate **$0.040869 baseline vs $0.024488 candidate** (40.08% lower for those *new* attempts). They **do not replace** original pass/fail rows, reconstruct the missing original token usage, or establish provider-billed cost savings. The full [1200-second report](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_PARALLEL3_REPORT.md) and [compact metric evidence](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_COMPACT.json) contain the protocol, per-task outcomes, exact coverage, cost arithmetic, and caveats.
+
 ## Conclusion
 
-The candidate did **not** demonstrate an accuracy improvement. Its pass-rate
-advantage was only 1/36, task-majority accuracy tied 8/12, and the paired pass
-test was not significant. It showed descriptive efficiency improvements in
-this sample—fewer timeouts, lower aggregate duration, fewer turns, and fewer
-reported tokens—but those differences were not established as statistically
-conclusive either.
+Neither validation demonstrated an accuracy improvement. At 900 seconds the
+candidate led by only 1/36 passes; at 1200 seconds the score tied 26/36 each.
+The candidate showed descriptive efficiency advantages on the original
+matched-usage subset, and lower estimated token cost in the separate three-pair
+follow-up at assumed rates. Neither protocol established a complete-run or
+provider-billed cost saving. The two validations used different timeouts and
+execution schedules; their scores are not interchangeable repetitions.
 
 The complete 93-task SetupBench set was not run for this candidate.
 
