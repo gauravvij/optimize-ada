@@ -1,0 +1,27 @@
+task=reflex-dev-reflex-8657976 pass=0 valid=1 timeout=0 turns=33
+task=dstl-stone-soup-4b6bd37 pass=0 valid=1 timeout=0 turns=17
+task=prometheus-bd5b2ea pass=0 valid=1 timeout=0 turns=30
+task=deps-volt-react-dashboard-3a3f3 pass=0 valid=1 timeout=0 turns=30
+task=qubvel-segmentation_models-pytorch-ccccadd pass=0 valid=1 timeout=0 turns=13
+task=servo-e199a67 pass=0 valid=1 timeout=0 turns=25
+task=cassandra-73cd2c5 pass=0 valid=1 timeout=0 turns=21
+task=bgsetup-autossh-logging pass=0 valid=1 timeout=0 turns=17
+task=falconry-falcon-cae50da pass=0 valid=1 timeout=0 turns=27
+task=deps-react-virtualized-sticky-tree-32be9 pass=1 valid=1 timeout=0 turns=18
+task=deps-engine-34e61 pass=0 valid=1 timeout=0 turns=19
+task=networkx-networkx-c107d25 pass=1 valid=1 timeout=0 turns=15
+task=deps-gatsby-plugin-intl-2b7ac pass=0 valid=1 timeout=0 turns=19
+task=dbsetup-mysql-3 pass=0 valid=1 timeout=0 turns=25
+task=laramies-theharvester-e25c269 pass=0 valid=1 timeout=0 turns=22
+task=deps-amazon-cognito-saml-idp-c076c pass=1 valid=1 timeout=0 turns=16
+task=nedbat-coveragepy-9d0eb02 pass=0 valid=0 timeout=0 turns=0
+task=deps-react-most-wanted-cbc29 pass=0 valid=1 timeout=0 turns=14
+task=hackmdio-codimd-f00df50 pass=1 valid=1 timeout=0 turns=20
+task=whisper-brokendeps-517a43e pass=1 valid=1 timeout=0 turns=14
+task=psf-black-c204232 pass=1 valid=1 timeout=0 turns=13
+task=spring-petclinic-2aa53f9 pass=0 valid=1 timeout=0 turns=13
+task=fsspec-filesystem_spec-3ff5fca pass=0 valid=1 timeout=0 turns=10
+task=deps-rails-6cd76 pass=0 valid=1 timeout=0 turns=15
+task=deps-react-most-wanted-2e3f0 pass=0 valid=1 timeout=0 turns=15
+invalid task=nedbat-coveragepy-9d0eb02 error=TimeoutExpired:Command '['docker', 'exec', 'setupbench-ada-candidate-b7f27a1d52', 'test', '-f', '/testbed/.ada-exit']' timed out after 10 seconds
+summary pass=6/25 timeouts=0 turns=461

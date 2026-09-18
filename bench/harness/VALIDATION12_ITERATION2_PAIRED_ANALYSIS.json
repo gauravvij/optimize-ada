@@ -1,0 +1,524 @@
+{
+  "protocol": "validation-12, identical conditions per run (480s task / 600s grader / concurrency 4 / z-ai/glm-5.3-flash via OpenRouter / node v24.19.0). new_incumbent & baseline arms rerun together in iteration-2 under identical conditions; old_incumbent & old_baseline are the iteration-1 runs.",
+  "arms": {
+    "new_incumbent": "iteration-2 watchdog incumbent (targets/ada), validation12_iteration2.json",
+    "old_incumbent": "iteration-1 incumbent (targets/ada), manual.json",
+    "baseline": "clean baseline (targets/ada-baseline), validation12_iteration2.json",
+    "old_baseline": "clean baseline iteration-1 run (targets/ada-baseline), manual.json"
+  },
+  "pass_counts": {
+    "new_incumbent": 6,
+    "old_incumbent": 4,
+    "old_baseline": 3,
+    "baseline": 2
+  },
+  "timeout_counts": {
+    "new_incumbent": 0,
+    "old_incumbent": 6,
+    "old_baseline": 9,
+    "baseline": 10
+  },
+  "turn_totals": {
+    "new_incumbent": 78,
+    "old_incumbent": 94,
+    "old_baseline": 71,
+    "baseline": 38
+  },
+  "duration_totals_s": {
+    "new_incumbent": 5522.1,
+    "old_incumbent": 4779.9,
+    "old_baseline": 5550.8,
+    "baseline": 6011.0
+  },
+  "pairwise": {
+    "old_incumbent_vs_new_incumbent": {
+      "arm_a": "old_incumbent",
+      "arm_b": "new_incumbent",
+      "a_pass": 4,
+      "b_pass": 6,
+      "a_timeouts": 6,
+      "b_timeouts": 0,
+      "a_turns": 94,
+      "b_turns": 78,
+      "a_duration_s": 4779.9,
+      "b_duration_s": 5522.1,
+      "conversions_a_fail_b_pass": [
+        "dbsetup-mongodb-2",
+        "wagtail-wagtail-28fcd01",
+        "whisper-517a43e"
+      ],
+      "regressions_a_pass_b_fail": [
+        "dbsetup-mysql-2"
+      ],
+      "mcnemar_exact": {
+        "b": 3,
+        "c": 1,
+        "n": 4,
+        "p_value": 0.625
+      }
+    },
+    "baseline_vs_new_incumbent": {
+      "arm_a": "baseline",
+      "arm_b": "new_incumbent",
+      "a_pass": 2,
+      "b_pass": 6,
+      "a_timeouts": 10,
+      "b_timeouts": 0,
+      "a_turns": 38,
+      "b_turns": 78,
+      "a_duration_s": 6011.0,
+      "b_duration_s": 5522.1,
+      "conversions_a_fail_b_pass": [
+        "bgsetup-filewatcher-daemon-2",
+        "dishait-tov-template-39c0898",
+        "wagtail-wagtail-28fcd01",
+        "whisper-517a43e"
+      ],
+      "regressions_a_pass_b_fail": [],
+      "mcnemar_exact": {
+        "b": 4,
+        "c": 0,
+        "n": 4,
+        "p_value": 0.125
+      }
+    },
+    "old_baseline_vs_baseline": {
+      "arm_a": "old_baseline",
+      "arm_b": "baseline",
+      "a_pass": 3,
+      "b_pass": 2,
+      "a_timeouts": 9,
+      "b_timeouts": 10,
+      "a_turns": 71,
+      "b_turns": 38,
+      "a_duration_s": 5550.8,
+      "b_duration_s": 6011.0,
+      "conversions_a_fail_b_pass": [],
+      "regressions_a_pass_b_fail": [
+        "dbsetup-mysql-2"
+      ],
+      "mcnemar_exact": {
+        "b": 0,
+        "c": 1,
+        "n": 1,
+        "p_value": 1.0
+      }
+    },
+    "old_baseline_vs_old_incumbent": {
+      "arm_a": "old_baseline",
+      "arm_b": "old_incumbent",
+      "a_pass": 3,
+      "b_pass": 4,
+      "a_timeouts": 9,
+      "b_timeouts": 6,
+      "a_turns": 71,
+      "b_turns": 94,
+      "a_duration_s": 5550.8,
+      "b_duration_s": 4779.9,
+      "conversions_a_fail_b_pass": [
+        "bgsetup-filewatcher-daemon-2",
+        "dishait-tov-template-39c0898"
+      ],
+      "regressions_a_pass_b_fail": [
+        "dbsetup-mongodb-2"
+      ],
+      "mcnemar_exact": {
+        "b": 2,
+        "c": 1,
+        "n": 3,
+        "p_value": 1.0
+      }
+    },
+    "old_baseline_vs_new_incumbent": {
+      "arm_a": "old_baseline",
+      "arm_b": "new_incumbent",
+      "a_pass": 3,
+      "b_pass": 6,
+      "a_timeouts": 9,
+      "b_timeouts": 0,
+      "a_turns": 71,
+      "b_turns": 78,
+      "a_duration_s": 5550.8,
+      "b_duration_s": 5522.1,
+      "conversions_a_fail_b_pass": [
+        "bgsetup-filewatcher-daemon-2",
+        "dishait-tov-template-39c0898",
+        "wagtail-wagtail-28fcd01",
+        "whisper-517a43e"
+      ],
+      "regressions_a_pass_b_fail": [
+        "dbsetup-mysql-2"
+      ],
+      "mcnemar_exact": {
+        "b": 4,
+        "c": 1,
+        "n": 5,
+        "p_value": 0.375
+      }
+    },
+    "baseline_vs_old_incumbent": {
+      "arm_a": "baseline",
+      "arm_b": "old_incumbent",
+      "a_pass": 2,
+      "b_pass": 4,
+      "a_timeouts": 10,
+      "b_timeouts": 6,
+      "a_turns": 38,
+      "b_turns": 94,
+      "a_duration_s": 6011.0,
+      "b_duration_s": 4779.9,
+      "conversions_a_fail_b_pass": [
+        "bgsetup-filewatcher-daemon-2",
+        "dbsetup-mysql-2",
+        "dishait-tov-template-39c0898"
+      ],
+      "regressions_a_pass_b_fail": [
+        "dbsetup-mongodb-2"
+      ],
+      "mcnemar_exact": {
+        "b": 3,
+        "c": 1,
+        "n": 4,
+        "p_value": 0.625
+      }
+    }
+  },
+  "per_task": [
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "task_type": "bgsetup",
+      "new_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 416.005
+      },
+      "old_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 18,
+        "duration_s": 279.354
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.186
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 484.855
+      }
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "task_type": "dbsetup",
+      "new_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 490.259
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 9,
+        "duration_s": 216.39
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 17,
+        "duration_s": 486.128
+      },
+      "old_baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 20,
+        "duration_s": 322.504
+      }
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "task_type": "dbsetup",
+      "new_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 459.542
+      },
+      "old_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 15,
+        "duration_s": 321.12
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 499.244
+      },
+      "old_baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 38,
+        "duration_s": 397.455
+      }
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "task_type": "dependency_resolution",
+      "new_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 488.88
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.56
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 492.91
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 493.681
+      }
+    },
+    {
+      "task_id": "deps-ultimate-frontrunning-bot-449d6",
+      "task_type": "dependency_resolution",
+      "new_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 284.854
+      },
+      "old_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 285.337
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 476.684
+      },
+      "old_baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 13,
+        "duration_s": 238.905
+      }
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 22,
+        "duration_s": 538.272
+      },
+      "old_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 19,
+        "duration_s": 319.554
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.122
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 485.904
+      }
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 397.93
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 19,
+        "duration_s": 354.572
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 492.95
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 491.169
+      }
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 467.177
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 498.602
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 506.13
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 496.367
+      }
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 502.078
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 510.063
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 530.641
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 549.054
+      }
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 502.042
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 509.998
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 530.644
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 548.543
+      }
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 472.994
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 484.272
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.767
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 493.246
+      }
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "task_type": "reposetup",
+      "new_incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 502.078
+      },
+      "old_incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 510.11
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 530.641
+      },
+      "old_baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 549.102
+      }
+    }
+  ]
+}

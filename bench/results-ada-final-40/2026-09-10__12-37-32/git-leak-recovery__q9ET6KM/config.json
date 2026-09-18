@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/git-leak-recovery",
+        "ref": "sha256:7b3743dde329a33de3e684b3490b09077d403f6a9795684e3e8828471e2abf49",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "git-leak-recovery__q9ET6KM",
+    "trials_dir": "bench/results-ada-final-40/2026-09-10__12-37-32",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-final.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "57a62332-9428-4432-a6d7-aedbe343ccb1"
+}

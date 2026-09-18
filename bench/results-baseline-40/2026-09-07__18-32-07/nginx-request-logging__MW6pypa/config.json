@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/nginx-request-logging",
+        "ref": "sha256:f5eaf57c493462fbeaa8a7b5c4155739ee4ce8e8fab037eae6512788885014f6",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "nginx-request-logging__MW6pypa",
+    "trials_dir": "bench/results-baseline-40/2026-09-07__18-32-07",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "baseline"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "34e5929b-8c1b-418a-a6b7-31a191df4d9f"
+}

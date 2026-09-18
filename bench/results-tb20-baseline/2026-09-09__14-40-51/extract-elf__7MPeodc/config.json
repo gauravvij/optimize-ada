@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/extract-elf",
+        "ref": "sha256:fe7aa4e037884f0b5d1dd9ea81df2b96b6c31d7d5f9184f1ef2de273614b5ecf",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "extract-elf__7MPeodc",
+    "trials_dir": "bench/results-tb20-baseline/2026-09-09__14-40-51",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "11e4cefa-6feb-4075-93e9-23cd90cc106a"
+}

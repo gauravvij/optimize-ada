@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/overfull-hbox",
+        "ref": "sha256:984d672ae34ada00db17a8c024110fb3527fbb5bce0844e8c0fd9b4e4d4fdacf",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "overfull-hbox__NPhWg7Y",
+    "trials_dir": "bench/results-tb20-baseline/2026-09-09__14-40-51",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "11e4cefa-6feb-4075-93e9-23cd90cc106a"
+}

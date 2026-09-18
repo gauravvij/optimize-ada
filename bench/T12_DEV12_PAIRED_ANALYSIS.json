@@ -1,0 +1,228 @@
+{
+  "protocol": "T1.2 dev12 paired rung (fina_run.md \u00a73 rules 2-3)",
+  "date": "2026-09-11",
+  "candidate": {
+    "arm": "T1.2 time-awareness bundle (ADA_TIME_HINTS + ADA_BASH_CLAMP_REMAINING default ON, ADA_PROMPT_DOD default OFF)",
+    "workspace": "targets/ada",
+    "commit": "2e495bb9817bf47ca2a082660ce58b0dfa4d7bbf",
+    "diagnostics": "bench/diagnostics/20260911T1348Z-t12dev12/dev12_t12_candidate.json",
+    "log": "bench/t12_dev12_candidate.log"
+  },
+  "gateoff": {
+    "arm": "T0.1 build (pre-T1.2; no time hooks exist structurally)",
+    "workspace": "targets/ada-t01gateoff (git worktree @ 6672af8)",
+    "commit": "6672af854dd9be6d3290d3959c74b95808d54eec",
+    "diagnostics": "bench/diagnostics/ada-t01gateoff/20260911T1348Z-t12dev12/dev12_t01_gateoff.json",
+    "log": "bench/t12_dev12_gateoff.log"
+  },
+  "conditions": {
+    "suite": "dev12-12",
+    "task_timeout_seconds": 480,
+    "grader_timeout_seconds": 600,
+    "concurrency": 4,
+    "seed": 20260907,
+    "model": "z-ai/glm-5.3-flash",
+    "node": "v24.19.0",
+    "same_day": true,
+    "sequential_arms": true,
+    "run_id": "20260911T1348Z-t12dev12"
+  },
+  "summary": {
+    "candidate_pass": 6,
+    "gateoff_pass": 5,
+    "n": 12,
+    "both_pass": 5,
+    "candidate_only": 1,
+    "gateoff_only": 0,
+    "neither": 6,
+    "candidate_turns": 239,
+    "gateoff_turns": 229,
+    "candidate_timeouts": 0,
+    "gateoff_timeouts": 0,
+    "candidate_wall_seconds_sum": 5132.5,
+    "gateoff_wall_seconds_sum": 4908.5,
+    "candidate_claimed_verified_but_grader_failed": 4,
+    "gateoff_claimed_verified_but_grader_failed": 3
+  },
+  "statistics": {
+    "exact_mcnemar_b": 0,
+    "exact_mcnemar_c": 1,
+    "exact_mcnemar_p": 1.0,
+    "newcombe_95ci_diff": [
+      -0.2775,
+      0.4158
+    ],
+    "note": "b=0 (regressions), c=1 (conversions), discordant=1, two-sided exact p=1.0000; E11: anything smaller than \u00b13 on n=12 is noise."
+  },
+  "flip_table": [
+    {
+      "task_id": "deps-acts_as_bookable-45b78",
+      "flip": "gateoff-fail -> candidate-pass"
+    }
+  ],
+  "per_task": [
+    {
+      "task_id": "actions-cache-81382a7",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 29,
+      "gateoff_turns": 21,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 472.8,
+      "gateoff_duration_s": 396.8,
+      "candidate_agent_is_error": true,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "bgsetup-gunicorn-nginx-socket",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 23,
+      "gateoff_turns": 27,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 436.1,
+      "gateoff_duration_s": 401.6,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "dbsetup-mongodb-3",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 22,
+      "gateoff_turns": 13,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 433.7,
+      "gateoff_duration_s": 455.4,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "dbsetup-redis-3",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 12,
+      "gateoff_turns": 20,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 407.7,
+      "gateoff_duration_s": 422.5,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "deps-acts_as_bookable-45b78",
+      "candidate_pass": true,
+      "gateoff_pass": false,
+      "candidate_turns": 20,
+      "gateoff_turns": 16,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 456.4,
+      "gateoff_duration_s": 459.4,
+      "candidate_agent_is_error": true,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "deps-rails-8775b",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 27,
+      "gateoff_turns": 16,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 545.8,
+      "gateoff_duration_s": 453.5,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "graphql-dataloader-003c045",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 18,
+      "gateoff_turns": 13,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 460.5,
+      "gateoff_duration_s": 342.9,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "habitat-5826ff8",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 19,
+      "gateoff_turns": 19,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 412.0,
+      "gateoff_duration_s": 453.2,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "microsoft-vscode-remote-try-python-e351212",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 15,
+      "gateoff_turns": 21,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 351.3,
+      "gateoff_duration_s": 498.6,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "nvbn-tf-c7e7e1d",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 20,
+      "gateoff_turns": 17,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 397.5,
+      "gateoff_duration_s": 237.5,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "openstack-stevedore-51134a4",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 21,
+      "gateoff_turns": 28,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 460.2,
+      "gateoff_duration_s": 435.6,
+      "candidate_agent_is_error": true,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "pallets-click-14f735c",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 13,
+      "gateoff_turns": 18,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 298.4,
+      "gateoff_duration_s": 351.6,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    }
+  ],
+  "decision": {
+    "rung": "dev12 paired",
+    "net_conversions": 1,
+    "rung_1_positive": true,
+    "rule_2_early_stop": false,
+    "next_step": "proceed to validation-12 paired rung (\u00a73 rule 3)"
+  }
+}

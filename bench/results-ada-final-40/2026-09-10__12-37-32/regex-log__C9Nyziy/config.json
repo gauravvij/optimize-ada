@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/regex-log",
+        "ref": "sha256:72f5f52d6b523a00380cb088fcf0ba83a2e2f7b478fdad6515598ab43584e337",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "regex-log__C9Nyziy",
+    "trials_dir": "bench/results-ada-final-40/2026-09-10__12-37-32",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-final.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "57a62332-9428-4432-a6d7-aedbe343ccb1"
+}

@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/financial-document-processor",
+        "ref": "sha256:415ba44ca6ce86c68ffd3933735282e4e3d1523543a706352f68a22716e6da4f",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "financial-document-processor__4VTYoZj",
+    "trials_dir": "bench/results-best2-40/2026-09-07__20-12-31",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "best2"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "e7f44086-a289-4528-a321-86590aac5511"
+}

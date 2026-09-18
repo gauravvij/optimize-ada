@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/raman-fitting",
+        "ref": "sha256:6b2c34e3c5016c763bf1f2f2a7210ee711565f90b18c09b68f95c0daa9220229",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "raman-fitting__yZrMNTT",
+    "trials_dir": "bench/results-best2-pilot/2026-09-07__17-56-49",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "best2"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "b0e9858b-aed8-4b83-8cd0-6aaa6fe2d8af"
+}

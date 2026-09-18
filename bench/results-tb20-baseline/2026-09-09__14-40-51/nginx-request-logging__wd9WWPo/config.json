@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/nginx-request-logging",
+        "ref": "sha256:f5eaf57c493462fbeaa8a7b5c4155739ee4ce8e8fab037eae6512788885014f6",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "nginx-request-logging__wd9WWPo",
+    "trials_dir": "bench/results-tb20-baseline/2026-09-09__14-40-51",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "11e4cefa-6feb-4075-93e9-23cd90cc106a"
+}

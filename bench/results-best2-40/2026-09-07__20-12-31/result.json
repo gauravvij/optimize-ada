@@ -1,0 +1,72 @@
+{
+    "id": "e7f44086-a289-4528-a321-86590aac5511",
+    "started_at": "2026-09-07T20:12:35.087715",
+    "updated_at": "2026-09-07T21:37:26.140117",
+    "finished_at": "2026-09-07T21:37:26.140117",
+    "n_total_trials": 32,
+    "stats": {
+        "n_completed_trials": 32,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada__terminal-bench/terminal-bench-2": {
+                "n_trials": 32,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.71875
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "break-filter-js-from-html__UzZkJQ5",
+                            "vulnerable-secret__X9naCHE",
+                            "openssl-selfsigned-cert__vZAG2LL",
+                            "git-leak-recovery__gEbgGjf",
+                            "db-wal-recovery__gUFgxkA",
+                            "extract-elf__YTDwo9J",
+                            "constraints-scheduling__Vm8Vbqf",
+                            "custom-memory-heap-crash__jNhRJT6",
+                            "build-cython-ext__6gwiRvz",
+                            "pytorch-model-recovery__JNeiLxQ",
+                            "gcode-to-text__UFG9fby",
+                            "multi-source-data-merger__huFeJSp",
+                            "merge-diff-arc-agi-task__BpW6PvN",
+                            "regex-log__Bvhmp7Q",
+                            "nginx-request-logging__SLJVEB5",
+                            "sqlite-with-gcov__Q4RxxZX",
+                            "sanitize-git-repo__Uggwfhh",
+                            "reshard-c4-data__PhZNtdn",
+                            "count-dataset-tokens__Fa2dgeH",
+                            "hf-model-inference__d7BCveW",
+                            "pytorch-model-cli__gurVRVo",
+                            "large-scale-text-editing__8pfWfyQ",
+                            "code-from-image__9VxhsPV"
+                        ],
+                        "0.0": [
+                            "dna-insert__5jYPcfh",
+                            "chess-best-move__ucNQJon",
+                            "qemu-alpine-ssh__WaRtEcP",
+                            "tune-mjcf__K8a3r8K",
+                            "filter-js-from-html__xML8wFg",
+                            "polyglot-c-py__6Bjk33j",
+                            "financial-document-processor__4VTYoZj",
+                            "mteb-retrieve__NUy4F9i",
+                            "qemu-startup__ZHeFTo2"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 1078956,
+        "n_cache_tokens": 12721600,
+        "n_output_tokens": 426064,
+        "cost_usd": 22.407180000000004
+    }
+}

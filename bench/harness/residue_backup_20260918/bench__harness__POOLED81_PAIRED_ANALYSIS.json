@@ -1,0 +1,1558 @@
+{
+  "protocol": {
+    "design": "pooled paired, each task counted exactly once",
+    "pooled_n": 81,
+    "components": {
+      "validation12_pair": {
+        "n": 12,
+        "incumbent_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/validation12_iteration2.json",
+        "baseline_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/manual/validation12_iteration2.json",
+        "run_date": "2026-09-09 (iteration-2, both arms same-day, identical conditions)"
+      },
+      "remaining81_nonoverlap_pair": {
+        "n": 69,
+        "incumbent_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json",
+        "baseline_artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/manual/remaining81_baseline.json",
+        "note": "remaining81 = 93 minus dev-12; contains all 12 validation-12 tasks, which are excluded here to avoid double counting"
+      }
+    },
+    "conditions": "480s task / 600s grader / concurrency 4 / z-ai/glm-5.3-flash via OpenRouter / node v24.19.0",
+    "primary_comparison": "incumbent (watchdog, targets/ada) vs baseline (targets/ada-baseline)"
+  },
+  "primary": {
+    "incumbent_pass": 49,
+    "baseline_pass": 25,
+    "pooled_n": 81,
+    "pass_rate_difference": 0.2963,
+    "mcnemar_exact": {
+      "b": 27,
+      "c": 3,
+      "n_discordant": 30,
+      "p_value": 8.430331945419312e-06
+    },
+    "newcombe_95ci": {
+      "lower": 0.137,
+      "upper": 0.4288
+    }
+  },
+  "secondary": {
+    "incumbent_timeouts": 2,
+    "baseline_timeouts": 55,
+    "incumbent_turns": 557,
+    "baseline_turns": 500,
+    "incumbent_wallclock_s": 33441.5,
+    "baseline_wallclock_s": 36021.0,
+    "per_source": {
+      "validation12": {
+        "n": 12,
+        "incumbent_pass": 6,
+        "baseline_pass": 2,
+        "incumbent_timeouts": 0,
+        "baseline_timeouts": 10
+      },
+      "remaining81_nonoverlap": {
+        "n": 69,
+        "incumbent_pass": 43,
+        "baseline_pass": 23,
+        "incumbent_timeouts": 2,
+        "baseline_timeouts": 45
+      }
+    }
+  },
+  "flip_table": {
+    "conversions_baseline_fail_incumbent_pass": [
+      "beautify-web-js-beautify-6de9268",
+      "bgsetup-filewatcher-daemon-2",
+      "caddy-782a3c7",
+      "celery-celery-03e3359",
+      "danwahlin-angular-jumpstart-12fa4e4",
+      "dbsetup-redis-2",
+      "deps-decidim-module-navbar_links-c7ddb",
+      "deps-devise-31774",
+      "deps-react-virtualized-sticky-tree-32be9",
+      "dishait-tov-template-39c0898",
+      "hoodiehq-hoodie-bd1354f",
+      "hybridgroup-cylon-0ba0301",
+      "ionelmc-python-tblib-9f6f864",
+      "johnpapa-vscode-angular-snippets-1551fe1",
+      "mampfes-hacs_waste_collection_schedule-dbab343",
+      "melt-ui-melt-ui-c566aae",
+      "microsoft-typescript-vue-starter-c451742",
+      "networkx-networkx-c107d25",
+      "openai-openai-node-8958d97",
+      "public-apis-public-apis-b354ba6",
+      "pypa-packaging-4493dfc",
+      "pytesseract-df9fce0",
+      "ta-lib-python-0c957ed",
+      "transitive-bull-chatgpt-api-811ae8f",
+      "wagtail-wagtail-28fcd01",
+      "whisper-517a43e",
+      "whisper-brokendeps-517a43e"
+    ],
+    "regressions_baseline_pass_incumbent_fail": [
+      "bgsetup-filewatcher-daemon",
+      "dbsetup-redis-1",
+      "yaml-pyyaml-a2d19c0"
+    ]
+  },
+  "per_task": [
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "task_type": "bgsetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 416.005
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.186
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "task_type": "dbsetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 490.259
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 17,
+        "duration_s": 486.128
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "task_type": "dbsetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 459.542
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 499.244
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "task_type": "dependency_resolution",
+      "source": "validation12",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 488.88
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 492.91
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-ultimate-frontrunning-bot-449d6",
+      "task_type": "dependency_resolution",
+      "source": "validation12",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 284.854
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 476.684
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 22,
+        "duration_s": 538.272
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.122
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 397.93
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 492.95
+      },
+      "flip": null
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 467.177
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 506.13
+      },
+      "flip": null
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 502.078
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 530.641
+      },
+      "flip": null
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 502.042
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 530.644
+      },
+      "flip": null
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 472.994
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.767
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "task_type": "reposetup",
+      "source": "validation12",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 502.078
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 530.641
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "beautify-web-js-beautify-6de9268",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 556.991
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.237
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "benjaminp-six-c1b416f",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 18,
+        "duration_s": 292.042
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 24,
+        "duration_s": 427.403
+      },
+      "flip": null
+    },
+    {
+      "task_id": "bgsetup-autossh-logging",
+      "task_type": "bgsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 8,
+        "duration_s": 280.996
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.708
+      },
+      "flip": null
+    },
+    {
+      "task_id": "bgsetup-autossh-reverse-tunnel",
+      "task_type": "bgsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 461.269
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 329.24
+      },
+      "flip": null
+    },
+    {
+      "task_id": "bgsetup-celery-systemd",
+      "task_type": "bgsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 10,
+        "duration_s": 350.518
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 16,
+        "duration_s": 389.146
+      },
+      "flip": null
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon",
+      "task_type": "bgsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 23,
+        "duration_s": 216.261
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 17,
+        "duration_s": 312.41
+      },
+      "flip": "regression"
+    },
+    {
+      "task_id": "bgsetup-gunicorn-systemd-socket",
+      "task_type": "bgsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 10,
+        "duration_s": 271.293
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 19,
+        "duration_s": 348.248
+      },
+      "flip": null
+    },
+    {
+      "task_id": "bgsetup-multiprocess-master-worker",
+      "task_type": "bgsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 201.752
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 12,
+        "duration_s": 297.725
+      },
+      "flip": null
+    },
+    {
+      "task_id": "bolsote-isoduration-ae0bd61",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 20,
+        "duration_s": 233.194
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 28,
+        "duration_s": 464.024
+      },
+      "flip": null
+    },
+    {
+      "task_id": "caddy-782a3c7",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 466.777
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.372
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "cassandra-73cd2c5",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 540.959
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.36
+      },
+      "flip": null
+    },
+    {
+      "task_id": "celery-celery-03e3359",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 463.16
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 503.766
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 562.399
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 507.98
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "dbsetup-mongodb-1",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 20,
+        "duration_s": 383.97
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 29,
+        "duration_s": 444.875
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-mysql-1",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 13,
+        "duration_s": 274.754
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 25,
+        "duration_s": 405.183
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-mysql-3",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 482.027
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 484.233
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-postgresql-1",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 13,
+        "duration_s": 192.978
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 15,
+        "duration_s": 223.637
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-postgresql-2",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 13,
+        "duration_s": 343.101
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 23,
+        "duration_s": 454.083
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-postgresql-3",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 10,
+        "duration_s": 184.116
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 25,
+        "duration_s": 321.988
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-redis-1",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 5,
+        "duration_s": 76.553
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 8,
+        "duration_s": 129.161
+      },
+      "flip": "regression"
+    },
+    {
+      "task_id": "dbsetup-redis-2",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 299.957
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 511.394
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "dbsetup-sqlite-1",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 9,
+        "duration_s": 124.644
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 8,
+        "duration_s": 67.405
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-sqlite-2",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 11,
+        "duration_s": 84.267
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 10,
+        "duration_s": 193.14
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dbsetup-sqlite-3",
+      "task_type": "dbsetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 12,
+        "duration_s": 164.788
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 17,
+        "duration_s": 169.838
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-aether-0b82a",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 11,
+        "duration_s": 300.793
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 16,
+        "duration_s": 325.128
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-amazon-cognito-saml-idp-c076c",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 524.118
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 484.421
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-decidim-module-navbar_links-c7ddb",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 633.419
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.493
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "deps-devise-31774",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 20,
+        "duration_s": 383.697
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 492.4
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "deps-engine-34e61",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 457.47
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 483.739
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-openecho-28cb7",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 625.657
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 540.982
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-origen-3e2f3",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 461.293
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.104
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-rails-6cd76",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 467.183
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 485.816
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-react-most-wanted-2e3f0",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 468.798
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 493.35
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-react-most-wanted-cbc29",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 464.491
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 484.022
+      },
+      "flip": null
+    },
+    {
+      "task_id": "deps-react-virtualized-sticky-tree-32be9",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 23,
+        "duration_s": 336.129
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.166
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "deps-volt-react-dashboard-3a3f3",
+      "task_type": "dependency_resolution",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 467.636
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 484.409
+      },
+      "flip": null
+    },
+    {
+      "task_id": "dstl-stone-soup-4b6bd37",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 533.388
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 493.661
+      },
+      "flip": null
+    },
+    {
+      "task_id": "falconry-falcon-cae50da",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 455.054
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 488.099
+      },
+      "flip": null
+    },
+    {
+      "task_id": "hoodiehq-hoodie-bd1354f",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 582.736
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 496.689
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "hybridgroup-cylon-0ba0301",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 461.874
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 493.153
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "ionelmc-python-tblib-9f6f864",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 11,
+        "duration_s": 282.2
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 485.488
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 26,
+        "duration_s": 477.156
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 499.065
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "laramies-theharvester-e25c269",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 463.682
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 485.478
+      },
+      "flip": null
+    },
+    {
+      "task_id": "lhartikk-naivechain-dfd2481",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 549.899
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.524
+      },
+      "flip": null
+    },
+    {
+      "task_id": "mampfes-hacs_waste_collection_schedule-dbab343",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 18,
+        "duration_s": 238.869
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.946
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "marshmallow-code-marshmallow-659fed5",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 12,
+        "duration_s": 222.874
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 21,
+        "duration_s": 311.899
+      },
+      "flip": null
+    },
+    {
+      "task_id": "melt-ui-melt-ui-c566aae",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 609.512
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 510.612
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "microsoft-typescript-vue-starter-c451742",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 462.542
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.903
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "monero-8468549",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 458.925
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 485.52
+      },
+      "flip": null
+    },
+    {
+      "task_id": "nedbat-coveragepy-9d0eb02",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 334.978
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.892
+      },
+      "flip": null
+    },
+    {
+      "task_id": "networkx-networkx-c107d25",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 11,
+        "duration_s": 540.303
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 489.009
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "openai-openai-node-8958d97",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 513.808
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 488.634
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "ousret-charset_normalizer-816c998",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 17,
+        "duration_s": 448.34
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 14,
+        "duration_s": 355.006
+      },
+      "flip": null
+    },
+    {
+      "task_id": "pallets-flask-2fec0b2",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 15,
+        "duration_s": 340.874
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 20,
+        "duration_s": 387.64
+      },
+      "flip": null
+    },
+    {
+      "task_id": "psf-black-c204232",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 569.421
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.24
+      },
+      "flip": null
+    },
+    {
+      "task_id": "public-apis-public-apis-b354ba6",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 465.184
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 487.184
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "pypa-packaging-4493dfc",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 505.967
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.238
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "pypa-pipenv-b895476",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 19,
+        "duration_s": 377.998
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 19,
+        "duration_s": 364.557
+      },
+      "flip": null
+    },
+    {
+      "task_id": "pytesseract-df9fce0",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 467.18
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.526
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "python-hyper-rfc3986-75e77ba",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 12,
+        "duration_s": 300.794
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 13,
+        "duration_s": 292.082
+      },
+      "flip": null
+    },
+    {
+      "task_id": "qubvel-segmentation_models-pytorch-ccccadd",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 463.953
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 495.538
+      },
+      "flip": null
+    },
+    {
+      "task_id": "reflex-dev-reflex-8657976",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 555.152
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.619
+      },
+      "flip": null
+    },
+    {
+      "task_id": "servo-e199a67",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 493.052
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 497.039
+      },
+      "flip": null
+    },
+    {
+      "task_id": "spring-petclinic-2aa53f9",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 476.235
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 486.33
+      },
+      "flip": null
+    },
+    {
+      "task_id": "ta-lib-python-0c957ed",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 461.814
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 490.194
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "testing-cabal-testtools-ef5c465",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 12,
+        "duration_s": 264.049
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 32,
+        "duration_s": 393.305
+      },
+      "flip": null
+    },
+    {
+      "task_id": "transitive-bull-chatgpt-api-811ae8f",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 22,
+        "duration_s": 481.276
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 488.467
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "whisper-brokendeps-517a43e",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 0,
+        "duration_s": 472.561
+      },
+      "baseline": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 0,
+        "duration_s": 502.082
+      },
+      "flip": "conversion"
+    },
+    {
+      "task_id": "yaml-pyyaml-a2d19c0",
+      "task_type": "reposetup",
+      "source": "remaining81_nonoverlap",
+      "incumbent": {
+        "passed": false,
+        "timed_out": true,
+        "turns": 13,
+        "duration_s": 488.242
+      },
+      "baseline": {
+        "passed": true,
+        "timed_out": false,
+        "turns": 30,
+        "duration_s": 471.701
+      },
+      "flip": "regression"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/count-dataset-tokens",
+        "ref": "sha256:c9b237360affc7d6aabb1b910f41b291e578d8952d325641cd53f73e3483c979",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "count-dataset-tokens__Fa2dgeH",
+    "trials_dir": "bench/results-best2-40/2026-09-07__20-12-31",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "best2"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "e7f44086-a289-4528-a321-86590aac5511"
+}

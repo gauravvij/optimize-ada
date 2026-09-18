@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/hf-model-inference",
+        "ref": "sha256:649831c4d9cef15fcbccbdd5639c7d4357b3061a32d9bd449d954d23370880b4",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "hf-model-inference__RfoJvrs",
+    "trials_dir": "bench/results-tb20-baseline/2026-09-09__14-40-51",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "11e4cefa-6feb-4075-93e9-23cd90cc106a"
+}

@@ -1,0 +1,16 @@
+PREFLIGHT OK   targets/ada-baseline agent tree df8a18c09278 clean
+PREFLIGHT OK   targets/ada agent tree dab704de524a clean
+PREFLIGHT OK   mutation boundary
+=== preparing task cache + images once (arms then only read it) ===
+input ready: 81/81 yaml-pyyaml-a2d19c0 -> /home/azureuser/adaAgent/autoresearcher/examples/.setupbench_cache/inputs/yaml-pyyaml-a2d19c0
+=== REPLICATE 1/2 both arms concurrently === Tue Sep 15 08:25:14 UTC 2026
+=== REPLICATE 2/2 launched (pids 1250184 1250185) === Tue Sep 15 12:11:42 UTC 2026
+REP_1_DONE Tue Sep 15 17:42:59 UTC 2026
+REP_2_DONE Tue Sep 15 21:10:22 UTC 2026
+=== analysis ===
+rep 1: baseline 31/79 -> best 47/79  net +16 (17 gained / 1 lost) p=0.000145  invalid={'baseline': 1, 'best': 1}
+rep 2: baseline 36/78 -> best 51/78  net +15 (15 gained / 0 lost) p=6.104e-05  invalid={'baseline': 2, 'best': 1}
+POOLED: 67/157 -> 98/157  net +31  p=7.916e-09
+rule: {'all_replicates_complete': True, 'each_replicate_net_ge_10': True, 'each_replicate_invalid_le_3': True, 'pooled_p_lt_0.001': True}
+VERDICT: HOLDS
+wrote /home/azureuser/adaAgent/bench/BASELINE_VS_BEST_20260915T0825Z.json

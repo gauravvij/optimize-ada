@@ -1,0 +1,125 @@
+{
+    "id": "a31daae3-7871-4475-a049-d4ef87738731",
+    "task_name": "terminal-bench/large-scale-text-editing",
+    "trial_name": "large-scale-text-editing__quc2bMb",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-baseline-40/2026-09-07__18-32-07/large-scale-text-editing__quc2bMb",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "large-scale-text-editing",
+        "ref": "sha256:f1196bcc75f57494f04617c635c7d23a8f231d25e68136dae02615eaa846ad90"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "d3949e3781f5deed1294e42ed07a9b72baecf404eeb696f9bcc1f0db8f5245f7",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/large-scale-text-editing",
+            "ref": "sha256:f1196bcc75f57494f04617c635c7d23a8f231d25e68136dae02615eaa846ad90",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "large-scale-text-editing__quc2bMb",
+        "trials_dir": "bench/results-baseline-40/2026-09-07__18-32-07",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "bench.ada_agent:AdaAgent",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "variant": "baseline"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "sk-o****c4e"
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "34e5929b-8c1b-418a-a6b7-31a191df4d9f",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada",
+        "version": "usage: node scripts/autoresearch-run-agent.ts <targetDir> <promptFile>",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 13425,
+        "n_cache_tokens": 94080,
+        "n_output_tokens": 9905,
+        "cost_usd": 0.36179000000000006,
+        "rollout_details": null,
+        "metadata": {
+            "ada_variant": "baseline",
+            "ada_is_error": false,
+            "ada_num_turns": 11
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-07T19:41:33.441329Z",
+    "finished_at": "2026-09-07T19:48:54.890393Z",
+    "environment_setup": {
+        "started_at": "2026-09-07T19:41:33.446076Z",
+        "finished_at": "2026-09-07T19:41:50.856502Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-07T19:41:50.856546Z",
+        "finished_at": "2026-09-07T19:42:06.997300Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-07T19:42:06.997396Z",
+        "finished_at": "2026-09-07T19:47:30.294847Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-07T19:47:30.815855Z",
+        "finished_at": "2026-09-07T19:48:40.208830Z"
+    },
+    "step_results": null
+}

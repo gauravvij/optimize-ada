@@ -1,0 +1,116 @@
+{
+    "id": "54019c2b-8f1a-46ea-ade2-245204d479d6",
+    "task_name": "terminal-bench/prove-plus-comm",
+    "trial_name": "prove-plus-comm__biaGBds",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-oracle-smoke/2026-09-07__13-27-52/prove-plus-comm__biaGBds",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "prove-plus-comm",
+        "ref": "sha256:2c5295786c38135ca86b4b09cab3a82408e25129841f5fc533d31b885f6d737a"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "c072ba654a6dfde0bc57c52d8518f2e2fd842c4b16bb0a6ed5c32afa4f4a690e",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/prove-plus-comm",
+            "ref": "sha256:2c5295786c38135ca86b4b09cab3a82408e25129841f5fc533d31b885f6d737a",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "prove-plus-comm__biaGBds",
+        "trials_dir": "results-oracle-smoke/2026-09-07__13-27-52",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "75134e95-c4d4-4584-9a2d-26791869cfa5",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-07T13:28:00.214304Z",
+    "finished_at": "2026-09-07T13:29:14.598713Z",
+    "environment_setup": {
+        "started_at": "2026-09-07T13:28:00.215838Z",
+        "finished_at": "2026-09-07T13:28:39.459120Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-07T13:28:39.459168Z",
+        "finished_at": "2026-09-07T13:28:39.459292Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-07T13:28:39.459417Z",
+        "finished_at": "2026-09-07T13:28:40.271975Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-07T13:28:40.780052Z",
+        "finished_at": "2026-09-07T13:29:02.782582Z"
+    },
+    "step_results": null
+}

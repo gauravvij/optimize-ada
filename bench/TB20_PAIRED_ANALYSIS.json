@@ -1,0 +1,417 @@
+{
+  "protocol": {
+    "benchmark": "Terminal-Bench 2.0 (terminal-bench/terminal-bench-2) via Harbor 0.21.0",
+    "tasks": "ranks 1-20 of bench/task-selection-40.md (4 easy / 16 medium)",
+    "arms": {
+      "baseline": "bench/ada-baseline.tgz (git commit df0c537)",
+      "best3": "bench/ada-best3.tgz (targets/ada working tree: iteration-1 + iteration-2 watchdog, uncommitted diff vs df0c537)"
+    },
+    "conditions": "identical harness (bench/ada_agent.py), model z-ai/glm-5.3-flash via OpenRouter, node v24.19.0, -n 4, per-task agent timeout from task.toml, runner_cap_ms = (timeout-60s)*1000",
+    "run_dates": "2026-09-09: baseline 14:40 UTC, best3 15:54 UTC (sequential, same day)",
+    "pass_signal": "verifier reward == 1.0"
+  },
+  "primary": {
+    "baseline_pass": 12,
+    "best3_pass": 15,
+    "n": 20,
+    "pass_rate_difference": 0.15,
+    "mcnemar_exact": {
+      "b": 4,
+      "c": 1,
+      "n_discordant": 5,
+      "p_value": 0.375
+    }
+  },
+  "secondary": {
+    "baseline_is_err": 5,
+    "best3_is_err": 3,
+    "baseline_turns_total": 404,
+    "best3_turns_total": 369,
+    "baseline_cost_total_usd": 13.8,
+    "best3_cost_total_usd": 14.91,
+    "baseline_exec_total_s": 12748.6,
+    "best3_exec_total_s": 8350.4,
+    "jointly_passed_efficiency": {
+      "n_jointly_passed": 11,
+      "baseline_turns": 195,
+      "best3_turns": 203,
+      "baseline_cost_usd": 11.76,
+      "best3_cost_usd": 8.25,
+      "baseline_exec_s": 6514.0,
+      "best3_exec_s": 3949.2
+    }
+  },
+  "flip_table": {
+    "conversions_baseline_fail_best3_pass": [
+      "overfull-hbox",
+      "kv-store-grpc",
+      "hf-model-inference",
+      "extract-elf"
+    ],
+    "regressions_baseline_pass_best3_fail": [
+      "crack-7z-hash"
+    ]
+  },
+  "per_task": [
+    {
+      "task": "fix-git",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 20,
+        "cost_usd": 0.369958,
+        "exec_s": 249.939648
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 14,
+        "cost_usd": 0.21847100000000003,
+        "exec_s": 127.539295
+      },
+      "flip": null
+    },
+    {
+      "task": "prove-plus-comm",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 8,
+        "cost_usd": 0.23979299999999998,
+        "exec_s": 253.706562
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 6,
+        "cost_usd": 0.07784899999999999,
+        "exec_s": 33.768937
+      },
+      "flip": null
+    },
+    {
+      "task": "cobol-modernization",
+      "baseline": {
+        "pass": false,
+        "is_err": true,
+        "turns": 25,
+        "cost_usd": 0.0,
+        "exec_s": 840.765369
+      },
+      "best3": {
+        "pass": false,
+        "is_err": true,
+        "turns": 23,
+        "cost_usd": 1.4019860000000002,
+        "exec_s": 812.192146
+      },
+      "flip": null
+    },
+    {
+      "task": "overfull-hbox",
+      "baseline": {
+        "pass": false,
+        "is_err": true,
+        "turns": 27,
+        "cost_usd": 0.0,
+        "exec_s": 690.760586
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 24,
+        "cost_usd": 1.0510819999999998,
+        "exec_s": 644.184994
+      },
+      "flip": "conversion"
+    },
+    {
+      "task": "crack-7z-hash",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 24,
+        "cost_usd": 0.6305429999999999,
+        "exec_s": 684.545987
+      },
+      "best3": {
+        "pass": false,
+        "is_err": true,
+        "turns": 30,
+        "cost_usd": 0.770251,
+        "exec_s": 812.534829
+      },
+      "flip": "regression"
+    },
+    {
+      "task": "raman-fitting",
+      "baseline": {
+        "pass": false,
+        "is_err": true,
+        "turns": 46,
+        "cost_usd": 0.0,
+        "exec_s": 840.897268
+      },
+      "best3": {
+        "pass": false,
+        "is_err": true,
+        "turns": 16,
+        "cost_usd": 1.4383420000000002,
+        "exec_s": 812.145205
+      },
+      "flip": null
+    },
+    {
+      "task": "mteb-leaderboard",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 70,
+        "cost_usd": 7.669420999999999,
+        "exec_s": 3377.074793
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 72,
+        "cost_usd": 4.503777,
+        "exec_s": 1844.948733
+      },
+      "flip": null
+    },
+    {
+      "task": "kv-store-grpc",
+      "baseline": {
+        "pass": false,
+        "is_err": false,
+        "turns": 14,
+        "cost_usd": 0.503111,
+        "exec_s": 762.258313
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 10,
+        "cost_usd": 0.16586500000000004,
+        "exec_s": 115.546074
+      },
+      "flip": "conversion"
+    },
+    {
+      "task": "pytorch-model-recovery",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 12,
+        "cost_usd": 0.6446879999999999,
+        "exec_s": 574.342968
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 9,
+        "cost_usd": 0.272925,
+        "exec_s": 261.081288
+      },
+      "flip": null
+    },
+    {
+      "task": "constraints-scheduling",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 10,
+        "cost_usd": 0.38865299999999997,
+        "exec_s": 213.654825
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 7,
+        "cost_usd": 0.27417,
+        "exec_s": 83.510334
+      },
+      "flip": null
+    },
+    {
+      "task": "mteb-retrieve",
+      "baseline": {
+        "pass": false,
+        "is_err": false,
+        "turns": 25,
+        "cost_usd": 0.512444,
+        "exec_s": 433.159609
+      },
+      "best3": {
+        "pass": false,
+        "is_err": false,
+        "turns": 27,
+        "cost_usd": 0.5695100000000001,
+        "exec_s": 453.694786
+      },
+      "flip": null
+    },
+    {
+      "task": "hf-model-inference",
+      "baseline": {
+        "pass": false,
+        "is_err": false,
+        "turns": 13,
+        "cost_usd": 0.39944100000000005,
+        "exec_s": 300.374393
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 12,
+        "cost_usd": 0.152555,
+        "exec_s": 189.647346
+      },
+      "flip": "conversion"
+    },
+    {
+      "task": "merge-diff-arc-agi-task",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 21,
+        "cost_usd": 0.877906,
+        "exec_s": 691.129038
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 20,
+        "cost_usd": 0.49005299999999996,
+        "exec_s": 362.359217
+      },
+      "flip": null
+    },
+    {
+      "task": "nginx-request-logging",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 13,
+        "cost_usd": 0.37028199999999994,
+        "exec_s": 416.834071
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 13,
+        "cost_usd": 0.19972500000000004,
+        "exec_s": 128.381098
+      },
+      "flip": null
+    },
+    {
+      "task": "openssl-selfsigned-cert",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 11,
+        "cost_usd": 0.269212,
+        "exec_s": 164.230081
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 18,
+        "cost_usd": 1.3939480000000002,
+        "exec_s": 503.817768
+      },
+      "flip": null
+    },
+    {
+      "task": "polyglot-c-py",
+      "baseline": {
+        "pass": false,
+        "is_err": true,
+        "turns": 18,
+        "cost_usd": 0.0,
+        "exec_s": 840.885782
+      },
+      "best3": {
+        "pass": false,
+        "is_err": false,
+        "turns": 13,
+        "cost_usd": 0.5320710000000001,
+        "exec_s": 279.223747
+      },
+      "flip": null
+    },
+    {
+      "task": "vulnerable-secret",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 10,
+        "cost_usd": 0.466153,
+        "exec_s": 171.54838
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 14,
+        "cost_usd": 0.218404,
+        "exec_s": 96.893791
+      },
+      "flip": null
+    },
+    {
+      "task": "break-filter-js-from-html",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 10,
+        "cost_usd": 0.286259,
+        "exec_s": 223.520939
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 18,
+        "cost_usd": 0.35391999999999996,
+        "exec_s": 274.269179
+      },
+      "flip": null
+    },
+    {
+      "task": "count-dataset-tokens",
+      "baseline": {
+        "pass": true,
+        "is_err": false,
+        "turns": 10,
+        "cost_usd": 0.176784,
+        "exec_s": 178.046127
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 12,
+        "cost_usd": 0.251625,
+        "exec_s": 232.669714
+      },
+      "flip": null
+    },
+    {
+      "task": "extract-elf",
+      "baseline": {
+        "pass": false,
+        "is_err": true,
+        "turns": 17,
+        "cost_usd": 0.0,
+        "exec_s": 840.912243
+      },
+      "best3": {
+        "pass": true,
+        "is_err": false,
+        "turns": 11,
+        "cost_usd": 0.5718599999999999,
+        "exec_s": 281.99766
+      },
+      "flip": "conversion"
+    }
+  ]
+}

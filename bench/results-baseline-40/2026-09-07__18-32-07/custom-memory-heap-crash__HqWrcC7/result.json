@@ -1,0 +1,125 @@
+{
+    "id": "b9aa0d7d-81f6-4be0-9ce0-22368b2f6df9",
+    "task_name": "terminal-bench/custom-memory-heap-crash",
+    "trial_name": "custom-memory-heap-crash__HqWrcC7",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-baseline-40/2026-09-07__18-32-07/custom-memory-heap-crash__HqWrcC7",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "custom-memory-heap-crash",
+        "ref": "sha256:72cdc9cf98c822a1449935ca32efc6612fe3d14928c9465c11285e95dcdf60cb"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "58f0cd21417048275fa06f5e244042d1fe5a6ac422b99199f2d2d7ef3b3af68a",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/custom-memory-heap-crash",
+            "ref": "sha256:72cdc9cf98c822a1449935ca32efc6612fe3d14928c9465c11285e95dcdf60cb",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "custom-memory-heap-crash__HqWrcC7",
+        "trials_dir": "bench/results-baseline-40/2026-09-07__18-32-07",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "bench.ada_agent:AdaAgent",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "variant": "baseline"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "sk-o****c4e"
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "34e5929b-8c1b-418a-a6b7-31a191df4d9f",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada",
+        "version": "usage: node scripts/autoresearch-run-agent.ts <targetDir> <promptFile>",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 98602,
+        "n_cache_tokens": 1856704,
+        "n_output_tokens": 42387,
+        "cost_usd": 2.4810369999999997,
+        "rollout_details": null,
+        "metadata": {
+            "ada_variant": "baseline",
+            "ada_is_error": false,
+            "ada_num_turns": 68
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-07T18:38:41.839050Z",
+    "finished_at": "2026-09-07T19:01:55.537938Z",
+    "environment_setup": {
+        "started_at": "2026-09-07T18:38:41.844106Z",
+        "finished_at": "2026-09-07T18:40:25.325770Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-07T18:40:25.325804Z",
+        "finished_at": "2026-09-07T18:40:35.739426Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-07T18:40:35.739528Z",
+        "finished_at": "2026-09-07T19:01:13.799832Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-07T19:01:14.259143Z",
+        "finished_at": "2026-09-07T19:01:40.637248Z"
+    },
+    "step_results": null
+}

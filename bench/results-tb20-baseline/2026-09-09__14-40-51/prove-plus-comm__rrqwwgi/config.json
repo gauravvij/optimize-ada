@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/prove-plus-comm",
+        "ref": "sha256:2c5295786c38135ca86b4b09cab3a82408e25129841f5fc533d31b885f6d737a",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "prove-plus-comm__rrqwwgi",
+    "trials_dir": "bench/results-tb20-baseline/2026-09-09__14-40-51",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "11e4cefa-6feb-4075-93e9-23cd90cc106a"
+}

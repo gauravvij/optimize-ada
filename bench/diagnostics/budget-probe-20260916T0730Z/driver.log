@@ -1,0 +1,34 @@
+=== budget probe start 2026-09-16T07:15:35Z ===
+run_id: budget-probe-20260916T0730Z
+tasks: 25 (bench/FAILING25.txt), timeout 960s, concurrency 1, shipped build
+workspace commit: c6f917ec458797f36d265deea8c4c70131f09a01
+agent tree: dab704de524a7b31203f0b53374ec539cbb7089d
+task=reflex-dev-reflex-8657976 pass=0 valid=1 timeout=0 turns=30
+task=dstl-stone-soup-4b6bd37 pass=0 valid=1 timeout=0 turns=9
+task=prometheus-bd5b2ea pass=1 valid=1 timeout=0 turns=29
+task=deps-volt-react-dashboard-3a3f3 pass=0 valid=1 timeout=0 turns=26
+task=qubvel-segmentation_models-pytorch-ccccadd pass=0 valid=1 timeout=0 turns=16
+task=servo-e199a67 pass=0 valid=1 timeout=0 turns=32
+task=cassandra-73cd2c5 pass=1 valid=1 timeout=0 turns=20
+task=bgsetup-autossh-logging pass=0 valid=1 timeout=0 turns=9
+task=falconry-falcon-cae50da pass=0 valid=1 timeout=0 turns=27
+task=deps-react-virtualized-sticky-tree-32be9 pass=1 valid=1 timeout=0 turns=19
+task=deps-engine-34e61 pass=0 valid=1 timeout=0 turns=31
+task=networkx-networkx-c107d25 pass=0 valid=1 timeout=0 turns=9
+task=deps-gatsby-plugin-intl-2b7ac pass=0 valid=1 timeout=0 turns=26
+task=dbsetup-mysql-3 pass=0 valid=1 timeout=0 turns=14
+task=laramies-theharvester-e25c269 pass=0 valid=1 timeout=0 turns=26
+task=deps-amazon-cognito-saml-idp-c076c pass=0 valid=0 timeout=0 turns=0
+task=nedbat-coveragepy-9d0eb02 pass=0 valid=1 timeout=0 turns=42
+task=deps-react-most-wanted-cbc29 pass=1 valid=1 timeout=0 turns=39
+task=hackmdio-codimd-f00df50 pass=0 valid=1 timeout=0 turns=43
+task=whisper-brokendeps-517a43e pass=1 valid=1 timeout=0 turns=19
+task=psf-black-c204232 pass=1 valid=1 timeout=0 turns=19
+task=spring-petclinic-2aa53f9 pass=1 valid=1 timeout=0 turns=15
+task=fsspec-filesystem_spec-3ff5fca pass=0 valid=1 timeout=0 turns=13
+task=deps-rails-6cd76 pass=0 valid=1 timeout=0 turns=27
+task=deps-react-most-wanted-2e3f0 pass=0 valid=1 timeout=0 turns=33
+invalid task=deps-amazon-cognito-saml-idp-c076c error=TimeoutExpired:Command '['docker', 'exec', 'setupbench-ada-candidate-86cbc31cf6', 'test', '-f', '/testbed/.ada-exit']' timed out after 10 seconds
+summary pass=7/25 timeouts=0 turns=573
+=== eval exit code: 2 2026-09-16T12:20:37Z ===
+=== budget probe end 2026-09-16T12:20:37Z ===

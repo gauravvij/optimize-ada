@@ -1,0 +1,135 @@
+{
+  "run": "20260915T0825Z",
+  "replicates": [
+    {
+      "rep": 1,
+      "status": "COMPLETE",
+      "agent_tree": {
+        "baseline": "df8a18c092787af91ff143f711091e752b62c268",
+        "best": "dab704de524a7b31203f0b53374ec539cbb7089d"
+      },
+      "invalid": {
+        "baseline": 1,
+        "best": 1
+      },
+      "timeouts": {
+        "baseline": 44,
+        "best": 0
+      },
+      "zero_turn": {
+        "baseline": 45,
+        "best": 2
+      },
+      "contrast": {
+        "n": 79,
+        "baseline_pass": 31,
+        "best_pass": 47,
+        "net": 16,
+        "lost": 1,
+        "gained": 17,
+        "p": 0.000145
+      },
+      "baseline_hung": {
+        "n": 44,
+        "baseline_pass": 0,
+        "best_pass": 15,
+        "net": 15,
+        "lost": 0,
+        "gained": 15,
+        "p": 6.104e-05
+      },
+      "baseline_ran": {
+        "n": 35,
+        "baseline_pass": 31,
+        "best_pass": 32,
+        "net": 1,
+        "lost": 1,
+        "gained": 2,
+        "p": 1.0
+      }
+    },
+    {
+      "rep": 2,
+      "status": "COMPLETE",
+      "agent_tree": {
+        "baseline": "df8a18c092787af91ff143f711091e752b62c268",
+        "best": "dab704de524a7b31203f0b53374ec539cbb7089d"
+      },
+      "invalid": {
+        "baseline": 2,
+        "best": 1
+      },
+      "timeouts": {
+        "baseline": 40,
+        "best": 0
+      },
+      "zero_turn": {
+        "baseline": 41,
+        "best": 1
+      },
+      "contrast": {
+        "n": 78,
+        "baseline_pass": 36,
+        "best_pass": 51,
+        "net": 15,
+        "lost": 0,
+        "gained": 15,
+        "p": 6.104e-05
+      },
+      "baseline_hung": {
+        "n": 38,
+        "baseline_pass": 0,
+        "best_pass": 13,
+        "net": 13,
+        "lost": 0,
+        "gained": 13,
+        "p": 0.0002441
+      },
+      "baseline_ran": {
+        "n": 40,
+        "baseline_pass": 36,
+        "best_pass": 38,
+        "net": 2,
+        "lost": 0,
+        "gained": 2,
+        "p": 0.5
+      }
+    }
+  ],
+  "pooled": {
+    "contrast": {
+      "n": 157,
+      "baseline_pass": 67,
+      "best_pass": 98,
+      "net": 31,
+      "lost": 1,
+      "gained": 32,
+      "p": 7.916e-09
+    },
+    "baseline_hung": {
+      "n": 82,
+      "baseline_pass": 0,
+      "best_pass": 28,
+      "net": 28,
+      "lost": 0,
+      "gained": 28,
+      "p": 7.451e-09
+    },
+    "baseline_ran": {
+      "n": 75,
+      "baseline_pass": 67,
+      "best_pass": 70,
+      "net": 3,
+      "lost": 1,
+      "gained": 4,
+      "p": 0.375
+    }
+  },
+  "rule": {
+    "all_replicates_complete": true,
+    "each_replicate_net_ge_10": true,
+    "each_replicate_invalid_le_3": true,
+    "pooled_p_lt_0.001": true
+  },
+  "verdict": "HOLDS"
+}

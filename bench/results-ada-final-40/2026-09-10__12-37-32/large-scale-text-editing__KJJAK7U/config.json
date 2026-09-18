@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/large-scale-text-editing",
+        "ref": "sha256:f1196bcc75f57494f04617c635c7d23a8f231d25e68136dae02615eaa846ad90",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "large-scale-text-editing__KJJAK7U",
+    "trials_dir": "bench/results-ada-final-40/2026-09-10__12-37-32",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-final.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "57a62332-9428-4432-a6d7-aedbe343ccb1"
+}

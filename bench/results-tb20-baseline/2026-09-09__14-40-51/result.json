@@ -1,0 +1,60 @@
+{
+    "id": "11e4cefa-6feb-4075-93e9-23cd90cc106a",
+    "started_at": "2026-09-09T14:40:54.739163",
+    "updated_at": "2026-09-09T15:47:36.472933",
+    "finished_at": "2026-09-09T15:47:36.472933",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada__terminal-bench/terminal-bench-2": {
+                "n_trials": 20,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "overfull-hbox__NPhWg7Y",
+                            "extract-elf__7MPeodc",
+                            "kv-store-grpc__CarLRZU",
+                            "cobol-modernization__7wDYMER",
+                            "raman-fitting__5Bh9BRW",
+                            "hf-model-inference__RfoJvrs",
+                            "polyglot-c-py__WZj4dDd",
+                            "mteb-retrieve__WTGVdc7"
+                        ],
+                        "1.0": [
+                            "break-filter-js-from-html__qSetAG7",
+                            "vulnerable-secret__3URkgir",
+                            "openssl-selfsigned-cert__LiMAh2e",
+                            "crack-7z-hash__cpJAGS7",
+                            "constraints-scheduling__bdza7vm",
+                            "mteb-leaderboard__zdg5SKF",
+                            "fix-git__yonYa2b",
+                            "prove-plus-comm__rrqwwgi",
+                            "pytorch-model-recovery__WJutmMh",
+                            "merge-diff-arc-agi-task__iEnTLhs",
+                            "nginx-request-logging__wd9WWPo",
+                            "count-dataset-tokens__doePZru"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 1884765,
+        "n_cache_tokens": 2130496,
+        "n_output_tokens": 132623,
+        "cost_usd": 13.804648
+    }
+}

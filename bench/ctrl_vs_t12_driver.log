@@ -1,0 +1,13 @@
+PREFLIGHT OK   targets/ada-t01gateoff  HEAD=6672af8  agent/ == 6672af8
+PREFLIGHT OK   targets/ada  HEAD=c17e78b  agent/ == 2e495bb
+=== ctrl-vs-t12 paired run, ts=20260912T1603Z, started Sat Sep 12 16:03:41 UTC 2026 ===
+=== ARM 1of2-CONTROL-6672af8 === Sat Sep 12 16:03:41 UTC 2026
+ARM 1of2-CONTROL-6672af8 DONE exit=0 Sat Sep 12 18:10:56 UTC 2026 | 81 rows, 0 invalid, summary pass=54/81 timeouts=0 turns=1554
+=== ARM 2of2-CANDIDATE-2e495bb === Sat Sep 12 18:10:56 UTC 2026
+ARM 2of2-CANDIDATE-2e495bb DONE exit=0 Sat Sep 12 20:11:35 UTC 2026 | 81 rows, 0 invalid, summary pass=50/81 timeouts=0 turns=1389
+=== peak swap / min avail / worst docker_ps latency ===
+peak_swap=899M min_avail=3115M worst_docker_ps=375ms
+=== diagnostics ===
+  targets/ada-t01gateoff/.autoresearch/diagnostics/20260912T1603Z-t04ctrl2/0.json -> {'passed': 54, 'total': 81, 'timeouts': 0, 'turns': 1554}
+  targets/ada/.autoresearch/diagnostics/20260912T1603Z-t12cand2/0.json -> {'passed': 50, 'total': 81, 'timeouts': 0, 'turns': 1389}
+=== COMPLETE Sat Sep 12 20:11:35 UTC 2026 ===

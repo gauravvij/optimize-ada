@@ -1,0 +1,986 @@
+{
+  "protocol": {
+    "design": "paired comparison on the remaining81 split, each task counted exactly once",
+    "pooled_n": 81,
+    "conditions": "480s task / 600s grader / concurrency 4 / z-ai/glm-5.3-flash via OpenRouter / node v24.19.0 / seed 20260907",
+    "final81_assembly": "/home/azureuser/adaAgent/autoresearcher/examples/FINAL81_RESULT_SET.json",
+    "artifacts": {
+      "final_build_fresh31": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_final_failures31.json",
+      "prior_incumbent_sep9": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/remaining81_incumbent.json",
+      "stored_baseline": "/home/azureuser/adaAgent/autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/manual/remaining81_baseline.json"
+    }
+  },
+  "primary_vs_stored_baseline": {
+    "comparison": "final81 (final Ada build) vs stored baseline (targets/ada-baseline)",
+    "final_pass": 59,
+    "baseline_pass": 27,
+    "pooled_n": 81,
+    "pass_rate_difference": 0.3951,
+    "mcnemar_exact": {
+      "b": 33,
+      "c": 1,
+      "n_discordant": 34,
+      "p_value": 4.0745362639427185e-09
+    },
+    "newcombe_95ci": {
+      "lower": 0.2403,
+      "upper": 0.5141
+    },
+    "final_timeouts": 2,
+    "baseline_timeouts": 53,
+    "flip_table": {
+      "conversions_baseline_fail_final_pass": [
+        "beautify-web-js-beautify-6de9268",
+        "caddy-782a3c7",
+        "cassandra-73cd2c5",
+        "celery-celery-03e3359",
+        "danwahlin-angular-jumpstart-12fa4e4",
+        "dbsetup-redis-2",
+        "deps-decidim-module-navbar_links-c7ddb",
+        "deps-devise-31774",
+        "deps-openecho-28cb7",
+        "deps-react-most-wanted-cbc29",
+        "deps-react-virtualized-sticky-tree-32be9",
+        "dishait-tov-template-39c0898",
+        "hoodiehq-hoodie-bd1354f",
+        "hybridgroup-cylon-0ba0301",
+        "ionelmc-python-tblib-9f6f864",
+        "johnpapa-vscode-angular-snippets-1551fe1",
+        "lhartikk-naivechain-dfd2481",
+        "mampfes-hacs_waste_collection_schedule-dbab343",
+        "melt-ui-melt-ui-c566aae",
+        "microsoft-azure-pipelines-tasks-bfcd4b2",
+        "microsoft-typescript-vue-starter-c451742",
+        "monero-8468549",
+        "networkx-networkx-c107d25",
+        "openai-openai-node-8958d97",
+        "psf-black-c204232",
+        "public-apis-public-apis-b354ba6",
+        "pypa-packaging-4493dfc",
+        "pytesseract-df9fce0",
+        "ta-lib-python-0c957ed",
+        "transitive-bull-chatgpt-api-811ae8f",
+        "wagtail-wagtail-28fcd01",
+        "whisper-517a43e",
+        "whisper-brokendeps-517a43e"
+      ],
+      "regressions_baseline_pass_final_fail": [
+        "bgsetup-filewatcher-daemon"
+      ]
+    }
+  },
+  "secondary_vs_prior_incumbent": {
+    "comparison": "final81 vs prior incumbent (Sep-9, 50/81)",
+    "prior_incumbent_pass": 50,
+    "final_pass": 59,
+    "net_gain": 9,
+    "rerun_tasks": 31,
+    "conversions_fail_to_pass": [
+      {
+        "task_id": "cassandra-73cd2c5",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 546.8,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "dbsetup-redis-1",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 9,
+        "final_duration_s": 59.6,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-openecho-28cb7",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 22,
+        "final_duration_s": 454.1,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-react-most-wanted-cbc29",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 801.2,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "lhartikk-naivechain-dfd2481",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 19,
+        "final_duration_s": 499.8,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 476.7,
+        "force_kill_task": true
+      },
+      {
+        "task_id": "monero-8468549",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 17,
+        "final_duration_s": 148.1,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "psf-black-c204232",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 25,
+        "final_duration_s": 600.2,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "yaml-pyyaml-a2d19c0",
+        "prior_incumbent_passed": false,
+        "final_build_passed": true,
+        "final_timed_out": false,
+        "final_turns": 18,
+        "final_duration_s": 396.7,
+        "force_kill_task": true
+      }
+    ],
+    "still_failing": [
+      {
+        "task_id": "bgsetup-autossh-logging",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 488.3,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "bgsetup-filewatcher-daemon",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 467.3,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "dbsetup-mysql-3",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 22,
+        "final_duration_s": 265.7,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "dbsetup-postgresql-2",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 12,
+        "final_duration_s": 236.0,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-amazon-cognito-saml-idp-c076c",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 479.2,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-engine-34e61",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 860.7,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-gatsby-plugin-intl-2b7ac",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 601.3,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-origen-3e2f3",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 464.5,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-rails-6cd76",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 464.4,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-react-most-wanted-2e3f0",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 537.1,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "deps-volt-react-dashboard-3a3f3",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 462.3,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "dstl-stone-soup-4b6bd37",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 25,
+        "final_duration_s": 432.8,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "falconry-falcon-cae50da",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": true,
+        "final_turns": 24,
+        "final_duration_s": 516.9,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "fsspec-filesystem_spec-3ff5fca",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 22,
+        "final_duration_s": 309.1,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "hackmdio-codimd-f00df50",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": true,
+        "final_turns": 34,
+        "final_duration_s": 511.3,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "laramies-theharvester-e25c269",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 21,
+        "final_duration_s": 478.8,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "nedbat-coveragepy-9d0eb02",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 18,
+        "final_duration_s": 282.8,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "prometheus-bd5b2ea",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 492.9,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "qubvel-segmentation_models-pytorch-ccccadd",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 465.6,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "reflex-dev-reflex-8657976",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 564.4,
+        "force_kill_task": false
+      },
+      {
+        "task_id": "servo-e199a67",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 476.2,
+        "force_kill_task": true
+      },
+      {
+        "task_id": "spring-petclinic-2aa53f9",
+        "prior_incumbent_passed": false,
+        "final_build_passed": false,
+        "final_timed_out": false,
+        "final_turns": 0,
+        "final_duration_s": 483.3,
+        "force_kill_task": false
+      }
+    ],
+    "regressions_pass_to_fail": "none possible by construction: only prior-failure tasks were re-run; the 50 prior passes were carried over unchanged"
+  },
+  "force_kill_conversion": {
+    "definition": "the 3 prior-incumbent tasks killed by the harness 480s wall clock (timed_out=true in remaining81_incumbent.json)",
+    "tasks": [
+      {
+        "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+        "prior_incumbent": {
+          "passed": false,
+          "timed_out": true,
+          "turns": 0,
+          "duration_s": 486.4
+        },
+        "final_build": {
+          "passed": true,
+          "timed_out": false,
+          "turns": 0,
+          "duration_s": 476.7
+        },
+        "converted": true
+      },
+      {
+        "task_id": "servo-e199a67",
+        "prior_incumbent": {
+          "passed": false,
+          "timed_out": true,
+          "turns": 0,
+          "duration_s": 493.1
+        },
+        "final_build": {
+          "passed": false,
+          "timed_out": false,
+          "turns": 0,
+          "duration_s": 476.2
+        },
+        "converted": false
+      },
+      {
+        "task_id": "yaml-pyyaml-a2d19c0",
+        "prior_incumbent": {
+          "passed": false,
+          "timed_out": true,
+          "turns": 13,
+          "duration_s": 488.2
+        },
+        "final_build": {
+          "passed": true,
+          "timed_out": false,
+          "turns": 18,
+          "duration_s": 396.7
+        },
+        "converted": true
+      }
+    ],
+    "converted_count": 2
+  },
+  "per_task_vs_baseline": [
+    {
+      "task_id": "beautify-web-js-beautify-6de9268",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "benjaminp-six-c1b416f",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bgsetup-autossh-logging",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bgsetup-autossh-reverse-tunnel",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bgsetup-celery-systemd",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon",
+      "baseline_passed": true,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "regression"
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bgsetup-gunicorn-systemd-socket",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bgsetup-multiprocess-master-worker",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "bolsote-isoduration-ae0bd61",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "caddy-782a3c7",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "cassandra-73cd2c5",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "celery-celery-03e3359",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "dbsetup-mongodb-1",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-mysql-1",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-mysql-3",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-postgresql-1",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-postgresql-2",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-postgresql-3",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-redis-1",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-redis-2",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "dbsetup-sqlite-1",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-sqlite-2",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dbsetup-sqlite-3",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-aether-0b82a",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-amazon-cognito-saml-idp-c076c",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-decidim-module-navbar_links-c7ddb",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "deps-devise-31774",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "deps-engine-34e61",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-openecho-28cb7",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "deps-origen-3e2f3",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-rails-6cd76",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-react-most-wanted-2e3f0",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-react-most-wanted-cbc29",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "deps-react-virtualized-sticky-tree-32be9",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "deps-ultimate-frontrunning-bot-449d6",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "deps-volt-react-dashboard-3a3f3",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "dstl-stone-soup-4b6bd37",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "falconry-falcon-cae50da",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "hoodiehq-hoodie-bd1354f",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "hybridgroup-cylon-0ba0301",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "ionelmc-python-tblib-9f6f864",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "laramies-theharvester-e25c269",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "lhartikk-naivechain-dfd2481",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "mampfes-hacs_waste_collection_schedule-dbab343",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "marshmallow-code-marshmallow-659fed5",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "melt-ui-melt-ui-c566aae",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "microsoft-typescript-vue-starter-c451742",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "monero-8468549",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "nedbat-coveragepy-9d0eb02",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "networkx-networkx-c107d25",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "openai-openai-node-8958d97",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "ousret-charset_normalizer-816c998",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "pallets-flask-2fec0b2",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "psf-black-c204232",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "public-apis-public-apis-b354ba6",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "pypa-packaging-4493dfc",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "pypa-pipenv-b895476",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "pytesseract-df9fce0",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "python-hyper-rfc3986-75e77ba",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "qubvel-segmentation_models-pytorch-ccccadd",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "reflex-dev-reflex-8657976",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "servo-e199a67",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "spring-petclinic-2aa53f9",
+      "baseline_passed": false,
+      "final_passed": false,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "ta-lib-python-0c957ed",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "testing-cabal-testtools-ef5c465",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": null
+    },
+    {
+      "task_id": "transitive-bull-chatgpt-api-811ae8f",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "whisper-brokendeps-517a43e",
+      "baseline_passed": false,
+      "final_passed": true,
+      "outcome_source": "carried_over_sep9_incumbent_pass",
+      "flip_vs_baseline": "conversion"
+    },
+    {
+      "task_id": "yaml-pyyaml-a2d19c0",
+      "baseline_passed": true,
+      "final_passed": true,
+      "outcome_source": "fresh_rerun_final_build",
+      "flip_vs_baseline": null
+    }
+  ]
+}

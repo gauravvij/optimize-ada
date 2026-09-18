@@ -1,0 +1,31 @@
+{
+    "job_name": "2026-09-07__17-56-49",
+    "jobs_dir": "bench/results-best2-pilot",
+    "agents": [
+        {
+            "name": "bench.ada_agent:AdaAgent",
+            "kwargs": {
+                "variant": "best2"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "sk-o****c4e"
+            }
+        }
+    ],
+    "datasets": [
+        {
+            "name": "terminal-bench/terminal-bench-2",
+            "ref": "sha256:c6fc2e2382c1dbae99b2d5ecd2f4f4a60c3c01e0d84642d69b4afd92e99d078b",
+            "task_names": [
+                "terminal-bench/cobol-modernization",
+                "terminal-bench/overfull-hbox",
+                "terminal-bench/raman-fitting",
+                "terminal-bench/mteb-leaderboard",
+                "terminal-bench/crack-7z-hash",
+                "terminal-bench/fix-git",
+                "terminal-bench/prove-plus-comm",
+                "terminal-bench/kv-store-grpc"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "job_name": "2026-09-07__13-27-52",
+    "jobs_dir": "results-oracle-smoke",
+    "n_concurrent_trials": 2,
+    "datasets": [
+        {
+            "name": "terminal-bench/terminal-bench-2",
+            "ref": "sha256:c6fc2e2382c1dbae99b2d5ecd2f4f4a60c3c01e0d84642d69b4afd92e99d078b",
+            "task_names": [
+                "terminal-bench/fix-git",
+                "terminal-bench/prove-plus-comm"
+            ]
+        }
+    ]
+}

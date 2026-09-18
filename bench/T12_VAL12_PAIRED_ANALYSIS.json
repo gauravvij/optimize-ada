@@ -1,0 +1,240 @@
+{
+  "protocol": "T1.2 val12 paired rung (fina_run.md \u00a73 rules 2-3)",
+  "date": "2026-09-11",
+  "candidate": {
+    "arm": "T1.2 time-awareness bundle (ADA_TIME_HINTS + ADA_BASH_CLAMP_REMAINING default ON, ADA_PROMPT_DOD default OFF)",
+    "workspace": "targets/ada",
+    "commit": "2e495bb9817bf47ca2a082660ce58b0dfa4d7bbf",
+    "diagnostics": "bench/diagnostics/20260911T1442Z-t12val12/val12_t12_candidate.json",
+    "log": "bench/t12_val12_candidate.log"
+  },
+  "gateoff": {
+    "arm": "T0.1 build (pre-T1.2; no time hooks exist structurally)",
+    "workspace": "targets/ada-t01gateoff (git worktree @ 6672af8)",
+    "commit": "6672af854dd9be6d3290d3959c74b95808d54eec",
+    "diagnostics": "bench/diagnostics/ada-t01gateoff/20260911T1442Z-t12val12/val12_t01_gateoff.json",
+    "log": "bench/t12_val12_gateoff.log"
+  },
+  "conditions": {
+    "suite": "val12-12",
+    "task_timeout_seconds": 480,
+    "grader_timeout_seconds": 600,
+    "concurrency": 4,
+    "seed": 20260907,
+    "model": "z-ai/glm-5.3-flash",
+    "node": "v24.19.0",
+    "same_day": true,
+    "sequential_arms": true,
+    "run_id": "20260911T1442Z-t12val12"
+  },
+  "summary": {
+    "candidate_pass": 8,
+    "gateoff_pass": 6,
+    "n": 12,
+    "both_pass": 5,
+    "candidate_only": 3,
+    "gateoff_only": 1,
+    "neither": 3,
+    "candidate_turns": 199,
+    "gateoff_turns": 257,
+    "candidate_timeouts": 0,
+    "gateoff_timeouts": 0,
+    "candidate_wall_seconds_sum": 4901.6,
+    "gateoff_wall_seconds_sum": 4978.7,
+    "candidate_claimed_verified_but_grader_failed": 4,
+    "gateoff_claimed_verified_but_grader_failed": 1
+  },
+  "statistics": {
+    "exact_mcnemar_b": 1,
+    "exact_mcnemar_c": 3,
+    "exact_mcnemar_p": 0.625,
+    "newcombe_95ci_diff": [
+      -0.2032,
+      0.4809
+    ],
+    "note": "b=1 (regressions), c=3 (conversions), discordant=4, two-sided exact p=0.6250; E11: anything smaller than \u00b13 on n=12 is noise."
+  },
+  "flip_table": [
+    {
+      "task_id": "dbsetup-mysql-2",
+      "flip": "gateoff-fail -> candidate-pass"
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "flip": "gateoff-fail -> candidate-pass"
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "flip": "gateoff-fail -> candidate-pass"
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "flip": "candidate-fail -> gateoff-pass"
+    }
+  ],
+  "per_task": [
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 13,
+      "gateoff_turns": 16,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 219.3,
+      "gateoff_duration_s": 246.0,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 10,
+      "gateoff_turns": 16,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 312.9,
+      "gateoff_duration_s": 299.8,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "candidate_pass": true,
+      "gateoff_pass": false,
+      "candidate_turns": 12,
+      "gateoff_turns": 17,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 320.2,
+      "gateoff_duration_s": 188.4,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "candidate_pass": true,
+      "gateoff_pass": false,
+      "candidate_turns": 29,
+      "gateoff_turns": 22,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 710.9,
+      "gateoff_duration_s": 458.9,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "deps-ultimate-frontrunning-bot-449d6",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 12,
+      "gateoff_turns": 18,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 228.1,
+      "gateoff_duration_s": 278.0,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 17,
+      "gateoff_turns": 26,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 433.6,
+      "gateoff_duration_s": 493.5,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": false
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 13,
+      "gateoff_turns": 24,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 317.5,
+      "gateoff_duration_s": 592.6,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 24,
+      "gateoff_turns": 27,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 466.0,
+      "gateoff_duration_s": 465.9,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "candidate_pass": true,
+      "gateoff_pass": false,
+      "candidate_turns": 29,
+      "gateoff_turns": 29,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 493.4,
+      "gateoff_duration_s": 505.7,
+      "candidate_agent_is_error": true,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "candidate_pass": false,
+      "gateoff_pass": false,
+      "candidate_turns": 2,
+      "gateoff_turns": 26,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 488.7,
+      "gateoff_duration_s": 486.7,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "candidate_pass": true,
+      "gateoff_pass": true,
+      "candidate_turns": 25,
+      "gateoff_turns": 21,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 464.1,
+      "gateoff_duration_s": 457.4,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "candidate_pass": false,
+      "gateoff_pass": true,
+      "candidate_turns": 13,
+      "gateoff_turns": 15,
+      "candidate_timed_out": false,
+      "gateoff_timed_out": false,
+      "candidate_duration_s": 446.9,
+      "gateoff_duration_s": 505.9,
+      "candidate_agent_is_error": false,
+      "gateoff_agent_is_error": true
+    }
+  ],
+  "decision": {
+    "rung": "val12 paired",
+    "net_conversions": 2,
+    "rung_1_positive": true,
+    "rule_2_early_stop": false,
+    "next_step": "proceed to remaining81 vs the T0.4 fresh control (\u00a73 rule 3)"
+  }
+}

@@ -1,0 +1,1205 @@
+{
+  "protocol": {
+    "run": "fresh same-day paired remaining81, run_id 20260912T1031Z",
+    "driver": "run_rem81.sh (arm 1 10:31-12:51 UTC, arm 2 12:51-14:59 UTC)",
+    "suite": "remaining81",
+    "task_timeout_seconds": 480,
+    "grader_timeout_seconds": 600,
+    "concurrency": 4,
+    "seed": 20260907,
+    "model": "z-ai/glm-5.3-flash",
+    "metric": "tasks passing the official SetupBench executable graders",
+    "generated_at": "2026-09-12T18:24:25.852067+00:00",
+    "reproduce": "python3 bench/fresh_rem81_analysis.py"
+  },
+  "arms": {
+    "fresh_baseline": {
+      "commit": "df0c537",
+      "workspace": "targets/ada-baseline",
+      "log": "bench/fresh_rem81_baseline.log",
+      "diagnostics": "autoresearcher/targets/ada-baseline/.autoresearch/diagnostics/20260912T1031Z-frem81base/0.json",
+      "raw": "34/81 pass, 45 timeouts, 750 turns, 0 invalid"
+    },
+    "fresh_t12": {
+      "commit": "2e495bb",
+      "workspace": "targets/ada",
+      "log": "bench/fresh_rem81_best.log",
+      "diagnostics": "NONE \u2014 eval returned 2 on 7 invalid rows before writing",
+      "raw": "81 rows, 7 invalid, 43/74 pass on the evaluable set, 0 timeouts"
+    }
+  },
+  "unevaluable_trials": {
+    "policy": "T0.5 / fina_run.md E10: a row that is valid=0 in EITHER arm is a harness-infrastructure failure, not an agent failure, and is excluded from the paired set in BOTH arms.",
+    "cause": "docker exec timed out after 10 s (x3) and docker run timed out after 60 s (x4) during arm 2, at peak memory pressure (min avail 1917 MB, swap 2557 MB at 14:19 UTC; the run guard's abort floor is 1200 MB and never tripped)",
+    "excluded_tasks": [
+      "beautify-web-js-beautify-6de9268",
+      "bgsetup-autossh-logging",
+      "bgsetup-autossh-reverse-tunnel",
+      "bgsetup-gunicorn-systemd-socket",
+      "deps-ultimate-frontrunning-bot-449d6",
+      "hoodiehq-hoodie-bd1354f",
+      "monero-8468549"
+    ],
+    "n_excluded": 7,
+    "n_paired": 74,
+    "asymmetry_note": "all 7 were invalid in arm 2 only; arm 1 had 0 invalid rows. The exclusion is applied to both arms regardless."
+  },
+  "control_integrity": {
+    "question": "Is the 24/81 T0.4 control a sound anchor, or is it a depressed run?",
+    "test": "6672af8 is df0c537 plus the watchdog work, so on tasks where neither build hangs it cannot legitimately be far WORSE than df0c537.",
+    "on_33_tasks_df0c537_ran": {
+      "ctrl_6672af8_sep10_pass": 13,
+      "df0c537_sep12_pass": 31,
+      "t12_sep12_pass": 28,
+      "n": 33
+    },
+    "contrast": {
+      "contrast": "T0.4 control 6672af8 (Sep-10) -> df0c537 (Sep-12), on the 33 tasks df0c537 ran",
+      "arm_a": "T0.4 control @ 6672af8, run 2026-09-10",
+      "arm_b": "df0c537 campaign-origin baseline, run 2026-09-12",
+      "n": 33,
+      "a_pass": 13,
+      "b_pass": 31,
+      "a_rate": 0.3939,
+      "b_rate": 0.9394,
+      "difference": 0.5455,
+      "newcombe_95ci": [
+        0.3287,
+        0.699
+      ],
+      "mcnemar_exact": {
+        "b_a_pass_b_fail": 0,
+        "c_a_fail_b_pass": 18,
+        "n_discordant": 18,
+        "p_value": 7.629e-06
+      },
+      "gained": [
+        "bgsetup-celery-systemd",
+        "bolsote-isoduration-ae0bd61",
+        "dbsetup-mongodb-1",
+        "dbsetup-mongodb-2",
+        "dbsetup-postgresql-1",
+        "dbsetup-postgresql-2",
+        "dbsetup-redis-1",
+        "dishait-tov-template-39c0898",
+        "hybridgroup-cylon-0ba0301",
+        "johnpapa-vscode-angular-snippets-1551fe1",
+        "lhartikk-naivechain-dfd2481",
+        "marshmallow-code-marshmallow-659fed5",
+        "microsoft-typescript-vue-starter-c451742",
+        "ousret-charset_normalizer-816c998",
+        "pypa-packaging-4493dfc",
+        "python-hyper-rfc3986-75e77ba",
+        "transitive-bull-chatgpt-api-811ae8f",
+        "yaml-pyyaml-a2d19c0"
+      ],
+      "lost": []
+    },
+    "control_timeouts_on_paired_set": 0,
+    "verdict": "CONTROL IS SUSPECT. The control loses 18 of these 33 tasks to a strictly older build and wins none (b=0, c=18, p=7.6e-06), with 0 timeouts on either side, so the deficit is grader failures and not hangs. A build cannot be beaten 18-0 by its own ancestor on tasks neither one hangs on. Either the 2026-09-10 run was executed on a badly degraded day, or 6672af8 carried a defect T1.2 later masked. fina_run.md already flagged this run as anomalous (24/81 against the Sep-9 incumbent's 50/81 on nearly the same lineage) and attributed it to drift, then used it as the anchor anyway.",
+    "consequence": "The promoted '52/81 vs 24/81, +28 conversions' is measured against this anchor. Its DIRECTION is probably real but its MAGNITUDE is inflated by a depressed control, and the size of the inflation is not estimable from any run on disk."
+  },
+  "primary": {
+    "contrast": "fresh df0c537 -> fresh T1.2 (both 2026-09-12, same machine, same day)",
+    "arm_a": "df0c537 campaign-origin baseline",
+    "arm_b": "2e495bb T1.2 time-awareness bundle",
+    "n": 74,
+    "a_pass": 31,
+    "b_pass": 43,
+    "a_rate": 0.4189,
+    "b_rate": 0.5811,
+    "difference": 0.1622,
+    "newcombe_95ci": [
+      0.0014,
+      0.3116
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 3,
+      "c_a_fail_b_pass": 15,
+      "n_discordant": 18,
+      "p_value": 0.007538
+    },
+    "gained": [
+      "celery-celery-03e3359",
+      "danwahlin-angular-jumpstart-12fa4e4",
+      "dbsetup-mysql-2",
+      "dbsetup-redis-2",
+      "deps-devise-31774",
+      "deps-openecho-28cb7",
+      "deps-react-virtualized-sticky-tree-32be9",
+      "hackmdio-codimd-f00df50",
+      "mampfes-hacs_waste_collection_schedule-dbab343",
+      "openai-openai-node-8958d97",
+      "pallets-flask-2fec0b2",
+      "public-apis-public-apis-b354ba6",
+      "pypa-pipenv-b895476",
+      "pytesseract-df9fce0",
+      "whisper-brokendeps-517a43e"
+    ],
+    "lost": [
+      "dbsetup-postgresql-2",
+      "dbsetup-sqlite-1",
+      "microsoft-typescript-vue-starter-c451742"
+    ]
+  },
+  "primary_split_baseline_ran": {
+    "contrast": "fresh df0c537 -> fresh T1.2, restricted to tasks the baseline actually ran (no zero-turn hang)",
+    "arm_a": "df0c537 campaign-origin baseline",
+    "arm_b": "2e495bb T1.2 time-awareness bundle",
+    "n": 33,
+    "a_pass": 31,
+    "b_pass": 28,
+    "a_rate": 0.9394,
+    "b_rate": 0.8485,
+    "difference": -0.0909,
+    "newcombe_95ci": [
+      -0.2546,
+      0.069
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 3,
+      "c_a_fail_b_pass": 0,
+      "n_discordant": 3,
+      "p_value": 0.25
+    },
+    "gained": [],
+    "lost": [
+      "dbsetup-postgresql-2",
+      "dbsetup-sqlite-1",
+      "microsoft-typescript-vue-starter-c451742"
+    ]
+  },
+  "primary_split_baseline_hung": {
+    "contrast": "fresh df0c537 -> fresh T1.2, restricted to tasks where the baseline hung with zero turns",
+    "arm_a": "df0c537 campaign-origin baseline",
+    "arm_b": "2e495bb T1.2 time-awareness bundle",
+    "n": 41,
+    "a_pass": 0,
+    "b_pass": 15,
+    "a_rate": 0.0,
+    "b_rate": 0.3659,
+    "difference": 0.3659,
+    "newcombe_95ci": [
+      0.2102,
+      0.5188
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 0,
+      "c_a_fail_b_pass": 15,
+      "n_discordant": 15,
+      "p_value": 6.104e-05
+    },
+    "gained": [
+      "celery-celery-03e3359",
+      "danwahlin-angular-jumpstart-12fa4e4",
+      "dbsetup-mysql-2",
+      "dbsetup-redis-2",
+      "deps-devise-31774",
+      "deps-openecho-28cb7",
+      "deps-react-virtualized-sticky-tree-32be9",
+      "hackmdio-codimd-f00df50",
+      "mampfes-hacs_waste_collection_schedule-dbab343",
+      "openai-openai-node-8958d97",
+      "pallets-flask-2fec0b2",
+      "public-apis-public-apis-b354ba6",
+      "pypa-pipenv-b895476",
+      "pytesseract-df9fce0",
+      "whisper-brokendeps-517a43e"
+    ],
+    "lost": []
+  },
+  "reproducibility": {
+    "contrast": "T1.2 2026-09-11 -> T1.2 2026-09-12 (same build 2e495bb, same protocol, 1 day apart)",
+    "arm_a": "T1.2 @ 2e495bb run 2026-09-11",
+    "arm_b": "T1.2 @ 2e495bb run 2026-09-12",
+    "n": 74,
+    "a_pass": 46,
+    "b_pass": 43,
+    "a_rate": 0.6216,
+    "b_rate": 0.5811,
+    "difference": -0.0405,
+    "newcombe_95ci": [
+      -0.1932,
+      0.1148
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 9,
+      "c_a_fail_b_pass": 6,
+      "n_discordant": 15,
+      "p_value": 0.6072
+    },
+    "gained": [
+      "dbsetup-postgresql-1",
+      "dbsetup-postgresql-3",
+      "dbsetup-redis-1",
+      "deps-react-virtualized-sticky-tree-32be9",
+      "hackmdio-codimd-f00df50",
+      "lhartikk-naivechain-dfd2481"
+    ],
+    "lost": [
+      "cassandra-73cd2c5",
+      "dbsetup-sqlite-1",
+      "melt-ui-melt-ui-c566aae",
+      "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "networkx-networkx-c107d25",
+      "prometheus-bd5b2ea",
+      "ta-lib-python-0c957ed",
+      "wagtail-wagtail-28fcd01",
+      "whisper-517a43e"
+    ]
+  },
+  "published_claim_restricted": {
+    "contrast": "T0.4 control 6672af8 -> T1.2 2026-09-11, restricted to the same 74 tasks",
+    "arm_a": "T0.4 control @ 6672af8 run 2026-09-10",
+    "arm_b": "T1.2 @ 2e495bb run 2026-09-11",
+    "n": 74,
+    "a_pass": 22,
+    "b_pass": 46,
+    "a_rate": 0.2973,
+    "b_rate": 0.6216,
+    "difference": 0.3243,
+    "newcombe_95ci": [
+      0.1646,
+      0.4616
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 3,
+      "c_a_fail_b_pass": 27,
+      "n_discordant": 30,
+      "p_value": 8.43e-06
+    },
+    "gained": [
+      "bgsetup-celery-systemd",
+      "bolsote-isoduration-ae0bd61",
+      "cassandra-73cd2c5",
+      "celery-celery-03e3359",
+      "danwahlin-angular-jumpstart-12fa4e4",
+      "dbsetup-mongodb-1",
+      "dbsetup-mongodb-2",
+      "dbsetup-mysql-2",
+      "dishait-tov-template-39c0898",
+      "hybridgroup-cylon-0ba0301",
+      "johnpapa-vscode-angular-snippets-1551fe1",
+      "marshmallow-code-marshmallow-659fed5",
+      "melt-ui-melt-ui-c566aae",
+      "networkx-networkx-c107d25",
+      "openai-openai-node-8958d97",
+      "ousret-charset_normalizer-816c998",
+      "pallets-flask-2fec0b2",
+      "prometheus-bd5b2ea",
+      "pypa-packaging-4493dfc",
+      "pytesseract-df9fce0",
+      "python-hyper-rfc3986-75e77ba",
+      "ta-lib-python-0c957ed",
+      "transitive-bull-chatgpt-api-811ae8f",
+      "wagtail-wagtail-28fcd01",
+      "whisper-517a43e",
+      "whisper-brokendeps-517a43e",
+      "yaml-pyyaml-a2d19c0"
+    ],
+    "lost": [
+      "dbsetup-postgresql-3",
+      "deps-origen-3e2f3",
+      "deps-react-virtualized-sticky-tree-32be9"
+    ]
+  },
+  "by_task_type": {
+    "bgsetup": {
+      "n": 4,
+      "baseline_pass": 4,
+      "baseline_rate": 1.0,
+      "baseline_wilson95": [
+        0.5101,
+        1.0
+      ],
+      "t12_pass": 4,
+      "t12_rate": 1.0,
+      "t12_wilson95": [
+        0.5101,
+        1.0
+      ],
+      "difference": 0.0
+    },
+    "dbsetup": {
+      "n": 13,
+      "baseline_pass": 10,
+      "baseline_rate": 0.7692,
+      "baseline_wilson95": [
+        0.4974,
+        0.9182
+      ],
+      "t12_pass": 10,
+      "t12_rate": 0.7692,
+      "t12_wilson95": [
+        0.4974,
+        0.9182
+      ],
+      "difference": 0.0
+    },
+    "dependency_resolution": {
+      "n": 13,
+      "baseline_pass": 1,
+      "baseline_rate": 0.0769,
+      "baseline_wilson95": [
+        0.0137,
+        0.3331
+      ],
+      "t12_pass": 4,
+      "t12_rate": 0.3077,
+      "t12_wilson95": [
+        0.1268,
+        0.5763
+      ],
+      "difference": 0.2308
+    },
+    "reposetup": {
+      "n": 44,
+      "baseline_pass": 16,
+      "baseline_rate": 0.3636,
+      "baseline_wilson95": [
+        0.2378,
+        0.5113
+      ],
+      "t12_pass": 25,
+      "t12_rate": 0.5682,
+      "t12_wilson95": [
+        0.4222,
+        0.7032
+      ],
+      "difference": 0.2045
+    }
+  },
+  "mechanism": {
+    "question": "Is the primary difference the T1.2 time hints, or the hard deadline and watchdog that df0c537 predates (08a8d5d)?",
+    "baseline_timeouts_in_paired_set": 41,
+    "baseline_timeouts_with_zero_turns": 41,
+    "t12_timeouts_in_paired_set": 0,
+    "conversions_that_were_baseline_timeouts": 15,
+    "conversions_total": 15,
+    "baseline_turns_total": 708,
+    "t12_turns_total": 1284,
+    "note": "df0c537 predates 08a8d5d (container-anchored hard deadline + stall-retry watchdog). A zero-turn 480 s timeout is that build hanging with no deadline to cut it off, so any conversion out of a baseline timeout is attributable to 08a8d5d and NOT to T1.2."
+  },
+  "limitations": [
+    "Arm 2 has no diagnostics JSON, so duration_seconds, terminal_result, agent_stop_reason and grader_returncode are unavailable for it. Wall-clock and claimed-verified-but-failed metrics reported for previous rungs cannot be computed for this run.",
+    "The primary contrast pairs T1.2 against df0c537, which is NOT the control behind the promoted 52/81 claim (that control is 6672af8). df0c537 predates the watchdog, so the primary contrast confounds T1.2 with 08a8d5d.",
+    "n=74 of 81; the 7 excluded tasks were not re-run.",
+    "published_claim_restricted shows the promoted comparison is statistically robust ON ITS OWN ANCHOR, but control_integrity shows that anchor is itself suspect, so that contrast is NOT a validation of the promoted effect size."
+  ],
+  "per_task": [
+    {
+      "task_id": "benjaminp-six-c1b416f",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 26,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 11,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "bgsetup-celery-systemd",
+      "task_type": "bgsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 18,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 9,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon",
+      "task_type": "bgsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 23,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 9,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "task_type": "bgsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 16,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "bgsetup-multiprocess-master-worker",
+      "task_type": "bgsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 11,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 9,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "bolsote-isoduration-ae0bd61",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 18,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 8,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "caddy-782a3c7",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 23,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "cassandra-73cd2c5",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 27,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "celery-celery-03e3359",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 15,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 20,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-mongodb-1",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 26,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 13,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 39,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 12,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-mysql-1",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 14,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 12,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 15,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-mysql-3",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 43,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-postgresql-1",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 23,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-postgresql-2",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 19,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-postgresql-3",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 21,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 16,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "dbsetup-redis-1",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 14,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 8,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dbsetup-redis-2",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "dbsetup-sqlite-1",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 10,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 7,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "dbsetup-sqlite-2",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 13,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 10,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "dbsetup-sqlite-3",
+      "task_type": "dbsetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 14,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 10,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "deps-aether-0b82a",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 16,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 19,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "deps-amazon-cognito-saml-idp-c076c",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 26,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-decidim-module-navbar_links-c7ddb",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 23,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-devise-31774",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "deps-engine-34e61",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 25,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 24,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-openecho-28cb7",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "deps-origen-3e2f3",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "deps-rails-6cd76",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 27,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-react-most-wanted-2e3f0",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 16,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-react-most-wanted-cbc29",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 2,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "deps-react-virtualized-sticky-tree-32be9",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 15,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "deps-volt-react-dashboard-3a3f3",
+      "task_type": "dependency_resolution",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 2,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 25,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "dstl-stone-soup-4b6bd37",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 22,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "falconry-falcon-cae50da",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 20,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 24,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "hybridgroup-cylon-0ba0301",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 24,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 17,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "ionelmc-python-tblib-9f6f864",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 31,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 15,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 28,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "laramies-theharvester-e25c269",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 25,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "lhartikk-naivechain-dfd2481",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 20,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "mampfes-hacs_waste_collection_schedule-dbab343",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 20,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "marshmallow-code-marshmallow-659fed5",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 15,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 17,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "melt-ui-melt-ui-c566aae",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 20,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 30,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "microsoft-typescript-vue-starter-c451742",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 23,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "nedbat-coveragepy-9d0eb02",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 35,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "networkx-networkx-c107d25",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "openai-openai-node-8958d97",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "ousret-charset_normalizer-816c998",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 25,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 19,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "pallets-flask-2fec0b2",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 34,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "psf-black-c204232",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 13,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "public-apis-public-apis-b354ba6",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 22,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "pypa-packaging-4493dfc",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 23,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "pypa-pipenv-b895476",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "pytesseract-df9fce0",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 16,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "python-hyper-rfc3986-75e77ba",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 25,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 14,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "qubvel-segmentation_models-pytorch-ccccadd",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 17,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "reflex-dev-reflex-8657976",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 21,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "servo-e199a67",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 17,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "spring-petclinic-2aa53f9",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 13,
+      "t12_sep11_pass": false,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "ta-lib-python-0c957ed",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 24,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "testing-cabal-testtools-ef5c465",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 33,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": true
+    },
+    {
+      "task_id": "transitive-bull-chatgpt-api-811ae8f",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 27,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 19,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 18,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": false,
+      "fresh_t12_turns": 23,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "whisper-brokendeps-517a43e",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": false,
+      "fresh_baseline_timeout": true,
+      "fresh_baseline_turns": 0,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 16,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    },
+    {
+      "task_id": "yaml-pyyaml-a2d19c0",
+      "task_type": "reposetup",
+      "fresh_baseline_pass": true,
+      "fresh_baseline_timeout": false,
+      "fresh_baseline_turns": 22,
+      "fresh_t12_pass": true,
+      "fresh_t12_turns": 13,
+      "t12_sep11_pass": true,
+      "ctrl_sep10_pass": false
+    }
+  ]
+}

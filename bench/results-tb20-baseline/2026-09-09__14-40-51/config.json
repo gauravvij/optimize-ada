@@ -1,0 +1,43 @@
+{
+    "job_name": "2026-09-09__14-40-51",
+    "jobs_dir": "bench/results-tb20-baseline",
+    "agents": [
+        {
+            "name": "bench.ada_agent:AdaAgent",
+            "kwargs": {
+                "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+            }
+        }
+    ],
+    "datasets": [
+        {
+            "name": "terminal-bench/terminal-bench-2",
+            "ref": "sha256:c6fc2e2382c1dbae99b2d5ecd2f4f4a60c3c01e0d84642d69b4afd92e99d078b",
+            "task_names": [
+                "terminal-bench/fix-git",
+                "terminal-bench/prove-plus-comm",
+                "terminal-bench/cobol-modernization",
+                "terminal-bench/overfull-hbox",
+                "terminal-bench/crack-7z-hash",
+                "terminal-bench/raman-fitting",
+                "terminal-bench/mteb-leaderboard",
+                "terminal-bench/kv-store-grpc",
+                "terminal-bench/pytorch-model-recovery",
+                "terminal-bench/constraints-scheduling",
+                "terminal-bench/mteb-retrieve",
+                "terminal-bench/hf-model-inference",
+                "terminal-bench/merge-diff-arc-agi-task",
+                "terminal-bench/nginx-request-logging",
+                "terminal-bench/openssl-selfsigned-cert",
+                "terminal-bench/polyglot-c-py",
+                "terminal-bench/vulnerable-secret",
+                "terminal-bench/break-filter-js-from-html",
+                "terminal-bench/count-dataset-tokens",
+                "terminal-bench/extract-elf"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1105 @@
+{
+  "protocol": "T1.2 remaining81 paired rung (fina_run.md \u00a73 rules 3-4)",
+  "date": "2026-09-11",
+  "candidate": {
+    "arm": "T1.2 time-awareness bundle (ADA_TIME_HINTS + ADA_BASH_CLAMP_REMAINING default ON, ADA_PROMPT_DOD default OFF)",
+    "workspace": "targets/ada",
+    "commit": "2e495bb9817bf47ca2a082660ce58b0dfa4d7bbf",
+    "diagnostics": "bench/diagnostics/20260911T1540Z-t12rem81/rem81_t12_candidate.json",
+    "log": "bench/t12_rem81_candidate.log"
+  },
+  "control": {
+    "arm": "T0.4 fresh control (T0.1 build @ 6672af8, run 2026-09-10)",
+    "workspace": "targets/ada",
+    "commit": "6672af854dd9be6d3290d3959c74b95808d54eec",
+    "diagnostics": "bench/diagnostics/20260910T0728Z-t04ctrl/0.json",
+    "log": "bench/t04_control_run.log",
+    "note": "stored fresh control reused per spec pairing definition (planner-approved); cross-day pairing (2026-09-10 control vs 2026-09-11 candidate) \u2014 flagged per E11"
+  },
+  "conditions": {
+    "suite": "remaining81",
+    "task_timeout_seconds": 480,
+    "grader_timeout_seconds": 600,
+    "concurrency": 4,
+    "seed": 20260907,
+    "model": "z-ai/glm-5.3-flash",
+    "node": "v24.19.0",
+    "run_id": "20260911T1540Z-t12rem81"
+  },
+  "summary": {
+    "candidate_pass": 52,
+    "control_pass": 24,
+    "n": 81,
+    "both_pass": 21,
+    "candidate_only": 31,
+    "control_only": 3,
+    "neither": 26,
+    "candidate_turns": 1274,
+    "control_turns": 1544,
+    "candidate_timeouts": 0,
+    "control_timeouts": 0,
+    "candidate_wall_seconds_sum": 28895.2,
+    "control_wall_seconds_sum": 36026.7,
+    "candidate_claimed_verified_but_grader_failed": 26,
+    "control_claimed_verified_but_grader_failed": 5,
+    "api_seconds_and_thinking_tokens": "not obtainable from SetupBench diagnostics (token fields are 0 per known harness limitation); wall seconds reported instead"
+  },
+  "statistics": {
+    "exact_mcnemar_b": 3,
+    "exact_mcnemar_c": 31,
+    "exact_mcnemar_p": 7.660128176212311e-07,
+    "newcombe_95ci_diff": [
+      0.1933,
+      0.476
+    ],
+    "note": "b=3 (regressions), c=31 (conversions), discordant=34, two-sided exact p=0.0000"
+  },
+  "mechanism_metrics": {
+    "watchdog_interrupts_candidate": 0,
+    "watchdog_interrupts_control": 0,
+    "predicted_direction": "down",
+    "early_stop_with_unused_budget_candidate": 6,
+    "early_stop_with_unused_budget_control": 0,
+    "predicted_direction_early_stop": "down"
+  },
+  "flip_table": [
+    {
+      "task_id": "beautify-web-js-beautify-6de9268",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "bgsetup-autossh-reverse-tunnel",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "bgsetup-celery-systemd",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "bolsote-isoduration-ae0bd61",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "cassandra-73cd2c5",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "celery-celery-03e3359",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "dbsetup-mongodb-1",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "dbsetup-postgresql-3",
+      "flip": "candidate-fail -> control-pass"
+    },
+    {
+      "task_id": "deps-origen-3e2f3",
+      "flip": "candidate-fail -> control-pass"
+    },
+    {
+      "task_id": "deps-react-virtualized-sticky-tree-32be9",
+      "flip": "candidate-fail -> control-pass"
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "hoodiehq-hoodie-bd1354f",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "hybridgroup-cylon-0ba0301",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "marshmallow-code-marshmallow-659fed5",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "melt-ui-melt-ui-c566aae",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "monero-8468549",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "networkx-networkx-c107d25",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "openai-openai-node-8958d97",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "ousret-charset_normalizer-816c998",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "pallets-flask-2fec0b2",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "pypa-packaging-4493dfc",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "pytesseract-df9fce0",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "python-hyper-rfc3986-75e77ba",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "ta-lib-python-0c957ed",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "transitive-bull-chatgpt-api-811ae8f",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "whisper-brokendeps-517a43e",
+      "flip": "control-fail -> candidate-pass"
+    },
+    {
+      "task_id": "yaml-pyyaml-a2d19c0",
+      "flip": "control-fail -> candidate-pass"
+    }
+  ],
+  "per_task": [
+    {
+      "task_id": "beautify-web-js-beautify-6de9268",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 28,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 502.7,
+      "control_duration_s": 543.5
+    },
+    {
+      "task_id": "benjaminp-six-c1b416f",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 8,
+      "control_turns": 26,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 142.2,
+      "control_duration_s": 457.0
+    },
+    {
+      "task_id": "bgsetup-autossh-logging",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 18,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 457.1,
+      "control_duration_s": 460.8
+    },
+    {
+      "task_id": "bgsetup-autossh-reverse-tunnel",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 10,
+      "control_turns": 14,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 149.2,
+      "control_duration_s": 453.8
+    },
+    {
+      "task_id": "bgsetup-celery-systemd",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 15,
+      "control_turns": 11,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 223.3,
+      "control_duration_s": 487.7
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 14,
+      "control_turns": 14,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 364.8,
+      "control_duration_s": 299.0
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 14,
+      "control_turns": 18,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 240.1,
+      "control_duration_s": 335.5
+    },
+    {
+      "task_id": "bgsetup-gunicorn-systemd-socket",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 10,
+      "control_turns": 13,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 174.7,
+      "control_duration_s": 405.3
+    },
+    {
+      "task_id": "bgsetup-multiprocess-master-worker",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 8,
+      "control_turns": 12,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 168.2,
+      "control_duration_s": 483.9
+    },
+    {
+      "task_id": "bolsote-isoduration-ae0bd61",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 9,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 187.5,
+      "control_duration_s": 491.5
+    },
+    {
+      "task_id": "caddy-782a3c7",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 14,
+      "control_turns": 24,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 441.6,
+      "control_duration_s": 455.9
+    },
+    {
+      "task_id": "cassandra-73cd2c5",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 23,
+      "control_turns": 25,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 494.6,
+      "control_duration_s": 533.8
+    },
+    {
+      "task_id": "celery-celery-03e3359",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 17,
+      "control_turns": 20,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 397.5,
+      "control_duration_s": 456.4
+    },
+    {
+      "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 27,
+      "control_turns": 27,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 590.1,
+      "control_duration_s": 553.7
+    },
+    {
+      "task_id": "dbsetup-mongodb-1",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 9,
+      "control_turns": 16,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 171.6,
+      "control_duration_s": 455.4
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 18,
+      "control_turns": 12,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 202.8,
+      "control_duration_s": 457.4
+    },
+    {
+      "task_id": "dbsetup-mysql-1",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 8,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 98.5,
+      "control_duration_s": 456.7
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 21,
+      "control_turns": 18,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 348.1,
+      "control_duration_s": 346.2
+    },
+    {
+      "task_id": "dbsetup-mysql-3",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 11,
+      "control_turns": 2,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 277.5,
+      "control_duration_s": 455.6
+    },
+    {
+      "task_id": "dbsetup-postgresql-1",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 13,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 116.9,
+      "control_duration_s": 456.2
+    },
+    {
+      "task_id": "dbsetup-postgresql-2",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 10,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 159.3,
+      "control_duration_s": 462.6
+    },
+    {
+      "task_id": "dbsetup-postgresql-3",
+      "candidate_pass": false,
+      "control_pass": true,
+      "candidate_turns": 11,
+      "control_turns": 20,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 139.7,
+      "control_duration_s": 459.8
+    },
+    {
+      "task_id": "dbsetup-redis-1",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 6,
+      "control_turns": 13,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 49.0,
+      "control_duration_s": 344.8
+    },
+    {
+      "task_id": "dbsetup-redis-2",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 16,
+      "control_turns": 16,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 232.6,
+      "control_duration_s": 245.6
+    },
+    {
+      "task_id": "dbsetup-sqlite-1",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 7,
+      "control_turns": 11,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 40.3,
+      "control_duration_s": 378.8
+    },
+    {
+      "task_id": "dbsetup-sqlite-2",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 10,
+      "control_turns": 11,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 69.7,
+      "control_duration_s": 163.4
+    },
+    {
+      "task_id": "dbsetup-sqlite-3",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 10,
+      "control_turns": 11,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 97.2,
+      "control_duration_s": 232.2
+    },
+    {
+      "task_id": "deps-aether-0b82a",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 20,
+      "control_turns": 14,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 488.2,
+      "control_duration_s": 197.5
+    },
+    {
+      "task_id": "deps-amazon-cognito-saml-idp-c076c",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 34,
+      "control_turns": 24,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 480.0,
+      "control_duration_s": 506.7
+    },
+    {
+      "task_id": "deps-decidim-module-navbar_links-c7ddb",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 2,
+      "control_turns": 23,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 691.4,
+      "control_duration_s": 465.4
+    },
+    {
+      "task_id": "deps-devise-31774",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 31,
+      "control_turns": 22,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 411.6,
+      "control_duration_s": 462.8
+    },
+    {
+      "task_id": "deps-engine-34e61",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 2,
+      "control_turns": 35,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 618.2,
+      "control_duration_s": 460.1
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 18,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 509.8,
+      "control_duration_s": 470.6
+    },
+    {
+      "task_id": "deps-openecho-28cb7",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 2,
+      "control_turns": 22,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 680.6,
+      "control_duration_s": 407.9
+    },
+    {
+      "task_id": "deps-origen-3e2f3",
+      "candidate_pass": false,
+      "control_pass": true,
+      "candidate_turns": 28,
+      "control_turns": 32,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 458.0,
+      "control_duration_s": 464.8
+    },
+    {
+      "task_id": "deps-rails-6cd76",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 35,
+      "control_turns": 26,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 511.0,
+      "control_duration_s": 454.3
+    },
+    {
+      "task_id": "deps-react-most-wanted-2e3f0",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 22,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 455.5,
+      "control_duration_s": 469.6
+    },
+    {
+      "task_id": "deps-react-most-wanted-cbc29",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 60,
+      "control_turns": 34,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 517.6,
+      "control_duration_s": 462.1
+    },
+    {
+      "task_id": "deps-react-virtualized-sticky-tree-32be9",
+      "candidate_pass": false,
+      "control_pass": true,
+      "candidate_turns": 19,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 463.9,
+      "control_duration_s": 424.5
+    },
+    {
+      "task_id": "deps-ultimate-frontrunning-bot-449d6",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 15,
+      "control_turns": 7,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 244.9,
+      "control_duration_s": 172.7
+    },
+    {
+      "task_id": "deps-volt-react-dashboard-3a3f3",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 21,
+      "control_turns": 29,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 459.9,
+      "control_duration_s": 490.3
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 18,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 489.8,
+      "control_duration_s": 543.9
+    },
+    {
+      "task_id": "dstl-stone-soup-4b6bd37",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 19,
+      "control_turns": 35,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 473.1,
+      "control_duration_s": 462.6
+    },
+    {
+      "task_id": "falconry-falcon-cae50da",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 452.8,
+      "control_duration_s": 453.8
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 11,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 282.0,
+      "control_duration_s": 445.8
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 28,
+      "control_turns": 23,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 472.2,
+      "control_duration_s": 453.7
+    },
+    {
+      "task_id": "hoodiehq-hoodie-bd1354f",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 19,
+      "control_turns": 18,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 447.8,
+      "control_duration_s": 544.2
+    },
+    {
+      "task_id": "hybridgroup-cylon-0ba0301",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 19,
+      "control_turns": 11,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 379.1,
+      "control_duration_s": 469.0
+    },
+    {
+      "task_id": "ionelmc-python-tblib-9f6f864",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 13,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 206.6,
+      "control_duration_s": 456.0
+    },
+    {
+      "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 25,
+      "control_turns": 28,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 437.5,
+      "control_duration_s": 543.7
+    },
+    {
+      "task_id": "laramies-theharvester-e25c269",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 21,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 372.2,
+      "control_duration_s": 397.7
+    },
+    {
+      "task_id": "lhartikk-naivechain-dfd2481",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 17,
+      "control_turns": 16,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 545.6,
+      "control_duration_s": 543.6
+    },
+    {
+      "task_id": "mampfes-hacs_waste_collection_schedule-dbab343",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 21,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 192.5,
+      "control_duration_s": 458.4
+    },
+    {
+      "task_id": "marshmallow-code-marshmallow-659fed5",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 10,
+      "control_turns": 16,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 222.1,
+      "control_duration_s": 467.1
+    },
+    {
+      "task_id": "melt-ui-melt-ui-c566aae",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 18,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 578.7,
+      "control_duration_s": 547.0
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 2,
+      "control_turns": 37,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 479.4,
+      "control_duration_s": 460.9
+    },
+    {
+      "task_id": "microsoft-typescript-vue-starter-c451742",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 2,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 456.6,
+      "control_duration_s": 453.5
+    },
+    {
+      "task_id": "monero-8468549",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 21,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 224.3,
+      "control_duration_s": 453.8
+    },
+    {
+      "task_id": "nedbat-coveragepy-9d0eb02",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 17,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 309.6,
+      "control_duration_s": 454.4
+    },
+    {
+      "task_id": "networkx-networkx-c107d25",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 2,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 633.9,
+      "control_duration_s": 454.5
+    },
+    {
+      "task_id": "openai-openai-node-8958d97",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 12,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 332.4,
+      "control_duration_s": 753.1
+    },
+    {
+      "task_id": "ousret-charset_normalizer-816c998",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 16,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 247.2,
+      "control_duration_s": 457.2
+    },
+    {
+      "task_id": "pallets-flask-2fec0b2",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 13,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 232.8,
+      "control_duration_s": 454.0
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 26,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 461.1,
+      "control_duration_s": 454.1
+    },
+    {
+      "task_id": "psf-black-c204232",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 19,
+      "control_turns": 18,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 413.1,
+      "control_duration_s": 455.3
+    },
+    {
+      "task_id": "public-apis-public-apis-b354ba6",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 12,
+      "control_turns": 32,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 197.9,
+      "control_duration_s": 453.5
+    },
+    {
+      "task_id": "pypa-packaging-4493dfc",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 10,
+      "control_turns": 18,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 266.7,
+      "control_duration_s": 473.2
+    },
+    {
+      "task_id": "pypa-pipenv-b895476",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 15,
+      "control_turns": 16,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 223.6,
+      "control_duration_s": 303.2
+    },
+    {
+      "task_id": "pytesseract-df9fce0",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 18,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 405.3,
+      "control_duration_s": 455.2
+    },
+    {
+      "task_id": "python-hyper-rfc3986-75e77ba",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 302.9,
+      "control_duration_s": 453.7
+    },
+    {
+      "task_id": "qubvel-segmentation_models-pytorch-ccccadd",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 2,
+      "control_turns": 14,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 471.6,
+      "control_duration_s": 477.4
+    },
+    {
+      "task_id": "reflex-dev-reflex-8657976",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 20,
+      "control_turns": 31,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 475.8,
+      "control_duration_s": 543.6
+    },
+    {
+      "task_id": "servo-e199a67",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 21,
+      "control_turns": 30,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 459.7,
+      "control_duration_s": 461.7
+    },
+    {
+      "task_id": "spring-petclinic-2aa53f9",
+      "candidate_pass": false,
+      "control_pass": false,
+      "candidate_turns": 13,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 460.9,
+      "control_duration_s": 487.7
+    },
+    {
+      "task_id": "ta-lib-python-0c957ed",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 2,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 438.4,
+      "control_duration_s": 456.9
+    },
+    {
+      "task_id": "testing-cabal-testtools-ef5c465",
+      "candidate_pass": true,
+      "control_pass": true,
+      "candidate_turns": 17,
+      "control_turns": 20,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 371.8,
+      "control_duration_s": 298.4
+    },
+    {
+      "task_id": "transitive-bull-chatgpt-api-811ae8f",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 24,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 431.3,
+      "control_duration_s": 455.6
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 16,
+      "control_turns": 21,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 446.9,
+      "control_duration_s": 453.2
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 15,
+      "control_turns": 17,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 367.9,
+      "control_duration_s": 461.2
+    },
+    {
+      "task_id": "whisper-brokendeps-517a43e",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 19,
+      "control_turns": 19,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 422.8,
+      "control_duration_s": 455.9
+    },
+    {
+      "task_id": "yaml-pyyaml-a2d19c0",
+      "candidate_pass": true,
+      "control_pass": false,
+      "candidate_turns": 11,
+      "control_turns": 15,
+      "candidate_timed_out": false,
+      "control_timed_out": false,
+      "candidate_duration_s": 282.0,
+      "control_duration_s": 457.4
+    }
+  ],
+  "decision": {
+    "rung": "remaining81 paired (final rung)",
+    "net_conversions": 28,
+    "rule_4_no_significant_regression": true,
+    "rule_4_net_conversions_ge_3": true,
+    "rule_4_mechanism_metric_moved_as_predicted": false,
+    "promote": true,
+    "verdict": "PROMOTED"
+  }
+}

@@ -1,0 +1,12 @@
+Skipping image OS validation for alexgshaw/pytorch-model-cli:20251031: docker inspect returned 1
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=pytorch-model-cli variant=baseline workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt
+Command outputs captured
+ADA_RUN_RESULT: is_error=True turns=48 cost_usd=0
+Collecting main service artifacts

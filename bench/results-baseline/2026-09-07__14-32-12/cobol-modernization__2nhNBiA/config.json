@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/cobol-modernization",
+        "ref": "sha256:0200cda78ffff33320d78d3cdc871e33d5b88f017c8956f4b6e1b6ad21cf9b0d",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "cobol-modernization__2nhNBiA",
+    "trials_dir": "bench/results-baseline/2026-09-07__14-32-12",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "baseline"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "d17d0062-9ee3-4724-96e9-2aba9c320700"
+}

@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/mteb-leaderboard",
+        "ref": "sha256:244bc0c349b5d84b1545620f121056033022caeabea35f7f324a90b84593a43f",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "mteb-leaderboard__BekfJxD",
+    "trials_dir": "bench/results-tb20-best3/2026-09-09__15-54-35",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-best3.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "6b0f67e6-dc75-43e9-aaf2-b9d2a856c0d5"
+}

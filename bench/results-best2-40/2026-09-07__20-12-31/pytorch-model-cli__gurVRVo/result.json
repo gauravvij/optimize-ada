@@ -1,0 +1,125 @@
+{
+    "id": "3ed445a2-dcfc-4226-885e-bee500cd35d1",
+    "task_name": "terminal-bench/pytorch-model-cli",
+    "trial_name": "pytorch-model-cli__gurVRVo",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-best2-40/2026-09-07__20-12-31/pytorch-model-cli__gurVRVo",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "pytorch-model-cli",
+        "ref": "sha256:6b7d27e17bb243d9497f4655ba9db14d9e92bfe94a8fc2ddbc034ed0547f205e"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "bdc66257dcbca6d2258c176df6016c18c33fc6116894ebd6dd4e9296c42d0190",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/pytorch-model-cli",
+            "ref": "sha256:6b7d27e17bb243d9497f4655ba9db14d9e92bfe94a8fc2ddbc034ed0547f205e",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "pytorch-model-cli__gurVRVo",
+        "trials_dir": "bench/results-best2-40/2026-09-07__20-12-31",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "bench.ada_agent:AdaAgent",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "variant": "best2"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "sk-o****c4e"
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "e7f44086-a289-4528-a321-86590aac5511",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada",
+        "version": "usage: node scripts/autoresearch-run-agent.ts <targetDir> <promptFile>",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 34196,
+        "n_cache_tokens": 333568,
+        "n_output_tokens": 17775,
+        "cost_usd": 0.7821389999999998,
+        "rollout_details": null,
+        "metadata": {
+            "ada_variant": "best2",
+            "ada_is_error": false,
+            "ada_num_turns": 25
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-07T21:01:16.084689Z",
+    "finished_at": "2026-09-07T21:14:13.891301Z",
+    "environment_setup": {
+        "started_at": "2026-09-07T21:01:16.092678Z",
+        "finished_at": "2026-09-07T21:01:30.836973Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-07T21:01:30.837009Z",
+        "finished_at": "2026-09-07T21:01:42.904212Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-07T21:01:42.904353Z",
+        "finished_at": "2026-09-07T21:11:50.602008Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-07T21:11:51.056670Z",
+        "finished_at": "2026-09-07T21:13:58.039955Z"
+    },
+    "step_results": null
+}

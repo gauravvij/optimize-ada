@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/raman-fitting",
+        "ref": "sha256:6b2c34e3c5016c763bf1f2f2a7210ee711565f90b18c09b68f95c0daa9220229",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "raman-fitting__8sUj8BJ",
+    "trials_dir": "bench/results-tb20-best3/2026-09-09__15-54-35",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-best3.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "6b0f67e6-dc75-43e9-aaf2-b9d2a856c0d5"
+}

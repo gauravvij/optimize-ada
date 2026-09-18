@@ -1,0 +1,770 @@
+{
+  "protocol": {
+    "design": "final 81-task incumbent result set (remaining81 split)",
+    "pooled_n": 81,
+    "conditions": "480s task / 600s grader / concurrency 4 / z-ai/glm-5.3-flash via OpenRouter / node v24.19.0 / seed 20260907",
+    "final_build": "targets/ada @ df0c537 + uncommitted agent/claude/agent.ts (container-anchored hard deadline via /proc/1/stat; opt-in stall-retry, ADA_STALL_RETRIES default 0) + agent/system-guidance.ts"
+  },
+  "carry_over_assumption": {
+    "statement": "The 50 tasks the Sep-9 incumbent passed are carried over unchanged; only the 31 prior failures were re-run fresh on the final build (user directive, time-saving).",
+    "drift_evidence": {
+      "sep10_dev12_gate_final_build": {
+        "artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/dev12_retryoptin.json",
+        "passed": 6,
+        "total": 12,
+        "timeouts": 0,
+        "turns": 111
+      },
+      "prior_incumbent_dev12_gate": {
+        "artifact": "/home/azureuser/adaAgent/autoresearcher/targets/ada/.autoresearch/diagnostics/manual/dev12_iteration2.json",
+        "passed": 6,
+        "total": 12,
+        "timeouts": 0,
+        "turns": 113
+      },
+      "interpretation": "Sep-10 dev-12 gate on the final build: 6/12 pass, 111 turns \u2014 matching the prior incumbent profile (6/12, 113 turns). No evidence of upstream API drift on passing behavior, so the Sep-9 passes remain valid for the final build."
+    },
+    "caveat": "The 50 carried passes were measured on the Sep-9 incumbent (iteration-2 watchdog), not re-measured on the final build; the final build differs only by the container-anchored deadline fix and an inert (opt-in, default-off) stall-retry path."
+  },
+  "summary": {
+    "passed": 59,
+    "total": 81,
+    "timeouts": 2,
+    "turns": 750,
+    "wallclock_s": 33451.7,
+    "carried_over_passes": 50,
+    "fresh_rerun_passes": 9,
+    "fresh_rerun_total": 31
+  },
+  "results": [
+    {
+      "task_id": "beautify-web-js-beautify-6de9268",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 556.991,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "benjaminp-six-c1b416f",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 18,
+      "duration_seconds": 292.042,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "bgsetup-autossh-logging",
+      "task_type": "bgsetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 488.318,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "bgsetup-autossh-reverse-tunnel",
+      "task_type": "bgsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 461.269,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "bgsetup-celery-systemd",
+      "task_type": "bgsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 10,
+      "duration_seconds": 350.518,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon",
+      "task_type": "bgsetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 467.339,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "bgsetup-filewatcher-daemon-2",
+      "task_type": "bgsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 11,
+      "duration_seconds": 414.879,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "bgsetup-gunicorn-systemd-socket",
+      "task_type": "bgsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 10,
+      "duration_seconds": 271.293,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "bgsetup-multiprocess-master-worker",
+      "task_type": "bgsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 14,
+      "duration_seconds": 201.752,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "bolsote-isoduration-ae0bd61",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 20,
+      "duration_seconds": 233.194,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "caddy-782a3c7",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 466.777,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "cassandra-73cd2c5",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 546.777,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "celery-celery-03e3359",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 463.16,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 562.399,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-mongodb-1",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 20,
+      "duration_seconds": 383.97,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-mongodb-2",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 21,
+      "duration_seconds": 334.942,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-mysql-1",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 13,
+      "duration_seconds": 274.754,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-mysql-2",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 13,
+      "duration_seconds": 343.133,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-mysql-3",
+      "task_type": "dbsetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 22,
+      "duration_seconds": 265.728,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "dbsetup-postgresql-1",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 13,
+      "duration_seconds": 192.978,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-postgresql-2",
+      "task_type": "dbsetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 12,
+      "duration_seconds": 235.97,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "dbsetup-postgresql-3",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 10,
+      "duration_seconds": 184.116,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-redis-1",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 9,
+      "duration_seconds": 59.62,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "dbsetup-redis-2",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 14,
+      "duration_seconds": 299.957,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-sqlite-1",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 9,
+      "duration_seconds": 124.644,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-sqlite-2",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 11,
+      "duration_seconds": 84.267,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dbsetup-sqlite-3",
+      "task_type": "dbsetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 12,
+      "duration_seconds": 164.788,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "deps-aether-0b82a",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 11,
+      "duration_seconds": 300.793,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "deps-amazon-cognito-saml-idp-c076c",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 479.222,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-decidim-module-navbar_links-c7ddb",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 633.419,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "deps-devise-31774",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 20,
+      "duration_seconds": 383.697,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "deps-engine-34e61",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 860.726,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-gatsby-plugin-intl-2b7ac",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 601.314,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-openecho-28cb7",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 22,
+      "duration_seconds": 454.075,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-origen-3e2f3",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 464.48,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-rails-6cd76",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 464.404,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-react-most-wanted-2e3f0",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 537.113,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-react-most-wanted-cbc29",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 801.185,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "deps-react-virtualized-sticky-tree-32be9",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 23,
+      "duration_seconds": 336.129,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "deps-ultimate-frontrunning-bot-449d6",
+      "task_type": "dependency_resolution",
+      "passed": true,
+      "timed_out": false,
+      "turns": 14,
+      "duration_seconds": 364.41,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "deps-volt-react-dashboard-3a3f3",
+      "task_type": "dependency_resolution",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 462.264,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "dishait-tov-template-39c0898",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 547.56,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "dstl-stone-soup-4b6bd37",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 25,
+      "duration_seconds": 432.754,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "falconry-falcon-cae50da",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": true,
+      "turns": 24,
+      "duration_seconds": 516.895,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "fsspec-filesystem_spec-3ff5fca",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 22,
+      "duration_seconds": 309.05,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "hackmdio-codimd-f00df50",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": true,
+      "turns": 34,
+      "duration_seconds": 511.303,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "hoodiehq-hoodie-bd1354f",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 582.736,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "hybridgroup-cylon-0ba0301",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 461.874,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "ionelmc-python-tblib-9f6f864",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 11,
+      "duration_seconds": 282.2,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 26,
+      "duration_seconds": 477.156,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "laramies-theharvester-e25c269",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 21,
+      "duration_seconds": 478.834,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "lhartikk-naivechain-dfd2481",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 19,
+      "duration_seconds": 499.752,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "mampfes-hacs_waste_collection_schedule-dbab343",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 18,
+      "duration_seconds": 238.869,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "marshmallow-code-marshmallow-659fed5",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 12,
+      "duration_seconds": 222.874,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "melt-ui-melt-ui-c566aae",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 609.512,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 476.701,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "microsoft-typescript-vue-starter-c451742",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 462.542,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "monero-8468549",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 17,
+      "duration_seconds": 148.122,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "nedbat-coveragepy-9d0eb02",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 18,
+      "duration_seconds": 282.807,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "networkx-networkx-c107d25",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 11,
+      "duration_seconds": 540.303,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "openai-openai-node-8958d97",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 513.808,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "ousret-charset_normalizer-816c998",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 17,
+      "duration_seconds": 448.34,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "pallets-flask-2fec0b2",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 15,
+      "duration_seconds": 340.874,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "prometheus-bd5b2ea",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 492.919,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "psf-black-c204232",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 25,
+      "duration_seconds": 600.218,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "public-apis-public-apis-b354ba6",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 465.184,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "pypa-packaging-4493dfc",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 505.967,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "pypa-pipenv-b895476",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 19,
+      "duration_seconds": 377.998,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "pytesseract-df9fce0",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 467.18,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "python-hyper-rfc3986-75e77ba",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 12,
+      "duration_seconds": 300.794,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "qubvel-segmentation_models-pytorch-ccccadd",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 465.624,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "reflex-dev-reflex-8657976",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 564.352,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "servo-e199a67",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 476.227,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "spring-petclinic-2aa53f9",
+      "task_type": "reposetup",
+      "passed": false,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 483.341,
+      "outcome_source": "fresh_rerun_final_build"
+    },
+    {
+      "task_id": "ta-lib-python-0c957ed",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 461.814,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "testing-cabal-testtools-ef5c465",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 12,
+      "duration_seconds": 264.049,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "transitive-bull-chatgpt-api-811ae8f",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 22,
+      "duration_seconds": 481.276,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "wagtail-wagtail-28fcd01",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 460.662,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "whisper-517a43e",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 461.144,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "whisper-brokendeps-517a43e",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 0,
+      "duration_seconds": 472.561,
+      "outcome_source": "carried_over_sep9_incumbent_pass"
+    },
+    {
+      "task_id": "yaml-pyyaml-a2d19c0",
+      "task_type": "reposetup",
+      "passed": true,
+      "timed_out": false,
+      "turns": 18,
+      "duration_seconds": 396.706,
+      "outcome_source": "fresh_rerun_final_build"
+    }
+  ]
+}

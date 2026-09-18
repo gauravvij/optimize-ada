@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/openssl-selfsigned-cert",
+        "ref": "sha256:43b288549abe880ce4a3c735f30e746c4440c0159c5411e9ae5aafb547ba2d8c",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "openssl-selfsigned-cert__3HdG7fY",
+    "trials_dir": "bench/results-ada-final-40/2026-09-10__12-37-32",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-final.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "57a62332-9428-4432-a6d7-aedbe343ccb1"
+}

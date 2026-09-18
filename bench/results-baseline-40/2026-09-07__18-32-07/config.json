@@ -1,0 +1,53 @@
+{
+    "job_name": "2026-09-07__18-32-07",
+    "jobs_dir": "bench/results-baseline-40",
+    "agents": [
+        {
+            "name": "bench.ada_agent:AdaAgent",
+            "kwargs": {
+                "variant": "baseline"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "sk-o****c4e"
+            }
+        }
+    ],
+    "datasets": [
+        {
+            "name": "terminal-bench/terminal-bench-2",
+            "ref": "sha256:c6fc2e2382c1dbae99b2d5ecd2f4f4a60c3c01e0d84642d69b4afd92e99d078b",
+            "task_names": [
+                "terminal-bench/mteb-retrieve",
+                "terminal-bench/hf-model-inference",
+                "terminal-bench/merge-diff-arc-agi-task",
+                "terminal-bench/nginx-request-logging",
+                "terminal-bench/openssl-selfsigned-cert",
+                "terminal-bench/polyglot-c-py",
+                "terminal-bench/vulnerable-secret",
+                "terminal-bench/break-filter-js-from-html",
+                "terminal-bench/count-dataset-tokens",
+                "terminal-bench/extract-elf",
+                "terminal-bench/git-leak-recovery",
+                "terminal-bench/multi-source-data-merger",
+                "terminal-bench/pytorch-model-cli",
+                "terminal-bench/qemu-alpine-ssh",
+                "terminal-bench/qemu-startup",
+                "terminal-bench/sanitize-git-repo",
+                "terminal-bench/sqlite-with-gcov",
+                "terminal-bench/tune-mjcf",
+                "terminal-bench/code-from-image",
+                "terminal-bench/financial-document-processor",
+                "terminal-bench/custom-memory-heap-crash",
+                "terminal-bench/dna-insert",
+                "terminal-bench/reshard-c4-data",
+                "terminal-bench/large-scale-text-editing",
+                "terminal-bench/chess-best-move",
+                "terminal-bench/db-wal-recovery",
+                "terminal-bench/regex-log",
+                "terminal-bench/filter-js-from-html",
+                "terminal-bench/build-cython-ext",
+                "terminal-bench/gcode-to-text"
+            ]
+        }
+    ]
+}

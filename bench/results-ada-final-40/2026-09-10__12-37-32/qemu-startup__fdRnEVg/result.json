@@ -1,0 +1,127 @@
+{
+    "id": "a4266b75-b4f8-48c0-b8e5-bf9b6444212c",
+    "task_name": "terminal-bench/qemu-startup",
+    "trial_name": "qemu-startup__fdRnEVg",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-ada-final-40/2026-09-10__12-37-32/qemu-startup__fdRnEVg",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "qemu-startup",
+        "ref": "sha256:e9796833ca178d98500b4146d107d947226485065f5a79a1dff2cdf7430f4f95"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "a0ad5ae76248295fb7174c716a1bfb07567ecba4af534614197c2199f855cf4f",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/qemu-startup",
+            "ref": "sha256:e9796833ca178d98500b4146d107d947226485065f5a79a1dff2cdf7430f4f95",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "qemu-startup__fdRnEVg",
+        "trials_dir": "bench/results-ada-final-40/2026-09-10__12-37-32",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "bench.ada_agent:AdaAgent",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "ada_tarball": "/home/azureuser/adaAgent/bench/ada-final.tgz"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "57a62332-9428-4432-a6d7-aedbe343ccb1",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada",
+        "version": "usage: node scripts/autoresearch-run-agent.ts <targetDir> <promptFile>",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 19570,
+        "n_cache_tokens": 166976,
+        "n_output_tokens": 10910,
+        "cost_usd": 0.454088,
+        "rollout_details": null,
+        "metadata": {
+            "runner_stderr": [
+                "[claude:watchdog] enabled budget=840000ms idle=120000ms margin=30000ms grace=15000ms stallDetect=90000ms stallRetries=0",
+                "[claude:watchdog] deadline anchored to container start (container setup consumed 12468ms of the budget)"
+            ],
+            "ada_variant": "best",
+            "ada_is_error": false,
+            "ada_num_turns": 18
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-10T13:53:59.966945Z",
+    "finished_at": "2026-09-10T13:59:43.714925Z",
+    "environment_setup": {
+        "started_at": "2026-09-10T13:53:59.970822Z",
+        "finished_at": "2026-09-10T13:54:05.407589Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-10T13:54:05.407617Z",
+        "finished_at": "2026-09-10T13:54:14.865783Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-10T13:54:14.865918Z",
+        "finished_at": "2026-09-10T13:59:27.657189Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-10T13:59:28.115863Z",
+        "finished_at": "2026-09-10T13:59:31.055666Z"
+    },
+    "step_results": null
+}

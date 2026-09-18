@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1788807762.9295368,
+            "stop": 1788807762.9703896
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_hello_file_exists",
+                "status": "passed",
+                "duration": 0.0006638540653511882,
+                "start": 1788807762.9512439,
+                "stop": 1788807762.9522119,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_hello_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.001772731076925993,
+                "start": 1788807762.952497,
+                "stop": 1788807762.9700449,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_hello_file_content():\n        \"\"\"Test that out.txt contains exactly the flag.\"\"\"\n        hello_path = Path(\"/app/out.txt\")\n    \n>       assert hello_path.read_text().strip() == \"flag{gc0d3_iz_ch4LLenGiNg}\", (\n            f\"Expected the correct flag but got '{hello_path.read_text().strip()}'\"\n        )\nE       AssertionError: Expected the correct flag but got 'The text printed by text.gcode reads:\nE         \nE             flag{gc0d3_iz_ch4LLenGiNg}\nE         \nE         How this was determined\nE         -----------------------\nE         1. Parsed all 98,850 lines of /app/text.gcode, tracking G90/M83 modal state,\nE            X/Y/Z/E positions, and the M486 object selector.\nE         2. The file contains two objects: \"Shape-Box\" (M486 S1, a ~200x200 mm, ~2.9 mm\nE            tall box) and \"Embossed text\" (M486 S0). The text is entirely in object 0:\nE            38,972 extruding segments spanning X 55.5-204.4, Y 79.7-146.9 mm.\nE         3. The text sits on a sloped surface: its nozzle Z rises steadily from 0.2 mm\nE            to ~65 mm along the print (surface tilted ~20.5 deg from horizontal,\nE            rising toward bed direction ~27 deg). All segments were projected to XY.\nE         4. Rendering the projected extrusion paths (top view) shows a single line of\nE            text rotated ~22 deg on the bed. Deskewing and zooming confirms, character\nE            by character (with casing, from cap-height/x-height/descender metrics):\nE         \nE            f l a g { g c 0 d 3 _ i z _ c h 4 L L e n G i N g }\nE         \nE            - \"0\" is a full-height oval digit (the 'o' in \"flag\" is x-height by contrast)\nE            - \"L\", \"L\", \"G\", \"N\" are capitals (full cap height); e/n/i/g are lowercase\nE            - \"4\" and \"3\" are the leetspeak digits; underscores are present as baseline dashes\nE         \nE         Orientation: the text is NOT mirrored or upside down. Viewed from above the\nE         print bed it reads correctly left-to-right as the string above, running\nE         diagonally (about 22 deg) across the bed and uphill along the ramp.\nE         \nE         Caveat when actually running this print: the text layer heights follow a ramp\nE         that climbs from Z=0.2 to Z~65 mm, i.e. it was sliced against an existing\nE         object with that sloped top face. If the object actually on the bed does not\nE         match that surface (the \"Shape-Box\" in the file is only ~2.9 mm tall), most of\nE         the text will be extruded in mid-air. The g-code will also print the included\nE         Shape-Box object onto the bed first.\nE         \nE         Rendered proof images: /app/text_top.png (raw top view),\nE         /app/text_rotated.png (deskewed), /app/final_0.png, /app/final_1.png,\nE         /app/final_2.png (perimeter-only zooms).'\nE       assert 'The text pri...-only zooms).' == 'flag{gc0d3_iz_ch4LLenGiNg}'\nE         \nE         + The text printed by text.gcode reads:\nE         + \nE         - flag{gc0d3_iz_ch4LLenGiNg}\nE         +     flag{gc0d3_iz_ch4LLenGiNg}\nE         ? ++++                          +\nE         + ...\nE         \nE         ...Full output truncated (34 lines hidden), use '-vv' to show\n\n/tests/test_outputs.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

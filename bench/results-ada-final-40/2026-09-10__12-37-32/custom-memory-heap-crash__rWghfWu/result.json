@@ -1,0 +1,127 @@
+{
+    "id": "6afb02bc-e4ae-4f0e-92ab-ac1142a1fe23",
+    "task_name": "terminal-bench/custom-memory-heap-crash",
+    "trial_name": "custom-memory-heap-crash__rWghfWu",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-ada-final-40/2026-09-10__12-37-32/custom-memory-heap-crash__rWghfWu",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "custom-memory-heap-crash",
+        "ref": "sha256:72cdc9cf98c822a1449935ca32efc6612fe3d14928c9465c11285e95dcdf60cb"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "58f0cd21417048275fa06f5e244042d1fe5a6ac422b99199f2d2d7ef3b3af68a",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/custom-memory-heap-crash",
+            "ref": "sha256:72cdc9cf98c822a1449935ca32efc6612fe3d14928c9465c11285e95dcdf60cb",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "custom-memory-heap-crash__rWghfWu",
+        "trials_dir": "bench/results-ada-final-40/2026-09-10__12-37-32",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "bench.ada_agent:AdaAgent",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "ada_tarball": "/home/azureuser/adaAgent/bench/ada-final.tgz"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "57a62332-9428-4432-a6d7-aedbe343ccb1",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada",
+        "version": "usage: node scripts/autoresearch-run-agent.ts <targetDir> <promptFile>",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 38645,
+        "n_cache_tokens": 336128,
+        "n_output_tokens": 23357,
+        "cost_usd": 0.9452140000000001,
+        "rollout_details": null,
+        "metadata": {
+            "runner_stderr": [
+                "[claude:watchdog] enabled budget=1740000ms idle=120000ms margin=30000ms grace=15000ms stallDetect=90000ms stallRetries=0",
+                "[claude:watchdog] deadline anchored to container start (container setup consumed 11850ms of the budget)"
+            ],
+            "ada_variant": "best",
+            "ada_is_error": false,
+            "ada_num_turns": 26
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-10T12:52:52.128420Z",
+    "finished_at": "2026-09-10T13:00:47.567874Z",
+    "environment_setup": {
+        "started_at": "2026-09-10T12:52:52.132409Z",
+        "finished_at": "2026-09-10T12:52:54.699413Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-10T12:52:54.699450Z",
+        "finished_at": "2026-09-10T12:53:02.854560Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-10T12:53:02.854644Z",
+        "finished_at": "2026-09-10T13:00:07.575835Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-10T13:00:08.019274Z",
+        "finished_at": "2026-09-10T13:00:34.182510Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/mteb-retrieve",
+        "ref": "sha256:5eed6e5ab80a4e7042f77a6cec8c01dd833a2c9c03a8c7ebdbd0b70f447750a5",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "mteb-retrieve__Rbzhg2k",
+    "trials_dir": "bench/results-baseline-40/2026-09-07__18-32-07",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "baseline"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "34e5929b-8c1b-418a-a6b7-31a191df4d9f"
+}

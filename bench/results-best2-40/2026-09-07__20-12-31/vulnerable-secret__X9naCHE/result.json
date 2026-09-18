@@ -1,0 +1,125 @@
+{
+    "id": "f5caefa5-9089-45e1-a808-9c00634e97c4",
+    "task_name": "terminal-bench/vulnerable-secret",
+    "trial_name": "vulnerable-secret__X9naCHE",
+    "trial_uri": "file:///home/azureuser/adaAgent/bench/results-best2-40/2026-09-07__20-12-31/vulnerable-secret__X9naCHE",
+    "task_id": {
+        "org": "terminal-bench",
+        "name": "vulnerable-secret",
+        "ref": "sha256:2a8a7b743f4f42fe70c6aadfde5621fceaf8ceb343331586f4479485bc1f8da0"
+    },
+    "source": "terminal-bench/terminal-bench-2",
+    "task_checksum": "d6d7918c1f2c70f4deb51520a101dabdf5a3269e52b05b2b4e897e07ec27cccf",
+    "config": {
+        "task": {
+            "path": null,
+            "git_url": null,
+            "git_commit_id": null,
+            "name": "terminal-bench/vulnerable-secret",
+            "ref": "sha256:2a8a7b743f4f42fe70c6aadfde5621fceaf8ceb343331586f4479485bc1f8da0",
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench/terminal-bench-2"
+        },
+        "trial_name": "vulnerable-secret__X9naCHE",
+        "trials_dir": "bench/results-best2-40/2026-09-07__20-12-31",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "bench.ada_agent:AdaAgent",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "variant": "best2"
+            },
+            "env": {
+                "OPENROUTER_API_KEY": "sk-o****c4e"
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "e7f44086-a289-4528-a321-86590aac5511",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "ada",
+        "version": "usage: node scripts/autoresearch-run-agent.ts <targetDir> <promptFile>",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 24213,
+        "n_cache_tokens": 68928,
+        "n_output_tokens": 2488,
+        "cost_usd": 0.21772899999999998,
+        "rollout_details": null,
+        "metadata": {
+            "ada_variant": "best2",
+            "ada_is_error": false,
+            "ada_num_turns": 9
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-07T20:12:35.758552Z",
+    "finished_at": "2026-09-07T20:15:23.320057Z",
+    "environment_setup": {
+        "started_at": "2026-09-07T20:12:35.840944Z",
+        "finished_at": "2026-09-07T20:12:39.743965Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-07T20:12:39.744011Z",
+        "finished_at": "2026-09-07T20:13:38.970839Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-07T20:13:38.970939Z",
+        "finished_at": "2026-09-07T20:14:58.985614Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-07T20:14:59.461398Z",
+        "finished_at": "2026-09-07T20:15:09.326799Z"
+    },
+    "step_results": null
+}

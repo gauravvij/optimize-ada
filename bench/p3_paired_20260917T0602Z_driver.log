@@ -1,0 +1,20 @@
+PREFLIGHT OK   targets/ada agent tree dab704de524a clean
+PREFLIGHT OK   targets/ada-p3 (9f2e34d) agent tree 811a16e4a67e clean
+PREFLIGHT OK   mutation boundary
+DRY_RUN: preflight passed, nothing launched
+PREFLIGHT OK   targets/ada agent tree dab704de524a clean
+PREFLIGHT OK   targets/ada-p3 (9f2e34d) agent tree 811a16e4a67e clean
+PREFLIGHT OK   mutation boundary
+=== preparing task cache + images once (arms then only read it) ===
+input ready: 25/25 whisper-brokendeps-517a43e -> /home/azureuser/adaAgent/autoresearcher/examples/.setupbench_cache/inputs/whisper-brokendeps-517a43e
+=== REPLICATE 1/2 both arms concurrently === Thu Sep 17 06:02:33 UTC 2026
+REPLICATE 1 DONE shipped exit=0 p3 exit=0 Thu Sep 17 09:14:25 UTC 2026
+=== REPLICATE 2/2 both arms concurrently === Thu Sep 17 09:14:25 UTC 2026
+REPLICATE 2 DONE shipped exit=2 p3 exit=2 Thu Sep 17 12:35:58 UTC 2026
+=== analysis ===
+rep 1: shipped 4/25 -> p3 3/25  net -1 (1 gained / 2 lost) p=1.0  invalid={'shipped': 0, 'p3': 0}
+rep 2: shipped 2/21 -> p3 5/21  net +3 (3 gained / 0 lost) p=0.25  invalid={'shipped': 3, 'p3': 1}
+POOLED: shipped 6/46 -> p3 8/46  net +2  p=0.6875
+rule: {'all_replicates_complete': True, 'pooled_net_ge_5': False, 'no_negative_replicate': False}
+VERDICT: REVERT
+wrote /home/azureuser/adaAgent/bench/P3_PAIRED_20260917T0602Z.json

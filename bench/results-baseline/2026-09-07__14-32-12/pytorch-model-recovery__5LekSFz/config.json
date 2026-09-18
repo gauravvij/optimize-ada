@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/pytorch-model-recovery",
+        "ref": "sha256:3164b409d3d9706c2b9a78966f6a16775229f289f076559c1a60102db820ed95",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "pytorch-model-recovery__5LekSFz",
+    "trials_dir": "bench/results-baseline/2026-09-07__14-32-12",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "baseline"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "d17d0062-9ee3-4724-96e9-2aba9c320700"
+}

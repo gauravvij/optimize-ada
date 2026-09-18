@@ -1,0 +1,220 @@
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=break-filter-js-from-html variant=best workdir=/ agent_timeout=1200.0s runner_cap_ms=1140000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+Ada run: task=overfull-hbox variant=best workdir=/ agent_timeout=750.0s runner_cap_ms=690000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+Ada run: task=vulnerable-secret variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+Ada run: task=openssl-selfsigned-cert variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=10 cost_usd=0.466153
+Collecting main service artifacts
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=11 cost_usd=0.269212
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=10 cost_usd=0.286259
+Collecting main service artifacts
+Command outputs captured
+Ada run: task=crack-7z-hash variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+Ada run: task=extract-elf variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=constraints-scheduling variant=best workdir=/ agent_timeout=1200.0s runner_cap_ms=1140000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=10 cost_usd=0.38865299999999997
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=mteb-leaderboard variant=best workdir=/ agent_timeout=3600.0s runner_cap_ms=3540000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=True turns=27 cost_usd=0
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=fix-git variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=24 cost_usd=0.6305429999999999
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=prove-plus-comm variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=20 cost_usd=0.369958
+Collecting main service artifacts
+Command outputs captured
+ADA_RUN_RESULT: is_error=True turns=17 cost_usd=0
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=pytorch-model-recovery variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=merge-diff-arc-agi-task variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=8 cost_usd=0.23979299999999998
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=kv-store-grpc variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=12 cost_usd=0.6446879999999999
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=nginx-request-logging variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=21 cost_usd=0.877906
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=count-dataset-tokens variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=14 cost_usd=0.503111
+Collecting main service artifacts
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=10 cost_usd=0.176784
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=cobol-modernization variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=raman-fitting variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=13 cost_usd=0.37028199999999994
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=hf-model-inference variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=13 cost_usd=0.39944100000000005
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=polyglot-c-py variant=best workdir=/ agent_timeout=900.0s runner_cap_ms=840000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=True turns=25 cost_usd=0
+Collecting main service artifacts
+Command outputs captured
+ADA_RUN_RESULT: is_error=True turns=46 cost_usd=0
+Collecting main service artifacts
+Running command: set -euo pipefail; NEED_NODE=1; if command -v node >/dev/null 2>&1; then   MAJ=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0);   if [ "$MAJ" -ge 23 ] 2>/dev/null; then NEED_NODE=0; fi; fi; if [ "$NEED_NODE" = 1 ]; then   install -m 755 /tmp/ada-node-bin /usr/local/bin/node; fi; node --version; MISSING=$( (ldd /usr/local/bin/node 2>/dev/null; ldd /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude 2>/dev/null)  | grep 'not found' | sort -u || true); if [ -n "$MISSING" ]; then   (apt-get update -qq && apt-get install -y -qq libstdc++6 ca-certificates)   || (dnf install -y libstdc++ || apk add libstdc++ || true); fi
+Command outputs captured
+Running command: set -euo pipefail; mkdir -p /opt/ada /tmp/ada-claude-config; tar xzf /tmp/ada-variant.tgz -C /opt/ada; chmod -R a+rX /opt/ada; chmod 777 /tmp/ada-claude-config; test -f /opt/ada/scripts/autoresearch-run-agent.ts; test -x /opt/ada/node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/claude; rm -f /tmp/ada-variant.tgz /tmp/ada-node-bin; du -sh /opt/ada
+Command outputs captured
+Ada run: task=mteb-retrieve variant=best workdir=/ agent_timeout=1800.0s runner_cap_ms=1740000
+Running command: chmod 644 /tmp/ada-task-prompt.txt
+Command outputs captured
+Running command: mkdir -p /tmp/ada-home && cd /opt/ada && node scripts/autoresearch-run-agent.ts / /tmp/ada-task-prompt.txt 2>&1
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=25 cost_usd=0.512444
+Collecting main service artifacts
+Command outputs captured
+ADA_RUN_RESULT: is_error=True turns=18 cost_usd=0
+Collecting main service artifacts
+Command outputs captured
+ADA_RUN_RESULT: is_error=False turns=70 cost_usd=7.669420999999999
+Collecting main service artifacts

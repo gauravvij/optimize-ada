@@ -1,0 +1,80 @@
+{
+    "id": "57a62332-9428-4432-a6d7-aedbe343ccb1",
+    "started_at": "2026-09-10T12:38:00.597645",
+    "updated_at": "2026-09-10T14:09:04.254176",
+    "finished_at": "2026-09-10T14:09:04.254176",
+    "n_total_trials": 40,
+    "stats": {
+        "n_completed_trials": 40,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada__terminal-bench/terminal-bench-2": {
+                "n_trials": 40,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.65
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "overfull-hbox__TxbV3u9",
+                            "crack-7z-hash__iAD32aa",
+                            "dna-insert__WAKbQVK",
+                            "db-wal-recovery__rDBvCJy",
+                            "qemu-alpine-ssh__spXFKat",
+                            "tune-mjcf__PBEHDb9",
+                            "cobol-modernization__uAGm5i2",
+                            "raman-fitting__27iq6Yn",
+                            "filter-js-from-html__BqTofRN",
+                            "polyglot-c-py__isJuFuu",
+                            "pytorch-model-cli__bmkuYMb",
+                            "financial-document-processor__9W8tHF3",
+                            "mteb-retrieve__5PapExe",
+                            "qemu-startup__fdRnEVg"
+                        ],
+                        "1.0": [
+                            "break-filter-js-from-html__2dSa7GJ",
+                            "vulnerable-secret__X6umRVN",
+                            "openssl-selfsigned-cert__3HdG7fY",
+                            "git-leak-recovery__q9ET6KM",
+                            "extract-elf__YueSPsJ",
+                            "constraints-scheduling__jciWGN9",
+                            "custom-memory-heap-crash__rWghfWu",
+                            "build-cython-ext__CMxzsqb",
+                            "mteb-leaderboard__pno5anq",
+                            "fix-git__2xEPRYX",
+                            "prove-plus-comm__4t2BANs",
+                            "pytorch-model-recovery__3wUB4Cm",
+                            "chess-best-move__hi6cYR2",
+                            "gcode-to-text__a4EzfNv",
+                            "multi-source-data-merger__GBAXDFn",
+                            "merge-diff-arc-agi-task__jSK2U68",
+                            "kv-store-grpc__br9QYf3",
+                            "regex-log__C9Nyziy",
+                            "nginx-request-logging__afc2MYT",
+                            "sqlite-with-gcov__psDHbw3",
+                            "sanitize-git-repo__DFecg2B",
+                            "reshard-c4-data__ndwo5dP",
+                            "count-dataset-tokens__joh8MwU",
+                            "hf-model-inference__mksYGN4",
+                            "large-scale-text-editing__KJJAK7U",
+                            "code-from-image__3izKtPx"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 2443443,
+        "n_cache_tokens": 14414272,
+        "n_output_tokens": 704691,
+        "cost_usd": 37.041625999999994
+    }
+}

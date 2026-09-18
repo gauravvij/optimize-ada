@@ -1,0 +1,72 @@
+{
+  "run": "20260917T0602Z",
+  "replicates": [
+    {
+      "rep": 1,
+      "status": "COMPLETE",
+      "agent_tree": {
+        "shipped": "dab704de524a7b31203f0b53374ec539cbb7089d",
+        "p3": "811a16e4a67e95ad5b8fe37dee8963e593457b65"
+      },
+      "invalid": {
+        "shipped": 0,
+        "p3": 0
+      },
+      "timeouts": {
+        "shipped": 0,
+        "p3": 0
+      },
+      "contrast": {
+        "n": 25,
+        "shipped_pass": 4,
+        "p3_pass": 3,
+        "net": -1,
+        "lost": 2,
+        "gained": 1,
+        "p": 1.0
+      }
+    },
+    {
+      "rep": 2,
+      "status": "COMPLETE",
+      "agent_tree": {
+        "shipped": "dab704de524a7b31203f0b53374ec539cbb7089d",
+        "p3": "811a16e4a67e95ad5b8fe37dee8963e593457b65"
+      },
+      "invalid": {
+        "shipped": 3,
+        "p3": 1
+      },
+      "timeouts": {
+        "shipped": 0,
+        "p3": 0
+      },
+      "contrast": {
+        "n": 21,
+        "shipped_pass": 2,
+        "p3_pass": 5,
+        "net": 3,
+        "lost": 0,
+        "gained": 3,
+        "p": 0.25
+      }
+    }
+  ],
+  "pooled": {
+    "contrast": {
+      "n": 46,
+      "shipped_pass": 6,
+      "p3_pass": 8,
+      "net": 2,
+      "lost": 2,
+      "gained": 4,
+      "p": 0.6875
+    }
+  },
+  "rule": {
+    "all_replicates_complete": true,
+    "pooled_net_ge_5": false,
+    "no_negative_replicate": false
+  },
+  "verdict": "REVERT"
+}

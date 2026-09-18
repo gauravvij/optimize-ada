@@ -1,0 +1,606 @@
+{
+  "protocol": {
+    "baseline_commit": "0c5e1da7342ff86147b217a09c243cf17bf6c50d",
+    "candidate_commit": "0c5e1da7342ff86147b217a09c243cf17bf6c50d",
+    "candidate_diff_sha256": "ebf48e4dc72cf4178a013431bdb6b70995af22f6fba308eb4e549c6387430175",
+    "model": "z-ai/glm-5.3-flash",
+    "holdout_tasks": 4,
+    "repetitions": 5,
+    "attempts_per_task_variant": 5,
+    "execution_order": "alternating baseline-first and candidate-first by repetition",
+    "variant_timeout_seconds": 600,
+    "candidate_frozen": true
+  },
+  "results": [
+    {
+      "repetition": 1,
+      "variant": "baseline",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 72.06,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 26,
+      "metric": 3974.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 17317,
+          "output_tokens": 742,
+          "cache_read_tokens": 12672
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 9247,
+          "output_tokens": 1547,
+          "cache_read_tokens": 29312
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 8523,
+          "output_tokens": 498,
+          "cache_read_tokens": 21248
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 8,
+          "input_tokens": 8772,
+          "output_tokens": 864,
+          "cache_read_tokens": 29056
+        }
+      ],
+      "usage_input_tokens": 43859,
+      "usage_output_tokens": 3651,
+      "cache_read_tokens": 92288,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 1,
+      "variant": "candidate",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 72.44,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 22,
+      "metric": 3978.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 4,
+          "input_tokens": 12868,
+          "output_tokens": 634,
+          "cache_read_tokens": 10752
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 18377,
+          "output_tokens": 1186,
+          "cache_read_tokens": 22016
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 10900,
+          "output_tokens": 504,
+          "cache_read_tokens": 20928
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 11276,
+          "output_tokens": 880,
+          "cache_read_tokens": 28800
+        }
+      ],
+      "usage_input_tokens": 53421,
+      "usage_output_tokens": 3204,
+      "cache_read_tokens": 82496,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 2,
+      "variant": "candidate",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 57.489,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 26,
+      "metric": 3974.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 26277,
+          "output_tokens": 679,
+          "cache_read_tokens": 5376
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 8664,
+          "output_tokens": 534,
+          "cache_read_tokens": 30592
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 15993,
+          "output_tokens": 262,
+          "cache_read_tokens": 14976
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 8,
+          "input_tokens": 12443,
+          "output_tokens": 975,
+          "cache_read_tokens": 27776
+        }
+      ],
+      "usage_input_tokens": 63377,
+      "usage_output_tokens": 2450,
+      "cache_read_tokens": 78720,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 2,
+      "variant": "baseline",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 64.915,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 23,
+      "metric": 3977.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 4,
+          "input_tokens": 15243,
+          "output_tokens": 695,
+          "cache_read_tokens": 6912
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 3975,
+          "output_tokens": 1232,
+          "cache_read_tokens": 34176
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 9669,
+          "output_tokens": 492,
+          "cache_read_tokens": 20160
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 9515,
+          "output_tokens": 688,
+          "cache_read_tokens": 28160
+        }
+      ],
+      "usage_input_tokens": 38402,
+      "usage_output_tokens": 3107,
+      "cache_read_tokens": 89408,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 3,
+      "variant": "baseline",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 136.681,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 25,
+      "metric": 3975.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 17368,
+          "output_tokens": 826,
+          "cache_read_tokens": 5376
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 8,
+          "input_tokens": 10217,
+          "output_tokens": 1643,
+          "cache_read_tokens": 35904
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 4082,
+          "output_tokens": 520,
+          "cache_read_tokens": 25792
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 9525,
+          "output_tokens": 1619,
+          "cache_read_tokens": 29504
+        }
+      ],
+      "usage_input_tokens": 41192,
+      "usage_output_tokens": 4608,
+      "cache_read_tokens": 96576,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 3,
+      "variant": "candidate",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 64.695,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 24,
+      "metric": 3976.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 4,
+          "input_tokens": 18353,
+          "output_tokens": 884,
+          "cache_read_tokens": 5376
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 11398,
+          "output_tokens": 2212,
+          "cache_read_tokens": 30336
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 8415,
+          "output_tokens": 550,
+          "cache_read_tokens": 23360
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 11220,
+          "output_tokens": 656,
+          "cache_read_tokens": 28864
+        }
+      ],
+      "usage_input_tokens": 49386,
+      "usage_output_tokens": 4302,
+      "cache_read_tokens": 87936,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 4,
+      "variant": "candidate",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 66.929,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 23,
+      "metric": 3977.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 4,
+          "input_tokens": 23768,
+          "output_tokens": 834,
+          "cache_read_tokens": 0
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 9022,
+          "output_tokens": 926,
+          "cache_read_tokens": 30848
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 8809,
+          "output_tokens": 357,
+          "cache_read_tokens": 22912
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 16502,
+          "output_tokens": 633,
+          "cache_read_tokens": 23424
+        }
+      ],
+      "usage_input_tokens": 58101,
+      "usage_output_tokens": 2750,
+      "cache_read_tokens": 77184,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 4,
+      "variant": "baseline",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 43.379,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 24,
+      "metric": 3976.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 4,
+          "input_tokens": 14416,
+          "output_tokens": 646,
+          "cache_read_tokens": 7872
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 8,
+          "input_tokens": 8735,
+          "output_tokens": 1202,
+          "cache_read_tokens": 29568
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 7851,
+          "output_tokens": 505,
+          "cache_read_tokens": 22016
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 9239,
+          "output_tokens": 940,
+          "cache_read_tokens": 28928
+        }
+      ],
+      "usage_input_tokens": 40241,
+      "usage_output_tokens": 3293,
+      "cache_read_tokens": 88384,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 5,
+      "variant": "baseline",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 60.664,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 23,
+      "metric": 3977.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 4,
+          "input_tokens": 16919,
+          "output_tokens": 821,
+          "cache_read_tokens": 5376
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 4562,
+          "output_tokens": 1974,
+          "cache_read_tokens": 34432
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 7907,
+          "output_tokens": 366,
+          "cache_read_tokens": 21376
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 20183,
+          "output_tokens": 773,
+          "cache_read_tokens": 17600
+        }
+      ],
+      "usage_input_tokens": 49571,
+      "usage_output_tokens": 3934,
+      "cache_read_tokens": 78784,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    },
+    {
+      "repetition": 5,
+      "variant": "candidate",
+      "valid": true,
+      "exit_code": 0,
+      "duration_seconds": 58.636,
+      "tasks": 4,
+      "passed": 4,
+      "failed": 0,
+      "turns": 25,
+      "metric": 3975.0,
+      "cases": [
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 5,
+          "input_tokens": 23391,
+          "output_tokens": 761,
+          "cache_read_tokens": 8640
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 9087,
+          "output_tokens": 1172,
+          "cache_read_tokens": 31424
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 6,
+          "input_tokens": 19734,
+          "output_tokens": 426,
+          "cache_read_tokens": 11968
+        },
+        {
+          "passed": true,
+          "timed_out": false,
+          "terminal_result": true,
+          "exit_code": 0,
+          "turns": 7,
+          "input_tokens": 11095,
+          "output_tokens": 731,
+          "cache_read_tokens": 28480
+        }
+      ],
+      "usage_input_tokens": 63307,
+      "usage_output_tokens": 3090,
+      "cache_read_tokens": 80512,
+      "regression_tests_passed": true,
+      "output_tail": ""
+    }
+  ]
+}

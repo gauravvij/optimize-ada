@@ -1,0 +1,258 @@
+{
+  "protocol": {
+    "run": "same-day paired remaining81, run_id 20260912T1603Z",
+    "driver": "bench/run_ctrl_vs_t12.sh",
+    "arm_order": "control first, candidate second (conservative for a candidate win)",
+    "suite": "remaining81",
+    "task_timeout_seconds": 480,
+    "grader_timeout_seconds": 600,
+    "concurrency": 4,
+    "seed": 20260907,
+    "model": "z-ai/glm-5.3-flash",
+    "generated_at": "2026-09-13T02:21:47.509306+00:00",
+    "reproduce": "python3 bench/ctrl_vs_t12_analysis.py"
+  },
+  "arms": {
+    "control": {
+      "commit": "6672af8",
+      "workspace": "targets/ada-t01gateoff",
+      "log": "bench/ctrl_vs_t12_control.log",
+      "diagnostics": "autoresearcher/targets/ada-t01gateoff/.autoresearch/diagnostics/20260912T1603Z-t04ctrl2/0.json"
+    },
+    "candidate": {
+      "commit": "2e495bb",
+      "workspace": "targets/ada",
+      "log": "bench/ctrl_vs_t12_candidate.log",
+      "diagnostics": "autoresearcher/targets/ada/.autoresearch/diagnostics/20260912T1603Z-t12cand2/0.json"
+    }
+  },
+  "unevaluable_trials": {
+    "policy": "T0.5 / fina_run.md E10: a row invalid in EITHER arm is excluded from BOTH.",
+    "excluded_tasks": [],
+    "n_excluded": 0,
+    "n_paired": 81
+  },
+  "status": "COMPLETE",
+  "primary": {
+    "contrast": "SAME-DAY paired: T0.4 control 6672af8 -> T1.2 2e495bb (both 20260912T1603Z)",
+    "arm_a": "T0.4 control @ 6672af8, run 2026-09-12 16:03",
+    "arm_b": "T1.2 candidate @ 2e495bb, run 2026-09-12 ~18:20",
+    "n": 81,
+    "a_pass": 54,
+    "b_pass": 50,
+    "a_rate": 0.6667,
+    "b_rate": 0.6173,
+    "difference": -0.0494,
+    "newcombe_95ci": [
+      -0.1926,
+      0.0967
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 9,
+      "c_a_fail_b_pass": 5,
+      "n_discordant": 14,
+      "p_value": 0.424
+    },
+    "gained": [
+      "monero-8468549",
+      "openai-openai-node-8958d97",
+      "spring-petclinic-2aa53f9",
+      "wagtail-wagtail-28fcd01",
+      "whisper-brokendeps-517a43e"
+    ],
+    "lost": [
+      "dbsetup-mysql-2",
+      "dbsetup-postgresql-2",
+      "dbsetup-postgresql-3",
+      "deps-openecho-28cb7",
+      "deps-origen-3e2f3",
+      "fsspec-filesystem_spec-3ff5fca",
+      "microsoft-azure-pipelines-tasks-bfcd4b2",
+      "microsoft-typescript-vue-starter-c451742",
+      "psf-black-c204232"
+    ]
+  },
+  "control_drift": {
+    "contrast": "SAME BUILD 6672af8: stored 2026-09-10 control -> today's control",
+    "arm_a": "6672af8 run 2026-09-10 (the promoted claim's anchor)",
+    "arm_b": "6672af8 run 2026-09-12",
+    "n": 81,
+    "a_pass": 24,
+    "b_pass": 54,
+    "a_rate": 0.2963,
+    "b_rate": 0.6667,
+    "difference": 0.3704,
+    "newcombe_95ci": [
+      0.2184,
+      0.4987
+    ],
+    "mcnemar_exact": {
+      "b_a_pass_b_fail": 0,
+      "c_a_fail_b_pass": 30,
+      "n_discordant": 30,
+      "p_value": 1.863e-09
+    },
+    "gained": [
+      "beautify-web-js-beautify-6de9268",
+      "bgsetup-autossh-reverse-tunnel",
+      "bgsetup-celery-systemd",
+      "bolsote-isoduration-ae0bd61",
+      "cassandra-73cd2c5",
+      "celery-celery-03e3359",
+      "danwahlin-angular-jumpstart-12fa4e4",
+      "dbsetup-mongodb-1",
+      "dbsetup-mongodb-2",
+      "dbsetup-mysql-2",
+      "dbsetup-postgresql-1",
+      "dbsetup-postgresql-2",
+      "dishait-tov-template-39c0898",
+      "fsspec-filesystem_spec-3ff5fca",
+      "hoodiehq-hoodie-bd1354f",
+      "hybridgroup-cylon-0ba0301",
+      "johnpapa-vscode-angular-snippets-1551fe1",
+      "lhartikk-naivechain-dfd2481",
+      "marshmallow-code-marshmallow-659fed5",
+      "melt-ui-melt-ui-c566aae",
+      "microsoft-typescript-vue-starter-c451742",
+      "ousret-charset_normalizer-816c998",
+      "pallets-flask-2fec0b2",
+      "psf-black-c204232",
+      "pypa-packaging-4493dfc",
+      "pytesseract-df9fce0",
+      "python-hyper-rfc3986-75e77ba",
+      "ta-lib-python-0c957ed",
+      "transitive-bull-chatgpt-api-811ae8f",
+      "yaml-pyyaml-a2d19c0"
+    ],
+    "lost": []
+  },
+  "control_effort": {
+    "question": "Did the control behave differently on the two days, or did the same behaviour just succeed more often?",
+    "sep10": {
+      "pass": 24,
+      "turns": 1544,
+      "timeouts": 0,
+      "n": 81
+    },
+    "today": {
+      "pass": 54,
+      "turns": 1554,
+      "timeouts": 0,
+      "n": 81
+    },
+    "reading": "Turn counts are within 0.6% (1544 vs 1554) and both runs had zero timeouts, so the agent did the same amount of work on both days and simply succeeded far more often. The difference is upstream model or provider quality, not agent behaviour."
+  },
+  "day_normality": [
+    {
+      "contrast": "T1.2 2026-09-11 -> T1.2 today",
+      "arm_a": "2e495bb run 2026-09-11",
+      "arm_b": "2e495bb run 2026-09-12 16:03",
+      "n": 81,
+      "a_pass": 52,
+      "b_pass": 50,
+      "a_rate": 0.642,
+      "b_rate": 0.6173,
+      "difference": -0.0247,
+      "newcombe_95ci": [
+        -0.1697,
+        0.1218
+      ],
+      "mcnemar_exact": {
+        "b_a_pass_b_fail": 6,
+        "c_a_fail_b_pass": 4,
+        "n_discordant": 10,
+        "p_value": 0.7539
+      },
+      "gained": [
+        "dbsetup-postgresql-1",
+        "deps-react-virtualized-sticky-tree-32be9",
+        "lhartikk-naivechain-dfd2481",
+        "spring-petclinic-2aa53f9"
+      ],
+      "lost": [
+        "dbsetup-mysql-2",
+        "deps-openecho-28cb7",
+        "microsoft-azure-pipelines-tasks-bfcd4b2",
+        "networkx-networkx-c107d25",
+        "prometheus-bd5b2ea",
+        "whisper-517a43e"
+      ]
+    },
+    {
+      "contrast": "T1.2 2026-09-12 (morning) -> T1.2 today",
+      "arm_a": "2e495bb run 2026-09-12 12:51",
+      "arm_b": "2e495bb run 2026-09-12 16:03",
+      "n": 74,
+      "a_pass": 43,
+      "b_pass": 44,
+      "a_rate": 0.5811,
+      "b_rate": 0.5946,
+      "difference": 0.0135,
+      "newcombe_95ci": [
+        -0.1418,
+        0.1679
+      ],
+      "mcnemar_exact": {
+        "b_a_pass_b_fail": 5,
+        "c_a_fail_b_pass": 6,
+        "n_discordant": 11,
+        "p_value": 1.0
+      },
+      "gained": [
+        "cassandra-73cd2c5",
+        "dbsetup-sqlite-1",
+        "melt-ui-melt-ui-c566aae",
+        "spring-petclinic-2aa53f9",
+        "ta-lib-python-0c957ed",
+        "wagtail-wagtail-28fcd01"
+      ],
+      "lost": [
+        "dbsetup-mysql-2",
+        "dbsetup-postgresql-3",
+        "dbsetup-redis-1",
+        "deps-openecho-28cb7",
+        "hackmdio-codimd-f00df50"
+      ]
+    }
+  ],
+  "by_task_type": {
+    "bgsetup": {
+      "n": 7,
+      "control_pass": 6,
+      "t12_pass": 6,
+      "difference": 0.0
+    },
+    "dbsetup": {
+      "n": 13,
+      "control_pass": 11,
+      "t12_pass": 8,
+      "difference": -0.2308
+    },
+    "dependency_resolution": {
+      "n": 14,
+      "control_pass": 6,
+      "t12_pass": 4,
+      "difference": -0.1429
+    },
+    "reposetup": {
+      "n": 47,
+      "control_pass": 31,
+      "t12_pass": 32,
+      "difference": 0.0213
+    }
+  },
+  "published_claim": {
+    "claim": "RESULTS.md promoted 'remaining81 52/81 vs 24/81, net +28, p=7.66e-07'",
+    "anchor_then": {
+      "run": "2026-09-10",
+      "pass": 24,
+      "n": 81
+    },
+    "anchor_now": {
+      "run": "2026-09-12",
+      "pass": 54,
+      "n": 81
+    },
+    "verdict": "The anchor moved 24 -> 54 on identical code (30 gained, 0 lost, p=1.863e-09). The 2026-09-10 run was depressed; the promoted +28 was inflated by that. The honest same-day figure for T1.2 is the `primary` contrast above."
+  }
+}

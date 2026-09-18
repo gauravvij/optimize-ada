@@ -1,0 +1,60 @@
+{
+    "id": "6b0f67e6-dc75-43e9-aaf2-b9d2a856c0d5",
+    "started_at": "2026-09-09T15:54:38.504360",
+    "updated_at": "2026-09-09T16:40:30.237562",
+    "finished_at": "2026-09-09T16:40:30.237562",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada__terminal-bench/terminal-bench-2": {
+                "n_trials": 20,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.75
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "overfull-hbox__5m6Qbib",
+                            "break-filter-js-from-html__eDUj5kC",
+                            "vulnerable-secret__hgd86Ma",
+                            "openssl-selfsigned-cert__z96t5MT",
+                            "extract-elf__ERmrLSF",
+                            "constraints-scheduling__K9aWMpc",
+                            "mteb-leaderboard__BekfJxD",
+                            "fix-git__XuDWJEH",
+                            "prove-plus-comm__vKY6TPL",
+                            "pytorch-model-recovery__57BoJhe",
+                            "merge-diff-arc-agi-task__k8FyppK",
+                            "kv-store-grpc__iHKUwMT",
+                            "nginx-request-logging__CZtmENr",
+                            "count-dataset-tokens__88v5kat",
+                            "hf-model-inference__YAS2vrt"
+                        ],
+                        "0.0": [
+                            "crack-7z-hash__ZkV2ssC",
+                            "cobol-modernization__xeqm2zo",
+                            "raman-fitting__8sUj8BJ",
+                            "polyglot-c-py__HKXrmnP",
+                            "mteb-retrieve__XQ2ENMF"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 1337526,
+        "n_cache_tokens": 4831168,
+        "n_output_tokens": 232207,
+        "cost_usd": 14.908389000000003
+    }
+}

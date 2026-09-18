@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/vulnerable-secret",
+        "ref": "sha256:2a8a7b743f4f42fe70c6aadfde5621fceaf8ceb343331586f4479485bc1f8da0",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "vulnerable-secret__anVD2Rb",
+    "trials_dir": "bench/results-baseline-40/2026-09-07__18-32-07",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "baseline"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "34e5929b-8c1b-418a-a6b7-31a191df4d9f"
+}

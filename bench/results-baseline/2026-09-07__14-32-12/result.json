@@ -1,0 +1,50 @@
+{
+    "id": "d17d0062-9ee3-4724-96e9-2aba9c320700",
+    "started_at": "2026-09-07T14:32:18.003571",
+    "updated_at": "2026-09-07T15:37:05.788778",
+    "finished_at": "2026-09-07T15:37:05.788778",
+    "n_total_trials": 10,
+    "stats": {
+        "n_completed_trials": 10,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada__terminal-bench/terminal-bench-2": {
+                "n_trials": 10,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "overfull-hbox__Hzjp4TK",
+                            "mteb-leaderboard__HJbaaMT",
+                            "cobol-modernization__2nhNBiA",
+                            "raman-fitting__xRKgpt5"
+                        ],
+                        "1.0": [
+                            "crack-7z-hash__gpxNk7T",
+                            "constraints-scheduling__ioXUsqa",
+                            "fix-git__cLKssu8",
+                            "prove-plus-comm__zmH65NQ",
+                            "pytorch-model-recovery__5LekSFz",
+                            "kv-store-grpc__bG6Cqve"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 115650,
+        "n_cache_tokens": 563200,
+        "n_output_tokens": 40670,
+        "cost_usd": 1.8765999999999998
+    }
+}

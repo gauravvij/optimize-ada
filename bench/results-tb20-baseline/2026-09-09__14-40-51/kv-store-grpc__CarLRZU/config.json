@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/kv-store-grpc",
+        "ref": "sha256:83c7ad30412cc43d9d5f3c590a9154b53a1ed37e8a802bffc45dc64f51a2b427",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "kv-store-grpc__CarLRZU",
+    "trials_dir": "bench/results-tb20-baseline/2026-09-09__14-40-51",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "ada_tarball": "/home/azureuser/adaAgent/bench/ada-baseline.tgz"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+    },
+    "job_id": "11e4cefa-6feb-4075-93e9-23cd90cc106a"
+}

@@ -1,0 +1,48 @@
+{
+    "id": "b0e9858b-aed8-4b83-8cd0-6aaa6fe2d8af",
+    "started_at": "2026-09-07T17:56:53.695332",
+    "updated_at": "2026-09-07T18:25:13.069153",
+    "finished_at": "2026-09-07T18:25:13.069153",
+    "n_total_trials": 8,
+    "stats": {
+        "n_completed_trials": 8,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "ada__terminal-bench/terminal-bench-2": {
+                "n_trials": 8,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.5
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "overfull-hbox__g8FZo6L",
+                            "crack-7z-hash__a2zhm8C",
+                            "cobol-modernization__FKmQpLN",
+                            "raman-fitting__yZrMNTT"
+                        ],
+                        "1.0": [
+                            "mteb-leaderboard__pH2Ycc6",
+                            "fix-git__XWNEHkc",
+                            "prove-plus-comm__oZFEPdt",
+                            "kv-store-grpc__YgHgkX3"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 442952,
+        "n_cache_tokens": 1435072,
+        "n_output_tokens": 48078,
+        "cost_usd": 4.134246
+    }
+}

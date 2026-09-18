@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/custom-memory-heap-crash",
+        "ref": "sha256:72cdc9cf98c822a1449935ca32efc6612fe3d14928c9465c11285e95dcdf60cb",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "custom-memory-heap-crash__jNhRJT6",
+    "trials_dir": "bench/results-best2-40/2026-09-07__20-12-31",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "best2"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "e7f44086-a289-4528-a321-86590aac5511"
+}

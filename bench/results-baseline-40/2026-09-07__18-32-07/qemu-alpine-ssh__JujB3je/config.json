@@ -1,0 +1,19 @@
+{
+    "task": {
+        "name": "terminal-bench/qemu-alpine-ssh",
+        "ref": "sha256:5acce5eb7a7bde7918a1ccb4fd7421f4c19f7a9d1bad30b7d77951dc31e32800",
+        "source": "terminal-bench/terminal-bench-2"
+    },
+    "trial_name": "qemu-alpine-ssh__JujB3je",
+    "trials_dir": "bench/results-baseline-40/2026-09-07__18-32-07",
+    "agent": {
+        "name": "bench.ada_agent:AdaAgent",
+        "kwargs": {
+            "variant": "baseline"
+        },
+        "env": {
+            "OPENROUTER_API_KEY": "sk-o****c4e"
+        }
+    },
+    "job_id": "34e5929b-8c1b-418a-a6b7-31a191df4d9f"
+}
