@@ -7,8 +7,8 @@ SetupBench tasks: what was changed, how it was measured, and what held up.
 
 ## In short
 
-- The shipped build passed **98/157** paired attempts. The build the campaign started from, the
-  **origin build**, passed **67/157** (p = 7.92e-09).
+- Run side by side on the same tasks, the shipped build passed **98 of 157** attempts. The build
+  the campaign started from, the **origin build**, passed **67 of 157** (p = 7.92e-09).
 - The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.
 - The extra passes come from tasks the origin build ran out of time on. On tasks it already
   finished in time, both builds did about equally well.
@@ -163,11 +163,11 @@ them turned off.
 
 | First reported | Why it was withdrawn | Measured properly |
 |---|---|---|
-| Phase A: 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures. Withdrawn. | 54/81 (with the four changes) against 34/81, both builds on one day |
-| Time reminders: 52/81 against 24/81, net +28, p = 7.66e-07 | The 24/81 comparison run (R3) was run separately, before the time-reminders run. The same build scored 54/81 on 2026-09-12. Withdrawn. | 50/81 against 54/81, both builds on one day |
+| Early watchdog work (Phase A): 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures. Withdrawn. | 54/81 (with the four changes) against 34/81, both builds on one day |
+| Time reminders: 52/81 against 24/81, p = 7.66e-07 | The 24/81 comparison run (R3) was run separately, before the time-reminders run. The same build scored 54/81 on 2026-09-12. Withdrawn. | 50/81 against 54/81, both builds on one day |
 
 Both went wrong the same way: the two builds were not measured together, and the same build
-moved 30 tasks between two runs. From then on, only builds run on the same day counted, and the
+passed 30 more tasks in one run than in another. From then on, only builds run on the same day counted, and the
 main result went further by running both builds at the same time.
 
 ### Outside SetupBench

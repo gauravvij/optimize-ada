@@ -333,8 +333,8 @@ no_origin_watchdog = not any(r["agent_is_error"] for r in base)
 invalid = [r for r in base + best if not r.get("valid", True)]
 off = ('(process.env.ADA_TIME_HINTS ?? "0") === "1"' in agent and '(process.env.ADA_BASH_CLAMP_REMAINING ?? "0") === "1"' in agent
        and '(process.env.ADA_PROMPT_DOD ?? "0") === "1"' in guide and "process.env.ADA_STALL_RETRIES ?? 0)" in agent)
-claim(RM, "The shipped build passed **98/157** paired attempts", pooled, "R9 + R10 pooled")
-claim(RM, "the **origin build**, passed **67/157** (p = 7.92e-09)", pooled, "R9 + R10 pooled")
+claim(RM, "Run side by side on the same tasks, the shipped build passed **98 of 157** attempts", pooled, "R9 + R10 pooled")
+claim(RM, "the **origin build**, passed **67 of 157** (p = 7.92e-09)", pooled, "R9 + R10 pooled")
 claim(RM, "The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.", timeouts_ok, "R9/R10 timed_out")
 claim(RM, "The extra passes come from tasks the origin build ran out of time on. On tasks it already finished in time, both builds did about equally well.",
       split_to and split_fin and pooled, "R9 + R10 pairs split by the origin attempt: 0 -> 29 of 83; 67 -> 69 of 74, p = 0.625")
@@ -397,14 +397,14 @@ claim(RM, "| Plus the four changes above (`6672af8`) | **54/81** | 21 gained, 1 
 claim(RM, "| Plus time reminders (`2e495bb`) | 50/81 | 5 gained, 9 lost, p = 0.42 |", (pair(R7, R8)[3], pair(R7, R8)[4], passed(R8)) == (5, 9, 50) and r78, "R7 -> R8")
 claim(RM, "All 21 tasks gained in the second row were tasks the origin build had timed out on", to5_ok, "R5 timed-out tasks, R7")
 claim(RM, "the watchdog had to stop Ada 7 times instead of 34, but passes fell from 54 to 50", (interrupted(R7), interrupted(R8)) == (34, 7) and r78, "R7, R8")
-claim(RM, "| Phase A: 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures.", hybrid and passed(R1) == 27, "R1; R2 + failures31")
+claim(RM, "| Early watchdog work (Phase A): 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures.", hybrid and passed(R1) == 27, "R1; R2 + failures31")
 claim(RM, "| 54/81 (with the four changes) against 34/81, both builds on one day |", (passed(R7), passed(R5)) == (54, 34), "R7, R5")
-claim(RM, "| Time reminders: 52/81 against 24/81, net +28, p = 7.66e-07 |", (passed(R4), passed(R3), net(R3, R4), f"{pair(R3, R4)[5]:.2e}") == (52, 24, 28, "7.66e-07"), "R3 -> R4")
+claim(RM, "| Time reminders: 52/81 against 24/81, p = 7.66e-07 |", (passed(R4), passed(R3), f"{pair(R3, R4)[5]:.2e}") == (52, 24, "7.66e-07"), "R3 -> R4")
 r7commit = json.loads((B / P["R7"]).read_text())["workspace_commit"]
 claim(RM, "The 24/81 comparison run (R3) was run separately, before the time-reminders run. The same build scored 54/81 on 2026-09-12.",
       passed(R3) == 24 and P["R3"].split("/")[1] < P["R4"].split("/")[1] and r3commit == r7commit and passed(R7) == 54, "R3, R4 run IDs; R3 and R7 record one commit")
 claim(RM, "| 50/81 against 54/81, both builds on one day |", r78, "R7 -> R8")
-claim(RM, "the same build moved 30 tasks between two runs", (g37, l37) == (30, 0), "R3 -> R7")
+claim(RM, "the same build passed 30 more tasks in one run than in another", (g37, l37) == (30, 0), "R3 -> R7")
 claim(RM, "tied the origin build: 26 against 26 of 38 tasks", tie, "FINAL40 per_task, evaluable")
 claim(RM, "Two more tasks were left out because the benchmark's own checker broke; the origin build had passed both",
       len(ex) == 2 and all(tb["per_task"][x]["baseline_reward"] >= 1 for x in ex) and len(tb_logs) == 2
