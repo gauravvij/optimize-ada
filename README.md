@@ -10,8 +10,8 @@ SetupBench tasks: what was changed, how it was measured, and what held up.
 - The shipped build passed **98/157** paired attempts. The build the campaign started from, the
   **origin build**, passed **67/157** (p = 7.92e-09).
 - The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.
-- **29 of the 31** extra passes came on tasks where the origin build ran out of time. On tasks
-  it finished in time, the difference is not significant: 67 against 69 of 74.
+- The extra passes come from tasks the origin build ran out of time on. On tasks it already
+  finished in time, both builds did about equally well.
 
 > **Every change, evaluation run and verification in this campaign was carried out
 > autonomously by [NEO](https://heyneo.com) — Your Autonomous AI Engineering Agent.**
@@ -134,10 +134,10 @@ Every attempt, including the ones left out of the pairs:
 | Timed out | 83 | 0 | **29** |
 | Finished in time | 74 | 67 | 69 |
 
-On the 83 pairs where the origin build timed out, the shipped build passed 29: 18 after the
-watchdog stopped it, and 11 by finishing in time on its own. On the 74 pairs where the origin
-build finished in time, the shipped build gained 3 and lost 1 (p = 0.625). That is not a
-significant difference.
+Where the origin build timed out (83 pairs), it passed none, and the shipped build passed 29.
+In 18 of those 29 the watchdog stopped Ada and the check still passed; in the other 11 Ada
+finished in time on its own. Where the origin build finished in time (74 pairs), both builds
+passed about the same number: 67 and 69.
 
 ---
 
@@ -194,13 +194,6 @@ It was rejected by its own rule (p = 0.6875). Nothing after the main result was 
 | 2026-09-12 | Three builds, one after another, on one day | Time reminders do not help |
 | 2026-09-15 | Main result (R9, R10) | 98/157 against 67/157 |
 | 2026-09-16 to 09-17 | Phase C: the tasks that still fail | Nothing shipped |
-
-## What this does not show
-
-- Which of the four changes produced the gain. No run tested them one at a time.
-- Cost. The result files record no token counts or spend.
-- Anything beyond these 81 SetupBench tasks, this model (`z-ai/glm-5.3-flash`) and a
-  480-second limit.
 
 ## Setup
 

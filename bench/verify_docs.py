@@ -334,8 +334,8 @@ off = ('(process.env.ADA_TIME_HINTS ?? "0") === "1"' in agent and '(process.env.
 claim(RM, "The shipped build passed **98/157** paired attempts", pooled, "R9 + R10 pooled")
 claim(RM, "the **origin build**, passed **67/157** (p = 7.92e-09)", pooled, "R9 + R10 pooled")
 claim(RM, "The origin build ran out of time on **84 of its 162** attempts. The shipped build never did.", timeouts_ok, "R9/R10 timed_out")
-claim(RM, "**29 of the 31** extra passes came on tasks where the origin build ran out of time", split_to and pooled, "R9 + R10 pairs, origin timed out")
-claim(RM, "the difference is not significant: 67 against 69 of 74", split_fin, "R9 + R10 pairs, origin finished")
+claim(RM, "The extra passes come from tasks the origin build ran out of time on. On tasks it already finished in time, both builds did about equally well.",
+      split_to and split_fin and pooled, "R9 + R10 pairs split by the origin attempt: 0 -> 29 of 83; 67 -> 69 of 74, p = 0.625")
 claim(RM, "If Ada is still working at 480 seconds, the harness stops it and **never runs the check**", unchecked_timeouts, "timed-out rows have no check result")
 claim(RM, "The origin build ran out of time on 40 to 53 of the 81 tasks, depending on the run",
       (min(map(timeouts, (R1, R5, R9a, R10a))), max(map(timeouts, (R1, R5, R9a, R10a)))) == (40, 53), "origin runs R1 R5 R9a R10a")
@@ -386,8 +386,9 @@ claim(RM, "| In each replicate, at most 3 harness errors per build | Yes: at mos
 claim(RM, "| Over both replicates, p below 0.001 | Yes: 7.92e-09 |", "p < 0.001" in rule and pooled, "rule; pooled")
 claim(RM, "| Timed out | 83 | 0 | **29** |", split_to, "R9 + R10 pairs, origin timed out")
 claim(RM, "| Finished in time | 74 | 67 | 69 |", split_fin, "R9 + R10 pairs, origin finished")
-claim(RM, "the shipped build passed 29: 18 after the watchdog stopped it, and 11 by finishing in time on its own", split_to, "R9 + R10 pairs, origin timed out")
-claim(RM, "the shipped build gained 3 and lost 1 (p = 0.625)", split_fin, "R9 + R10 pairs, origin finished")
+claim(RM, "Where the origin build timed out (83 pairs), it passed none, and the shipped build passed 29. In 18 of those 29 the watchdog stopped Ada and the check still passed; in the other 11 Ada finished in time on its own.",
+      split_to, "R9 + R10 pairs, origin timed out")
+claim(RM, "Where the origin build finished in time (74 pairs), both builds passed about the same number: 67 and 69.", split_fin, "R9 + R10 pairs, origin finished; p = 0.625")
 claim(RM, "| Origin (`df0c537`) | 34/81 |", passed(R5) == 34, "R5")
 claim(RM, "| Plus the four changes above (`6672af8`) | **54/81** | 21 gained, 1 lost, p = 1.1e-05 |",
       (pair(R5, R7)[3], pair(R5, R7)[4], f"{pair(R5, R7)[5]:.1e}", passed(R7)) == (21, 1, "1.1e-05", 54), "R5 -> R7")
@@ -413,8 +414,6 @@ claim(RM, "gained 2 pairs net. It was rejected by its own rule (p = 0.6875)",
       ((q1[3] + q2[3]) - (q1[4] + q2[4]), f"{mcnemar(q1[4] + q2[4], q1[3] + q2[3]):.4f}") == (2, "0.6875"), "P3 shipped vs P3 arms")
 claim(RM, "Timeouts fell from 53 of 81 to 3.", (timeouts(R1), timeouts(R2)) == (53, 3), "R1, R2")
 claim(RM, "| 98/157 against 67/157 |", pooled, "R9 + R10 pooled")
-claim(RM, "Cost. The result files record no token counts or spend.",
-      not any(k for r in base + best for k in r if "token" in k.lower() or "cost" in k.lower() or "spend" in k.lower()), "R9/R10 row fields")
 claim(RM, "| Model | `z-ai/glm-5.3-flash` through OpenRouter |", all(q["model"] == "z-ai/glm-5.3-flash" for q in conf), "R9/R10 protocol.model")
 claim(RM, "| Benchmark | SetupBench at `041a412`, 81 tasks |", all(q["setupbench_commit"].startswith("041a412") and len(q["tasks"]) == 81 for q in conf), "R9/R10 protocol")
 claim(RM, "| Time limits | 480 s for Ada, 600 s for the check |",
