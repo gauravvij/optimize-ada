@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 234.762,
+  "agent_is_error": false,
+  "agent_result": "Python package (`setup.cfg` + `setup.py` + `src/` layout), so no compilation is required.\n\n- Installed the package in editable mode plus its declared dependencies:\n  - `pip install -e .`\n  - `idna` (the `idna2008` extra)\n  - `pytest`, `pytest-cov` and the pinned `attrs==20.1.0` from `dev-requirements.txt`\n  - `build` (for the `tox -e build` step)\n\n## Verification\n- Test suite (the tox `[testenv]` command) passes with the required 100% coverage:\n  ```\n  python3 -m pytest --cov rfc3986 --cov-fail-under 100 tests/\n  \u2192 2914 passed, 100.00% coverage\n  ```\n- Package imports work from outside the repo root and behave correctly:\n  ```\n  python3 -c \"import rfc3986; print(rfc3986.__version__)\"  \u2192 2.0.0\n  ```\n- Distribution build succeeds: `python3 -m build` produced `dist/rfc3986-2.0.0.tar.gz` and `dist/rfc3986-2.0.0-py2.py3-none-any.whl`.\n\nThe repository is fully built and testable; a single-line command such as `python3 -m pytest tests/` (or `python3 -c \"import rfc3986\"`) will confirm success.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 55552,
+  "cost_cli_usd": 0.241996,
+  "duration_seconds": 240.346,
+  "evidence_error": "",
+  "grader_duration_seconds": 3.872,
+  "grader_output": "tead. This method will be eventually removed.\n    warnings.warn(\n\ntests/test_api.py: 1 warning\ntests/test_unicode_support.py: 2 warnings\ntests/test_uri.py: 246 warnings\n  /testbed/src/rfc3986/_mixin.py:219: DeprecationWarning: Please use rfc3986.validators.Validator instead. This method will be eventually removed.\n    warnings.warn(\n\ntests/test_api.py: 1 warning\ntests/test_unicode_support.py: 2 warnings\ntests/test_uri.py: 245 warnings\n  /testbed/src/rfc3986/_mixin.py:238: DeprecationWarning: Please use rfc3986.validators.Validator instead. This method will be eventually removed.\n    warnings.warn(\n\ntests/test_api.py: 1 warning\ntests/test_unicode_support.py: 2 warnings\ntests/test_uri.py: 244 warnings\n  /testbed/src/rfc3986/_mixin.py:257: DeprecationWarning: Please use rfc3986.validators.Validator instead. This method will be eventually removed.\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n2914 passed, 1517 warnings in 3.37s\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 30454,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 55552,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.241996,
+      "inputTokens": 30454,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2478,
+      "provider": "firstParty",
+      "thinkingTokens": 969,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2478,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 107863,
+    "duration_ms": 229167,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 857,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 55552,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.241996,
+        "inputTokens": 30454,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2478,
+        "provider": "firstParty",
+        "thinkingTokens": 969,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 11,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete. Here's what I did:\n\n## Environment setup\n- Installed `python3` (3.10.12), `python3-pip`, `python3-dev`, and `build-essential` globally via `apt` (no virtualenv).\n- Upgraded `pip`, `setuptools`, `wheel`.\n\n## Project setup\n`rfc3986` is a pure-Python package (`setup.cfg` + `setup.py` + `src/` layout), so no compilation is required.\n\n- Installed the package in editable mode plus its declared dependencies:\n  - `pip install -e .`\n  - `idna` (the `idna2008` extra)\n  - `pytest`, `pytest-cov` and the pinned `attrs==20.1.0` from `dev-requirements.txt`\n  - `build` (for the `tox -e build` step)\n\n## Verification\n- Test suite (the tox `[testenv]` command) passes with the required 100% coverage:\n  ```\n  python3 -m pytest --cov rfc3986 --cov-fail-under 100 tests/\n  \u2192 2914 passed, 100.00% coverage\n  ```\n- Package imports work from outside the repo root and behave correctly:\n  ```\n  python3 -c \"import rfc3986; print(rfc3986.__version__)\"  \u2192 2.0.0\n  ```\n- Distribution build succeeds: `python3 -m build` produced `dist/rfc3986-2.0.0.tar.gz` and `dist/rfc3986-2.0.0-py2.py3-none-any.whl`.\n\nThe repository is fully built and testable; a single-line command such as `python3 -m pytest tests/` (or `python3 -c \"import rfc3986\"`) will confirm success.",
+    "session_id": "931034bd-21f8-46ab-a488-fa8b46d33ecf",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 58,
+    "total_cost_usd": 0.241996,
+    "ttft_ms": 3867,
+    "ttft_stream_ms": 857,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 55552,
+      "inference_geo": "",
+      "input_tokens": 29383,
+      "iterations": [],
+      "output_tokens": 2023,
+      "output_tokens_details": {
+        "thinking_tokens": 526
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "a2818abc-021e-4d81-80db-4b0b25c2a778"
+  },
+  "started_at_utc": "2026-09-19T12:03:02Z",
+  "task_id": "python-hyper-rfc3986-75e77ba",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 11,
+  "turns_from_trace": 11,
+  "valid": true,
+  "variant": "candidate"
+}

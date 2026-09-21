@@ -400,14 +400,7 @@ claim(RM, "| Plus the four changes above (`6672af8`) | **54/81** | 21 gained, 1 
 claim(RM, "| Plus time reminders (`2e495bb`) | 50/81 | 5 gained, 9 lost, p = 0.42 |", (pair(R7, R8)[3], pair(R7, R8)[4], passed(R8)) == (5, 9, 50) and r78, "R7 -> R8")
 claim(RM, "All 21 tasks gained in the second row were tasks the origin build had timed out on", to5_ok, "R5 timed-out tasks, R7")
 claim(RM, "the watchdog had to stop Ada 7 times instead of 34, but passes fell from 54 to 50", (interrupted(R7), interrupted(R8)) == (34, 7) and r78, "R7, R8")
-claim(RM, "| Early watchdog work (Phase A): 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures.", hybrid and passed(R1) == 27, "R1; R2 + failures31")
-claim(RM, "| 54/81 (with the four changes) against 34/81, both builds on one day |", (passed(R7), passed(R5)) == (54, 34), "R7, R5")
-claim(RM, "| Time reminders: 52/81 against 24/81, p = 7.66e-07 |", (passed(R4), passed(R3), f"{pair(R3, R4)[5]:.2e}") == (52, 24, "7.66e-07"), "R3 -> R4")
 r7commit = json.loads((B / P["R7"]).read_text())["workspace_commit"]
-claim(RM, "The 24/81 comparison run (R3) was run separately, before the time-reminders run. The same build scored 54/81 on 2026-09-12.",
-      passed(R3) == 24 and P["R3"].split("/")[1] < P["R4"].split("/")[1] and r3commit == r7commit and passed(R7) == 54, "R3, R4 run IDs; R3 and R7 record one commit")
-claim(RM, "| 50/81 against 54/81, both builds on one day |", r78, "R7 -> R8")
-claim(RM, "the same build passed 30 more tasks in one run than in another", (g37, l37) == (30, 0), "R3 -> R7")
 claim(RM, "tied the origin build: 26 against 26 of 38 tasks", tie, "FINAL40 per_task, evaluable")
 claim(RM, "Two more tasks were left out because the benchmark's own checker broke; the origin build had passed both",
       len(ex) == 2 and all(tb["per_task"][x]["baseline_reward"] >= 1 for x in ex) and len(tb_logs) == 2
@@ -424,6 +417,126 @@ claim(RM, "| Benchmark | SetupBench at `041a412`, 81 tasks |", all(q["setupbench
 claim(RM, "| Time limits | 480 s for Ada, 600 s for the check |",
       all((q["task_timeout_seconds"], q["grader_timeout_seconds"]) == (480, 600) for q in conf), "R9/R10 protocol")
 claim(RM, "R9/R10 ran it as `417a8f1`", all(json.loads((B / P[k]).read_text())["workspace_commit"].startswith("417a8f1") for k in ("R9a", "R10a")), "R9a/R10a workspace_commit")
+
+# ------------------------------------- the second model (DeepSeek V4.1 Flash)
+# Raw evidence is per-attempt result.json / agent.log / trace.jsonl under r1_all/
+# (symlinks into the parts); summary.json aggregates it. Checks go raw first,
+# then summary.json, then the README's rendering of summary.json.
+V41 = ROOT / "ada/runs/deepseek-v4.1-flash/r1_all"
+v41sum = json.loads((V41 / "summary.json").read_text())
+V41base, V41best = {}, {}
+for arm, store in (("baseline", V41base), ("best", V41best)):
+    for f in sorted((V41 / arm).glob("*/result.json")):
+        r = json.loads(f.read_text())
+        store[r["task_id"]] = r
+v41ids = [t for t in V41base if t in V41best and V41base[t].get("valid") and V41best[t].get("valid")]
+v41raw_ok = len(V41base) == 81 and len(V41best) == 81 and len(v41ids) == 81
+v41g = sum(not V41base[t]["passed"] and V41best[t]["passed"] for t in v41ids)
+v41l = sum(V41base[t]["passed"] and not V41best[t]["passed"] for t in v41ids)
+v41p = mcnemar(v41l, v41g)
+v41pair = (len(v41ids), sum(V41base[t]["passed"] for t in v41ids), sum(V41best[t]["passed"] for t in v41ids), v41g, v41l)
+v41sum_ok = ((v41sum["paired"]["pairs"], v41sum["paired"]["baseline_passed"], v41sum["paired"]["best_passed"],
+              v41sum["paired"]["gained"], v41sum["paired"]["lost"]) == v41pair
+             and abs(v41sum["paired"]["mcnemar_exact_p"] - v41p) < 1e-15)
+v41timeouts = (sum(bool(r["timed_out"]) for r in V41base.values()), sum(bool(r["timed_out"]) for r in V41best.values()))
+
+
+def v41_watch(arm):
+    hit = [f for f in sorted((V41 / arm).glob("*/agent.log")) if "interrupting stream" in f.read_text(errors="replace")]
+    return len(hit), sum(json.loads((f.parent / "result.json").read_text())["passed"] for f in hit)
+
+
+v41_watch_base, v41_watch_best = v41_watch("baseline"), v41_watch("best")
+v41_watch_ok = (v41_watch_base == (0, 0) and v41_watch_best == (31, 6)
+                and v41sum["best"]["watchdog_stopped"] == 31 and v41sum["best"]["watchdog_stopped_then_passed"] == 6)
+v41to = [t for t in v41ids if V41base[t]["timed_out"]]
+v41fin = [t for t in v41ids if not V41base[t]["timed_out"]]
+v41watch_tasks = {f.parent.name for f in (V41 / "best").glob("*/agent.log") if "interrupting stream" in f.read_text(errors="replace")}
+v41split_to = ((len(v41to), sum(V41base[t]["passed"] for t in v41to), sum(V41best[t]["passed"] for t in v41to)) == (41, 0, 15)
+               and sum(V41best[t]["passed"] and t in v41watch_tasks for t in v41to) == 5
+               and sum(V41best[t]["passed"] and t not in v41watch_tasks for t in v41to) == 10)
+v41split_fin = ((len(v41fin), sum(V41base[t]["passed"] for t in v41fin), sum(V41best[t]["passed"] for t in v41fin)) == (40, 34, 33))
+v41agg = lambda arm, k: v41sum[arm][k]
+v41pct = lambda a, c: f"{(c - a) / a * 100:+.1f}%"
+v41turns_ok = ((v41agg("baseline", "turns")[k], v41agg("best", "turns")[k]) for k in ("mean", "median", "p90"))
+v41turns_ok = tuple(v41turns_ok) == ((17.4, 15.9), (16, 15), (28, 23))
+v41dur_ok = (tuple(round(v41agg(a, "duration_seconds")[k]) for k in ("mean", "median", "p90")) for a in ("baseline", "best"))
+v41dur_ok = tuple(v41dur_ok) == ((414, 489, 532), (382, 391, 558))
+v41cost_ok = (f"{v41agg('baseline', 'cost_usd')['total_all_calls']:.2f}", f"{v41agg('best', 'cost_usd')['total_all_calls']:.2f}") == ("1.60", "1.43")
+v41cost_ok = v41cost_ok and (f"{v41agg('baseline', 'cost_usd')['per_task']['mean']:.4f}", f"{v41agg('baseline', 'cost_usd')['per_task']['median']:.4f}",
+                             f"{v41agg('best', 'cost_usd')['per_task']['mean']:.4f}", f"{v41agg('best', 'cost_usd')['per_task']['median']:.4f}") == ("0.0198", "0.0148", "0.0176", "0.0105")
+v41tok_ok = ((f"{v41agg('baseline', 'tokens_openrouter_records')['prompt_tokens'] / 1e6:.1f}",
+              f"{v41agg('baseline', 'tokens_openrouter_records')['completion_tokens'] / 1e6:.2f}",
+              f"{v41agg('best', 'tokens_openrouter_records')['prompt_tokens'] / 1e6:.1f}",
+              f"{v41agg('best', 'tokens_openrouter_records')['completion_tokens'] / 1e6:.2f}") == ("21.2", "0.37", "18.2", "0.35"))
+v41models_ok = v41sum["baseline"]["models_seen"] == ["deepseek/deepseek-v4.1-flash"] and v41sum["best"]["models_seen"] == ["deepseek/deepseek-v4.1-flash"]
+v41proto = {k: json.loads((ROOT / f"ada/runs/deepseek-v4.1-flash/{run}/PROTOCOL.{arm}.json").read_text())
+            for run in ("r1", "r1_set41") for arm in ("baseline", "best") for k in [(run, arm)]}
+v41conc = (all(p["arms_run_at_the_same_time"] for p in v41proto.values()) and all(p["task_timeout_seconds"] == 480 for p in v41proto.values())
+           and all(p["model"] == "deepseek/deepseek-v4.1-flash" for p in v41proto.values()) and v41models_ok)
+v41trees = v41proto[("r1", "baseline")]["agent_tree"] == "7c88c8270e3b" and v41proto[("r1", "best")]["agent_tree"] == "dab704de524a"
+v41shim = "systemPromptGuidance" in (ROOT / "ada/runs/deepseek-v4.1-flash/r1/baseline.build.patch").read_text()
+v41loads = [json.loads((ROOT / f'ada/runs/deepseek-v4.1-flash/{r}/PROTOCOL.run.json').read_text())['loadavg_start'].split()[0]
+            for r in ("r1", "r1_set41")]
+v41pat = re.compile(r"\.setupbench-cache|\.ada-trace|\.ada\.log|\.setupbench-task|setupbench-fixtures|setupbench-ada-runner|/input\b")
+
+
+def v41_explore(arm):
+    att, n = set(), 0
+    for f in sorted((V41 / arm).glob("*/trace.jsonl")):
+        n += 1
+        for line in f.read_text(errors="replace").splitlines():
+            e = json.loads(line)
+            if e.get("type") != "assistant" or not isinstance(e.get("content"), list):
+                continue
+            for b in e["content"]:
+                if isinstance(b, dict) and b.get("type") == "tool_use" and v41pat.search(json.dumps(b.get("input"))):
+                    att.add(str(f))
+    return len(att), n
+
+
+v41explore = {a: v41_explore(a) for a in ("baseline", "best")}
+v41files_ok = (V41 / "summary.md").is_file() and (V41 / "summary.json").is_file() and (V41 / "MERGE.md").is_file()
+claim(RM, "The baseline passed **34 of 81** and the best build **48 of 81** (16 gained, 2 lost, p = 1.31e-03)",
+      v41raw_ok and v41pair == (81, 34, 48, 16, 2) and f"{v41p:.2e}" == "1.31e-03" and v41sum_ok, "r1_all result.json rows; summary.json paired")
+claim(RM, "with the baseline out of time on 41 tasks and the best build on none", v41raw_ok and v41timeouts == (41, 0), "r1_all result.json timed_out")
+claim(RM, "and about the same where the baseline finished in time (34 against 33)", v41raw_ok and v41split_fin, "r1_all pairs, baseline finished")
+claim(RM, "The baseline adds a 7-line pass-through shim (agent tree `7c88c8270e3b`)", v41trees and v41shim, "r1 PROTOCOL agent_tree; baseline.build.patch")
+claim(RM, "Both builds attempted all 81 tasks once more, with `deepseek/deepseek-v4.1-flash` as the model", v41raw_ok and v41conc, "r1/r1_set41 PROTOCOL")
+claim(RM, "The two builds ran at the same time on the same machine", v41conc, "PROTOCOL.arms_run_at_the_same_time")
+claim(RM, "| 81 | 34 | **48** | 16 | 2 | 1.31e-03 |", v41raw_ok and v41pair == (81, 34, 48, 16, 2) and f"{v41p:.2e}" == "1.31e-03" and v41sum_ok,
+      "r1_all result.json rows; summary.json paired")
+claim(RM, "| Passed, out of 81 | 34 (42.0%) | **48 (59.3%)** |",
+      v41raw_ok and (f"{100 * 34 / 81:.1f}", f"{100 * 48 / 81:.1f}") == ("42.0", "59.3"), "r1_all result.json passed")
+claim(RM, "| Timed out, so never checked | 41 | **0** |", v41raw_ok and v41timeouts == (41, 0), "r1_all result.json timed_out")
+claim(RM, "| Stopped by the watchdog, then checked | 0 | 31 (6 passed) |", v41raw_ok and v41_watch_ok, "r1_all agent.log watchdog lines; summary.json")
+claim(RM, "| Harness errors | 0 | 0 |", v41raw_ok, "r1_all result.json valid")
+claim(RM, "| Timed out | 41 | 0 | **15** |", v41raw_ok and v41split_to, "r1_all pairs, baseline timed out")
+claim(RM, "| Finished in time | 40 | 34 | 33 |", v41raw_ok and v41split_fin, "r1_all pairs, baseline finished")
+claim(RM, "and the best build passed 15: 5 after a watchdog stop and 10 by finishing on its own", v41raw_ok and v41split_to, "r1_all pairs; best agent.log")
+claim(RM, "both builds passed about the same number: 34 and 33", v41raw_ok and v41split_fin, "r1_all pairs, baseline finished")
+claim(RM, "| Turns per task (mean / median / p90) | 17.4 / 16 / 28 | 15.9 / 15 / 23 | -8.6% / -6.2% / -17.9% |",
+      v41turns_ok and tuple(v41pct(v41agg("baseline", "turns")[k], v41agg("best", "turns")[k]) for k in ("mean", "median", "p90")) == ("-8.6%", "-6.2%", "-17.9%"),
+      "summary.json turns; best-vs-baseline change")
+claim(RM, "| Wall time per attempt, s, including the check (mean / median / p90) | 414 / 489 / 532 | 382 / 391 / 558 | -7.6% / -20.0% / +4.8% |",
+      v41dur_ok and tuple(v41pct(v41agg("baseline", "duration_seconds")[k], v41agg("best", "duration_seconds")[k]) for k in ("mean", "median", "p90")) == ("-7.6%", "-20.0%", "+4.8%"),
+      "summary.json duration_seconds; best-vs-baseline change")
+claim(RM, "| Cost total | $1.60 | $1.43 | -11.0% |",
+      v41cost_ok and v41pct(v41agg("baseline", "cost_usd")["total_all_calls"], v41agg("best", "cost_usd")["total_all_calls"]) == "-11.0%",
+      "summary.json cost_usd; best-vs-baseline change")
+claim(RM, "| Cost per task (mean / median) | $0.0198 / $0.0148 | $0.0176 / $0.0105 | -11.0% / -29.0% |",
+      v41cost_ok and (v41pct(v41agg("baseline", "cost_usd")["per_task"]["mean"], v41agg("best", "cost_usd")["per_task"]["mean"]),
+                      v41pct(v41agg("baseline", "cost_usd")["per_task"]["median"], v41agg("best", "cost_usd")["per_task"]["median"])) == ("-11.0%", "-29.0%"),
+      "summary.json cost_usd.per_task; best-vs-baseline change")
+claim(RM, "| Prompt tokens, including cached / completion tokens | 21.2M / 0.37M | 18.2M / 0.35M | -14.5% / -5.1% |",
+      v41tok_ok and (v41pct(v41agg("baseline", "tokens_openrouter_records")["prompt_tokens"], v41agg("best", "tokens_openrouter_records")["prompt_tokens"]),
+                     v41pct(v41agg("baseline", "tokens_openrouter_records")["completion_tokens"], v41agg("best", "tokens_openrouter_records")["completion_tokens"])) == ("-14.5%", "-5.1%"),
+      "summary.json tokens_openrouter_records; best-vs-baseline change")
+claim(RM, "| Second model | `deepseek/deepseek-v4.1-flash` through OpenRouter (2026-09-19 run) |", v41conc, "r1/r1_set41 PROTOCOL.model")
+claim(RM, "assembled from parts started under different machine load (3.72 and 0.22)", tuple(v41loads) == ("3.72", "0.22"), "PROTOCOL.run.json loadavg_start")
+claim(RM, "the agents looked at harness files in 76 of 81 baseline and 74 of 81 best attempts",
+      tuple(v41explore[a] for a in ("baseline", "best")) == ((76, 81), (74, 81)), "r1_all trace.jsonl tool_use inputs")
+claim(RM, "[`MERGE.md`](ada/runs/deepseek-v4.1-flash/r1_all/MERGE.md) recording which part", v41files_ok and v41sum_ok, "r1_all evidence files")
 
 # -------------------------------------------------------- the file guide, bench/README.md
 GD = "guide"

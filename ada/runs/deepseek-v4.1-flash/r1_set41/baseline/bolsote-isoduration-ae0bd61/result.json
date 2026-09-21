@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 333.799,
+  "agent_is_error": false,
+  "agent_result": "e/isoduration` \u2014 a Python library for ISO 8601 duration parsing/formatting.\n\n**Environment setup (global, no venvs):**\n1. `apt-get update` + installed `python3`, `python3-pip`, `python3-dev`, `build-essential`, `git` (Ubuntu 22.04, Python 3.10.12).\n2. Upgraded `pip`, `setuptools`, `wheel`.\n3. Installed the package in editable mode per the README: `pip install -e .` (pulls in runtime dep `arrow`).\n4. Installed the dev toolchain from `requirements/dev.txt`: `pytest`, `pytest-cov`, `pytest-benchmark`, `hypothesis`, `isodate`, `coverage`, `tox`, plus lint/type tools (`black`, `flake8`, `pylint`, `mypy`, `isort`, `bandit`, `dlint`).\n\n**Verification:**\n- `pytest -q` \u2192 **376 passed** (includes the documented benchmark tests).\n- Smoke-tested the README's documented API (`parse_duration`, `format_duration`, datetime arithmetic) \u2014 all behave as documented.\n\nThe project is a pure-Python library, so there is no separate compile step; the editable install plus a green test suite confirms the build.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 52450,
+  "cost_cli_usd": 0.40622,
+  "duration_seconds": 340.855,
+  "evidence_error": "",
+  "grader_duration_seconds": 2.485,
+  "grader_output": "---------------------------------------------------------------------------------------------------------------------------------------------------------------------\ntest_isoduration       5.4510 (1.0)      273.1440 (3.79)      7.8392 (1.0)      3.9872 (1.0)       5.7010 (1.0)       5.0790 (1.0)      3912;242      127.5639 (1.0)       25231           1\ntest_isodate          15.7600 (2.89)      72.1160 (1.0)      23.6418 (3.02)     9.1544 (2.30)     17.5640 (3.08)     13.1525 (2.59)       642;45       42.2979 (0.33)       3285           1\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\nLegend:\n  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.\n  OPS: Operations Per Second, computed as 1 / Mean\n============================= 376 passed in 2.04s ==============================\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 63469,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 52450,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.40622,
+      "inputTokens": 63469,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2506,
+      "provider": "firstParty",
+      "thinkingTokens": 919,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2506,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 104707,
+    "duration_ms": 327453,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 2090,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 52450,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.40622,
+        "inputTokens": 63469,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2506,
+        "provider": "firstParty",
+        "thinkingTokens": 919,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 12,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete. Summary of what was done:\n\n**Repository:** `bolsote/isoduration` \u2014 a Python library for ISO 8601 duration parsing/formatting.\n\n**Environment setup (global, no venvs):**\n1. `apt-get update` + installed `python3`, `python3-pip`, `python3-dev`, `build-essential`, `git` (Ubuntu 22.04, Python 3.10.12).\n2. Upgraded `pip`, `setuptools`, `wheel`.\n3. Installed the package in editable mode per the README: `pip install -e .` (pulls in runtime dep `arrow`).\n4. Installed the dev toolchain from `requirements/dev.txt`: `pytest`, `pytest-cov`, `pytest-benchmark`, `hypothesis`, `isodate`, `coverage`, `tox`, plus lint/type tools (`black`, `flake8`, `pylint`, `mypy`, `isort`, `bandit`, `dlint`).\n\n**Verification:**\n- `pytest -q` \u2192 **376 passed** (includes the documented benchmark tests).\n- Smoke-tested the README's documented API (`parse_duration`, `format_duration`, datetime arithmetic) \u2014 all behave as documented.\n\nThe project is a pure-Python library, so there is no separate compile step; the editable install plus a green test suite confirms the build.",
+    "session_id": "8ae65bed-d3e0-4378-b294-6fe2a1eb228e",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 43,
+    "total_cost_usd": 0.40622,
+    "ttft_ms": 2254,
+    "ttft_stream_ms": 2089,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 51584,
+      "inference_geo": "",
+      "input_tokens": 63236,
+      "iterations": [],
+      "output_tokens": 2305,
+      "output_tokens_details": {
+        "thinking_tokens": 730
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "bf475535-7907-40aa-950b-3162cac424c6"
+  },
+  "started_at_utc": "2026-09-19T13:36:54Z",
+  "task_id": "bolsote-isoduration-ae0bd61",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 12,
+  "turns_from_trace": 12,
+  "valid": true,
+  "variant": "candidate"
+}

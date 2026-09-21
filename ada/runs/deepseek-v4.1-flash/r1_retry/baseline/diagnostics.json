@@ -1,0 +1,63 @@
+{
+  "protocol": {
+    "suite": "dev",
+    "tasks_file": "/home/azureuser/adaAgent/ada/runs/deepseek-v4.1-flash/tasks.retry.txt",
+    "tasks": [
+      "pytesseract-df9fce0"
+    ],
+    "selection_seed": "setupbench-ada-v2",
+    "setupbench_commit": "041a412f01348c2a6f8b1b6a910138fe01885aee",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "task_timeout_seconds": 480,
+    "grader_timeout_seconds": 600,
+    "concurrency": 3,
+    "runner_sha256": "1eb6c85c054ea68f6adaf0c6dd6c93d45f7dcb424c6a91c7a452d45ed26c1786",
+    "evaluator_sha256": "60b3c42ad24044acb33e3e00857c2aa926f949a31a87ea665076cd9b765553ff",
+    "grader_workdir": "/testbed",
+    "metric": "number of tasks passing official executable graders"
+  },
+  "workspace_commit": "05c243e8937d69ab68deda799b4710b654d58c1e",
+  "agent_tree": "7c88c8270e3b2153ffa474f226b94ca77a068d4b",
+  "changed_paths": [],
+  "summary": {
+    "passed": 1,
+    "total": 1,
+    "timeouts": 0,
+    "turns": 17,
+    "invalid": 0,
+    "usage": {
+      "input_tokens": 52888,
+      "output_tokens": 2251,
+      "cache_read_tokens": 85248,
+      "cache_creation_tokens": 0
+    }
+  },
+  "results": [
+    {
+      "task_id": "pytesseract-df9fce0",
+      "task_type": "reposetup",
+      "passed": true,
+      "valid": true,
+      "timed_out": false,
+      "turns": 17,
+      "duration_seconds": 293.349,
+      "terminal_result": true,
+      "agent_is_error": false,
+      "agent_stop_reason": "end_turn",
+      "grader_returncode": 0,
+      "harness_error": "",
+      "input_tokens": 52888,
+      "output_tokens": 2251,
+      "cache_read_tokens": 85248,
+      "cache_creation_tokens": 0,
+      "models_seen": [
+        "deepseek/deepseek-v4.1-flash"
+      ],
+      "cost_cli_usd": 0.363339,
+      "turns_from_trace": 17,
+      "started_at_utc": "2026-09-19T14:48:37Z",
+      "evidence_error": ""
+    }
+  ],
+  "failure_details": []
+}

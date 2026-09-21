@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 337.952,
+  "agent_is_error": false,
+  "agent_result": "Setup complete: installed python3/pip/build-essential via apt, installed the package globally (`pip install -e .`) plus all dev dependencies, and the full test suite passes \u2014 **376 passed**.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 49152,
+  "cost_cli_usd": 0.24038599999999996,
+  "duration_seconds": 350.108,
+  "evidence_error": "",
+  "grader_duration_seconds": 2.861,
+  "grader_output": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------\ntest_isoduration       5.4400 (1.0)      162.9870 (2.03)      5.8473 (1.0)      2.1043 (1.0)       5.5910 (1.0)      0.1000 (1.0)      772;2736      171.0177 (1.0)       29452           1\ntest_isodate          15.6090 (2.87)      80.4810 (1.0)      16.9825 (2.90)     3.6155 (1.72)     16.0900 (2.88)     0.6310 (6.31)      225;422       58.8840 (0.34)       5069           1\n-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\nLegend:\n  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.\n  OPS: Operations Per Second, computed as 1 / Mean\n============================= 376 passed in 2.56s ==============================\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 36587,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 49152,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.24038599999999996,
+      "inputTokens": 36587,
+      "maxOutputTokens": 32000,
+      "outputTokens": 1315,
+      "provider": "firstParty",
+      "thinkingTokens": 175,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 1315,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 41518,
+    "duration_ms": 329485,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1349,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 49152,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.24038599999999996,
+        "inputTokens": 36587,
+        "maxOutputTokens": 32000,
+        "outputTokens": 1315,
+        "provider": "firstParty",
+        "thinkingTokens": 175,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 9,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete: installed python3/pip/build-essential via apt, installed the package globally (`pip install -e .`) plus all dev dependencies, and the full test suite passes \u2014 **376 passed**.",
+    "session_id": "5956d96d-b7a7-4bdb-af5a-e90b3d2d0cdb",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 40,
+    "total_cost_usd": 0.24038599999999996,
+    "ttft_ms": 1586,
+    "ttft_stream_ms": 1348,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 48256,
+      "inference_geo": "",
+      "input_tokens": 36387,
+      "iterations": [],
+      "output_tokens": 1302,
+      "output_tokens_details": {
+        "thinking_tokens": 175
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "b64e36fc-080a-4b6d-891e-8a2f6186e875"
+  },
+  "started_at_utc": "2026-09-19T13:35:48Z",
+  "task_id": "bolsote-isoduration-ae0bd61",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 9,
+  "turns_from_trace": 9,
+  "valid": true,
+  "variant": "candidate"
+}

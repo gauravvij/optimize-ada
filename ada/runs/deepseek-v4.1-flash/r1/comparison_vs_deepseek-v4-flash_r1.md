@@ -1,0 +1,21 @@
+# deepseek/deepseek-v4.1-flash against deepseek/deepseek-v4-flash: the same two builds on the same 40 tasks
+
+One attempt per task per cell, so this is descriptive. It separates 'the model' (compare the two models with the same build) from 'the code' (compare the two builds with the same model).
+
+| Model / build | Attempts | Passed | Timed out | Interrupted by watchdog | Turns (mean) | Cost $ |
+|---|---:|---:|---:|---:|---:|---:|
+| deepseek/deepseek-v4-flash / baseline | 40 | 15 | 13 | 0 | 19.2 | 0.3727 |
+| deepseek/deepseek-v4-flash / best | 40 | 13 | 0 | 15 | 23.5 | 0.4659 |
+| deepseek/deepseek-v4.1-flash / baseline | 40 | 17 | 18 | 0 | 16.1 | 0.6328 |
+| deepseek/deepseek-v4.1-flash / best | 40 | 21 | 0 | 17 | 14.8 | 0.5855 |
+
+## Paired comparisons (gained = only the second passed, lost = only the first passed)
+
+| Comparison | Pairs | First passed | Second passed | Gained | Lost | exact McNemar p |
+|---|---:|---:|---:|---:|---:|---:|
+| deepseek/deepseek-v4-flash: best vs baseline | 40 | 15 | 13 | 2 | 4 | 0.6875 |
+| deepseek/deepseek-v4.1-flash: best vs baseline | 39 | 16 | 21 | 6 | 1 | 0.125 |
+| baseline: deepseek/deepseek-v4.1-flash vs deepseek/deepseek-v4-flash | 40 | 15 | 17 | 5 | 3 | 0.7266 |
+| best: deepseek/deepseek-v4.1-flash vs deepseek/deepseek-v4-flash | 39 | 12 | 21 | 12 | 3 | 0.0352 |
+
+Effect of the best build's changes (best minus baseline passes): -2 on deepseek/deepseek-v4-flash, +5 on deepseek/deepseek-v4.1-flash.

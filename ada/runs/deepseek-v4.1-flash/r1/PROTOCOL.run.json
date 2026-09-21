@@ -1,0 +1,24 @@
+{
+  "model": "deepseek/deepseek-v4.1-flash",
+  "tag": "deepseek-deepseek-v4-1-flash",
+  "started_utc": "2026-09-19T11:11:39Z",
+  "finished_utc": "2026-09-19T12:47:26Z",
+  "cpus": 8,
+  "loadavg_start": "3.72 5.45 4.63 4/1255 2670307",
+  "loadavg_end": "0.18 1.71 6.16 1/698 3406866",
+  "openrouter_key_usage_before": {
+    "at_utc": "2026-09-19T11:11:33Z",
+    "usage": 1187.395077364,
+    "usage_daily": 2.549304692,
+    "limit": 300,
+    "limit_remaining": 27.749773174999973
+  },
+  "openrouter_key_usage_after": {
+    "at_utc": "2026-09-19T12:55:15Z",
+    "usage": 1189.438386499,
+    "usage_daily": 4.592613827,
+    "limit": 300,
+    "limit_remaining": 25.706464040000014
+  },
+  "note": "one key shared by both arms and possibly by other users: the counter is a rough cross-check only; cost comes from proxy.<arm>/generations.jsonl"
+}

@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 456.45,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 128572,
+  "cost_cli_usd": 0.839831,
+  "duration_seconds": 563.828,
+  "evidence_error": "",
+  "grader_duration_seconds": 91.002,
+  "grader_output": "Setup failed\nSetup failed\nenvironment: line 1: poetry: command not found\nenvironment: line 1: poetry: command not found",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 142039,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 128572,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.839831,
+      "inputTokens": 142039,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2614,
+      "provider": "firstParty",
+      "thinkingTokens": 1043,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2614,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 67712,
+    "duration_ms": 448222,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 128572,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.839831,
+        "inputTokens": 142039,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2614,
+        "provider": "firstParty",
+        "thinkingTokens": 1043,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 19,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "4e503a81-b4b9-4b40-bf89-781c5c0667bc",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.839831,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 128572,
+      "inference_geo": "",
+      "input_tokens": 140986,
+      "iterations": [],
+      "output_tokens": 2544,
+      "output_tokens_details": {
+        "thinking_tokens": 983
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "8b43d358-2cb9-467b-9dd9-4e7e110a19f7"
+  },
+  "started_at_utc": "2026-09-19T11:26:22Z",
+  "task_id": "reflex-dev-reflex-8657976",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 19,
+  "turns_from_trace": 18,
+  "valid": true,
+  "variant": "candidate"
+}

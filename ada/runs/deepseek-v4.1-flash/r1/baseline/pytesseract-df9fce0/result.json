@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 338.151,
+  "agent_is_error": false,
+  "agent_result": "-U .` (installs `Pillow` and `packaging` from `setup.cfg`)\n- Test/dev dependencies: `pytest`, `numpy`, `pandas`, `tox`\n\n## Verification\n\n- `tesseract --version` \u2192 4.1.1 (leptonica 1.82.0); `--list-langs` \u2192 `eng`, `fra`, `osd`\n- `python3 -c 'import pytesseract'` \u2192 works, version 0.3.14\n- Console script `pytesseract tests/data/test-small.jpg` \u2192 outputs `This`\n- Full test suite:\n\n```\npython3 -m pytest tests -v\n...\n56 passed, 2 skipped in 19.19s\n```\n\nThe 2 skips are the expected version-conditional tests (`test_image_to_alto_xml_support` and `test_image_to_data_pandas_support`, both requiring tesseract < 4.1, while 4.1.1 is installed). This mirrors the upstream CI matrix, which runs `tox -e py/pandas` with tesseract and the fra language pack installed \u2014 equivalent coverage achieved here with the plain `pytest` invocation.\n\nThe repository is fully set up: dependencies installed globally, package built and importable, tesseract engine available on `PATH`, and the complete test suite passing.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 80384,
+  "cost_cli_usd": 0.852482,
+  "duration_seconds": 341.851,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.701,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 147493,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 80384,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.852482,
+      "inputTokens": 147493,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2993,
+      "provider": "firstParty",
+      "thinkingTokens": 1055,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2993,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 81165,
+    "duration_ms": 333041,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1095,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 80384,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.852482,
+        "inputTokens": 147493,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2993,
+        "provider": "firstParty",
+        "thinkingTokens": 1055,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 19,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete. Here's what I did and verified:\n\n## Environment setup\n\n**System packages (apt):**\n- `python3`, `python3-pip`, `python3-dev`, `build-essential` (build toolchain)\n- `tesseract-ocr` + `tesseract-ocr-fra` + `tesseract-ocr-osd` \u2014 the OCR engine and language data (English, French, OSD)\n\n**Python packages (pip, global):**\n- The project itself via `pip install -U .` (installs `Pillow` and `packaging` from `setup.cfg`)\n- Test/dev dependencies: `pytest`, `numpy`, `pandas`, `tox`\n\n## Verification\n\n- `tesseract --version` \u2192 4.1.1 (leptonica 1.82.0); `--list-langs` \u2192 `eng`, `fra`, `osd`\n- `python3 -c 'import pytesseract'` \u2192 works, version 0.3.14\n- Console script `pytesseract tests/data/test-small.jpg` \u2192 outputs `This`\n- Full test suite:\n\n```\npython3 -m pytest tests -v\n...\n56 passed, 2 skipped in 19.19s\n```\n\nThe 2 skips are the expected version-conditional tests (`test_image_to_alto_xml_support` and `test_image_to_data_pandas_support`, both requiring tesseract < 4.1, while 4.1.1 is installed). This mirrors the upstream CI matrix, which runs `tox -e py/pandas` with tesseract and the fra language pack installed \u2014 equivalent coverage achieved here with the plain `pytest` invocation.\n\nThe repository is fully set up: dependencies installed globally, package built and importable, tesseract engine available on `PATH`, and the complete test suite passing.",
+    "session_id": "f3a30b6a-f082-4d0b-b948-42e3ff5cb28e",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 55,
+    "total_cost_usd": 0.852482,
+    "ttft_ms": 1537,
+    "ttft_stream_ms": 1094,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 80384,
+      "inference_geo": "",
+      "input_tokens": 146456,
+      "iterations": [],
+      "output_tokens": 2739,
+      "output_tokens_details": {
+        "thinking_tokens": 803
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "d7f7fa90-fe87-4bcc-b904-510a7bc812d5"
+  },
+  "started_at_utc": "2026-09-19T12:15:02Z",
+  "task_id": "pytesseract-df9fce0",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 19,
+  "turns_from_trace": 19,
+  "valid": true,
+  "variant": "candidate"
+}

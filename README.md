@@ -21,6 +21,13 @@ only tasks where neither build hit a harness error, it passed 98 of 157 against 
 build's 67 (p = 7.92e-09). The extra passes are on tasks the origin build used to run out of
 time on; where the origin build finished in time, both builds did about the same.
 
+**Second model.** Both builds attempted all 81 tasks once more with `deepseek/deepseek-v4.1-flash`
+as the model. The baseline passed **34 of 81** and the best build **48 of 81** (16 gained,
+2 lost, p = 1.31e-03): the same pattern, with the baseline out of time on 41 tasks and the
+best build on none, and about the same where the baseline finished in time (34 against 33).
+One replicate only, so it checks the mechanism on another model rather than retesting the
+main result.
+
 > **Every change, evaluation run and verification in this campaign was carried out
 > autonomously by [NEO](https://heyneo.com) — Your Autonomous AI Engineering Agent.**
 > NEO traced the failures, wrote the changes, ran the paired evaluations, withdrew two of
@@ -51,7 +58,8 @@ model-usage record the runs saved names only that model.
 
 ## What changed
 
-The shipped build's code changes are in two source files of Ada, plus their tests. Four changes
+The shipped build's code changes are in two source files of Ada (`ada/agent/claude/agent.ts`
+and `ada/agent/system-guidance.ts`), plus their tests. Four changes
 are on by default:
 
 | Change | What it does |
@@ -86,6 +94,7 @@ much each one contributed.
 |---|---|
 | **Origin build** | The build the campaign started from (`df0c537`). |
 | **Shipped build** | The build at the end of the campaign (`5f4c5c0`). |
+| **Baseline / Best** | The names used in the second-model section for the origin / shipped builds. The baseline adds a 7-line pass-through shim (agent tree `7c88c8270e3b`); the best build is `5f4c5c0`. |
 | **Attempt** | One build working on one task once. |
 | **Passed** | The task's check succeeded. |
 | **Timed out** | Ada was still working at 480 s, so the harness stopped it and the check never ran. |
@@ -93,14 +102,15 @@ much each one contributed.
 | **Harness error** | The harness itself failed during the attempt, so there is no result. These attempts are left out. |
 | **Replicate** | One round in which both builds attempt all 81 tasks. |
 | **Pair** | The two builds' attempts at the same task in the same replicate. A pair is left out if either attempt had a harness error. |
-| **Gained / lost** | A pair that only the shipped build passed / only the origin build passed. |
+| **Gained / lost** | A pair that only the shipped (best) build passed / only the origin (baseline) build passed. |
 | **p** | The chance of a split between gained and lost at least this uneven if the two builds were equally good (exact McNemar test). The smaller it is, the less likely the difference is luck. |
 
 ---
 
 ## Main result (R9 and R10, 2026-09-15)
 
-Both builds attempted all 81 tasks in two replicates, R9 and R10. Within each replicate the two
+Both builds attempted all 81 tasks in two replicates, R9 and R10 (IDs from
+[`bench/RUN_REGISTRY.md`](bench/RUN_REGISTRY.md)). Within each replicate the two
 builds ran at the same time on the same machine, so only the build differed.
 
 | Replicate | Pairs | Origin passed | Shipped passed | Gained | Lost | p |
@@ -111,7 +121,7 @@ builds ran at the same time on the same machine, so only the build differed.
 
 There are fewer than 81 pairs per replicate because pairs with a harness error are left out.
 
-The run had a pass rule, written at the top of the script that launched it
+The run had a pre-registered pass rule, written at the top of the script that launched it
 ([`bench/run_baseline_vs_best.sh`](bench/run_baseline_vs_best.sh)). The run's log shows the
 script checking it at the end, and all four conditions were met:
 
@@ -145,6 +155,67 @@ passed about the same number: 67 and 69.
 
 ---
 
+## Second model (DeepSeek V4.1 Flash, 2026-09-19)
+
+Both builds attempted all 81 tasks once more, with `deepseek/deepseek-v4.1-flash` as the model
+through OpenRouter. The two builds ran at the same time on the same machine, so only the build
+differed. The baseline is the origin build plus a 7-line pass-through shim: the runner needs
+`systemPromptGuidance`, which `df0c537` does not export, so the shim adds it without changing
+the prompt. The best build is the shipped build (`5f4c5c0`). This is one attempt per task per
+build: a check that the mechanism holds on another model, not a retest of the main result.
+
+| Pairs | Baseline passed | Best passed | Gained | Lost | p |
+|---:|---:|---:|---:|---:|---|
+| 81 | 34 | **48** | 16 | 2 | 1.31e-03 |
+
+Every attempt:
+
+| Every attempt | Baseline | Best |
+|---|---:|---:|
+| Passed, out of 81 | 34 (42.0%) | **48 (59.3%)** |
+| Timed out, so never checked | 41 | **0** |
+| Stopped by the watchdog, then checked | 0 | 31 (6 passed) |
+| Harness errors | 0 | 0 |
+
+### Where the extra passes come from
+
+| The baseline's attempt | Pairs | Baseline passed | Best passed |
+|---|---:|---:|---:|
+| Timed out | 41 | 0 | **15** |
+| Finished in time | 40 | 34 | 33 |
+
+Where the baseline timed out (41 pairs), it passed none, and the best build passed 15: 5 after
+a watchdog stop and 10 by finishing on its own. Where the baseline finished in time (40 pairs),
+both builds passed about the same number: 34 and 33. The same mechanism as the main result:
+the extra passes are on tasks the baseline ran out of time on.
+
+### Turns, time and cost
+
+| | Baseline | Best | Best vs baseline |
+|---|---:|---:|---:|
+| Turns per task (mean / median / p90) | 17.4 / 16 / 28 | 15.9 / 15 / 23 | -8.6% / -6.2% / -17.9% |
+| Wall time per attempt, s, including the check (mean / median / p90) | 414 / 489 / 532 | 382 / 391 / 558 | -7.6% / -20.0% / +4.8% |
+| Cost total | $1.60 | $1.43 | -11.0% |
+| Cost per task (mean / median) | $0.0198 / $0.0148 | $0.0176 / $0.0105 | -11.0% / -29.0% |
+| Prompt tokens, including cached / completion tokens | 21.2M / 0.37M | 18.2M / 0.35M | -14.5% / -5.1% |
+
+The evidence is the merged run folder
+[`ada/runs/deepseek-v4.1-flash/r1_all/`](ada/runs/deepseek-v4.1-flash/r1_all/):
+[`summary.md`](ada/runs/deepseek-v4.1-flash/r1_all/summary.md) and
+[`summary.json`](ada/runs/deepseek-v4.1-flash/r1_all/summary.json) rebuilt from the raw
+attempt files, [`MERGE.md`](ada/runs/deepseek-v4.1-flash/r1_all/MERGE.md) recording which part
+each attempt came from, and every attempt's `trace.jsonl`, `agent.log` and `result.json`. The
+per-task table and the gained/lost task lists are in [`ada/RESULTS_DEEPSEEK_V41.md`](ada/RESULTS_DEEPSEEK_V41.md).
+
+Limitations:
+
+- one attempt per task, so a flipped task may have flipped by chance;
+- the run was assembled from parts started under different machine load (3.72 and 0.22), though both builds always ran together within each part;
+- the baseline carries the shim, so it is not byte-for-byte `df0c537`;
+- inside the containers the agents looked at harness files in 76 of 81 baseline and 74 of 81 best attempts, the same for both builds, with no solution in them.
+
+---
+
 ## Other findings
 
 ### Time reminders do not raise the pass rate
@@ -162,17 +233,6 @@ All 21 tasks gained in the second row were tasks the origin build had timed out 
 reminders, the watchdog had to stop Ada 7 times instead of 34, but passes fell from 54 to 50,
 which is within chance. The reminders ship switched off: the shipped build is the last row with
 them turned off.
-
-### Two early results were withdrawn
-
-| First reported | Why it was withdrawn | Measured properly |
-|---|---|---|
-| Early watchdog work (Phase A): 59/81 against 27/81 | Built from one run's 50 passes plus a re-run of only its 31 failures. Withdrawn. | 54/81 (with the four changes) against 34/81, both builds on one day |
-| Time reminders: 52/81 against 24/81, p = 7.66e-07 | The 24/81 comparison run (R3) was run separately, before the time-reminders run. The same build scored 54/81 on 2026-09-12. Withdrawn. | 50/81 against 54/81, both builds on one day |
-
-Both went wrong the same way: the two builds were not measured together, and the same build
-passed 30 more tasks in one run than in another. From then on, only builds run on the same day counted, and the
-main result went further by running both builds at the same time.
 
 ### Outside SetupBench
 
@@ -193,7 +253,7 @@ It was rejected by its own rule (p = 0.6875). Nothing after the main result was 
 
 | When | What | Outcome |
 |---|---|---|
-| 2026-09-08 to 09-10 | Phase A: the watchdog, the time-aware prompt, the thinking limit | Timeouts fell from 53 of 81 to 3. The pass-rate headline was later withdrawn. |
+| 2026-09-08 to 09-10 | Phase A: the watchdog, the time-aware prompt, the thinking limit | Timeouts fell from 53 of 81 to 3. The pass-rate headline was later withdrawn (see [`blog.md`](blog.md)). |
 | 2026-09-10 to 09-12 | The clean-exit fix, and Phase B: a "definition of done" section and time reminders | The fix was kept. Both Phase B changes are switched off. |
 | 2026-09-12 | Three builds, one after another, on one day | Time reminders do not help |
 | 2026-09-15 | Main result (R9, R10) | 98/157 against 67/157 |
@@ -207,6 +267,7 @@ It was rejected by its own rule (p = 0.6875). Nothing after the main result was 
 | Origin build | `df0c537`: upstream Ada plus the campaign's test scaffolding and a short, neutral prompt addition that says nothing about time. R9/R10 ran it as `417a8f1` (see [`bench/README.md`](bench/README.md)). |
 | Shipped build | `5f4c5c0` |
 | Model | `z-ai/glm-5.3-flash` through OpenRouter |
+| Second model | `deepseek/deepseek-v4.1-flash` through OpenRouter (2026-09-19 run) |
 | Benchmark | SetupBench at `041a412`, 81 tasks |
 | Time limits | 480 s for Ada, 600 s for the check |
 
@@ -216,6 +277,8 @@ It was rejected by its own rule (p = 0.6875). Nothing after the main result was 
 python3 bench/verify_docs.py          # every figure in this README and the blog, against the raw results
 python3 bench/confirmation_table.py   # the "every attempt" table above, from the raw results
 bash bench/verify_builds.sh           # recovers every build named here from git (needs git and network)
+python3 bench/deepseek_summary.py ada/runs/deepseek-v4.1-flash/r1_all  # rebuilds the second-model summary from the raw attempt files (byte-identical)
+grep -rE 'sk-or-' ada/runs/deepseek-v4.1-flash/r1_all  # prints nothing: no API key in the evidence
 ```
 
 The Python checks need nothing but Python 3. [`bench/README.md`](bench/README.md) lists the

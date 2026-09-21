@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 304.708,
+  "agent_is_error": false,
+  "agent_result": "Setup is complete. The 6 failures are celery's intentional `SecurityError` when running as superuser (uid=0), not setup defects \u2014 they're inherent to running the suite as root.\n\nSummary of what was done:\n- Installed system tooling on the bare Ubuntu 22.04 image: `python3` (3.10.12), `python3-pip`, `python3-dev`, `build-essential`, `git`, `curl`.\n- Upgraded `pip`/`setuptools`/`wheel`.\n- Installed the project in editable mode (`pip install -e .`), building the editable wheel and pulling runtime deps (billiard, kombu, vine, click, etc.).\n- Installed test/tooling requirements (`requirements/test.txt`, `requirements/pkgutils.txt`) including pytest and plugins.\n- Verified: `import celery` \u2192 5.5.0rc1, `python -m celery --version` works, pytest collects 3241 unit tests, and core tests pass (e.g. `t/unit/app/test_app.py`: 118 passed).",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 74496,
+  "cost_cli_usd": 1.0261879999999999,
+  "duration_seconds": 316.82,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.299,
+  "grader_output": "   string will have the same effect.\n  --help                 Show this message and exit.\n\nCommands:\n  amqp     AMQP Administration Shell.\n  beat     Start the beat periodic task scheduler.\n  call     Call a task by name.\n  control  Send the COMMAND control command to the workers.\n  events   Event-stream utilities.\n  graph    The ``celery graph`` command.\n  inspect  Inspect the workers by sending them the COMMAND inspect command.\n  list     Get info from broker.\n  logtool  The ``celery logtool`` command.\n  migrate  Migrate tasks from one broker to another.\n  multi    Start multiple worker instances.\n  purge    Erase all messages from all known task queues.\n  report   Shows information useful to include in bug-reports.\n  result   Print the return value for a given task id.\n  shell    Start shell session with convenient access to celery symbols.\n  status   Show list of workers that are online.\n  upgrade  Perform upgrade between versions.\n  worker   Start worker instance.\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 171598,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 74496,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.0261879999999999,
+      "inputTokens": 171598,
+      "maxOutputTokens": 32000,
+      "outputTokens": 5238,
+      "provider": "firstParty",
+      "thinkingTokens": 2647,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 5238,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 168307,
+    "duration_ms": 298907,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 811,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 74496,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.0261879999999999,
+        "inputTokens": 171598,
+        "maxOutputTokens": 32000,
+        "outputTokens": 5238,
+        "provider": "firstParty",
+        "thinkingTokens": 2647,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 19,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup is complete. The 6 failures are celery's intentional `SecurityError` when running as superuser (uid=0), not setup defects \u2014 they're inherent to running the suite as root.\n\nSummary of what was done:\n- Installed system tooling on the bare Ubuntu 22.04 image: `python3` (3.10.12), `python3-pip`, `python3-dev`, `build-essential`, `git`, `curl`.\n- Upgraded `pip`/`setuptools`/`wheel`.\n- Installed the project in editable mode (`pip install -e .`), building the editable wheel and pulling runtime deps (billiard, kombu, vine, click, etc.).\n- Installed test/tooling requirements (`requirements/test.txt`, `requirements/pkgutils.txt`) including pytest and plugins.\n- Verified: `import celery` \u2192 5.5.0rc1, `python -m celery --version` works, pytest collects 3241 unit tests, and core tests pass (e.g. `t/unit/app/test_app.py`: 118 passed).",
+    "session_id": "6bc6c432-a365-4dc4-9545-ee79e245001b",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 51,
+    "total_cost_usd": 1.0261879999999999,
+    "ttft_ms": 893,
+    "ttft_stream_ms": 810,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 73600,
+      "inference_geo": "",
+      "input_tokens": 171442,
+      "iterations": [],
+      "output_tokens": 5129,
+      "output_tokens_details": {
+        "thinking_tokens": 2549
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "6e961e92-0480-4482-89ea-b304f4ecfcf0"
+  },
+  "started_at_utc": "2026-09-19T13:19:56Z",
+  "task_id": "celery-celery-03e3359",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 19,
+  "turns_from_trace": 19,
+  "valid": true,
+  "variant": "candidate"
+}

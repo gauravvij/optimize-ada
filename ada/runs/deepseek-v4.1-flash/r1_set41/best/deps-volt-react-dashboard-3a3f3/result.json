@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 456.114,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 114048,
+  "cost_cli_usd": 0.680879,
+  "duration_seconds": 593.39,
+  "evidence_error": "",
+  "grader_duration_seconds": 128.299,
+  "grader_output": "d core-js@2.6.12: core-js@<3.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Please, upgrade your dependencies to the actual version of core-js.\nnpm ERR! code E401\nnpm ERR! Incorrect or missing password.\nnpm ERR! If you were trying to login, change your password, create an\nnpm ERR! authentication token or enable two-factor authentication then\nnpm ERR! that means you likely typed your password in incorrectly.\nnpm ERR! Please try again, or recover your password at:\nnpm ERR!     https://www.npmjs.com/forgot\nnpm ERR! \nnpm ERR! If you were doing some other operation then your saved credentials are\nnpm ERR! probably out of date. To correct this please try logging in again with:\nnpm ERR!     npm login\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     /root/.npm/_logs/2026-09-19T13_08_48_161Z-debug-0.log",
+  "grader_returncode": 1,
+  "harness_error": "",
+  "input_tokens": 89786,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 114048,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.680879,
+      "inputTokens": 89786,
+      "maxOutputTokens": 32000,
+      "outputTokens": 6997,
+      "provider": "firstParty",
+      "thinkingTokens": 4525,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 6997,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 281623,
+    "duration_ms": 447946,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 114048,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.680879,
+        "inputTokens": 89786,
+        "maxOutputTokens": 32000,
+        "outputTokens": 6997,
+        "provider": "firstParty",
+        "thinkingTokens": 4525,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 20,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "eeab287e-9a62-4ba0-b8c2-e8d13fc61f32",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.680879,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 113280,
+      "inference_geo": "",
+      "input_tokens": 89708,
+      "iterations": [],
+      "output_tokens": 6987,
+      "output_tokens_details": {
+        "thinking_tokens": 4525
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "a4225c27-7401-422a-81b9-501ed106f855"
+  },
+  "started_at_utc": "2026-09-19T13:01:11Z",
+  "task_id": "deps-volt-react-dashboard-3a3f3",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 20,
+  "turns_from_trace": 19,
+  "valid": true,
+  "variant": "candidate"
+}

@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 274.37,
+  "agent_is_error": false,
+  "agent_result": "Setup complete: installed Node.js 20 + yarn 1.22.22, ran `yarn install --frozen-lockfile`, and `yarn build` succeeded \u2014 `dist/` is populated and both `require(\"openai\")` and ESM `import(\"openai\")` load cleanly from `dist`.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 86048,
+  "cost_cli_usd": 0.348839,
+  "duration_seconds": 336.19,
+  "evidence_error": "",
+  "grader_duration_seconds": 41.583,
+  "grader_output": "/api-resources/beta/threads/runs/steps.test.ts\nPASS tests/api-resources/images.test.ts\nPASS tests/api-resources/batches.test.ts\nPASS tests/uploads.test.ts\nPASS tests/api-resources/models.test.ts\nPASS tests/api-resources/chat/completions.test.ts\nPASS tests/form.test.ts\nPASS tests/streaming/assistants/assistant.test.ts\nPASS tests/api-resources/uploads/uploads.test.ts\nPASS tests/api-resources/fine-tuning/jobs/checkpoints.test.ts\nPASS tests/api-resources/completions.test.ts\nPASS tests/api-resources/audio/transcriptions.test.ts\nPASS tests/api-resources/audio/translations.test.ts\nPASS tests/api-resources/embeddings.test.ts\nPASS tests/responses.test.ts\nPASS tests/api-resources/uploads/parts.test.ts\nPASS tests/api-resources/moderations.test.ts\nPASS tests/stringifyQuery.test.ts\n\nTest Suites: 1 skipped, 34 passed, 34 of 35 total\nTests:       1 skipped, 278 passed, 279 total\nSnapshots:   18 passed, 18 total\nTime:        5.463 s\nRan all test suites.\n./scripts/test: line 17: lsof: command not found",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 50333,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 86048,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.348839,
+      "inputTokens": 50333,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2166,
+      "provider": "firstParty",
+      "thinkingTokens": 630,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2166,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 150040,
+    "duration_ms": 268219,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 9417,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 86048,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.348839,
+        "inputTokens": 50333,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2166,
+        "provider": "firstParty",
+        "thinkingTokens": 630,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 13,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete: installed Node.js 20 + yarn 1.22.22, ran `yarn install --frozen-lockfile`, and `yarn build` succeeded \u2014 `dist/` is populated and both `require(\"openai\")` and ESM `import(\"openai\")` load cleanly from `dist`.",
+    "session_id": "da2b97eb-6777-4962-aaa5-ac26641ab33e",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 61,
+    "total_cost_usd": 0.348839,
+    "ttft_ms": 9726,
+    "ttft_stream_ms": 9416,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 85152,
+      "inference_geo": "",
+      "input_tokens": 50135,
+      "iterations": [],
+      "output_tokens": 2151,
+      "output_tokens_details": {
+        "thinking_tokens": 630
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "7d1dd94b-6dfc-4a25-9f3a-83b974ac3ea5"
+  },
+  "started_at_utc": "2026-09-19T12:21:03Z",
+  "task_id": "openai-openai-node-8958d97",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 13,
+  "turns_from_trace": 13,
+  "valid": true,
+  "variant": "candidate"
+}

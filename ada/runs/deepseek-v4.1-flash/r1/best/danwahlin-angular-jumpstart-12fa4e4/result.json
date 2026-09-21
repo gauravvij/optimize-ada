@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 483.537,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 144496,
+  "cost_cli_usd": 0.234078,
+  "duration_seconds": 639.411,
+  "evidence_error": "",
+  "grader_duration_seconds": 90.496,
+  "grader_output": "> angular-jump-start@1.0.0 start\n> node server.js\n\n/testbed\nExpress listening on port 8080\nBrowser closed.\nSetup successful",
+  "grader_returncode": 143,
+  "harness_error": "",
+  "input_tokens": 21891,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 144496,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.234078,
+      "inputTokens": 21891,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2095,
+      "provider": "firstParty",
+      "thinkingTokens": 733,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2095,
+  "passed": true,
+  "result_event": {
+    "duration_api_ms": 68966,
+    "duration_ms": 446875,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 144496,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.234078,
+        "inputTokens": 21891,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2095,
+        "provider": "firstParty",
+        "thinkingTokens": 733,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 12,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "ac0dcf53-0aec-4390-b1cc-55286a3d1951",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.234078,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 143872,
+      "inference_geo": "",
+      "input_tokens": 21440,
+      "iterations": [],
+      "output_tokens": 1833,
+      "output_tokens_details": {
+        "thinking_tokens": 484
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "5719338b-5c73-4162-9353-f87f3cb865d5"
+  },
+  "started_at_utc": "2026-09-19T11:34:06Z",
+  "task_id": "danwahlin-angular-jumpstart-12fa4e4",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 12,
+  "turns_from_trace": 11,
+  "valid": true,
+  "variant": "candidate"
+}

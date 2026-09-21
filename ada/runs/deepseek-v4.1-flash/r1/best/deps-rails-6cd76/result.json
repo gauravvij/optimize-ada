@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 453.955,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 381440,
+  "cost_cli_usd": 0.6004450000000001,
+  "duration_seconds": 554.923,
+  "evidence_error": "",
+  "grader_duration_seconds": 34.142,
+  "grader_output": "                   ^~~~~~~~~~\n      |                         mBignum\nmake: *** [Makefile:246: generator.o] Error 1\n\nmake failed, exit code 2\n\nGem files will remain installed in /usr/local/bundle/gems/json-1.8.2 for\ninspection.\nResults logged to\n/usr/local/bundle/extensions/x86_64-linux/2.7.0/json-1.8.2/gem_make.out\n\nAn error occurred while installing json (1.8.2), and Bundler cannot continue.\nMake sure that `gem install json -v '1.8.2' --source 'https://rubygems.org/'`\nsucceeds before bundling.\n\nIn Gemfile:\n  rails was resolved to 5.0.0.alpha, which depends on\n    actionmailer was resolved to 5.0.0.alpha, which depends on\n      actionpack was resolved to 5.0.0.alpha, which depends on\n        actionview was resolved to 5.0.0.alpha, which depends on\n          rails-dom-testing was resolved to 1.0.6, which depends on\n            rails-deprecated_sanitizer was resolved to 1.0.3, which depends on\n              activesupport was resolved to 5.0.0.alpha, which depends on\n                json",
+  "grader_returncode": 5,
+  "harness_error": "",
+  "input_tokens": 40520,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 381440,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.6004450000000001,
+      "inputTokens": 40520,
+      "maxOutputTokens": 32000,
+      "outputTokens": 8285,
+      "provider": "firstParty",
+      "thinkingTokens": 4234,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 8285,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 327021,
+    "duration_ms": 447912,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 381440,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.6004450000000001,
+        "inputTokens": 40520,
+        "maxOutputTokens": 32000,
+        "outputTokens": 8285,
+        "provider": "firstParty",
+        "thinkingTokens": 4234,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 32,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "d03544a0-de48-4e17-91e1-052ced7d2ff8",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.6004450000000001,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 381440,
+      "inference_geo": "",
+      "input_tokens": 39708,
+      "iterations": [],
+      "output_tokens": 8232,
+      "output_tokens_details": {
+        "thinking_tokens": 4191
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "725e2474-22df-4008-992d-13cc956c7b26"
+  },
+  "started_at_utc": "2026-09-19T11:11:41Z",
+  "task_id": "deps-rails-6cd76",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 32,
+  "turns_from_trace": 31,
+  "valid": true,
+  "variant": "candidate"
+}

@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 179.547,
+  "agent_is_error": false,
+  "agent_result": "Setup complete and verified. Summary of what was done:\n\n- Installed `openssh-server`, `autossh`, and `supervisor` via apt.\n- Generated an ed25519 key at `/root/.ssh/autossh_ed25519`, authorized it (plus a default key), and pre-seeded `known_hosts` for passwordless key auth to `127.0.0.1`.\n- Started `sshd` on port 22 with key auth and TCP forwarding enabled.\n- Created `/etc/supervisor/conf.d/autossh-tunnel.conf` running `autossh -M 0 -N ... -R 9000:localhost:22 root@127.0.0.1` with `autostart`/`autorestart` and keepalives.\n- Started `supervisord`; the tunnel listens on `127.0.0.1:9000` and forwards to local `sshd:22`.\n- Verified: connecting via `ssh -p 9000 127.0.0.1` returns a shell (`SUCCESS`), and killing the autossh process causes supervisor to restart it with the tunnel restored.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 68224,
+  "cost_cli_usd": 0.419972,
+  "duration_seconds": 212.785,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.849,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 50247,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 68224,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.419972,
+      "inputTokens": 50247,
+      "maxOutputTokens": 32000,
+      "outputTokens": 5385,
+      "provider": "firstParty",
+      "thinkingTokens": 2304,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 5385,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 73854,
+    "duration_ms": 170794,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 2257,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 68224,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.419972,
+        "inputTokens": 50247,
+        "maxOutputTokens": 32000,
+        "outputTokens": 5385,
+        "provider": "firstParty",
+        "thinkingTokens": 2304,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 13,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete and verified. Summary of what was done:\n\n- Installed `openssh-server`, `autossh`, and `supervisor` via apt.\n- Generated an ed25519 key at `/root/.ssh/autossh_ed25519`, authorized it (plus a default key), and pre-seeded `known_hosts` for passwordless key auth to `127.0.0.1`.\n- Started `sshd` on port 22 with key auth and TCP forwarding enabled.\n- Created `/etc/supervisor/conf.d/autossh-tunnel.conf` running `autossh -M 0 -N ... -R 9000:localhost:22 root@127.0.0.1` with `autostart`/`autorestart` and keepalives.\n- Started `supervisord`; the tunnel listens on `127.0.0.1:9000` and forwards to local `sshd:22`.\n- Verified: connecting via `ssh -p 9000 127.0.0.1` returns a shell (`SUCCESS`), and killing the autossh process causes supervisor to restart it with the tunnel restored.",
+    "session_id": "22c59164-85b6-4493-afda-fbe52cfbba34",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 38,
+    "total_cost_usd": 0.419972,
+    "ttft_ms": 4928,
+    "ttft_stream_ms": 2257,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 67584,
+      "inference_geo": "",
+      "input_tokens": 49867,
+      "iterations": [],
+      "output_tokens": 5269,
+      "output_tokens_details": {
+        "thinking_tokens": 2204
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "b1c98ecb-289b-43df-98c3-e2f76881c260"
+  },
+  "started_at_utc": "2026-09-19T13:35:48Z",
+  "task_id": "bgsetup-autossh-reverse-tunnel",
+  "task_type": "bgsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 13,
+  "turns_from_trace": 13,
+  "valid": true,
+  "variant": "candidate"
+}

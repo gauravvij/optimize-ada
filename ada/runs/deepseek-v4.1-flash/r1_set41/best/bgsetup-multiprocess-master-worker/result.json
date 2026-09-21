@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 144.595,
+  "agent_is_error": false,
+  "agent_result": "Installed python3 + supervisor via apt, created `/queue`, `/processed`, and `/var/log/processed.log`, and configured `/etc/supervisor/conf.d/masterworker.conf` with two autostart/autorestart programs (`master.py` every 10s, `worker.py`) under a running supervisord \u2014 verified jobs flow into `/processed` and log lines appear in `/var/log/processed.log`, and that killing master auto-restarts it.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 53120,
+  "cost_cli_usd": 0.701145,
+  "duration_seconds": 176.226,
+  "evidence_error": "",
+  "grader_duration_seconds": 30.073,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 118297,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 53120,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.701145,
+      "inputTokens": 118297,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3324,
+      "provider": "firstParty",
+      "thinkingTokens": 1743,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3324,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 78039,
+    "duration_ms": 137870,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 13988,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 53120,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.701145,
+        "inputTokens": 118297,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3324,
+        "provider": "firstParty",
+        "thinkingTokens": 1743,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 11,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Installed python3 + supervisor via apt, created `/queue`, `/processed`, and `/var/log/processed.log`, and configured `/etc/supervisor/conf.d/masterworker.conf` with two autostart/autorestart programs (`master.py` every 10s, `worker.py`) under a running supervisord \u2014 verified jobs flow into `/processed` and log lines appear in `/var/log/processed.log`, and that killing master auto-restarts it.",
+    "session_id": "00d30dbf-11f8-4db5-9946-8c501d86f503",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 40,
+    "total_cost_usd": 0.701145,
+    "ttft_ms": 14767,
+    "ttft_stream_ms": 13987,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 53120,
+      "inference_geo": "",
+      "input_tokens": 117280,
+      "iterations": [],
+      "output_tokens": 3069,
+      "output_tokens_details": {
+        "thinking_tokens": 1488
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "c69ecf9a-69aa-483c-a644-2f31915b8340"
+  },
+  "started_at_utc": "2026-09-19T13:25:13Z",
+  "task_id": "bgsetup-multiprocess-master-worker",
+  "task_type": "bgsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 11,
+  "turns_from_trace": 11,
+  "valid": true,
+  "variant": "candidate"
+}

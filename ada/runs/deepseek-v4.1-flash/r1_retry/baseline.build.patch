@@ -1,0 +1,15 @@
+diff --git a/agent/system-guidance.ts b/agent/system-guidance.ts
+index 2b077b0..485c843 100644
+--- a/agent/system-guidance.ts
++++ b/agent/system-guidance.ts
+@@ -24,3 +24,10 @@ export function systemGuidance(): string {
+     "repeating the same failing step."
+   );
+ }
++
++export function systemPromptGuidance(_config: {
++  configured: boolean;
++  connected: boolean;
++}): string {
++  return systemGuidance();
++}

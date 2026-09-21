@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 454.131,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 274176,
+  "cost_cli_usd": 1.393913,
+  "duration_seconds": 476.35,
+  "evidence_error": "",
+  "grader_duration_seconds": 3.988,
+  "grader_output": ".py\", line 218, in test_unit\n    result = call([\"cargo\", \"bench\" if bench else \"test\"], cwd=\"support/crown\")\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/testbed/python/servo/command_base.py\", line 188, in call\n    return subprocess.call(*args, shell=sys.platform == 'win32', **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 389, in call\n    with Popen(*popenargs, **kwargs) as p:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 1026, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n  File \"/root/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 1955, in _execute_child\n    raise child_exception_type(errno_num, err_msg, err_filename)\nSetup failed",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 213550,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 274176,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.393913,
+      "inputTokens": 213550,
+      "maxOutputTokens": 32000,
+      "outputTokens": 7563,
+      "provider": "firstParty",
+      "thinkingTokens": 5118,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 7563,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 332045,
+    "duration_ms": 397327,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 274176,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.393913,
+        "inputTokens": 213550,
+        "maxOutputTokens": 32000,
+        "outputTokens": 7563,
+        "provider": "firstParty",
+        "thinkingTokens": 5118,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 19,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "7bed4562-94f4-4e4c-8a96-bc2295bdb575",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_streaming",
+    "total_cost_usd": 1.393913,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 273536,
+      "inference_geo": "",
+      "input_tokens": 213154,
+      "iterations": [],
+      "output_tokens": 7259,
+      "output_tokens_details": {
+        "thinking_tokens": 4830
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "ec1ec965-8704-4727-ba26-89ff0fe0a246"
+  },
+  "started_at_utc": "2026-09-19T13:43:56Z",
+  "task_id": "servo-e199a67",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 19,
+  "turns_from_trace": 18,
+  "valid": true,
+  "variant": "candidate"
+}

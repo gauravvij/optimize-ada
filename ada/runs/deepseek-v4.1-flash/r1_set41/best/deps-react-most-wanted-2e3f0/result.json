@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 452.424,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 54144,
+  "cost_cli_usd": 0.5666169999999999,
+  "duration_seconds": 634.746,
+  "evidence_error": "",
+  "grader_duration_seconds": 125.605,
+  "grader_output": "of core-js.\nnpm WARN deprecated core-js@3.6.5: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.\nnpm WARN deprecated core-js-pure@3.8.3: core-js-pure@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js-pure.\nnpm WARN deprecated @material-ui/core@4.12.4: Material UI v4 doesn't receive active development since September 2021. See the guide https://mui.com/material-ui/migration/migration-v4/ to upgrade to v5.",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 84549,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 54144,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.5666169999999999,
+      "inputTokens": 84549,
+      "maxOutputTokens": 32000,
+      "outputTokens": 4672,
+      "provider": "firstParty",
+      "thinkingTokens": 2699,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 4672,
+  "passed": true,
+  "result_event": {
+    "duration_api_ms": 71313,
+    "duration_ms": 448462,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 54144,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.5666169999999999,
+        "inputTokens": 84549,
+        "maxOutputTokens": 32000,
+        "outputTokens": 4672,
+        "provider": "firstParty",
+        "thinkingTokens": 2699,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 17,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "e5670eb2-a67a-4e0a-80be-af42132dfce1",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.5666169999999999,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 53504,
+      "inference_geo": "",
+      "input_tokens": 84386,
+      "iterations": [],
+      "output_tokens": 4604,
+      "output_tokens_details": {
+        "thinking_tokens": 2642
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "8dbd35da-86f2-4908-a7a5-a4745f9f86bf"
+  },
+  "started_at_utc": "2026-09-19T13:46:06Z",
+  "task_id": "deps-react-most-wanted-2e3f0",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 17,
+  "turns_from_trace": 16,
+  "valid": true,
+  "variant": "candidate"
+}

@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 217.711,
+  "agent_is_error": false,
+  "agent_result": "Setup complete: installed Node.js 20 (system-wide via NodeSource), ran `npm install` (including the `vscode` postinstall that fetched `vscode.d.ts`), and verified the build by packaging the extension with `@vscode/vsce`, which produced `Angular2-18.0.2.vsix`.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 98048,
+  "cost_cli_usd": 0.30864899999999995,
+  "duration_seconds": 322.271,
+  "evidence_error": "",
+  "grader_duration_seconds": 90.144,
+  "grader_output": "                      \u2551\n\u2551         libxcomposite1\\                              \u2551\n\u2551         libxdamage1\\                                 \u2551\n\u2551         libxext6\\                                    \u2551\n\u2551         libxfixes3\\                                  \u2551\n\u2551         libxrandr2\\                                  \u2551\n\u2551         libgbm1\\                                     \u2551\n\u2551         libxcb1\\                                     \u2551\n\u2551         libxkbcommon0\\                               \u2551\n\u2551         libpango-1.0-0\\                              \u2551\n\u2551         libcairo2\\                                   \u2551\n\u2551         libasound2                                   \u2551\n\u2551                                                      \u2551\n\u2551 <3 Playwright Team                                   \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n    at openBrowser (/testbed/node_modules/@vscode/test-web/out/index.js:133:39)\n    at async open (/testbed/node_modules/@vscode/test-web/out/index.js:103:21) {\n  name: 'Error'\n}",
+  "grader_returncode": 143,
+  "harness_error": "",
+  "input_tokens": 40840,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 98048,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.30864899999999995,
+      "inputTokens": 40840,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2217,
+      "provider": "firstParty",
+      "thinkingTokens": 1130,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2217,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 89328,
+    "duration_ms": 208474,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 675,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 98048,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.30864899999999995,
+        "inputTokens": 40840,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2217,
+        "provider": "firstParty",
+        "thinkingTokens": 1130,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 10,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete: installed Node.js 20 (system-wide via NodeSource), ran `npm install` (including the `vscode` postinstall that fetched `vscode.d.ts`), and verified the build by packaging the extension with `@vscode/vsce`, which produced `Angular2-18.0.2.vsix`.",
+    "session_id": "54459c1f-9b0a-4185-ae2e-9c3fc791971e",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 65,
+    "total_cost_usd": 0.30864899999999995,
+    "ttft_ms": 871,
+    "ttft_stream_ms": 675,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 98048,
+      "inference_geo": "",
+      "input_tokens": 39736,
+      "iterations": [],
+      "output_tokens": 2076,
+      "output_tokens_details": {
+        "thinking_tokens": 1005
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "9f378638-9424-4758-bd18-45466bcd114c"
+  },
+  "started_at_utc": "2026-09-19T11:50:28Z",
+  "task_id": "johnpapa-vscode-angular-snippets-1551fe1",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 10,
+  "turns_from_trace": 10,
+  "valid": true,
+  "variant": "candidate"
+}

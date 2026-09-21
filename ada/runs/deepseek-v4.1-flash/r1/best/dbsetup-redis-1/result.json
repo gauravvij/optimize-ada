@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 87.918,
+  "agent_is_error": false,
+  "agent_result": "Redis installed, started as a daemon, and `/root/init.lua` executed via `redis-cli --eval init_check , ok` \u2014 the `init_check` key is set to `ok` and verified.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 21248,
+  "cost_cli_usd": 0.047684000000000004,
+  "duration_seconds": 89.761,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.09,
+  "grader_output": "Setup failed",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 4252,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 21248,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.047684000000000004,
+      "inputTokens": 4252,
+      "maxOutputTokens": 32000,
+      "outputTokens": 632,
+      "provider": "firstParty",
+      "thinkingTokens": 181,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 632,
+  "passed": false,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 33378,
+    "duration_ms": 64602,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 4214,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 21248,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.047684000000000004,
+        "inputTokens": 4252,
+        "maxOutputTokens": 32000,
+        "outputTokens": 632,
+        "provider": "firstParty",
+        "thinkingTokens": 181,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 5,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Redis installed, started as a daemon, and `/root/init.lua` executed via `redis-cli --eval init_check , ok` \u2014 the `init_check` key is set to `ok` and verified.",
+    "session_id": "ecfef4e2-cb02-470c-bb94-4bf45e8bda42",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 47,
+    "total_cost_usd": 0.047684000000000004,
+    "ttft_ms": 11797,
+    "ttft_stream_ms": 4213,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 20480,
+      "inference_geo": "",
+      "input_tokens": 3998,
+      "iterations": [],
+      "output_tokens": 620,
+      "output_tokens_details": {
+        "thinking_tokens": 181
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "37034926-e88b-46b0-be15-3f6bed913c0d"
+  },
+  "started_at_utc": "2026-09-19T12:13:48Z",
+  "task_id": "dbsetup-redis-1",
+  "task_type": "dbsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 5,
+  "turns_from_trace": 5,
+  "valid": true,
+  "variant": "candidate"
+}

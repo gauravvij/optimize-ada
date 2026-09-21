@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 470.407,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 117792,
+  "cost_cli_usd": 0.274416,
+  "duration_seconds": 520.016,
+  "evidence_error": "",
+  "grader_duration_seconds": 3.596,
+  "grader_output": "0 does not satisfy type-fest@0.13.1\nnpm ERR! Missing: type-fest@2.19.0 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]\nnpm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]\nnpm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]\nnpm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     /root/.npm/_logs/2026-09-19T14_16_17_874Z-debug-0.log",
+  "grader_returncode": 1,
+  "harness_error": "",
+  "input_tokens": 28929,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 117792,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.274416,
+      "inputTokens": 28929,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2835,
+      "provider": "firstParty",
+      "thinkingTokens": 912,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2835,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 107495,
+    "duration_ms": 449087,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 117792,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.274416,
+        "inputTokens": 28929,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2835,
+        "provider": "firstParty",
+        "thinkingTokens": 912,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 18,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "4eec0752-5abe-4d58-a3d5-612b7030057c",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.274416,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 117024,
+      "inference_geo": "",
+      "input_tokens": 28851,
+      "iterations": [],
+      "output_tokens": 2825,
+      "output_tokens_details": {
+        "thinking_tokens": 912
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "420ad58b-a742-4539-94b7-47c8192a3594"
+  },
+  "started_at_utc": "2026-09-19T14:08:25Z",
+  "task_id": "deps-gatsby-plugin-intl-2b7ac",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 18,
+  "turns_from_trace": 19,
+  "valid": true,
+  "variant": "candidate"
+}

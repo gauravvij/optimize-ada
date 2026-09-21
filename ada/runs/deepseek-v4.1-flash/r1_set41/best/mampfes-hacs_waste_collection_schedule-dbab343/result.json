@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 299.405,
+  "agent_is_error": false,
+  "agent_result": "Setup complete: installed python3/pip/build tools and git via apt, installed all `requirements.txt` deps plus pytest/flake8, and verified the repo's CI checks \u2014 `pytest` (6 passed), flake8 E9/F63/F7/F82 (clean), and `update_docu_links.py` (no diff).",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 67456,
+  "cost_cli_usd": 0.6998430000000001,
+  "duration_seconds": 340.842,
+  "evidence_error": "",
+  "grader_duration_seconds": 1.101,
+  "grader_output": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0\nrootdir: /testbed\nconfigfile: pytest.ini\ncollected 6 items\n\ntests/test_source_components.py ......                                   [100%]\n\n============================== 6 passed in 0.79s ===============================\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 118233,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 67456,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.6998430000000001,
+      "inputTokens": 118233,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2998,
+      "provider": "firstParty",
+      "thinkingTokens": 1226,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2998,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 116094,
+    "duration_ms": 294620,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 2030,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 67456,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.6998430000000001,
+        "inputTokens": 118233,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2998,
+        "provider": "firstParty",
+        "thinkingTokens": 1226,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 14,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete: installed python3/pip/build tools and git via apt, installed all `requirements.txt` deps plus pytest/flake8, and verified the repo's CI checks \u2014 `pytest` (6 passed), flake8 E9/F63/F7/F82 (clean), and `update_docu_links.py` (no diff).",
+    "session_id": "69b11e86-90ed-477e-be2d-33ac287f2cd5",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 46,
+    "total_cost_usd": 0.6998430000000001,
+    "ttft_ms": 3642,
+    "ttft_stream_ms": 2030,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 66560,
+      "inference_geo": "",
+      "input_tokens": 118028,
+      "iterations": [],
+      "output_tokens": 2980,
+      "output_tokens_details": {
+        "thinking_tokens": 1226
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "971f33ff-616b-4793-96e9-eefb99640117"
+  },
+  "started_at_utc": "2026-09-19T13:30:08Z",
+  "task_id": "mampfes-hacs_waste_collection_schedule-dbab343",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 14,
+  "turns_from_trace": 14,
+  "valid": true,
+  "variant": "candidate"
+}

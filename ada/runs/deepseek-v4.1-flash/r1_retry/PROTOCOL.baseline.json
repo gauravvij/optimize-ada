@@ -1,0 +1,30 @@
+{
+  "model": "deepseek/deepseek-v4.1-flash",
+  "arm": "baseline",
+  "run_id": "pair-deepseek-deepseek-v4-1-flash-20260919T1448Z-baseline",
+  "exit_code": 0,
+  "workspace_commit": "05c243e8937d69ab68deda799b4710b654d58c1e",
+  "base_commit": "df0c537",
+  "build_patch": "baseline.build.patch",
+  "agent_tree": "7c88c8270e3b",
+  "started_utc": "2026-09-19T14:48:37Z",
+  "finished_utc": "2026-09-19T14:53:32Z",
+  "concurrency": 3,
+  "arms_run_at_the_same_time": true,
+  "seed": 20260907,
+  "task_timeout_seconds": 480,
+  "grader_timeout_seconds": 600,
+  "tasks_file": "tasks.txt",
+  "tasks": 1,
+  "provider_ignore": [
+    "StreamLake"
+  ],
+  "proxy": "openrouter_proxy.py",
+  "proxy_sha256": "32cfc1fda7bb81365d32db23833a2ab222a3916fcf13a254efa7648540bc3787",
+  "proxy_drain_seconds": 60,
+  "runner": "setupbench_ada_runner_ts.ts",
+  "runner_sha256": "1eb6c85c054ea68f6adaf0c6dd6c93d45f7dcb424c6a91c7a452d45ed26c1786",
+  "evaluator_sha256": "60b3c42ad24044acb33e3e00857c2aa926f949a31a87ea665076cd9b765553ff",
+  "harness_sha256": "402f59a3abeedd31d7fea79850c844d5c4bae0aafd5b1bb94d8290b8d0ee6816",
+  "pricing_snapshot": "pricing_snapshot.json"
+}

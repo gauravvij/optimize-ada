@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 456.447,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 121344,
+  "cost_cli_usd": 1.096507,
+  "duration_seconds": 473.491,
+  "evidence_error": "",
+  "grader_duration_seconds": 10.126,
+  "grader_output": "Setup failed",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 159882,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 121344,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.096507,
+      "inputTokens": 159882,
+      "maxOutputTokens": 32000,
+      "outputTokens": 9457,
+      "provider": "firstParty",
+      "thinkingTokens": 6045,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 9457,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 358611,
+    "duration_ms": 448579,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 121344,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.096507,
+        "inputTokens": 159882,
+        "maxOutputTokens": 32000,
+        "outputTokens": 9457,
+        "provider": "firstParty",
+        "thinkingTokens": 6045,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 23,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "da8f431d-62de-435f-b75f-f3c74463a90b",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_streaming",
+    "total_cost_usd": 1.096507,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 120448,
+      "inference_geo": "",
+      "input_tokens": 159710,
+      "iterations": [],
+      "output_tokens": 9440,
+      "output_tokens_details": {
+        "thinking_tokens": 6045
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "bae42985-e692-46e8-9640-0368eaed8999"
+  },
+  "started_at_utc": "2026-09-19T13:41:38Z",
+  "task_id": "bgsetup-autossh-logging",
+  "task_type": "bgsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 23,
+  "turns_from_trace": 22,
+  "valid": true,
+  "variant": "candidate"
+}

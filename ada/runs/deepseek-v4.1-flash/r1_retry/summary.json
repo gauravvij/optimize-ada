@@ -1,0 +1,329 @@
+{
+  "baseline": {
+    "api": {
+      "agent_calls": 12,
+      "calls": 13,
+      "calls_cut_off_by_the_client": 0,
+      "calls_from_ignored_provider": 0,
+      "cut_off_calls_without_generation_record": 0,
+      "empty_agent_replies": 0,
+      "empty_agent_replies_by_provider": {},
+      "injected_provider_ignore": 13,
+      "ms_first_byte": {
+        "max": 10362,
+        "mean": 4289.0,
+        "median": 2526.0,
+        "n": 12,
+        "p90": 10361,
+        "total": 51469
+      },
+      "ms_total": {
+        "max": 20547,
+        "mean": 13546.0,
+        "median": 14769.0,
+        "n": 12,
+        "p90": 20087,
+        "total": 162552
+      },
+      "non_200": {},
+      "non_model_calls_count_tokens_404": 0,
+      "providers": {
+        "DeepInfra": 3,
+        "DigitalOcean": 2,
+        "Relace": 8
+      }
+    },
+    "arm": "baseline",
+    "attempts": 1,
+    "cost_usd": {
+      "attributed_to_tasks": 0.010612,
+      "cli_reported_total_not_used": 0.3633,
+      "openrouter_key_usage_delta": null,
+      "per_task": {
+        "max": 0.01061,
+        "mean": 0.01061,
+        "median": 0.01061,
+        "n": 1,
+        "p90": 0.01061,
+        "total": 0.01061
+      },
+      "total_all_calls": 0.010612
+    },
+    "duration_seconds": {
+      "max": 293.3,
+      "mean": 293.3,
+      "median": 293.3,
+      "n": 1,
+      "p90": 293.3,
+      "total": 293.3
+    },
+    "harness_errors": 0,
+    "models_seen": [
+      "deepseek/deepseek-v4.1-flash"
+    ],
+    "outcomes": {
+      "passed": 1
+    },
+    "passed": 1,
+    "per_turn_seconds": {
+      "model_reply": {
+        "max": 18.28,
+        "mean": 7.17,
+        "median": 5.8,
+        "n": 16,
+        "p90": 14.59,
+        "total": 114.65
+      },
+      "tool_execution": {
+        "max": 67.76,
+        "mean": 7.84,
+        "median": 0.22,
+        "n": 16,
+        "p90": 15.94,
+        "total": 125.38
+      }
+    },
+    "protocol": {
+      "agent_tree": "7c88c8270e3b",
+      "base_commit": "df0c537",
+      "concurrency": 3,
+      "exit_code": 0,
+      "finished_utc": "2026-09-19T14:53:32Z",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "provider_ignore": [
+        "StreamLake"
+      ],
+      "started_utc": "2026-09-19T14:48:37Z",
+      "workspace_commit": "05c243e8937d69ab68deda799b4710b654d58c1e"
+    },
+    "tasks": {
+      "pytesseract-df9fce0": {
+        "agent_duration_seconds": 291.369,
+        "api_calls": 13,
+        "cached_prompt_tokens": 85248,
+        "cli_cache_creation_tokens": 0,
+        "cli_cache_read_tokens": 85248,
+        "cli_cost_usd_not_used": 0.363339,
+        "cli_input_tokens": 52888,
+        "cli_output_tokens": 2251,
+        "cli_turns": 17,
+        "completion_tokens": 2251,
+        "cost_usd": 0.010612,
+        "duration_seconds": 293.349,
+        "evidence_error": null,
+        "models_seen": [
+          "deepseek/deepseek-v4.1-flash"
+        ],
+        "outcome": "passed",
+        "passed": true,
+        "prompt_tokens": 138136,
+        "stop_reason": "end_turn",
+        "timed_out": false,
+        "turns": 17,
+        "valid": true,
+        "watchdog_stopped": false
+      }
+    },
+    "timed_out": 0,
+    "token_reconciliation": {
+      "attempts_with_cli_usage": 1,
+      "matching_openrouter_records": 1,
+      "mismatches": []
+    },
+    "tokens_cli_reported_undercount": {
+      "cli_cache_creation_tokens": 0,
+      "cli_cache_read_tokens": 85248,
+      "cli_input_tokens": 52888,
+      "cli_output_tokens": 2251
+    },
+    "tokens_openrouter_records": {
+      "cached_prompt_tokens": 85248,
+      "completion_tokens": 2251,
+      "prompt_tokens": 138136
+    },
+    "turns": {
+      "max": 17,
+      "mean": 17.0,
+      "median": 17,
+      "n": 1,
+      "p90": 17,
+      "total": 17
+    },
+    "watchdog_stopped": 0,
+    "watchdog_stopped_then_passed": 0
+  },
+  "best": {
+    "api": {
+      "agent_calls": 8,
+      "calls": 9,
+      "calls_cut_off_by_the_client": 0,
+      "calls_from_ignored_provider": 0,
+      "cut_off_calls_without_generation_record": 0,
+      "empty_agent_replies": 0,
+      "empty_agent_replies_by_provider": {},
+      "injected_provider_ignore": 9,
+      "ms_first_byte": {
+        "max": 10053,
+        "mean": 2515.0,
+        "median": 1250.0,
+        "n": 8,
+        "p90": 10053,
+        "total": 20119
+      },
+      "ms_total": {
+        "max": 26982,
+        "mean": 7455.0,
+        "median": 5582.0,
+        "n": 8,
+        "p90": 26982,
+        "total": 59638
+      },
+      "non_200": {},
+      "non_model_calls_count_tokens_404": 0,
+      "providers": {
+        "DeepInfra": 2,
+        "Fireworks": 2,
+        "Relace": 5
+      }
+    },
+    "arm": "best",
+    "attempts": 1,
+    "cost_usd": {
+      "attributed_to_tasks": 0.00681,
+      "cli_reported_total_not_used": 0.2521,
+      "openrouter_key_usage_delta": null,
+      "per_task": {
+        "max": 0.00681,
+        "mean": 0.00681,
+        "median": 0.00681,
+        "n": 1,
+        "p90": 0.00681,
+        "total": 0.00681
+      },
+      "total_all_calls": 0.00681
+    },
+    "duration_seconds": {
+      "max": 179.4,
+      "mean": 179.4,
+      "median": 179.4,
+      "n": 1,
+      "p90": 179.4,
+      "total": 179.4
+    },
+    "harness_errors": 0,
+    "models_seen": [
+      "deepseek/deepseek-v4.1-flash"
+    ],
+    "outcomes": {
+      "passed": 1
+    },
+    "passed": 1,
+    "per_turn_seconds": {
+      "model_reply": {
+        "max": 24.04,
+        "mean": 4.78,
+        "median": 2.56,
+        "n": 9,
+        "p90": 24.04,
+        "total": 42.98
+      },
+      "tool_execution": {
+        "max": 64.47,
+        "mean": 12.62,
+        "median": 1.12,
+        "n": 9,
+        "p90": 64.47,
+        "total": 113.57
+      }
+    },
+    "protocol": {
+      "agent_tree": "dab704de524a",
+      "base_commit": "5f4c5c0",
+      "concurrency": 3,
+      "exit_code": 0,
+      "finished_utc": "2026-09-19T14:53:32Z",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "provider_ignore": [
+        "StreamLake"
+      ],
+      "started_utc": "2026-09-19T14:48:37Z",
+      "workspace_commit": "5f4c5c0957e5a6a7a565024a24392597ba6c2ac2"
+    },
+    "tasks": {
+      "pytesseract-df9fce0": {
+        "agent_duration_seconds": 176.4,
+        "api_calls": 9,
+        "cached_prompt_tokens": 55168,
+        "cli_cache_creation_tokens": 0,
+        "cli_cache_read_tokens": 55168,
+        "cli_cost_usd_not_used": 0.252089,
+        "cli_input_tokens": 36096,
+        "cli_output_tokens": 1761,
+        "cli_turns": 11,
+        "completion_tokens": 1761,
+        "cost_usd": 0.00681,
+        "duration_seconds": 179.392,
+        "evidence_error": null,
+        "models_seen": [
+          "deepseek/deepseek-v4.1-flash"
+        ],
+        "outcome": "passed",
+        "passed": true,
+        "prompt_tokens": 91264,
+        "stop_reason": "end_turn",
+        "timed_out": false,
+        "turns": 11,
+        "valid": true,
+        "watchdog_stopped": false
+      }
+    },
+    "timed_out": 0,
+    "token_reconciliation": {
+      "attempts_with_cli_usage": 1,
+      "matching_openrouter_records": 1,
+      "mismatches": []
+    },
+    "tokens_cli_reported_undercount": {
+      "cli_cache_creation_tokens": 0,
+      "cli_cache_read_tokens": 55168,
+      "cli_input_tokens": 36096,
+      "cli_output_tokens": 1761
+    },
+    "tokens_openrouter_records": {
+      "cached_prompt_tokens": 55168,
+      "completion_tokens": 1761,
+      "prompt_tokens": 91264
+    },
+    "turns": {
+      "max": 11,
+      "mean": 11.0,
+      "median": 11,
+      "n": 1,
+      "p90": 11,
+      "total": 11
+    },
+    "watchdog_stopped": 0,
+    "watchdog_stopped_then_passed": 0
+  },
+  "paired": {
+    "baseline_finished_pairs": {
+      "baseline_passed": 1,
+      "best_passed": 1,
+      "n": 1
+    },
+    "baseline_passed": 1,
+    "baseline_timed_out_pairs": {
+      "baseline_passed": 0,
+      "best_passed": 0,
+      "n": 0
+    },
+    "best_passed": 1,
+    "gained": 0,
+    "gained_tasks": [],
+    "lost": 0,
+    "lost_tasks": [],
+    "mcnemar_exact_p": 1.0,
+    "note": "single replicate: descriptive only, no significance claim",
+    "pairs": 1
+  }
+}

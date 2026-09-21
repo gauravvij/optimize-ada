@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 141.266,
+  "agent_is_error": false,
+  "agent_result": "Installed MongoDB 7.0 (mongod/mongosh/mongoimport), started `mongod` with `--auth`, created `benchmark_user`/`benchmark_pass` with `readWrite` on `benchmark_db`, and imported all three JSON files as arrays (`--jsonArray`) into collections `comments` (2), `posts` (2), `users` (3) using that user \u2014 verified authenticated access works and unauthenticated queries are rejected.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 57856,
+  "cost_cli_usd": 0.333463,
+  "duration_seconds": 149.217,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.417,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 41842,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 57856,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.333463,
+      "inputTokens": 41842,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3813,
+      "provider": "firstParty",
+      "thinkingTokens": 1844,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3813,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 69890,
+    "duration_ms": 136194,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 791,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 57856,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.333463,
+        "inputTokens": 41842,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3813,
+        "provider": "firstParty",
+        "thinkingTokens": 1844,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 12,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Installed MongoDB 7.0 (mongod/mongosh/mongoimport), started `mongod` with `--auth`, created `benchmark_user`/`benchmark_pass` with `readWrite` on `benchmark_db`, and imported all three JSON files as arrays (`--jsonArray`) into collections `comments` (2), `posts` (2), `users` (3) using that user \u2014 verified authenticated access works and unauthenticated queries are rejected.",
+    "session_id": "f47f8a0f-9a68-4ef6-9369-3b474c247226",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 58,
+    "total_cost_usd": 0.333463,
+    "ttft_ms": 1714,
+    "ttft_stream_ms": 791,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 57088,
+      "inference_geo": "",
+      "input_tokens": 41599,
+      "iterations": [],
+      "output_tokens": 3516,
+      "output_tokens_details": {
+        "thinking_tokens": 1561
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "7c8cdf1a-f2c9-4300-aafc-07657e3be039"
+  },
+  "started_at_utc": "2026-09-19T12:58:42Z",
+  "task_id": "dbsetup-mongodb-2",
+  "task_type": "dbsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 12,
+  "turns_from_trace": 12,
+  "valid": true,
+  "variant": "candidate"
+}

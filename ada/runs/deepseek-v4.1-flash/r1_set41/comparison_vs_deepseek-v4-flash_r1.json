@@ -1,0 +1,75 @@
+{
+  "cells": {
+    "deepseek/deepseek-v4-flash / baseline": {
+      "attempts": 41,
+      "cost_usd": 0.3543,
+      "interrupted": 0,
+      "passed": 11,
+      "timed_out": 19,
+      "turns_mean": 19.9
+    },
+    "deepseek/deepseek-v4-flash / best": {
+      "attempts": 41,
+      "cost_usd": 0.4635,
+      "interrupted": 18,
+      "passed": 11,
+      "timed_out": 0,
+      "turns_mean": 25.9
+    },
+    "deepseek/deepseek-v4.1-flash / baseline": {
+      "attempts": 41,
+      "cost_usd": 0.9698,
+      "interrupted": 0,
+      "passed": 17,
+      "timed_out": 23,
+      "turns_mean": 18.7
+    },
+    "deepseek/deepseek-v4.1-flash / best": {
+      "attempts": 41,
+      "cost_usd": 0.8333,
+      "interrupted": 14,
+      "passed": 26,
+      "timed_out": 0,
+      "turns_mean": 16.3
+    }
+  },
+  "models": [
+    "deepseek/deepseek-v4-flash",
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "paired": {
+    "baseline: deepseek/deepseek-v4.1-flash vs deepseek/deepseek-v4-flash": {
+      "gained": 8,
+      "lost": 2,
+      "p": 0.1094,
+      "pairs": 41,
+      "x_passed": 11,
+      "y_passed": 17
+    },
+    "best: deepseek/deepseek-v4.1-flash vs deepseek/deepseek-v4-flash": {
+      "gained": 15,
+      "lost": 0,
+      "p": 0.0001,
+      "pairs": 41,
+      "x_passed": 11,
+      "y_passed": 26
+    },
+    "deepseek/deepseek-v4-flash: best vs baseline": {
+      "gained": 4,
+      "lost": 4,
+      "p": 1.0,
+      "pairs": 41,
+      "x_passed": 11,
+      "y_passed": 11
+    },
+    "deepseek/deepseek-v4.1-flash: best vs baseline": {
+      "gained": 10,
+      "lost": 1,
+      "p": 0.0117,
+      "pairs": 41,
+      "x_passed": 17,
+      "y_passed": 26
+    }
+  },
+  "tasks": 41
+}
