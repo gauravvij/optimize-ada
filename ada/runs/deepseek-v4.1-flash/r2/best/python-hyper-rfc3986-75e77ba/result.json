@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 258.497,
+  "agent_is_error": false,
+  "agent_result": "Setup complete: installed python3/pip/build-essential via apt, installed the package editable (`pip install -e .`) with `idna`, `pytest`, `pytest-cov`, and `attrs==20.1.0` from `dev-requirements.txt`; the full test suite passes (all tests, 100% coverage) via `python3 -m pytest tests/`.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 36790,
+  "cost_cli_usd": 0.735625,
+  "duration_seconds": 266.027,
+  "evidence_error": "",
+  "grader_duration_seconds": 3.034,
+  "grader_output": "tead. This method will be eventually removed.\n    warnings.warn(\n\ntests/test_api.py: 1 warning\ntests/test_unicode_support.py: 2 warnings\ntests/test_uri.py: 246 warnings\n  /testbed/src/rfc3986/_mixin.py:219: DeprecationWarning: Please use rfc3986.validators.Validator instead. This method will be eventually removed.\n    warnings.warn(\n\ntests/test_api.py: 1 warning\ntests/test_unicode_support.py: 2 warnings\ntests/test_uri.py: 245 warnings\n  /testbed/src/rfc3986/_mixin.py:238: DeprecationWarning: Please use rfc3986.validators.Validator instead. This method will be eventually removed.\n    warnings.warn(\n\ntests/test_api.py: 1 warning\ntests/test_unicode_support.py: 2 warnings\ntests/test_uri.py: 244 warnings\n  /testbed/src/rfc3986/_mixin.py:257: DeprecationWarning: Please use rfc3986.validators.Validator instead. This method will be eventually removed.\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n2914 passed, 1517 warnings in 2.75s\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 132186,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 36790,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.735625,
+      "inputTokens": 132186,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2252,
+      "provider": "firstParty",
+      "thinkingTokens": 638,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2252,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 98315,
+    "duration_ms": 253051,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1940,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 36790,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.735625,
+        "inputTokens": 132186,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2252,
+        "provider": "firstParty",
+        "thinkingTokens": 638,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 13,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete: installed python3/pip/build-essential via apt, installed the package editable (`pip install -e .`) with `idna`, `pytest`, `pytest-cov`, and `attrs==20.1.0` from `dev-requirements.txt`; the full test suite passes (all tests, 100% coverage) via `python3 -m pytest tests/`.",
+    "session_id": "8c267ae6-4c33-4e90-bd4d-ddcf91945323",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 61,
+    "total_cost_usd": 0.735625,
+    "ttft_ms": 2103,
+    "ttft_stream_ms": 1940,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 36790,
+      "inference_geo": "",
+      "input_tokens": 131090,
+      "iterations": [],
+      "output_tokens": 2239,
+      "output_tokens_details": {
+        "thinking_tokens": 638
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "2db79238-5700-4bf9-81e8-5c0926328f8b"
+  },
+  "started_at_utc": "2026-09-22T06:25:44Z",
+  "task_id": "python-hyper-rfc3986-75e77ba",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 13,
+  "turns_from_trace": 13,
+  "valid": true,
+  "variant": "candidate"
+}

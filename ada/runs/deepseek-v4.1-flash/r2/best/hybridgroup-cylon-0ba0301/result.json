@@ -1,0 +1,133 @@
+{
+  "agent_duration_seconds": 398.387,
+  "agent_is_error": false,
+  "agent_result": "Setup complete and verified. Node.js v12.22.9 + npm 8.5.1 installed via apt, dependencies installed with `npm install`, and `make` (lint + test) passes with all 226 tests green.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 141440,
+  "cost_cli_usd": 0.285295,
+  "duration_seconds": 408.503,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.485,
+  "grader_output": "m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\n  \u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\n  \u001b[90m\u2024\u001b[0m\u001b[90m\u2024\u001b[0m\n\n\u001b[92m \u001b[0m\u001b[32m 226 passing\u001b[0m\u001b[90m (125ms)\u001b[0m\n\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 30660,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 141440,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.285295,
+      "inputTokens": 30660,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2451,
+      "provider": "firstParty",
+      "thinkingTokens": 853,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2451,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 118488,
+    "duration_ms": 14119,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 731,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 141440,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.285295,
+        "inputTokens": 30660,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2451,
+        "provider": "firstParty",
+        "thinkingTokens": 853,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 1,
+    "origin": {
+      "kind": "task-notification"
+    },
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete and verified. Node.js v12.22.9 + npm 8.5.1 installed via apt, dependencies installed with `npm install`, and `make` (lint + test) passes with all 226 tests green.",
+    "session_id": "ed65031e-8f65-4efb-8754-57b10371c500",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 13,
+    "total_cost_usd": 0.285295,
+    "ttft_ms": 13142,
+    "ttft_stream_ms": 730,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 18176,
+      "inference_geo": "",
+      "input_tokens": 359,
+      "iterations": [],
+      "output_tokens": 68,
+      "output_tokens_details": {
+        "thinking_tokens": 24
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "7882aa00-bfcd-4f03-b941-603220dbf992"
+  },
+  "started_at_utc": "2026-09-22T08:16:28Z",
+  "task_id": "hybridgroup-cylon-0ba0301",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 1,
+  "turns_from_trace": 13,
+  "valid": true,
+  "variant": "candidate"
+}

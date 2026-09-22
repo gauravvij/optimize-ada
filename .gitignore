@@ -1,0 +1,10 @@
+# Machine-local: never commit
+.env
+node_modules/
+__pycache__/
+*.pyc
+.hermes/
+.kilo/
+bench/harness/worktrees/
+bench/harness/.setupbench_cache
+ada/agent/traces/

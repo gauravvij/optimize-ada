@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 398.87,
+  "agent_is_error": false,
+  "agent_result": "rvisor\n`/etc/supervisor/conf.d/autossh.conf` runs:\n```\nautossh -M 0 -N -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \\\n  -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes \\\n  -o TCPKeepAlive=yes -i /root/.ssh/id_ed25519 -R 9000:localhost:22 root@127.0.0.1\n```\nwith `autorestart=true`, `startretries=1000000`, `AUTOSSH_GATETIME=0`, `AUTOSSH_PORT=0`. `/etc/supervisor/conf.d/sshd.conf` keeps sshd alive too (priority 10 vs autossh 20 so sshd is up first).\n\n## Verification\n- `supervisorctl status` \u2192 both `autossh` and `sshd` **RUNNING**\n- Tunnel in use: `ssh -p 9000 root@127.0.0.1` \u2192 `TUNNEL_ACTIVE` (port 9000 on the remote forwards to localhost:22)\n- Failure recovery tested twice:\n  - Killed the `ssh` child \u2192 autossh respawned it, tunnel recovered\n  - Killed the whole `autossh` process \u2192 supervisor restarted it (new PID), tunnel recovered\n\nThe persistent reverse tunnel is live: remote port **9000** \u2192 **localhost:22**, restart-managed by supervisord.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 167302,
+  "cost_cli_usd": 0.39974099999999996,
+  "duration_seconds": 402.035,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.189,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 25373,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 167302,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.39974099999999996,
+      "inputTokens": 25373,
+      "maxOutputTokens": 32000,
+      "outputTokens": 7569,
+      "provider": "firstParty",
+      "thinkingTokens": 3717,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 7569,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 232539,
+    "duration_ms": 389737,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 2125,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 167302,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.39974099999999996,
+        "inputTokens": 25373,
+        "maxOutputTokens": 32000,
+        "outputTokens": 7569,
+        "provider": "firstParty",
+        "thinkingTokens": 3717,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 21,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete and verified. Here's what was done:\n\n## Installed (system-wide via apt)\n- `autossh`, `openssh-server`, `openssh-client`, `supervisor`\n\n## SSH server + key auth\n- Generated `/root/.ssh/id_ed25519` (no passphrase) and authorized it in `/root/.ssh/authorized_keys`\n- `/etc/ssh/sshd_config.d/99-testbed.conf`:\n  ```\n  Port 22\n  ListenAddress 127.0.0.1\n  PermitRootLogin prohibit-password\n  PubkeyAuthentication yes\n  PasswordAuthentication no\n  ```\n- Verified key-based login: `ssh root@127.0.0.1` \u2192 works, no password\n\n## Reverse tunnel managed by supervisor\n`/etc/supervisor/conf.d/autossh.conf` runs:\n```\nautossh -M 0 -N -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \\\n  -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes \\\n  -o TCPKeepAlive=yes -i /root/.ssh/id_ed25519 -R 9000:localhost:22 root@127.0.0.1\n```\nwith `autorestart=true`, `startretries=1000000`, `AUTOSSH_GATETIME=0`, `AUTOSSH_PORT=0`. `/etc/supervisor/conf.d/sshd.conf` keeps sshd alive too (priority 10 vs autossh 20 so sshd is up first).\n\n## Verification\n- `supervisorctl status` \u2192 both `autossh` and `sshd` **RUNNING**\n- Tunnel in use: `ssh -p 9000 root@127.0.0.1` \u2192 `TUNNEL_ACTIVE` (port 9000 on the remote forwards to localhost:22)\n- Failure recovery tested twice:\n  - Killed the `ssh` child \u2192 autossh respawned it, tunnel recovered\n  - Killed the whole `autossh` process \u2192 supervisor restarted it (new PID), tunnel recovered\n\nThe persistent reverse tunnel is live: remote port **9000** \u2192 **localhost:22**, restart-managed by supervisord.",
+    "session_id": "8e3d8bb8-e990-4cb5-ae55-e97c0e312ac9",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 34,
+    "total_cost_usd": 0.39974099999999996,
+    "ttft_ms": 4806,
+    "ttft_stream_ms": 2125,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 167302,
+      "inference_geo": "",
+      "input_tokens": 24307,
+      "iterations": [],
+      "output_tokens": 7403,
+      "output_tokens_details": {
+        "thinking_tokens": 3567
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "3f70f6df-a374-4fa0-be8b-28edada38ec0"
+  },
+  "started_at_utc": "2026-09-22T08:00:47Z",
+  "task_id": "bgsetup-autossh-reverse-tunnel",
+  "task_type": "bgsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 21,
+  "turns_from_trace": 21,
+  "valid": true,
+  "variant": "candidate"
+}

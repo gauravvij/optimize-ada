@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 455.52,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 109208,
+  "cost_cli_usd": 1.1008840000000002,
+  "duration_seconds": 481.977,
+  "evidence_error": "",
+  "grader_duration_seconds": 1.701,
+  "grader_output": "Setup failed\nTraceback (most recent call last):\n  File \"/usr/lib/python3.10/runpy.py\", line 187, in _run_module_as_main\n    mod_name, mod_spec, code = _get_module_details(mod_name, _Error)\n  File \"/usr/lib/python3.10/runpy.py\", line 146, in _get_module_details\n    return _get_module_details(pkg_main_name, error)\n  File \"/usr/lib/python3.10/runpy.py\", line 110, in _get_module_details\n    __import__(pkg_name)\n  File \"/testbed/whisper/__init__.py\", line 8, in <module>\n    import torch\nModuleNotFoundError: No module named 'torch'",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 184586,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 109208,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.1008840000000002,
+      "inputTokens": 184586,
+      "maxOutputTokens": 32000,
+      "outputTokens": 4934,
+      "provider": "firstParty",
+      "thinkingTokens": 2602,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 4934,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 153594,
+    "duration_ms": 448345,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 109208,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.1008840000000002,
+        "inputTokens": 184586,
+        "maxOutputTokens": 32000,
+        "outputTokens": 4934,
+        "provider": "firstParty",
+        "thinkingTokens": 2602,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 24,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "e647c63d-6cce-4432-9cef-271312286a1f",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 1.1008840000000002,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 109208,
+      "inference_geo": "",
+      "input_tokens": 183550,
+      "iterations": [],
+      "output_tokens": 4494,
+      "output_tokens_details": {
+        "thinking_tokens": 2174
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "9410a035-59c1-4cb3-9226-f1d653be70e0"
+  },
+  "started_at_utc": "2026-09-22T06:30:10Z",
+  "task_id": "whisper-517a43e",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 24,
+  "turns_from_trace": 23,
+  "valid": true,
+  "variant": "candidate"
+}

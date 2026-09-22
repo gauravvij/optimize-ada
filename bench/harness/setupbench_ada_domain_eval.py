@@ -17,7 +17,9 @@ from pathlib import Path
 from typing import Any
 
 from setupbench_ada_eval import (
+    BENCHMARK_RUNNER,
     HARNESS,
+    MODEL,
     NODE_BINARY,
     NODE_MODULES,
     ROOT,
@@ -199,6 +201,9 @@ def diagnostic_row(row: dict[str, Any]) -> dict[str, Any]:
             # Usage/cost capture (§8.1): the runner already parses per-task
             # token usage from the agent result; surface it in diagnostics.
             "input_tokens", "output_tokens", "cache_read_tokens",
+            # Evidence fields: all populated only when ADA_EVAL_EVIDENCE_DIR is set or the run reports them.
+            "cache_creation_tokens", "models_seen", "cost_cli_usd", "turns_from_trace",
+            "started_at_utc", "evidence_error",
         )
     }
 
@@ -208,6 +213,7 @@ def usage_summary(rows: list[dict[str, Any]]) -> dict[str, int]:
         "input_tokens": sum(int(row.get("input_tokens") or 0) for row in rows),
         "output_tokens": sum(int(row.get("output_tokens") or 0) for row in rows),
         "cache_read_tokens": sum(int(row.get("cache_read_tokens") or 0) for row in rows),
+        "cache_creation_tokens": sum(int(row.get("cache_creation_tokens") or 0) for row in rows),
     }
 
 
@@ -328,11 +334,11 @@ def main() -> int:
             "tasks": list(selected),
             "selection_seed": SELECTION_SEED,
             "setupbench_commit": revision(SETUPBENCH),
-            "model": "z-ai/glm-5.3-flash",
+            "model": MODEL,
             "task_timeout_seconds": args.task_timeout_seconds,
             "grader_timeout_seconds": args.grader_timeout_seconds,
             "concurrency": args.concurrency,
-            "runner_sha256": hashlib.sha256((HARNESS / "setupbench_ada_runner.ts").read_bytes()).hexdigest(),
+            "runner_sha256": hashlib.sha256(BENCHMARK_RUNNER.read_bytes()).hexdigest(),
             "evaluator_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "grader_workdir": "/testbed",
             "metric": "number of tasks passing official executable graders",

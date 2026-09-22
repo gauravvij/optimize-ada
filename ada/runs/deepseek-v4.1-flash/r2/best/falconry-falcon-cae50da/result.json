@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 455.049,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 115200,
+  "cost_cli_usd": 1.03562,
+  "duration_seconds": 458.914,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.065,
+  "grader_output": "Setup failed\nbash: line 1: falcon-bench: command not found",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 179649,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 115200,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.03562,
+      "inputTokens": 179649,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3191,
+      "provider": "firstParty",
+      "thinkingTokens": 1109,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3191,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 67656,
+    "duration_ms": 447779,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 115200,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.03562,
+        "inputTokens": 179649,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3191,
+        "provider": "firstParty",
+        "thinkingTokens": 1109,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 16,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "430c4899-59c8-4f2d-ba7d-625ae646c254",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 1.03562,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 115200,
+      "inference_geo": "",
+      "input_tokens": 178596,
+      "iterations": [],
+      "output_tokens": 3062,
+      "output_tokens_details": {
+        "thinking_tokens": 998
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "2c3f5428-8a29-4483-9708-c6bfc4e57031"
+  },
+  "started_at_utc": "2026-09-22T06:09:17Z",
+  "task_id": "falconry-falcon-cae50da",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 16,
+  "turns_from_trace": 15,
+  "valid": true,
+  "variant": "candidate"
+}

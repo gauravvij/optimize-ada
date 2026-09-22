@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 352.43,
+  "agent_is_error": false,
+  "agent_result": "MongoDB 7.0 installed, running with `authorization: enabled`; `benchmark_user`/`benchmark_pass` created in both `admin` (root) and `benchmark_db` (readWrite), and all `/testbed/import/*.json` files imported as JSON arrays into `benchmark_db` collections (users 3, posts 2, comments 2) using authenticated `mongoimport --jsonArray`.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 100736,
+  "cost_cli_usd": 0.29137799999999997,
+  "duration_seconds": 356.013,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.584,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 27932,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 100736,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.29137799999999997,
+      "inputTokens": 27932,
+      "maxOutputTokens": 32000,
+      "outputTokens": 4054,
+      "provider": "firstParty",
+      "thinkingTokens": 2212,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 4054,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 272602,
+    "duration_ms": 347776,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 935,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 100736,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.29137799999999997,
+        "inputTokens": 27932,
+        "maxOutputTokens": 32000,
+        "outputTokens": 4054,
+        "provider": "firstParty",
+        "thinkingTokens": 2212,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 15,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "MongoDB 7.0 installed, running with `authorization: enabled`; `benchmark_user`/`benchmark_pass` created in both `admin` (root) and `benchmark_db` (readWrite), and all `/testbed/import/*.json` files imported as JSON arrays into `benchmark_db` collections (users 3, posts 2, comments 2) using authenticated `mongoimport --jsonArray`.",
+    "session_id": "990f8f9e-fe54-4ff9-8969-d69000b3390a",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 32,
+    "total_cost_usd": 0.29137799999999997,
+    "ttft_ms": 4420,
+    "ttft_stream_ms": 935,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 100096,
+      "inference_geo": "",
+      "input_tokens": 27561,
+      "iterations": [],
+      "output_tokens": 3948,
+      "output_tokens_details": {
+        "thinking_tokens": 2121
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "3c3aa6b8-db2d-46ee-a731-62a37a69760e"
+  },
+  "started_at_utc": "2026-09-22T08:29:49Z",
+  "task_id": "dbsetup-mongodb-2",
+  "task_type": "dbsetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 15,
+  "turns_from_trace": 15,
+  "valid": true,
+  "variant": "candidate"
+}

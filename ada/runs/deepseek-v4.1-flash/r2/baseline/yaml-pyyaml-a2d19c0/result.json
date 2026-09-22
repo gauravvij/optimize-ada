@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 290.713,
+  "agent_is_error": false,
+  "agent_result": "uild & install (per README/Makefile)\n- `libyaml-dev` provides the `yaml.h` header that `setup.py` probes, so the fast LibYAML bindings were compiled:\n  - `python3 setup.py --with-libyaml build` \u2192 cythonized `yaml/_yaml.pyx`, compiled and linked `yaml/_yaml.cpython-310-x86_64-linux-gnu.so` against `-lyaml`.\n  - `python3 setup.py --with-libyaml install` \u2192 installed PyYAML 6.0.1 globally under `/usr/local/lib/python3.10/dist-packages`.\n\n## Verification\n- `python3 -c \"import yaml; print(yaml.__version__, yaml.CLoader)\"` \u2192 `6.0.1`, `yaml.cyaml.CLoader` (C bindings active).\n- Full suite: `python3 -I -m pytest -q` \u2192 **2608 passed**.\n- Forced-libyaml suite: `PYYAML_FORCE_LIBYAML=1 python3 -I -m pytest -q` \u2192 **2608 passed**.\n- Bundled smoke test `packaging/build/smoketest.py` \u2192 *embedded libyaml version is 0.2.2, smoke test passed*.\n\nThe repo is fully built and installed globally with the optional C/LibYAML acceleration enabled, and the test suite passes in both pure-Python and C-binding modes.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 110592,
+  "cost_cli_usd": 0.16299599999999997,
+  "duration_seconds": 321.678,
+  "evidence_error": "",
+  "grader_duration_seconds": 19.445,
+  "grader_output": ".............. [ 72%]\n........................................................................ [ 75%]\n........................................................................ [ 78%]\n........................................................................ [ 80%]\n........................................................................ [ 83%]\n........................................................................ [ 86%]\n........................................................................ [ 89%]\n........................................................................ [ 91%]\n........................................................................ [ 94%]\n........................................................................ [ 97%]\n.................................................................        [ 99%]\ntests/test_dump_load.py ...                                              [100%]\n\n============================ 2608 passed in 18.99s =============================\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 8455,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 110592,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.16299599999999997,
+      "inputTokens": 8455,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2617,
+      "provider": "firstParty",
+      "thinkingTokens": 801,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2617,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 59080,
+    "duration_ms": 282098,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1545,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 110592,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.16299599999999997,
+        "inputTokens": 8455,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2617,
+        "provider": "firstParty",
+        "thinkingTokens": 801,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 12,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup is complete. Here's a summary of what I did:\n\n## Environment setup\n- Installed system packages via apt: `python3`, `python3-dev`, `python3-pip`, `python3-setuptools`, `python3-wheel`, `build-essential`, **`libyaml-dev`**, and `git`.\n- Upgraded pip and installed Python build/test deps: `setuptools`, `wheel`, `Cython`, `pytest`.\n\n## Build & install (per README/Makefile)\n- `libyaml-dev` provides the `yaml.h` header that `setup.py` probes, so the fast LibYAML bindings were compiled:\n  - `python3 setup.py --with-libyaml build` \u2192 cythonized `yaml/_yaml.pyx`, compiled and linked `yaml/_yaml.cpython-310-x86_64-linux-gnu.so` against `-lyaml`.\n  - `python3 setup.py --with-libyaml install` \u2192 installed PyYAML 6.0.1 globally under `/usr/local/lib/python3.10/dist-packages`.\n\n## Verification\n- `python3 -c \"import yaml; print(yaml.__version__, yaml.CLoader)\"` \u2192 `6.0.1`, `yaml.cyaml.CLoader` (C bindings active).\n- Full suite: `python3 -I -m pytest -q` \u2192 **2608 passed**.\n- Forced-libyaml suite: `PYYAML_FORCE_LIBYAML=1 python3 -I -m pytest -q` \u2192 **2608 passed**.\n- Bundled smoke test `packaging/build/smoketest.py` \u2192 *embedded libyaml version is 0.2.2, smoke test passed*.\n\nThe repo is fully built and installed globally with the optional C/LibYAML acceleration enabled, and the test suite passes in both pure-Python and C-binding modes.",
+    "session_id": "7ea37b63-814b-4572-a057-3d219f70ff58",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 44,
+    "total_cost_usd": 0.16299599999999997,
+    "ttft_ms": 1670,
+    "ttft_stream_ms": 1545,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 110592,
+      "inference_geo": "",
+      "input_tokens": 7404,
+      "iterations": [],
+      "output_tokens": 2487,
+      "output_tokens_details": {
+        "thinking_tokens": 700
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "fcb887ad-6bf9-4068-bc57-133db9756d8a"
+  },
+  "started_at_utc": "2026-09-22T06:54:37Z",
+  "task_id": "yaml-pyyaml-a2d19c0",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 12,
+  "turns_from_trace": 12,
+  "valid": true,
+  "variant": "candidate"
+}

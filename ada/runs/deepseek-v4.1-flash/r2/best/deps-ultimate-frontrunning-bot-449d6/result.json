@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 208.588,
+  "agent_is_error": false,
+  "agent_result": "Resolved the ERESOLVE conflict. `@semantic-release/changelog@5` only accepted `semantic-release <18`, conflicting with the root's `^21.0.2`. I upgraded the semantic-release plugin devDependencies to versions whose peer ranges accept v21:\n\n- `@semantic-release/changelog` `^5.0.1` \u2192 `^6.0.3`\n- `@semantic-release/commit-analyzer` `^9.0.1` \u2192 `^10.0.4`\n- `@semantic-release/npm` `^9.0.1` \u2192 `^10.0.6`\n- `@semantic-release/release-notes-generator` `^11.0.2` \u2192 `^11.0.7`\n\nRegenerated `package-lock.json` and verified `npm ci --ignore-scripts` now exits 0 with semantic-release 21.0.2 and all four plugins resolving cleanly.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 67072,
+  "cost_cli_usd": 0.162361,
+  "duration_seconds": 267.895,
+  "evidence_error": "",
+  "grader_duration_seconds": 50.416,
+  "grader_output": "This package is broken and no longer maintained. 'mkdirp' itself supports promises now, please switch to that.\nnpm WARN deprecated har-validator@5.1.5: this library is no longer supported\nnpm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.\nnpm WARN deprecated multicodec@1.0.4: This module has been superseded by the multiformats module\nnpm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142\nnpm WARN deprecated multibase@0.6.1: This module has been superseded by the multiformats module\nnpm WARN deprecated multibase@0.7.0: This module has been superseded by the multiformats module\nnpm WARN deprecated multicodec@0.5.7: This module has been superseded by the multiformats module\nnpm WARN deprecated cids@0.7.5: This module has been superseded by the multiformats module",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 11880,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 67072,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.162361,
+      "inputTokens": 11880,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2777,
+      "provider": "firstParty",
+      "thinkingTokens": 1177,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2777,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 73567,
+    "duration_ms": 202464,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1043,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 67072,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.162361,
+        "inputTokens": 11880,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2777,
+        "provider": "firstParty",
+        "thinkingTokens": 1177,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 9,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Resolved the ERESOLVE conflict. `@semantic-release/changelog@5` only accepted `semantic-release <18`, conflicting with the root's `^21.0.2`. I upgraded the semantic-release plugin devDependencies to versions whose peer ranges accept v21:\n\n- `@semantic-release/changelog` `^5.0.1` \u2192 `^6.0.3`\n- `@semantic-release/commit-analyzer` `^9.0.1` \u2192 `^10.0.4`\n- `@semantic-release/npm` `^9.0.1` \u2192 `^10.0.6`\n- `@semantic-release/release-notes-generator` `^11.0.2` \u2192 `^11.0.7`\n\nRegenerated `package-lock.json` and verified `npm ci --ignore-scripts` now exits 0 with semantic-release 21.0.2 and all four plugins resolving cleanly.",
+    "session_id": "e767799e-09c8-4a9e-83cc-6bc41f1cd338",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 40,
+    "total_cost_usd": 0.162361,
+    "ttft_ms": 1221,
+    "ttft_stream_ms": 1042,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 67072,
+      "inference_geo": "",
+      "input_tokens": 11077,
+      "iterations": [],
+      "output_tokens": 2676,
+      "output_tokens_details": {
+        "thinking_tokens": 1087
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "6bfd045e-00da-4955-918b-3f1a6986a5c6"
+  },
+  "started_at_utc": "2026-09-22T07:45:02Z",
+  "task_id": "deps-ultimate-frontrunning-bot-449d6",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 9,
+  "turns_from_trace": 9,
+  "valid": true,
+  "variant": "candidate"
+}

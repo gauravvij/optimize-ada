@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 452.438,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 488096,
+  "cost_cli_usd": 0.7890279999999998,
+  "duration_seconds": 480.247,
+  "evidence_error": "",
+  "grader_duration_seconds": 8.124,
+  "grader_output": "ode-v20.14.0-linux-x64.tar.gz\nExtracting archive: https://nodejs.org/dist/v20.14.0/node-v20.14.0-linux-x64.tar.gz\n\n> cd ../_download/archive/e2a15bb9c8406cd3a567d2bcc6cedb0a\n\n> tar -xzf \"/testbed/_download/file/https___nodejs.org_dist_v20.14.0_node-v20.14.0-linux-x64.tar.gz\"\n\n> cd ../../../Tests\n\n> prepending PATH /testbed/_download/archive/e2a15bb9c8406cd3a567d2bcc6cedb0a/node-v20.14.0-linux-x64/bin\n\n> mocha /testbed/_build/Tests/L0.js\n\n\n  General Suite\n    \u2713 Find invalid task.json\n    \u2713 Find .js with uppercase\n    \u2713 Find unsupported demands\n    \u2713 Find unsupported runsOn\n    \u2713 Find invalid server Task/ServerGate\n    \u2713 Find invalid message key in task.json\n    \u2713 Find missing string in .ts\n    \u2713 Find missing string in .ps1/.psm1\n\n\n  8 passing (11ms)\n\n\n> node -v\nskipping node install for tests since correct version is running\nError while generating coverage report\nSetup successful\nNo common library tests found\nrm: no such file or directory: /testbed/_build/coverage/*coverage-summary.json",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 78751,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 488096,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.7890279999999998,
+      "inputTokens": 78751,
+      "maxOutputTokens": 32000,
+      "outputTokens": 6049,
+      "provider": "firstParty",
+      "thinkingTokens": 2967,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 6049,
+  "passed": true,
+  "result_event": {
+    "duration_api_ms": 299606,
+    "duration_ms": 430728,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 488096,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.7890279999999998,
+        "inputTokens": 78751,
+        "maxOutputTokens": 32000,
+        "outputTokens": 6049,
+        "provider": "firstParty",
+        "thinkingTokens": 2967,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 32,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "24d864b0-3202-46c7-a0ea-f435aadda9f3",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_streaming",
+    "total_cost_usd": 0.7890279999999998,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 487200,
+      "inference_geo": "",
+      "input_tokens": 78549,
+      "iterations": [],
+      "output_tokens": 6033,
+      "output_tokens_details": {
+        "thinking_tokens": 2967
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "80da6dfa-4ef0-4b80-837e-cc6f0d1527a4"
+  },
+  "started_at_utc": "2026-09-22T07:05:19Z",
+  "task_id": "microsoft-azure-pipelines-tasks-bfcd4b2",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 32,
+  "turns_from_trace": 31,
+  "valid": true,
+  "variant": "candidate"
+}

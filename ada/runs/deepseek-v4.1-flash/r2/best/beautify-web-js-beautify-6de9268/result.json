@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 452.76,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 199680,
+  "cost_cli_usd": 0.28892999999999996,
+  "duration_seconds": 554.237,
+  "evidence_error": "",
+  "grader_duration_seconds": 90.062,
+  "grader_output": "le.load (internal/modules/cjs/loader.js:863:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:708:14)\n    at Module.require (internal/modules/cjs/loader.js:887:19) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/testbed/node_modules/npm/lib/cli.js',\n    '/testbed/node_modules/npm/bin/npm-cli.js'\n  ]\n}\nBrowserslist: caniuse-lite is outdated. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme\nfile:///testbed/node_modules/serve/build/main.js:169\n      const ipAddress = request.socket.remoteAddress?.replace(\"::ffff:\", \"\") ?? \"unknown\";\n                                                     ^\n\nSyntaxError: Unexpected token '.'\n    at Loader.moduleStrategy (internal/modules/esm/translators.js:133:18)\n    at async link (internal/modules/esm/module_job.js:42:21)\nmake: *** [Makefile:24: serve] Error 1\nenvironment: line 1: curl: command not found\nenvironment: line 1: [: -eq: unary operator expected",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 23068,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 199680,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.28892999999999996,
+      "inputTokens": 23068,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2950,
+      "provider": "firstParty",
+      "thinkingTokens": 1084,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2950,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 121697,
+    "duration_ms": 448170,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 199680,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.28892999999999996,
+        "inputTokens": 23068,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2950,
+        "provider": "firstParty",
+        "thinkingTokens": 1084,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 17,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "47e74a7d-0fc9-49e1-9a48-e78cb3cd284a",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.28892999999999996,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 199680,
+      "inference_geo": "",
+      "input_tokens": 22013,
+      "iterations": [],
+      "output_tokens": 2675,
+      "output_tokens_details": {
+        "thinking_tokens": 822
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "b4572093-4db8-4406-a849-af454f5239b5"
+  },
+  "started_at_utc": "2026-09-22T07:42:58Z",
+  "task_id": "beautify-web-js-beautify-6de9268",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 17,
+  "turns_from_trace": 16,
+  "valid": true,
+  "variant": "candidate"
+}

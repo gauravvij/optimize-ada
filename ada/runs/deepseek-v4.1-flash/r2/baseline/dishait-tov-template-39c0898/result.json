@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 435.443,
+  "agent_is_error": false,
+  "agent_result": "sr/local` from the official tarball, matching the repo's `.nvmrc` and `engines.node: >=20.17.0`.\n3. **pnpm 8.15.9** \u2014 installed globally, matching the repo's `packageManager` field. npm registry set to the mirror configured in the repo's `.npmrc`.\n4. **Dependencies** \u2014 `pnpm install` completed (respecting the lockfile).\n5. **Git safe.directory** set so the `prepare` \u2192 `husky install` hook works under root.\n6. **Build** \u2014 `pnpm build` (`vite build`) succeeds, producing `dist/` with `index.html`, assets, legacy polyfills, and gzip-compressed output.\n\n**Verification:**\n- `pnpm build` \u2192 exit 0, `dist/index.html` generated (verified twice, including from a clean `dist/`).\n- `vitest run` \u2192 3/3 tests pass.\n\n**Note:** `pnpm typecheck` fails, but this is a pre-existing repo quirk \u2014 the script calls `npx vue-tsc` which fetches a globally cached vue-tsc/typescript pair that mismatches (`ERR_PACKAGE_PATH_NOT_EXPORTED`). It is unrelated to the build; the required build pipeline is fully functional.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 69324,
+  "cost_cli_usd": 0.5691620000000001,
+  "duration_seconds": 566.834,
+  "evidence_error": "",
+  "grader_duration_seconds": 90.135,
+  "grader_output": "> tov-template@1.19.0 dev /testbed\n> vite\n\n[css] \u2714 lightningcss (transformer + cssMinify)\n[optimize] \u2714 optimize (preprocessorMaxWorkers + closeHoldUntilCrawlEnd)\n\n  VITE v5.4.3  ready in 2964 ms\n\n  \u279c  Local:   http://localhost:5173/\n  \u279c  Network: use --host to expose\n  \u279c  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window\n  \u279c  Vue DevTools: Press Alt(\u2325)+Shift(\u21e7)+D in App to toggle the Vue DevTools\n\nSetup successful\n\u2009ELIFECYCLE\u2009 Command failed.\n\u001b[33mThe CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.\u001b[39m\nBrowserslist: caniuse-lite is outdated. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme",
+  "grader_returncode": 143,
+  "harness_error": "",
+  "input_tokens": 89155,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 69324,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.5691620000000001,
+      "inputTokens": 89155,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3549,
+      "provider": "firstParty",
+      "thinkingTokens": 1633,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3549,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 66887,
+    "duration_ms": 424930,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1325,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 69324,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.5691620000000001,
+        "inputTokens": 89155,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3549,
+        "provider": "firstParty",
+        "thinkingTokens": 1633,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 13,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "The repository is fully set up and building successfully.\n\n## Summary\n\n**Project:** `dishait/tov-template` \u2014 a Vite + Vue 3 + TypeScript starter template, managed with pnpm (per README, pnpm is the only supported package manager).\n\n**Setup performed in the minimal Ubuntu 22.04 environment:**\n\n1. **Base tooling** via apt: `curl`, `ca-certificates`, `git`, `build-essential`, `python3`, `xz-utils`.\n2. **Node.js v20.17.0** \u2014 installed to `/usr/local` from the official tarball, matching the repo's `.nvmrc` and `engines.node: >=20.17.0`.\n3. **pnpm 8.15.9** \u2014 installed globally, matching the repo's `packageManager` field. npm registry set to the mirror configured in the repo's `.npmrc`.\n4. **Dependencies** \u2014 `pnpm install` completed (respecting the lockfile).\n5. **Git safe.directory** set so the `prepare` \u2192 `husky install` hook works under root.\n6. **Build** \u2014 `pnpm build` (`vite build`) succeeds, producing `dist/` with `index.html`, assets, legacy polyfills, and gzip-compressed output.\n\n**Verification:**\n- `pnpm build` \u2192 exit 0, `dist/index.html` generated (verified twice, including from a clean `dist/`).\n- `vitest run` \u2192 3/3 tests pass.\n\n**Note:** `pnpm typecheck` fails, but this is a pre-existing repo quirk \u2014 the script calls `npx vue-tsc` which fetches a globally cached vue-tsc/typescript pair that mismatches (`ERR_PACKAGE_PATH_NOT_EXPORTED`). It is unrelated to the build; the required build pipeline is fully functional.",
+    "session_id": "02acfd50-d8ac-4bd7-b780-51222bc3b4cb",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 44,
+    "total_cost_usd": 0.5691620000000001,
+    "ttft_ms": 1871,
+    "ttft_stream_ms": 1325,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 69324,
+      "inference_geo": "",
+      "input_tokens": 88103,
+      "iterations": [],
+      "output_tokens": 3303,
+      "output_tokens_details": {
+        "thinking_tokens": 1397
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "93f95f4a-76c3-456f-905f-0df5372cde1a"
+  },
+  "started_at_utc": "2026-09-22T06:11:25Z",
+  "task_id": "dishait-tov-template-39c0898",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 13,
+  "turns_from_trace": 13,
+  "valid": true,
+  "variant": "candidate"
+}

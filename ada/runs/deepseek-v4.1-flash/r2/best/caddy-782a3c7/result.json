@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 393.266,
+  "agent_is_error": false,
+  "agent_result": "Setup complete.\n\n**What was installed/configured:**\n- `build-essential`, `curl`, `git`, `ca-certificates` via apt\n- Go 1.24.13 (repo requires Go \u22651.24) extracted to `/usr/local/go`, symlinked `go`/`gofmt` into `/usr/local/bin` and added to `PATH` via `/etc/profile.d/go.sh`\n- Built Caddy from `cmd/caddy`: `go build -buildvcs=false -o /usr/local/bin/caddy .`\n\n**Verified:** `/usr/local/bin/caddy` exists (66 MB), `caddy version` runs, and `caddy list-modules` lists modules successfully. The `caddy` executable is on the PATH.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 131840,
+  "cost_cli_usd": 0.218255,
+  "duration_seconds": 413.381,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.093,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 13537,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 131840,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.218255,
+      "inputTokens": 13537,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3386,
+      "provider": "firstParty",
+      "thinkingTokens": 1291,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3386,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 132855,
+    "duration_ms": 389590,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1085,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 131840,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.218255,
+        "inputTokens": 13537,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3386,
+        "provider": "firstParty",
+        "thinkingTokens": 1291,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 18,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete.\n\n**What was installed/configured:**\n- `build-essential`, `curl`, `git`, `ca-certificates` via apt\n- Go 1.24.13 (repo requires Go \u22651.24) extracted to `/usr/local/go`, symlinked `go`/`gofmt` into `/usr/local/bin` and added to `PATH` via `/etc/profile.d/go.sh`\n- Built Caddy from `cmd/caddy`: `go build -buildvcs=false -o /usr/local/bin/caddy .`\n\n**Verified:** `/usr/local/bin/caddy` exists (66 MB), `caddy version` runs, and `caddy list-modules` lists modules successfully. The `caddy` executable is on the PATH.",
+    "session_id": "519c1574-1b18-44e0-af00-47a567098380",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 39,
+    "total_cost_usd": 0.218255,
+    "ttft_ms": 1370,
+    "ttft_stream_ms": 1084,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 131840,
+      "inference_geo": "",
+      "input_tokens": 12487,
+      "iterations": [],
+      "output_tokens": 3192,
+      "output_tokens_details": {
+        "thinking_tokens": 1111
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "20647682-5298-4eb0-b825-586adc92c428"
+  },
+  "started_at_utc": "2026-09-22T07:09:33Z",
+  "task_id": "caddy-782a3c7",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 18,
+  "turns_from_trace": 18,
+  "valid": true,
+  "variant": "candidate"
+}

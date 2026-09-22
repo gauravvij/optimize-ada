@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 456.247,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 66006,
+  "cost_cli_usd": 1.354118,
+  "duration_seconds": 459.371,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.141,
+  "grader_output": "Setup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 246983,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 66006,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.354118,
+      "inputTokens": 246983,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3448,
+      "provider": "firstParty",
+      "thinkingTokens": 1033,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3448,
+  "passed": true,
+  "result_event": {
+    "duration_api_ms": 73144,
+    "duration_ms": 448188,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 66006,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.354118,
+        "inputTokens": 246983,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3448,
+        "provider": "firstParty",
+        "thinkingTokens": 1033,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 20,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "833c4ee2-28eb-41db-a004-c7eb0593140e",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 1.354118,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 66006,
+      "inference_geo": "",
+      "input_tokens": 245943,
+      "iterations": [],
+      "output_tokens": 3347,
+      "output_tokens_details": {
+        "thinking_tokens": 948
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "3aa4b835-1911-4dc5-a6cc-fbce06f58762"
+  },
+  "started_at_utc": "2026-09-22T06:29:25Z",
+  "task_id": "ta-lib-python-0c957ed",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 20,
+  "turns_from_trace": 19,
+  "valid": true,
+  "variant": "candidate"
+}

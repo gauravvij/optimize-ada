@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 457.375,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 152192,
+  "cost_cli_usd": 1.260106,
+  "duration_seconds": 466.091,
+  "evidence_error": "",
+  "grader_duration_seconds": 2.87,
+  "grader_output": "EnvironBuilder\n    \n        builder = EnvironBuilder(app)\n        environ = builder.get_environ()\n    \n        # use a non-printable character in the Host - this is key to this test\n        environ[\"HTTP_HOST\"] = \"\\x8a\"\n    \n        with app.request_context(environ):\n            response = app.full_dispatch_request()\n>       assert response.status_code == 400\nE       assert 404 == 400\nE        +  where 404 = <Response streamed [404 NOT FOUND]>.status_code\n\ntests/test_reqctx.py:293: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_cli.py::test_no_command_echo_loading_error - TypeError: Cli...\nFAILED tests/test_cli.py::test_help_echo_loading_error - TypeError: CliRunner...\nFAILED tests/test_cli.py::test_help_echo_exception - TypeError: CliRunner.__i...\nFAILED tests/test_reqctx.py::test_bad_environ_raises_bad_request - assert 404...\n=================== 4 failed, 479 passed, 3 skipped in 2.52s ===================\nSetup failed",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 216492,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 152192,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 1.260106,
+      "inputTokens": 216492,
+      "maxOutputTokens": 32000,
+      "outputTokens": 4062,
+      "provider": "firstParty",
+      "thinkingTokens": 1454,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 4062,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 105282,
+    "duration_ms": 445866,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 152192,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 1.260106,
+        "inputTokens": 216492,
+        "maxOutputTokens": 32000,
+        "outputTokens": 4062,
+        "provider": "firstParty",
+        "thinkingTokens": 1454,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 18,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "2b70a432-954f-4c59-ae47-6f215a351afe",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_streaming",
+    "total_cost_usd": 1.260106,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 152192,
+      "inference_geo": "",
+      "input_tokens": 215442,
+      "iterations": [],
+      "output_tokens": 3887,
+      "output_tokens_details": {
+        "thinking_tokens": 1289
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "4db5019b-d2bd-493c-b528-90bcfe7e6cf0"
+  },
+  "started_at_utc": "2026-09-22T06:25:19Z",
+  "task_id": "pallets-flask-2fec0b2",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 18,
+  "turns_from_trace": 17,
+  "valid": true,
+  "variant": "candidate"
+}

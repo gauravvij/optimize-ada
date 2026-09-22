@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 422.051,
+  "agent_is_error": false,
+  "agent_result": "Setup complete: installed Python 3.10, build-essential, libyaml-dev, Cython, and pytest; built PyYAML's LibYAML C extension and installed the package globally. `import yaml` reports version 6.0.1 with `__with_libyaml__ = True`, and the full test suite passes (2608 passed).",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 218368,
+  "cost_cli_usd": 0.328039,
+  "duration_seconds": 445.597,
+  "evidence_error": "",
+  "grader_duration_seconds": 15.349,
+  "grader_output": ".............. [ 72%]\n........................................................................ [ 75%]\n........................................................................ [ 78%]\n........................................................................ [ 80%]\n........................................................................ [ 83%]\n........................................................................ [ 86%]\n........................................................................ [ 89%]\n........................................................................ [ 91%]\n........................................................................ [ 94%]\n........................................................................ [ 97%]\n.................................................................        [ 99%]\ntests/test_dump_load.py ...                                              [100%]\n\n============================ 2608 passed in 14.92s =============================\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 26651,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 218368,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.328039,
+      "inputTokens": 26651,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3424,
+      "provider": "firstParty",
+      "thinkingTokens": 999,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3424,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 68855,
+    "duration_ms": 412732,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1332,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 218368,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.328039,
+        "inputTokens": 26651,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3424,
+        "provider": "firstParty",
+        "thinkingTokens": 999,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 19,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete: installed Python 3.10, build-essential, libyaml-dev, Cython, and pytest; built PyYAML's LibYAML C extension and installed the package globally. `import yaml` reports version 6.0.1 with `__with_libyaml__ = True`, and the full test suite passes (2608 passed).",
+    "session_id": "add7cc27-b441-4357-8585-54c341d58b00",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 82,
+    "total_cost_usd": 0.328039,
+    "ttft_ms": 1601,
+    "ttft_stream_ms": 1331,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 217600,
+      "inference_geo": "",
+      "input_tokens": 26368,
+      "iterations": [],
+      "output_tokens": 3233,
+      "output_tokens_details": {
+        "thinking_tokens": 819
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "35f569d7-4c20-497a-8990-5194ccb412d5"
+  },
+  "started_at_utc": "2026-09-22T06:50:12Z",
+  "task_id": "yaml-pyyaml-a2d19c0",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 19,
+  "turns_from_trace": 19,
+  "valid": true,
+  "variant": "candidate"
+}

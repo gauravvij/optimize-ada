@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 206.819,
+  "agent_is_error": false,
+  "agent_result": "Setup complete. Installed Node.js 20.18.0 (from official tarball), yarn 1.22.22 globally, ran `yarn install --frozen-lockfile`, and `yarn build` exits 0 with all artifacts in `dist/` (CJS `index.js`, ESM `index.mjs`, type declarations, CLI) verified importable.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 71168,
+  "cost_cli_usd": 0.623384,
+  "duration_seconds": 251.761,
+  "evidence_error": "",
+  "grader_duration_seconds": 32.004,
+  "grader_output": "api-resources/images.test.ts\nPASS tests/api-resources/batches.test.ts\nPASS tests/api-resources/beta/vector-stores/files.test.ts\nPASS tests/uploads.test.ts\nPASS tests/api-resources/chat/completions.test.ts\nPASS tests/form.test.ts\nPASS tests/api-resources/models.test.ts\nPASS tests/api-resources/uploads/uploads.test.ts\nPASS tests/api-resources/completions.test.ts\nPASS tests/streaming/assistants/assistant.test.ts\nPASS tests/api-resources/audio/transcriptions.test.ts\nPASS tests/api-resources/fine-tuning/jobs/checkpoints.test.ts\nPASS tests/api-resources/audio/translations.test.ts\nPASS tests/api-resources/embeddings.test.ts\nPASS tests/api-resources/uploads/parts.test.ts\nPASS tests/stringifyQuery.test.ts\nPASS tests/responses.test.ts\nPASS tests/api-resources/moderations.test.ts\n\nTest Suites: 1 skipped, 34 passed, 34 of 35 total\nTests:       1 skipped, 278 passed, 279 total\nSnapshots:   18 passed, 18 total\nTime:        3.602 s\nRan all test suites.\n./scripts/test: line 17: lsof: command not found",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 100865,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 71168,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.623384,
+      "inputTokens": 100865,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3339,
+      "provider": "firstParty",
+      "thinkingTokens": 1270,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3339,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 85211,
+    "duration_ms": 202001,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 840,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 71168,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.623384,
+        "inputTokens": 100865,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3339,
+        "provider": "firstParty",
+        "thinkingTokens": 1270,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 16,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete. Installed Node.js 20.18.0 (from official tarball), yarn 1.22.22 globally, ran `yarn install --frozen-lockfile`, and `yarn build` exits 0 with all artifacts in `dist/` (CJS `index.js`, ESM `index.mjs`, type declarations, CLI) verified importable.",
+    "session_id": "17d612d0-072a-48a7-99b9-93dfd0d618a2",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 67,
+    "total_cost_usd": 0.623384,
+    "ttft_ms": 1088,
+    "ttft_stream_ms": 840,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 71168,
+      "inference_geo": "",
+      "input_tokens": 99814,
+      "iterations": [],
+      "output_tokens": 3087,
+      "output_tokens_details": {
+        "thinking_tokens": 1029
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "7bffe760-8f80-424f-8902-afe0afdf8db6"
+  },
+  "started_at_utc": "2026-09-22T06:22:40Z",
+  "task_id": "openai-openai-node-8958d97",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 16,
+  "turns_from_trace": 16,
+  "valid": true,
+  "variant": "candidate"
+}

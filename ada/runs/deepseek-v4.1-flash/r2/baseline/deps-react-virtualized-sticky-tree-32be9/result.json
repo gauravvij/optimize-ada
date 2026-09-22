@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 433.356,
+  "agent_is_error": false,
+  "agent_result": "npm pulled the latest `react-dom@19.3.0`, which requires `react@^19.3.0`. Fixed by declaring `\"react-dom\": \"^16.0.0\"` alongside `react` in `peerDependencies`, so both resolve to 16.14.0.\n\n2. **eslint vs eslint-config-airbnb** \u2014 `eslint-config-airbnb: latest` resolved to 18.2.0, whose peer range is `eslint ^5.16 || ^6.8 || ^7.2`, conflicting with the pinned `eslint ^4.19.1`. Pinned `eslint-config-airbnb` to `^15.1.0`, whose peers (`eslint ^3.19 || ^4.3`, `jsx-a11y ^5.1.1`, `import ^2.7.0`, `react ^7.1.0`) match the existing devDependency ranges.\n\nChanges:\n- `package.json`: added `react-dom` peer, pinned `eslint-config-airbnb` (`package.json:41`, `package.json:65`).\n- `package-lock.json`: regenerated (npm 8 upgraded it to lockfileVersion 2 and recorded the new/consistent resolutions). Existing locked versions (webpack 4.44.1, enzyme 3.11.0, etc.) were preserved.\n\nVerified with a clean `rm -rf node_modules && npm ci --ignore-scripts` \u2192 exit 0, with `react` and `react-dom` both at 16.14.0.",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 246016,
+  "cost_cli_usd": 0.40170300000000003,
+  "duration_seconds": 536.603,
+  "evidence_error": "",
+  "grader_duration_seconds": 52.498,
+  "grader_output": "id@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).\nnpm WARN deprecated mkdirp@0.5.1: Legacy versions of mkdirp are no longer supported. Please update to mkdirp 1.x. (Note that the API surface has changed to use Promises in 1.x.)\nnpm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142\nnpm WARN deprecated eslint@4.19.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.\nnpm WARN deprecated core-js@2.6.11: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 17294,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 246016,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.40170300000000003,
+      "inputTokens": 17294,
+      "maxOutputTokens": 32000,
+      "outputTokens": 7689,
+      "provider": "firstParty",
+      "thinkingTokens": 4731,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 7689,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 221867,
+    "duration_ms": 419498,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 766,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 246016,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.40170300000000003,
+        "inputTokens": 17294,
+        "maxOutputTokens": 32000,
+        "outputTokens": 7689,
+        "provider": "firstParty",
+        "thinkingTokens": 4731,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 20,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Resolved. `npm ci --ignore-scripts` now exits 0.\n\nThere were two peer-dependency conflicts that npm 8's strict resolver rejected (the old `lockfileVersion: 1` lock was created by npm 6, which ignored peers):\n\n1. **React vs react-dom** \u2014 the root declared `react: ^16.0.0`, but `react-measure` also peer-depends on `react-dom` with a loose `>0.13.0` range, so npm pulled the latest `react-dom@19.3.0`, which requires `react@^19.3.0`. Fixed by declaring `\"react-dom\": \"^16.0.0\"` alongside `react` in `peerDependencies`, so both resolve to 16.14.0.\n\n2. **eslint vs eslint-config-airbnb** \u2014 `eslint-config-airbnb: latest` resolved to 18.2.0, whose peer range is `eslint ^5.16 || ^6.8 || ^7.2`, conflicting with the pinned `eslint ^4.19.1`. Pinned `eslint-config-airbnb` to `^15.1.0`, whose peers (`eslint ^3.19 || ^4.3`, `jsx-a11y ^5.1.1`, `import ^2.7.0`, `react ^7.1.0`) match the existing devDependency ranges.\n\nChanges:\n- `package.json`: added `react-dom` peer, pinned `eslint-config-airbnb` (`package.json:41`, `package.json:65`).\n- `package-lock.json`: regenerated (npm 8 upgraded it to lockfileVersion 2 and recorded the new/consistent resolutions). Existing locked versions (webpack 4.44.1, enzyme 3.11.0, etc.) were preserved.\n\nVerified with a clean `rm -rf node_modules && npm ci --ignore-scripts` \u2192 exit 0, with `react` and `react-dom` both at 16.14.0.",
+    "session_id": "39428b83-9868-4def-9c94-822204fe9c42",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 52,
+    "total_cost_usd": 0.40170300000000003,
+    "ttft_ms": 1197,
+    "ttft_stream_ms": 765,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 246016,
+      "inference_geo": "",
+      "input_tokens": 16424,
+      "iterations": [],
+      "output_tokens": 7529,
+      "output_tokens_details": {
+        "thinking_tokens": 4580
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "3bfb3566-1a32-426c-857f-7f616e240aab"
+  },
+  "started_at_utc": "2026-09-22T07:30:29Z",
+  "task_id": "deps-react-virtualized-sticky-tree-32be9",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 20,
+  "turns_from_trace": 20,
+  "valid": true,
+  "variant": "candidate"
+}

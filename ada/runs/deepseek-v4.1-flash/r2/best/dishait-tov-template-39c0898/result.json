@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 457.652,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 78976,
+  "cost_cli_usd": 0.904863,
+  "duration_seconds": 590.372,
+  "evidence_error": "",
+  "grader_duration_seconds": 90.157,
+  "grader_output": "> tov-template@1.19.0 dev /testbed\n> vite\n\n[css] \u2714 lightningcss (transformer + cssMinify)\n[optimize] \u2714 optimize (preprocessorMaxWorkers + closeHoldUntilCrawlEnd)\n\n  VITE v5.4.3  ready in 2718 ms\n\n  \u279c  Local:   http://localhost:5173/\n  \u279c  Network: use --host to expose\n  \u279c  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window\n  \u279c  Vue DevTools: Press Alt(\u2325)+Shift(\u21e7)+D in App to toggle the Vue DevTools\n\nSetup successful\n\u2009ELIFECYCLE\u2009 Command failed.\n\u001b[33mThe CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.\u001b[39m\nBrowserslist: caniuse-lite is outdated. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme",
+  "grader_returncode": 143,
+  "harness_error": "",
+  "input_tokens": 153485,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 78976,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.904863,
+      "inputTokens": 153485,
+      "maxOutputTokens": 32000,
+      "outputTokens": 3918,
+      "provider": "firstParty",
+      "thinkingTokens": 1594,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 3918,
+  "passed": true,
+  "result_event": {
+    "duration_api_ms": 170633,
+    "duration_ms": 444396,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 78976,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.904863,
+        "inputTokens": 153485,
+        "maxOutputTokens": 32000,
+        "outputTokens": 3918,
+        "provider": "firstParty",
+        "thinkingTokens": 1594,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 18,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "9109777d-a354-45b1-b78e-a45535e8d6c3",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.904863,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 78976,
+      "inference_geo": "",
+      "input_tokens": 152390,
+      "iterations": [],
+      "output_tokens": 3906,
+      "output_tokens_details": {
+        "thinking_tokens": 1594
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "ce9b104d-667c-4d11-a19d-4941ff0cd05d"
+  },
+  "started_at_utc": "2026-09-22T06:06:48Z",
+  "task_id": "dishait-tov-template-39c0898",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 18,
+  "turns_from_trace": 17,
+  "valid": true,
+  "variant": "candidate"
+}

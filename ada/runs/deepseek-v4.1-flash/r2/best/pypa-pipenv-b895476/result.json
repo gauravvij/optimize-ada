@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 456.793,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 596224,
+  "cost_cli_usd": 0.6430820000000002,
+  "duration_seconds": 464.711,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.433,
+  "grader_output": "ges not specified in Pipfile.lock.\n  graph         Displays currently-installed dependency graph information.\n  install       Installs provided packages and adds them to Pipfile, or (if no\n                packages are given), installs all packages from Pipfile.\n  lock          Generates Pipfile.lock.\n  open          View a given module in your editor.\n  requirements  Generate a requirements.txt from Pipfile.lock.\n  run           Spawns a command installed into the virtualenv.\n  scripts       Lists scripts in current environment config.\n  shell         Spawns a shell within the virtualenv.\n  sync          Installs all packages specified in Pipfile.lock.\n  uninstall     Uninstalls a provided package and removes it from Pipfile.\n  update        Runs lock, then sync.\n  upgrade       Resolves provided packages and adds them to Pipfile, or (if no\n                packages are given), merges results to Pipfile.lock\n  verify        Verify the hash in Pipfile.lock is up-to-date.\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 32984,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 596224,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.6430820000000002,
+      "inputTokens": 32984,
+      "maxOutputTokens": 32000,
+      "outputTokens": 7202,
+      "provider": "firstParty",
+      "thinkingTokens": 4115,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 7202,
+  "passed": true,
+  "result_event": {
+    "duration_api_ms": 177617,
+    "duration_ms": 448959,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 596224,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.6430820000000002,
+        "inputTokens": 32984,
+        "maxOutputTokens": 32000,
+        "outputTokens": 7202,
+        "provider": "firstParty",
+        "thinkingTokens": 4115,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 27,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "e085d6ae-45f8-4d35-85a2-32e0f949851c",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.6430820000000002,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 596224,
+      "inference_geo": "",
+      "input_tokens": 31932,
+      "iterations": [],
+      "output_tokens": 7111,
+      "output_tokens_details": {
+        "thinking_tokens": 4030
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "db5c664c-d0d1-43c9-97ba-5222d295c914"
+  },
+  "started_at_utc": "2026-09-22T06:55:18Z",
+  "task_id": "pypa-pipenv-b895476",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 27,
+  "turns_from_trace": 26,
+  "valid": true,
+  "variant": "candidate"
+}

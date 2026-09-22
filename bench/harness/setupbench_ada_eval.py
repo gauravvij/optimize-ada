@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import tempfile
@@ -30,7 +31,14 @@ FINAL_ADA = Path(os.environ.get("ADA_WORKSPACE", str(ROOT.parent / "ada"))).reso
 BASELINE_ADA = Path(os.environ.get("ADA_BASELINE_WORKSPACE", str(HARNESS / "worktrees" / "ada-baseline"))).resolve()
 NODE_MODULES = FINAL_ADA / "node_modules"
 NODE_BINARY = Path("/usr/local/bin/node")  # v24 with type-stripping; /usr/bin/node is v20 and cannot run .ts
-BENCHMARK_RUNNER = HARNESS / "setupbench_ada_runner.ts"
+BENCHMARK_RUNNER = Path(os.environ.get("ADA_EVAL_RUNNER", str(HARNESS / "setupbench_ada_runner.ts"))).resolve()
+# Model and evidence capture are env-gated; unset, this behaves exactly as it did for R1-R10.
+MODEL = os.environ.get("ADA_EVAL_MODEL", "z-ai/glm-5.3-flash")
+EVIDENCE_DIR = Path(os.environ["ADA_EVAL_EVIDENCE_DIR"]).resolve() if os.environ.get("ADA_EVAL_EVIDENCE_DIR") else None
+EVIDENCE_ARM = os.environ.get("ADA_EVAL_ARM", "candidate")
+if EVIDENCE_DIR is not None and "ADA_EVAL_MODEL" not in os.environ:
+    raise SystemExit("ADA_EVAL_EVIDENCE_DIR is set but ADA_EVAL_MODEL is not: refusing to fall back to the default model")
+SECRET_PATTERN = re.compile(r"sk-or-[A-Za-z0-9_-]{16,}|sk-ant-[A-Za-z0-9_-]{16,}")
 IMAGE_OVERRIDES = {
     "codeexecservice.azurecr.io/setupbench-node-16:latest": "node:16",
 }
@@ -142,6 +150,46 @@ def parse_result(log: str) -> dict[str, Any] | None:
     return None
 
 
+def redact(text: str) -> str:
+    for name in ("OPENROUTER_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_API_KEY"):
+        secret = os.environ.get(name, "")
+        if secret:
+            text = text.replace(secret, "<redacted>")
+    return SECRET_PATTERN.sub("<redacted>", text)
+
+
+def save_evidence(container: str, task_id: str) -> tuple[int, str]:
+    """Copy the FULL trace and agent log out of the container before it is removed.
+
+    Returns (assistant entries in the trace, error text). A no-op unless ADA_EVAL_EVIDENCE_DIR is set.
+    """
+    if EVIDENCE_DIR is None:
+        return 0, ""
+    dest = EVIDENCE_DIR / EVIDENCE_ARM / task_id
+    dest.mkdir(parents=True, exist_ok=True)
+    errors: list[str] = []
+    for source, name in (("/testbed/.ada-trace.jsonl", "trace.jsonl"), ("/testbed/.ada.log", "agent.log")):
+        copied = command(["docker", "cp", f"{container}:{source}", str(dest / name)], timeout=120)
+        if copied.returncode != 0:
+            errors.append(f"{name}:{(copied.stdout + copied.stderr)[-200:].strip()}")
+            continue
+        (dest / name).write_text(redact((dest / name).read_text(errors="replace")))
+    # One turn = one model reply. The SDK emits an entry per content block, so count tool-result rounds
+    # (each answers one tool-calling reply) plus the final reply; 0 when the model never produced output.
+    tool_rounds = assistant_entries = 0
+    trace_file = dest / "trace.jsonl"
+    if trace_file.is_file():
+        for line in trace_file.read_text().splitlines():
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                continue
+            assistant_entries += entry.get("type") == "assistant"
+            if entry.get("type") == "user" and any(b.get("type") == "tool_result" for b in entry.get("content") or []):
+                tool_rounds += 1
+    return (tool_rounds + 1 if assistant_entries else 0), "; ".join(errors)
+
+
 def run_variant(
     task: dict[str, Any],
     input_dir: Path,
@@ -163,6 +211,9 @@ def run_variant(
     grader_returncode: int | None = None
     log = ""
     trace = ""
+    turns_from_trace = 0
+    evidence_error = ""
+    started_wall = time.time()
     try:
         docker_args = [
             "docker", "run", "-d", "--name", name, "--init",
@@ -198,6 +249,15 @@ def run_variant(
             "/testbed /testbed/.setupbench-task.txt > /testbed/.ada.log 2>&1; "
             "printf '%s\\n' $? > /testbed/.ada-exit; exec tail -f /dev/null",
         ]
+        if MODEL != "z-ai/glm-5.3-flash":  # env-selected model replaces the recorded default
+            docker_args[docker_args.index("ANTHROPIC_MODEL=z-ai/glm-5.3-flash")] = f"ANTHROPIC_MODEL={MODEL}"
+        if os.environ.get("ADA_EVAL_DIRECT") == "1" and os.environ.get("ANTHROPIC_API_KEY"):
+            # direct Anthropic run: the SDK gets the real key too, not just the auth token
+            docker_args[docker_args.index("ANTHROPIC_API_KEY=")] = f"ANTHROPIC_API_KEY={os.environ['ANTHROPIC_API_KEY']}"
+        if os.environ.get("ADA_EVAL_BASE_URL"):  # diagnostics only: route the API through a logging proxy
+            docker_args[docker_args.index("ANTHROPIC_BASE_URL=https://openrouter.ai/api")] = (
+                f"ANTHROPIC_BASE_URL={os.environ['ADA_EVAL_BASE_URL']}"
+            )
         launched = command(docker_args, timeout=60)
         if launched.returncode != 0:
             raise RuntimeError(f"docker run failed: {(launched.stdout + launched.stderr)[-1000:]}")
@@ -245,6 +305,10 @@ def run_variant(
             trace = traced.stdout + traced.stderr
         except Exception as exc:
             harness_error = harness_error or f"trace_capture:{type(exc).__name__}:{exc}"
+        try:
+            turns_from_trace, evidence_error = save_evidence(name, task["instance_id"])
+        except Exception as exc:
+            evidence_error = f"{type(exc).__name__}:{exc}"
         # Guarded cleanup: a slow/stuck `docker rm` must never kill the whole
         # suite (this exact failure aborted experiment 5 and one validation run).
         for attempt in range(3):
@@ -257,15 +321,15 @@ def run_variant(
                 else:
                     time.sleep(5)
 
-    secret = os.environ.get("OPENROUTER_API_KEY", "")
-    if secret:
-        log = log.replace(secret, "<redacted>")
-        grader_output = grader_output.replace(secret, "<redacted>")
-        harness_error = harness_error.replace(secret, "<redacted>")
-        trace = trace.replace(secret, "<redacted>")
+    log, grader_output, harness_error, trace = (redact(x) for x in (log, grader_output, harness_error, trace))
     result = parse_result(log)
     model_usage = (result or {}).get("model_usage") or (result or {}).get("modelUsage") or {}
-    usage = model_usage.get("z-ai/glm-5.3-flash") or {}
+    # Sum EVERY model the run billed (not just the configured one), so a stray background-model call
+    # cannot vanish; the models seen are listed alongside.
+    per_model = {m: u for m, u in model_usage.items() if isinstance(u, dict)}
+
+    def tokens(*names: str) -> int:
+        return sum(int(next((u[n] for n in names if u.get(n) is not None), 0) or 0) for u in per_model.values())
     if task["task_type"] == "dependency_resolution":
         passed = valid and not timed_out and grader_returncode == 0
     else:
@@ -274,7 +338,7 @@ def run_variant(
             and not timed_out
             and "Setup successful" in grader_output
         )
-    return {
+    row = {
         "task_id": task["instance_id"],
         "task_type": task["task_type"],
         "variant": variant,
@@ -285,11 +349,15 @@ def run_variant(
         "agent_duration_seconds": round(agent_duration, 3),
         "grader_duration_seconds": round(grader_duration, 3),
         "turns": int((result or {}).get("num_turns") or 0),
-        "input_tokens": int(usage.get("input_tokens") or usage.get("inputTokens") or 0),
-        "output_tokens": int(usage.get("output_tokens") or usage.get("outputTokens") or 0),
-        "cache_read_tokens": int(
-            usage.get("cache_read_input_tokens") or usage.get("cacheReadInputTokens") or 0
-        ),
+        "input_tokens": tokens("input_tokens", "inputTokens"),
+        "output_tokens": tokens("output_tokens", "outputTokens"),
+        "cache_read_tokens": tokens("cache_read_input_tokens", "cacheReadInputTokens"),
+        "cache_creation_tokens": tokens("cache_creation_input_tokens", "cacheCreationInputTokens"),
+        "models_seen": sorted(per_model),
+        "cost_cli_usd": (result or {}).get("total_cost_usd"),
+        "turns_from_trace": turns_from_trace,
+        "started_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(started_wall)),
+        "evidence_error": evidence_error,
         "terminal_result": result is not None,
         "agent_is_error": bool((result or {}).get("is_error")),
         "agent_stop_reason": (result or {}).get("stop_reason"),
@@ -300,6 +368,14 @@ def run_variant(
         "agent_log_tail": "" if passed else log[-2000:],
         "agent_trace_tail": trace[-12000:],
     }
+    if EVIDENCE_DIR is not None:
+        out = EVIDENCE_DIR / EVIDENCE_ARM / task["instance_id"]
+        out.mkdir(parents=True, exist_ok=True)
+        slim = {k: v for k, v in row.items() if k not in ("agent_trace_tail", "agent_log_tail")}
+        slim["model_usage"] = per_model
+        slim["result_event"] = result
+        (out / "result.json").write_text(json.dumps(slim, indent=2, sort_keys=True, default=str) + "\n")
+    return row
 
 
 def run_variant_with_infrastructure_retries(
@@ -459,7 +535,7 @@ def main() -> int:
             "candidate_ada_commit": revision(candidate_ada),
             "baseline_diff_sha256": tracked_diff_fingerprint(BASELINE_ADA),
             "candidate_diff_sha256": tracked_diff_fingerprint(candidate_ada),
-            "model": "z-ai/glm-5.3-flash",
+            "model": MODEL,
             "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "base_image_overrides": IMAGE_OVERRIDES,
             "resolved_image_ids": {

@@ -32,15 +32,21 @@ if gp.exists():
     gens = [json.loads(l) for l in gp.read_text().splitlines() if l.strip()]
     gens = [g for g in gens if g.get("session_id") == sid]
 cost = sum((g.get("generation") or {}).get("total_cost") or 0 for g in gens)
-prov = {}
-for g in gens:
-    p = (g.get("generation") or {}).get("provider_name") or "?"
-    prov[p] = prov.get(p, 0) + 1
+if gens:
+    prov = {}
+    for g in gens:
+        p = (g.get("generation") or {}).get("provider_name") or "?"
+        prov[p] = prov.get(p, 0) + 1
+    calls_line = f"{len(gens)} model calls, cost ${cost:.4f} | providers {prov}"
+else:
+    # direct-API run: no proxy log; fall back to the CLI usage saved in result.json
+    u = f"tokens in {res.get('input_tokens') or 0:,} + cache {((res.get('cache_read_tokens') or 0) + (res.get('cache_creation_tokens') or 0)):,} out {res.get('output_tokens') or 0:,}"
+    calls_line = f"no proxy log (direct API) | {u} | CLI cost ${(res.get('cost_cli_usd') or 0):.4f}"
 outcome = "TIMED OUT (never checked)" if res["timed_out"] else ("PASSED" if res["passed"] else "FAILED the check")
 print(f"== {arm} / {task}  ({ev})")
 print(f"outcome : {outcome}{' | interrupted by the 450 s watchdog' if interrupted else ''}")
 print(f"numbers : turns {res['turns'] or res.get('turns_from_trace')} | wall {res['duration_seconds']:.0f}s (agent {res.get('agent_duration_seconds', 0):.0f}s)"
-      f" | {len(gens)} model calls, cost ${cost:.4f} | providers {prov}")
+      f" | {calls_line} | models {res.get('models_seen')}")
 if res.get("grader_output"):
     print("grader  : rc", res.get("grader_returncode"), "|", res["grader_output"].strip().replace("\n", " | ")[-300:])
 cut = (lambda s: s) if full else (lambda s: s if len(s) <= 120 else s[:117] + "...")

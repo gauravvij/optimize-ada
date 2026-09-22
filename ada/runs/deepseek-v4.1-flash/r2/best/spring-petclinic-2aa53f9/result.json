@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 454.317,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 55424,
+  "cost_cli_usd": 0.49684700000000004,
+  "duration_seconds": 508.65,
+  "evidence_error": "",
+  "grader_duration_seconds": 20.059,
+  "grader_output": "Setup failed",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 82047,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 55424,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.49684700000000004,
+      "inputTokens": 82047,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2356,
+      "provider": "firstParty",
+      "thinkingTokens": 831,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2356,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 66441,
+    "duration_ms": 447735,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 55424,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.49684700000000004,
+        "inputTokens": 82047,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2356,
+        "provider": "firstParty",
+        "thinkingTokens": 831,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 15,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "f224d831-39ee-4c88-a194-ab4164f07a48",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.49684700000000004,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 55424,
+      "inference_geo": "",
+      "input_tokens": 81000,
+      "iterations": [],
+      "output_tokens": 2284,
+      "output_tokens_details": {
+        "thinking_tokens": 771
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "ce51c625-5faa-44eb-8d77-92cd63ab7128"
+  },
+  "started_at_utc": "2026-09-22T05:52:17Z",
+  "task_id": "spring-petclinic-2aa53f9",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 15,
+  "turns_from_trace": 14,
+  "valid": true,
+  "variant": "candidate"
+}

@@ -1,0 +1,130 @@
+{
+  "agent_duration_seconds": 397.289,
+  "agent_is_error": false,
+  "agent_result": "Setup complete. Installed `python3`/`pip`/`build-essential` via apt, then `pip install -e . pytest pytest-cov twisted` from `/testbed`. Test suite passes: **42 passed, 1 skipped** (skip is expected \u2014 Python 3.11-only `BaseExceptionGroup` feature on Python 3.10).",
+  "agent_stop_reason": "end_turn",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 154112,
+  "cost_cli_usd": 0.28859099999999993,
+  "duration_seconds": 404.435,
+  "evidence_error": "",
+  "grader_duration_seconds": 3.982,
+  "grader_output": "============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0\nrootdir: /testbed\nconfigfile: pytest.ini\ntestpaths: tests\nplugins: cov-7.1.0\ncollected 43 items\n\ntests/test_issue30.py .                                                  [  2%]\ntests/test_pickle_exception.py ...................s...................   [ 93%]\ntests/test_tblib.py ...                                                  [100%]\n\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_pickle_exception.py:116: no BaseExceptionGroup before Python 3.11\n======================== 42 passed, 1 skipped in 1.58s =========================\nSetup successful",
+  "grader_returncode": 0,
+  "harness_error": "",
+  "input_tokens": 29647,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 154112,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.28859099999999993,
+      "inputTokens": 29647,
+      "maxOutputTokens": 32000,
+      "outputTokens": 2532,
+      "provider": "firstParty",
+      "thinkingTokens": 761,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 2532,
+  "passed": true,
+  "result_event": {
+    "api_error_status": null,
+    "duration_api_ms": 50128,
+    "duration_ms": 390793,
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "first_content_frame_ms": 1302,
+    "is_error": false,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 154112,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.28859099999999993,
+        "inputTokens": 29647,
+        "maxOutputTokens": 32000,
+        "outputTokens": 2532,
+        "provider": "firstParty",
+        "thinkingTokens": 761,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 17,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "result": "Setup complete. Installed `python3`/`pip`/`build-essential` via apt, then `pip install -e . pytest pytest-cov twisted` from `/testbed`. Test suite passes: **42 passed, 1 skipped** (skip is expected \u2014 Python 3.11-only `BaseExceptionGroup` feature on Python 3.10).",
+    "session_id": "95658d4d-286a-483e-81ef-25923495f27e",
+    "stop_reason": "end_turn",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "success",
+    "terminal_reason": "completed",
+    "time_to_request_ms": 53,
+    "total_cost_usd": 0.28859099999999993,
+    "ttft_ms": 1570,
+    "ttft_stream_ms": 1301,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 154112,
+      "inference_geo": "",
+      "input_tokens": 28592,
+      "iterations": [],
+      "output_tokens": 2389,
+      "output_tokens_details": {
+        "thinking_tokens": 631
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "0b0414d1-0f5e-4541-bc7a-0a52a94b1457"
+  },
+  "started_at_utc": "2026-09-22T06:50:17Z",
+  "task_id": "ionelmc-python-tblib-9f6f864",
+  "task_type": "reposetup",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 17,
+  "turns_from_trace": 17,
+  "valid": true,
+  "variant": "candidate"
+}

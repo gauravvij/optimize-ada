@@ -1,0 +1,127 @@
+{
+  "agent_duration_seconds": 453.046,
+  "agent_is_error": true,
+  "agent_result": "",
+  "agent_stop_reason": "tool_use",
+  "cache_creation_tokens": 0,
+  "cache_read_tokens": 196352,
+  "cost_cli_usd": 0.38581099999999996,
+  "duration_seconds": 459.669,
+  "evidence_error": "",
+  "grader_duration_seconds": 0.127,
+  "grader_output": "/usr/local/lib/ruby/2.7.0/rubygems.rb:277:in `find_spec_for_exe': Could not find 'bundler' (1.17.3) required by your /testbed/Gemfile.lock. (Gem::GemNotFoundException)\nTo update to the latest version installed on your system, run `bundle update --bundler`.\nTo install the missing version, run `gem install bundler:1.17.3`\n\tfrom /usr/local/lib/ruby/2.7.0/rubygems.rb:296:in `activate_bin_path'\n\tfrom /usr/local/bin/bundle:23:in `<main>'",
+  "grader_returncode": 1,
+  "harness_error": "",
+  "input_tokens": 33057,
+  "model_usage": {
+    "deepseek/deepseek-v4.1-flash": {
+      "cacheCreationInputTokens": 0,
+      "cacheReadInputTokens": 196352,
+      "canonicalModel": "deepseek/deepseek-v4.1-flash",
+      "contextWindow": 200000,
+      "costBasis": "unknown",
+      "costUSD": 0.38581099999999996,
+      "inputTokens": 33057,
+      "maxOutputTokens": 32000,
+      "outputTokens": 4894,
+      "provider": "firstParty",
+      "thinkingTokens": 2406,
+      "webSearchRequests": 0
+    }
+  },
+  "models_seen": [
+    "deepseek/deepseek-v4.1-flash"
+  ],
+  "output_tokens": 4894,
+  "passed": false,
+  "result_event": {
+    "duration_api_ms": 242788,
+    "duration_ms": 448730,
+    "errors": [
+      "[ede_diagnostic] result_type=user last_content_type=n/a stop_reason=tool_use"
+    ],
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "fast_mode_state": "off",
+    "is_error": true,
+    "modelUsage": {
+      "deepseek/deepseek-v4.1-flash": {
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 196352,
+        "canonicalModel": "deepseek/deepseek-v4.1-flash",
+        "contextWindow": 200000,
+        "costBasis": "unknown",
+        "costUSD": 0.38581099999999996,
+        "inputTokens": 33057,
+        "maxOutputTokens": 32000,
+        "outputTokens": 4894,
+        "provider": "firstParty",
+        "thinkingTokens": 2406,
+        "webSearchRequests": 0
+      }
+    },
+    "num_turns": 19,
+    "permission_denials": [],
+    "queued_turn_count": 0,
+    "session_id": "0310a75e-7cdd-4aa6-8ca3-78292da34304",
+    "stop_reason": "tool_use",
+    "subagent_stats": {
+      "by_type": {},
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "system": 0,
+        "user": 0
+      },
+      "max_depth": 0,
+      "refused": {
+        "budget": 0,
+        "concurrency_limit": 0,
+        "depth_limit": 0
+      },
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "spawned": 0,
+      "spawned_by_subagents": 0,
+      "started_in_background": 0
+    },
+    "subtype": "error_during_execution",
+    "terminal_reason": "aborted_tools",
+    "total_cost_usd": 0.38581099999999996,
+    "type": "result",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 196352,
+      "inference_geo": "",
+      "input_tokens": 32245,
+      "iterations": [],
+      "output_tokens": 4879,
+      "output_tokens_details": {
+        "thinking_tokens": 2406
+      },
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    },
+    "uuid": "31e0465d-454a-4b8b-86d8-5fc4720c157e"
+  },
+  "started_at_utc": "2026-09-22T08:28:32Z",
+  "task_id": "deps-decidim-module-navbar_links-c7ddb",
+  "task_type": "dependency_resolution",
+  "terminal_result": true,
+  "timed_out": false,
+  "turns": 19,
+  "turns_from_trace": 18,
+  "valid": true,
+  "variant": "candidate"
+}
