@@ -2,6 +2,8 @@
 
 This branch contains a frozen Ada candidate produced by Neo using Autoresearcher and its paired evaluation against original Ada. The **1200-second validation found no accuracy improvement**: both versions passed **26/36** attempts (72.2%). The candidate was descriptively faster and used fewer tokens on the attempts with comparable telemetry; a complete-run or provider-billed cost saving was **not** established.
 
+The same protocol was then **re-run with a second model** (`deepseek/deepseek-v4.1-flash` instead of `z-ai/glm-5.3-flash`) to check whether the result was model-specific. It was not: the DeepSeek run reproduced the **exact same 26/36-vs-26/36 tie** (see [DeepSeek validation](#deepseek-v41-flash-validation-second-model) below).
+
 ## What was optimized
 
 Neo searched on 12 fixed SetupBench development tasks, with a 10-experiment budget. Autoresearcher changed Ada, ran candidate/control comparisons, and retained two mechanisms: experiment 4's wall-clock guidance and longer Bash timeouts, and experiment 7's tool-aware recovery from a stalled model response. The final candidate was frozen before evaluation on 12 **separate** validation tasks. Experiment 4's initial gain failed its independent development confirmation; experiment 7 had no independent confirmation, so neither development score is a validated quality claim. The exact changes are in [the candidate patch](eval/setupbench-2026-09/frozen-candidate.patch) and the frozen source is in [ada/](ada/).
@@ -11,7 +13,8 @@ Neo searched on 12 fixed SetupBench development tasks, with a 10-experiment budg
 | Ada evaluation base (used by original arm) | `0c5e1da7342ff86147b217a09c243cf17bf6c50d` |
 | Candidate | Same Ada commit plus tracked-diff SHA-256 `9e6a3fe04725f3c3ca43b5fcfcd53bde07f8fbbffc58d7e80793f6ffb408bd4a` |
 | SetupBench commit | `041a412f01348c2a6f8b1b6a910138fe01885aee` |
-| Model used by Ada | `z-ai/glm-5.3-flash` via OpenRouter |
+| Model used by Ada (primary run) | `z-ai/glm-5.3-flash` via OpenRouter |
+| Model used by Ada (second run) | `deepseek/deepseek-v4.1-flash` via OpenRouter |
 
 ## 1200-second evaluation protocol
 
@@ -61,10 +64,57 @@ For estimated cost, the specified illustrative rates were **$0.09 per million in
 
 The combined row is **not 27/36 original pairs**. The original 12 pairs without comparable usage still lack it; nine of those involved an Ada timeout. The follow-up estimates also exclude invalid provider-limit retries and an aborted disk-protection attempt, whose spend cannot be allocated here. The OpenRouter key-wide billed-usage counter rose **$13.52195424** over the original run interval, but concurrent requests and possible other key activity make that figure **unattributable by variant**. Neither it nor the measured subset establishes full-run, provider-billed savings.
 
+## DeepSeek V4.1 Flash validation (second model)
+
+To test whether the tie was specific to `z-ai/glm-5.3-flash`, the **identical 1200-second protocol**
+was re-run with Ada pointed at **`deepseek/deepseek-v4.1-flash`** (same frozen candidate, same
+SetupBench split, same timeouts, concurrency, and seed). The result was **the same tie**:
+
+| Measure | Original Ada | Frozen candidate | Difference / interpretation |
+|---|---:|---:|---|
+| Grader passes | 26/36 (72.2%) | 26/36 (72.2%) | Tie; 0 percentage points |
+| Ada timeouts | 6/36 | 4/36 | Candidate −2 |
+| Sum of attempt durations | 21,464.139 s | 19,182.156 s | Candidate −2,281.983 s (−10.63%) |
+| Mean attempt duration | 596.226 s | 532.838 s | Candidate −63.388 s |
+
+Of the 36 matched pairs, **19 both passed, 7 candidate-only passed, 7 baseline-only passed, and 3
+both failed** — a perfectly symmetric discordant split (descriptive McNemar p = 1.000). The candidate
+was faster in **24/36** pairs (median paired duration difference **−103.622 s**). All 72 attempts were
+valid, with 0 harness errors and 0 agent errors.
+
+| DeepSeek 23 matched-usage pairs | Original Ada | Frozen candidate | Candidate / baseline |
+|---|---:|---:|---:|
+| Agent turns | 436 | 307 | 0.7041 (−29.6%) |
+| Input tokens | 2,458,856 | 1,711,536 | 0.6961 |
+| Output tokens | 128,584 | 93,525 | 0.7273 |
+| Cache-read tokens | 4,441,632 | 2,335,680 | 0.5259 |
+| Total reported tokens | 7,029,072 | 4,140,741 | 0.5891 |
+
+The OpenRouter key-wide billed-usage counter rose **$7.181121** across the two run segments
+(phase 1 `$3.9638615`, phase 2 `$3.21725933`); as with the GLM run this is **unattributable by
+variant** because baseline and candidate requests overlapped. Model attribution was verified with no
+silent fallback: `deepseek/deepseek-v4.1-flash` appears 120×, `canonicalModel` 60×, and 0 occurrences
+of any fallback model id.
+
+**Interpretation:** the candidate's tie is **not model-specific** — it reproduces under both models,
+and the candidate's descriptive efficiency edge (fewer turns, tokens, timeouts, shorter durations)
+persists under both. The candidate **loses** where the baseline is strong (`dbsetup-mysql-2`
+2/3→0/3, `prometheus` 3/3→2/3) but **wins** on the two hardest timing-sensitive tasks (`wagtail`
+0/3→2/3, `hackmdio` 1/3→2/3), consistent with the candidate's model-wait watchdog converting
+baseline timeouts into passes while its own reasoning overhead costs it elsewhere.
+
 ## Conclusion and evidence
 
-The frozen candidate **tied original Ada on SetupBench success at the 1200-second limit**. It showed lower aggregate duration and timeout counts, and lower turns, tokens, and *estimated* cost in the telemetry-complete subset. These are descriptive efficiency results with missing-usage and repeated-task limitations, not a proven general quality or total-bill improvement. The complete 93-task SetupBench set was **not** run for this candidate.
+The frozen candidate **tied original Ada on SetupBench success at the 1200-second limit** — under
+**both** models tested (`z-ai/glm-5.3-flash` and `deepseek/deepseek-v4.1-flash`), each 26/36 vs 26/36.
+It showed lower aggregate duration and timeout counts, and lower turns, tokens, and *estimated* cost
+in the telemetry-complete subsets. These are descriptive efficiency results with missing-usage and
+repeated-task limitations, not a proven general quality or total-bill improvement. The complete
+93-task SetupBench set was **not** run for this candidate.
 
-- [Detailed 1200-second report, including per-task outcomes and caveats](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_PARALLEL3_REPORT.md)
-- [Compact, trace-free metrics for all 72 original and 6 follow-up attempts](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_COMPACT.json)
+- [Detailed 1200-second report (GLM), including per-task outcomes and caveats](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_PARALLEL3_REPORT.md)
+- [Compact, trace-free metrics for all 72 GLM original and 6 follow-up attempts](eval/setupbench-2026-09/ADA_SETUPBENCH_VALIDATION_1200S_COMPACT.json)
+- [Detailed 1200-second report (DeepSeek V4.1 Flash)](eval/setupbench-2026-09/ADA_SETUPBENCH_DSV4_VALIDATION12_REPORT.md)
+- [Compact, trace-free metrics for all 72 DeepSeek attempts](eval/setupbench-2026-09/ADA_SETUPBENCH_DSV4_VALIDATION12_COMPACT.json)
+- [DeepSeek baseline root-cause & model-validity investigation](eval/setupbench-2026-09/ADA_SETUPBENCH_DSV4_BASELINE_ROOTCAUSE.md)
 - [Historical 900-second README (v0; different timeout and execution schedule)](docs/README_900S_V0.md)

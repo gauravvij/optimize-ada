@@ -32,3 +32,17 @@ tokens in the measured sample.
 
 See `ADA_SETUPBENCH_DIRECT_OUTCOME.md` for the numbers and
 `ADA_SETUPBENCH_EVALUATION_REPORT.md` for protocol details and limitations.
+
+## 1200-second validation (two models)
+
+The canonical 1200-second validation is documented in the [branch README](../../README.md). It was
+run twice under the identical protocol, once per model:
+
+- **`z-ai/glm-5.3-flash`** — `ADA_SETUPBENCH_VALIDATION_1200S_PARALLEL3_REPORT.md` +
+  `ADA_SETUPBENCH_VALIDATION_1200S_COMPACT.json`. Result: 26/36 vs 26/36 (tie).
+- **`deepseek/deepseek-v4.1-flash`** — `ADA_SETUPBENCH_DSV4_VALIDATION12_REPORT.md` +
+  `ADA_SETUPBENCH_DSV4_VALIDATION12_COMPACT.json`. Result: 26/36 vs 26/36 (tie) — the same outcome,
+  confirming the tie is not model-specific.
+
+The DeepSeek baseline root-cause and model-validity investigation is in
+`ADA_SETUPBENCH_DSV4_BASELINE_ROOTCAUSE.md`.
