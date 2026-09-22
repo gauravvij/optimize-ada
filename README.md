@@ -18,7 +18,7 @@ Neo searched on 12 fixed SetupBench development tasks, with a 10-experiment budg
 
 ## 1200-second evaluation protocol
 
-Each of the 12 held-out SetupBench tasks ran three times for original Ada and three times for the frozen candidate: **36 matched pairs, 72 attempts, 72/72 valid records**. Baseline and candidate ran concurrently within each pair; at most three pairs (six attempts) were active together. Ada had **1200 seconds** per attempt and the grader **600 seconds**. Fresh containers and the pinned SetupBench graders determined pass/fail. This is one validation under one protocol, **not** a continuation of the earlier 900-second run.
+Each of the 12 held-out SetupBench tasks ran three times for original Ada and three times for the frozen candidate: **36 matched pairs, 72 attempts, 72/72 valid records**. Baseline and candidate ran concurrently within each pair; at most three pairs (six attempts) were active together. Ada had **1200 seconds** per attempt and the grader **600 seconds**. Fresh containers and the pinned SetupBench graders determined pass/fail.
 
 ## Quantitative outcome: all 36 original pairs
 
@@ -117,4 +117,3 @@ repeated-task limitations, not a proven general quality or total-bill improvemen
 - [Detailed 1200-second report (DeepSeek V4.1 Flash)](eval/setupbench-2026-09/ADA_SETUPBENCH_DSV4_VALIDATION12_REPORT.md)
 - [Compact, trace-free metrics for all 72 DeepSeek attempts](eval/setupbench-2026-09/ADA_SETUPBENCH_DSV4_VALIDATION12_COMPACT.json)
 - [DeepSeek baseline root-cause & model-validity investigation](eval/setupbench-2026-09/ADA_SETUPBENCH_DSV4_BASELINE_ROOTCAUSE.md)
-- [Historical 900-second README (v0; different timeout and execution schedule)](docs/README_900S_V0.md)
