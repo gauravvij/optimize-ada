@@ -117,7 +117,7 @@ ck("artifact: verdict HOLDS with all four pre-registered conditions met",
 for rel, must in [
     ("bench/RUN_REGISTRY.md", ["R9a", "R9b", "R10a", "R10b", "67/157 → 98/157", "p = 7.92e-09"]),
     ("ada/RESULTS.md", ["67/157", "98/157", "p = 7.92e-09", "HOLDS"]),
-    ("README.md", ["67/157", "98/157"]),
+    ("README.md", ["68/162", "99/162"]),
     ("blog.md", ["67/157", "98/157"]),
 ]:
     text = (ROOT / rel).read_text()

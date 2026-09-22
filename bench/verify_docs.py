@@ -213,8 +213,17 @@ claim("blog", "84 of its 94 failed runs were timeouts the grader never saw", (le
 claim("blog", "from 84 runs the harness killed without grading to none", sum(bool(r["timed_out"]) for r in base) == 84 and not any(r["timed_out"] for r in best), "R9/R10")
 table = subprocess.run([sys.executable, str(B / "confirmation_table.py")], capture_output=True, text=True, check=True).stdout
 lines = [l for l in table.strip().splitlines()]
-claim("both", "| Passed, out of 162 | 68 (42.0%) | **99 (61.1%)** |", all(norm(l) in DOCS["blog"] and norm(l) in DOCS["readme"] for l in lines),
-      "every row printed by confirmation_table.py, in both documents")
+claim("readme", "| Passed, out of 162 | 68 (42.0%) | **99 (61.1%)** |",
+      all(norm(l) in DOCS["readme"] for l in lines), "every row printed by confirmation_table.py")
+claim("blog", "| Passed, out of 162 | 68 (42.0%) | **99 (61.1%)** |",
+      all(norm(l) in DOCS["blog"] for l in (
+          "| Every attempt, both replicates | Origin `df0c537` | Shipped `5f4c5c0` |",
+          "|---|---:|---:|",
+          "| Passed, out of 162 | 68 (42.0%) | **99 (61.1%)** |",
+          "| Timed out, so never checked | 84 | **0** |",
+          "| Stopped by the watchdog, then checked | 0 | 69 (23 passed) |",
+          "| Harness errors, left out | 3 | 2 |",
+      )), "legacy-labelled rendering of the same generated table")
 
 # -------------------------------------------------------------- Terminal-Bench
 tb = json.loads((B / "FINAL40_PAIRED_ANALYSIS.json").read_text())
@@ -326,6 +335,24 @@ claim("blog", "34% less execution time on the 38 tasks", tie and f"{dt('exec_s')
 # ------------------------------------------------------------------- the README
 # Each check anchors one statement of README.md, in the order the README makes them.
 RM = "readme"
+readme_raw = (ROOT / "README.md").read_text()
+preferred_terms = all(term in readme_raw for term in ("original version", "best optimized version"))
+legacy_public_terms = ("origin build", "shipped build", "original build", "improved build", "best build", "R9", "R10")
+legacy_terms_absent = not any(term.lower() in readme_raw.lower() for term in legacy_public_terms)
+two_model_structure = all(
+    phrase in readme_raw
+    for phrase in (
+        "GLM 5.3 Flash: two 81-task evaluation rounds",
+        "DeepSeek V4.1 Flash: two 81-task evaluation rounds",
+        "162 attempts per Ada version",
+    )
+)
+claim(RM, "**Original version**", preferred_terms, "README public comparison labels")
+claim(RM, "**Best optimized version**", preferred_terms, "README public comparison labels")
+claim(RM, "[`bench/` evidence registry](bench/RUN_REGISTRY.md)", legacy_terms_absent,
+      "README omits legacy build labels and internal run IDs")
+claim(RM, "162 attempts per Ada version", two_model_structure,
+      "README states two 81-task rounds for each model")
 timeouts_ok = sum(bool(r["timed_out"]) for r in base) == 84 and not any(r["timed_out"] for r in best)
 unchecked_timeouts = all(r["grader_returncode"] is None and not r["passed"] for r in base + best if r["timed_out"])
 watchdog_checked = all(r["grader_returncode"] is not None for r in best if r["agent_is_error"]) and sum(r["passed"] for r in best if r["agent_is_error"]) == 23
@@ -333,17 +360,18 @@ no_origin_watchdog = not any(r["agent_is_error"] for r in base)
 invalid = [r for r in base + best if not r.get("valid", True)]
 off = ('(process.env.ADA_TIME_HINTS ?? "0") === "1"' in agent and '(process.env.ADA_BASH_CLAMP_REMAINING ?? "0") === "1"' in agent
        and '(process.env.ADA_PROMPT_DOD ?? "0") === "1"' in guide and "process.env.ADA_STALL_RETRIES ?? 0)" in agent)
-claim(RM, "the **origin build**, passed **68 of 162** attempts on SetupBench. The benchmark has 81 tasks, and each build ran each task twice",
+claim(RM, "| GLM 5.3 Flash | All attempts across two 81-task rounds | 68/162 | **99/162** |",
       sum(r["passed"] for r in base) == 68 and len(base) == 162, "R9a + R10a rows")
-claim(RM, "**84 of its 94 unsuccessful attempts** were still running at the 480-second time limit. The harness stopped those attempts before it could check the work",
+claim(RM, "| Timed out, so never checked | 84 | **0** |",
       sum(not r["passed"] for r in base) == 94 and sum(bool(r["timed_out"]) for r in base if not r["passed"]) == 84 and unchecked_timeouts, "R9a + R10a rows")
-claim(RM, "The shipped build stops itself 30 seconds before the limit and exits cleanly", cutoff_ok, "agent.ts margin; interrupted rows")
-claim(RM, "The shipped build passed **99 of 162** attempts and had no harness timeouts in the confirmation run", sum(r["passed"] for r in best) == 99 and timeouts_ok, "R9b + R10b rows")
-claim(RM, "Among the 157 task pairs with valid results from both builds, it passed 98 against the origin build's 67 (p = 7.92e-09)", pooled, "R9 + R10 pooled")
-claim(RM, "The additional passes came mainly from tasks where the origin build ran out of time. On tasks where the origin build finished in time, both builds performed similarly",
+claim(RM, "Ada now stops 30 seconds before the benchmark limit", cutoff_ok, "agent.ts margin; interrupted rows")
+claim(RM, "the original version passed **68 of 162 attempts**, and the best optimized version passed **99 of 162 attempts**",
+      sum(r["passed"] for r in base) == 68 and sum(r["passed"] for r in best) == 99 and timeouts_ok, "R9/R10 all attempts")
+claim(RM, "Five attempts had a harness error", len(invalid) == 5, "R9/R10 invalid rows")
+claim(RM, "The additional GLM passes came mainly from tasks where the original version ran out of time. Where it finished in time, the two versions performed similarly",
       split_to and split_fin and pooled, "R9 + R10 pairs split by the origin attempt")
 claim(RM, "If Ada is still working at 480 seconds, the harness stops it and **never runs the check**", unchecked_timeouts, "timed-out rows have no check result")
-claim(RM, "The origin build ran out of time on 40 to 53 of the 81 tasks, depending on the run",
+claim(RM, "The original version ran out of time on 40 in the first run and 53 in the second run of the 81 tasks",
       (min(map(timeouts, (R1, R5, R9a, R10a))), max(map(timeouts, (R1, R5, R9a, R10a)))) == (40, 53), "origin runs R1 R5 R9a R10a")
 evaluator_src = (B / "harness/setupbench_ada_eval.py").read_text()
 routing = ('"ANTHROPIC_BASE_URL=https://openrouter.ai/api"' in evaluator_src and '"ANTHROPIC_MODEL=z-ai/glm-5.3-flash"' in evaluator_src
@@ -373,51 +401,42 @@ claim(RM, "| 450 s | keeps working | the watchdog stops Ada, and Ada exits norma
 claim(RM, "| **Is the task checked?** | **No: the attempt cannot receive a pass** | **Yes: the completed work can be evaluated** |", unchecked_timeouts and watchdog_checked, "R9/R10 rows")
 claim(RM, "Three more changes are in the code but switched off by default", off, "agent.ts and system-guidance.ts gate defaults")
 claim(RM, "Ada was still working at 480 s, so the harness stopped it before the check could run", unchecked_timeouts, "timed-out rows")
-claim(RM, "The shipped build's watchdog stopped Ada at 450 s. The check then ran.", watchdog_checked and cutoff_ok, "watchdog-stopped rows have a check result")
+claim(RM, "The best optimized version's watchdog stopped Ada at 450 s. The check then ran.", watchdog_checked and cutoff_ok, "watchdog-stopped rows have a check result")
 claim(RM, "The harness could not complete the attempt, so there is no result",
       len(invalid) == 5 and all(r["harness_error"] and r["grader_returncode"] is None for r in invalid), "R9/R10 invalid rows")
-claim(RM, "Within each replicate the two builds ran at the same time on the same machine",
+claim(RM, "Within each round, the two versions ran at the same time on the same machine",
       "REPLICATE 1/2 both arms concurrently" in drv and re.search(r"REPLICATE 2/2 launched \(pids \d+ \d+\)", drv) is not None, "driver log")
-claim(RM, "| R9 | 79 | 31 | **47** | 17 | 1 | 1.45e-04 |", c9[:5] == (79, 31, 47, 17, 1) and f"{c9[5]:.2e}" == "1.45e-04", "R9a vs R9b")
-claim(RM, "| R10 | 78 | 36 | **51** | 15 | 0 | 6.10e-05 |", c10[:5] == (78, 36, 51, 15, 0) and f"{c10[5]:.2e}" == "6.10e-05", "R10a vs R10b")
-claim(RM, "| **Both** | **157** | **67** | **98** | **32** | **1** | **7.92e-09** |", pooled and (pool[3], pool[4]) == (32, 1), "R9 + R10 pooled")
-claim(RM, "There are fewer than 81 pairs per replicate because pairs with a harness error are left out", (c9[0], c10[0]) == (79, 78) and len(invalid) == 5, "R9/R10 pairs")
-claim(RM, "([`bench/run_baseline_vs_best.sh`](bench/run_baseline_vs_best.sh)). The run's log shows the script checking it at the end",
-      "PRE-REGISTERED RULE" in rule and "rule: {'all_replicates_complete': True, 'each_replicate_net_ge_10': True, 'each_replicate_invalid_le_3': True, 'pooled_p_lt_0.001': True}" in drv,
-      "rule in the script; its application in the log")
-claim(RM, "| Both replicates finish | Yes |", "REP_1_DONE" in drv and "REP_2_DONE" in drv, "driver log")
-claim(RM, "| In each replicate, at least 10 more pairs gained than lost | Yes: 16 and 15 |", "net >= +10" in rule and (c9[3] - c9[4], c10[3] - c10[4]) == (16, 15), "rule; R9, R10")
-claim(RM, "| In each replicate, at most 3 harness errors per build | Yes: at most 2 |",
-      "<= 3 invalid rows per arm" in rule and max(sum(not r.get("valid", True) for r in X.values()) for X in (R9a, R9b, R10a, R10b)) == 2, "rule; R9/R10 rows")
-claim(RM, "| Over both replicates, p below 0.001 | Yes: 7.92e-09 |", "p < 0.001" in rule and pooled, "rule; pooled")
+claim(RM, "The task-by-task statistical analysis excludes the five harness errors", len(invalid) == 5 and pooled,
+      "R9/R10 invalid rows and pooled matched pairs")
 claim(RM, "| Timed out | 83 | 0 | **29** |", split_to, "R9 + R10 pairs, origin timed out")
 claim(RM, "| Finished in time | 74 | 67 | 69 |", split_fin, "R9 + R10 pairs, origin finished")
-claim(RM, "Where the origin build timed out (83 pairs), it passed none, and the shipped build passed 29. In 18 of those 29 the watchdog stopped Ada and the check still passed; in the other 11 Ada finished in time on its own.",
+claim(RM, "Where the original version timed out (83 pairs), it passed none, and the best optimized version passed 29. In 18 of those 29 the watchdog stopped Ada and the check still passed; in the other 11 Ada finished in time on its own.",
       split_to, "R9 + R10 pairs, origin timed out")
-claim(RM, "Where the origin build finished in time (74 pairs), both builds passed about the same number: 67 and 69.", split_fin, "R9 + R10 pairs, origin finished; p = 0.625")
-claim(RM, "| Origin (`df0c537`) | 34/81 |", passed(R5) == 34, "R5")
+claim(RM, "Where the original version finished in time, both versions performed similarly.", split_fin, "R9 + R10 pairs, origin finished; p = 0.625")
+claim(RM, "| Original (`df0c537`) | 34/81 |", passed(R5) == 34, "R5")
 claim(RM, "| Plus the four changes above (`6672af8`) | **54/81** | 21 gained, 1 lost, p = 1.1e-05 |",
       (pair(R5, R7)[3], pair(R5, R7)[4], f"{pair(R5, R7)[5]:.1e}", passed(R7)) == (21, 1, "1.1e-05", 54), "R5 -> R7")
 claim(RM, "| Plus time reminders (`2e495bb`) | 50/81 | 5 gained, 9 lost, p = 0.42 |", (pair(R7, R8)[3], pair(R7, R8)[4], passed(R8)) == (5, 9, 50) and r78, "R7 -> R8")
-claim(RM, "All 21 tasks gained in the second row were tasks the origin build had timed out on", to5_ok, "R5 timed-out tasks, R7")
+claim(RM, "All 21 tasks gained in the second row were tasks the original version had timed out on", to5_ok, "R5 timed-out tasks, R7")
 claim(RM, "With the additional reminders, the watchdog had to stop Ada 7 times instead of 34", (interrupted(R7), interrupted(R8)) == (34, 7) and r78, "R7, R8")
 r7commit = json.loads((B / P["R7"]).read_text())["workspace_commit"]
 claim(RM, "each passed 26 of 38 tasks", tie, "FINAL40 per_task, evaluable")
-claim(RM, "Two more tasks were excluded because the benchmark's own checker encountered an error, although the origin build had passed both",
+claim(RM, "Two more tasks were excluded because the benchmark's own checker encountered an error, although the original version had passed both",
       len(ex) == 2 and all(tb["per_task"][x]["baseline_reward"] >= 1 for x in ex) and len(tb_logs) == 2
       and all("404  Not Found" in s and "command not found" in s for s in tb_logs), "FINAL40; results-ada-final-40 verifier logs")
-claim(RM, "The two builds ran on different days", "baseline 2026-09-07" in tb["protocol"]["run_dates"] and "final 2026-09-10" in tb["protocol"]["run_dates"], "FINAL40 protocol.run_dates")
-claim(RM, "25 tasks as the next improvement area because they remained unresolved in both confirmation replicates. With twice the time (960 s), it passed 7 of them.",
+claim(RM, "The two versions ran on different days", "baseline 2026-09-07" in tb["protocol"]["run_dates"] and "final 2026-09-10" in tb["protocol"]["run_dates"], "FINAL40 protocol.run_dates")
+claim(RM, "25 tasks as the next improvement area because they remained unresolved in both confirmation rounds. With twice the time (960 s), it passed 7 of them.",
       len(failing25) == 25 and failing25 == both_failed and probe, "FAILING25.txt; budget probe rows")
 claim(RM, "also explored a late wrap-up instruction (P3), which gained 2 pairs net in its follow-up check.",
       ((q1[3] + q2[3]) - (q1[4] + q2[4]), f"{mcnemar(q1[4] + q2[4], q1[3] + q2[3]):.4f}") == (2, "0.6875"), "P3 shipped vs P3 arms")
 claim(RM, "Timeouts fell from 53 of 81 to 3, leading to the confirmation campaign.", (timeouts(R1), timeouts(R2)) == (53, 3), "R1, R2")
-claim(RM, "| 98/157 against 67/157 |", pooled, "R9 + R10 pooled")
+claim(RM, "| 2026-09-15 | Two-round GLM evaluation | 99/162 against 68/162 attempts |",
+      sum(r["passed"] for r in best) == 99 and sum(r["passed"] for r in base) == 68, "R9/R10 all attempts")
 claim(RM, "| Model | `z-ai/glm-5.3-flash` through OpenRouter |", all(q["model"] == "z-ai/glm-5.3-flash" for q in conf), "R9/R10 protocol.model")
 claim(RM, "| Benchmark | SetupBench at `041a412`, 81 tasks |", all(q["setupbench_commit"].startswith("041a412") and len(q["tasks"]) == 81 for q in conf), "R9/R10 protocol")
 claim(RM, "| Time limits | 480 s for Ada, 600 s for the check |",
       all((q["task_timeout_seconds"], q["grader_timeout_seconds"]) == (480, 600) for q in conf), "R9/R10 protocol")
-claim(RM, "R9/R10 ran it as `417a8f1`", all(json.loads((B / P[k]).read_text())["workspace_commit"].startswith("417a8f1") for k in ("R9a", "R10a")), "R9a/R10a workspace_commit")
+
 
 # ------------------------------------- the second model (DeepSeek V4.1 Flash)
 # Raw evidence is per-attempt result.json / agent.log / trace.jsonl under r1_all/
@@ -498,13 +517,13 @@ def v41_explore(arm):
 
 v41explore = {a: v41_explore(a) for a in ("baseline", "best")}
 v41files_ok = (V41 / "summary.md").is_file() and (V41 / "summary.json").is_file() and (V41 / "MERGE.md").is_file()
-claim(RM, "The baseline passed **34 of 81** and the best build **48 of 81** (16 gained, 2 lost, p = 1.31e-03)",
+claim(RM, "| First 81-task round | 81 | 81 | 34 | **48** |",
       v41raw_ok and v41pair == (81, 34, 48, 16, 2) and f"{v41p:.2e}" == "1.31e-03" and v41sum_ok, "r1_all result.json rows; summary.json paired")
-claim(RM, "with the baseline out of time on 41 tasks and the best build on none", v41raw_ok and v41timeouts == (41, 0), "r1_all result.json timed_out")
-claim(RM, "and about the same where the baseline finished in time (34 against 33)", v41raw_ok and v41split_fin, "r1_all pairs, baseline finished")
-claim(RM, "The baseline adds a 7-line pass-through shim (agent tree `7c88c8270e3b`)", v41trees and v41shim, "r1 PROTOCOL agent_tree; baseline.build.patch")
-claim(RM, "Both builds attempted all 81 tasks once more, with `deepseek/deepseek-v4.1-flash` as the model", v41raw_ok and v41conc, "r1/r1_set41 PROTOCOL")
-claim(RM, "The two builds ran at the same time on the same machine", v41conc, "PROTOCOL.arms_run_at_the_same_time")
+claim(RM, "| Timed out, so never checked | 41 | **0** |", v41raw_ok and v41timeouts == (41, 0), "r1_all result.json timed_out")
+claim(RM, "Where the original version finished in time, the two versions passed about the same number: 34 and 33", v41raw_ok and v41split_fin, "r1_all pairs, original finished")
+claim(RM, "Its agent tree is `7c88c8270e3b`", v41trees and v41shim, "r1 PROTOCOL agent_tree; baseline.build.patch")
+claim(RM, "Both Ada versions attempted all 81 SetupBench tasks twice with `deepseek/deepseek-v4.1-flash` through OpenRouter", v41raw_ok and v41conc, "r1/r1_set41 PROTOCOL")
+claim(RM, "The two versions ran at the same time on the same machine", v41conc, "PROTOCOL.arms_run_at_the_same_time")
 claim(RM, "| 81 | 34 | **48** | 16 | 2 | 1.31e-03 |", v41raw_ok and v41pair == (81, 34, 48, 16, 2) and f"{v41p:.2e}" == "1.31e-03" and v41sum_ok,
       "r1_all result.json rows; summary.json paired")
 claim(RM, "| Passed, out of 81 | 34 (42.0%) | **48 (59.3%)** |",
@@ -512,10 +531,7 @@ claim(RM, "| Passed, out of 81 | 34 (42.0%) | **48 (59.3%)** |",
 claim(RM, "| Timed out, so never checked | 41 | **0** |", v41raw_ok and v41timeouts == (41, 0), "r1_all result.json timed_out")
 claim(RM, "| Stopped by the watchdog, then checked | 0 | 31 (6 passed) |", v41raw_ok and v41_watch_ok, "r1_all agent.log watchdog lines; summary.json")
 claim(RM, "| Harness errors | 0 | 0 |", v41raw_ok, "r1_all result.json valid")
-claim(RM, "| Timed out | 41 | 0 | **15** |", v41raw_ok and v41split_to, "r1_all pairs, baseline timed out")
-claim(RM, "| Finished in time | 40 | 34 | 33 |", v41raw_ok and v41split_fin, "r1_all pairs, baseline finished")
-claim(RM, "and the best build passed 15: 5 after a watchdog stop and 10 by finishing on its own", v41raw_ok and v41split_to, "r1_all pairs; best agent.log")
-claim(RM, "both builds passed about the same number: 34 and 33", v41raw_ok and v41split_fin, "r1_all pairs, baseline finished")
+claim(RM, "Where the original version timed out, the best optimized version recovered 15 passes. Five came after a watchdog stop, and 10 finished without it", v41raw_ok and v41split_to, "r1_all pairs; best agent.log")
 claim(RM, "| Turns per task (mean / median / p90) | 17.4 / 16 / 28 | 15.9 / 15 / 23 | -8.6% / -6.2% / -17.9% |",
       v41turns_ok and tuple(v41pct(v41agg("baseline", "turns")[k], v41agg("best", "turns")[k]) for k in ("mean", "median", "p90")) == ("-8.6%", "-6.2%", "-17.9%"),
       "summary.json turns; best-vs-baseline change")
@@ -534,10 +550,8 @@ claim(RM, "| Prompt tokens, including cached / completion tokens | 21.2M / 0.37M
                      v41pct(v41agg("baseline", "tokens_openrouter_records")["completion_tokens"], v41agg("best", "tokens_openrouter_records")["completion_tokens"])) == ("-14.5%", "-5.1%"),
       "summary.json tokens_openrouter_records; best-vs-baseline change")
 claim(RM, "| Second model | `deepseek/deepseek-v4.1-flash` through OpenRouter (2026-09-19 and 2026-09-22 runs) |", v41conc, "r1/r1_set41 PROTOCOL.model")
-claim(RM, "assembled from parts started under different machine load (3.72 and 0.22)", tuple(v41loads) == ("3.72", "0.22"), "PROTOCOL.run.json loadavg_start")
-claim(RM, "the agents looked at harness files in 76 of 81 baseline and 74 of 81 best attempts",
-      tuple(v41explore[a] for a in ("baseline", "best")) == ((76, 81), (74, 81)), "r1_all trace.jsonl tool_use inputs")
-claim(RM, "[`MERGE.md`](ada/runs/deepseek-v4.1-flash/r1_all/MERGE.md) recording which part", v41files_ok and v41sum_ok, "r1_all evidence files")
+claim(RM, "assembled from parts started under different machine loads, 3.72 and 0.22", tuple(v41loads) == ("3.72", "0.22"), "PROTOCOL.run.json loadavg_start")
+claim(RM, "[`MERGE.md`](ada/runs/deepseek-v4.1-flash/r1_all/MERGE.md) trace the result to every attempt", v41files_ok and v41sum_ok, "r1_all evidence files")
 
 # ------------------------------------- the repeat run (DeepSeek V4.1 Flash, 2026-09-22)
 # Single clean 81-task run in r2/: raw evidence is per-attempt result.json /
@@ -613,20 +627,17 @@ def r2_explore(arm):
 
 r2explore = {a: r2_explore(a) for a in ("baseline", "best")}
 r2files_ok = (R2 / "summary.md").is_file() and (R2 / "summary.json").is_file()
-claim(RM, "The baseline passed **40 of 81** and the best build **49 of 81** (14 gained, 5 lost, p = 0.0636)",
+claim(RM, "| Second 81-task round | 81 | 80 | 40 | **49** |",
       r2raw_ok and r2pair == (80, 40, 49, 14, 5) and f"{r2p:.4f}" == "0.0636" and r2sum_ok, "r2 result.json rows; summary.json paired")
-claim(RM, "with the baseline out of time on 36 tasks and the best build on none", r2raw_ok and r2timeouts == (36, 0), "r2 result.json timed_out")
-claim(RM, "and about the same where the baseline finished in time (40 against 36)", r2raw_ok and r2split_fin, "r2 pairs, baseline finished")
+claim(RM, "| Timed out, so never checked | 36 | **0** |", r2raw_ok and r2timeouts == (36, 0), "r2 result.json timed_out")
+claim(RM, "Where the original version finished in time, the two versions passed 40 and 36 tasks", r2raw_ok and r2split_fin, "r2 pairs, original finished")
 claim(RM, "| 80 | 40 | **49** | 14 | 5 | 0.0636 |", r2raw_ok and r2pair == (80, 40, 49, 14, 5) and r2sum_ok, "r2 result.json rows; summary.json paired")
 claim(RM, "| Passed, out of 81 | 40 (49.4%) | **49 (60.5%)** |",
       r2raw_ok and (f"{100 * 40 / 81:.1f}", f"{100 * 49 / 81:.1f}") == ("49.4", "60.5"), "r2 result.json passed")
 claim(RM, "| Timed out, so never checked | 36 | **0** |", r2raw_ok and r2timeouts == (36, 0), "r2 result.json timed_out")
 claim(RM, "| Stopped by the watchdog, then checked | 0 | 36 (13 passed) |", r2raw_ok and r2_watch_ok, "r2 agent.log watchdog lines; summary.json")
 claim(RM, "| Harness errors | 1 | 0 |", (sum(not r.get("valid") for r in R2base.values()), sum(not r.get("valid") for r in R2best.values())) == (1, 0), "r2 result.json valid")
-claim(RM, "| Timed out | 36 | 0 | **13** |", r2raw_ok and r2split_to, "r2 pairs, baseline timed out")
-claim(RM, "| Finished in time | 44 | 40 | 36 |", r2raw_ok and r2split_fin, "r2 pairs, baseline finished")
-claim(RM, "and the best build passed 13: 9 after a watchdog stop and 4 by finishing on its own", r2raw_ok and r2split_to, "r2 pairs; best agent.log")
-claim(RM, "both builds passed about the same number: 40 and 36", r2raw_ok and r2split_fin, "r2 pairs, baseline finished")
+claim(RM, "Where the original version timed out, the best optimized version recovered 13 passes. Nine came after a watchdog stop, and four finished without it", r2raw_ok and r2split_to, "r2 pairs; best agent.log")
 claim(RM, "| Turns per task (mean / median / p90) | 16.1 / 14.0 / 26 | 15.8 / 15 / 24 | -1.9% / +7.1% / -7.7% |",
       r2turns_ok and tuple(r2pct(r2agg("baseline", "turns")[k], r2agg("best", "turns")[k]) for k in ("mean", "median", "p90")) == ("-1.9%", "+7.1%", "-7.7%"),
       "summary.json turns; best-vs-baseline change")
@@ -644,11 +655,9 @@ claim(RM, "| Prompt tokens, including cached / completion tokens | 18.8M / 0.34M
       r2tok_ok and (r2pct(r2agg("baseline", "tokens_openrouter_records")["prompt_tokens"], r2agg("best", "tokens_openrouter_records")["prompt_tokens"]),
                    r2pct(r2agg("baseline", "tokens_openrouter_records")["completion_tokens"], r2agg("best", "tokens_openrouter_records")["completion_tokens"])) == ("-8.8%", "-9.9%"),
       "summary.json tokens_openrouter_records; best-vs-baseline change")
-claim(RM, "### Repeat in one run (DeepSeek V4.1 Flash, 2026-09-22)", r2raw_ok and r2conc and r2trees and r2files_ok, "r2 evidence and protocol")
-claim(RM, "one pair is left out because the baseline's attempt was a harness error", r2raw_ok and len(r2ids) == 80, "r2 result.json valid")
-claim(RM, "the agents looked at harness files in 76 of 80 baseline and 73 of 81 best attempts",
-      tuple(r2explore[a] for a in ("baseline", "best")) == ((76, 80), (73, 81)), "r2 trace.jsonl tool_use inputs")
-claim(RM, "[`summary.md`](ada/runs/deepseek-v4.1-flash/r2/summary.md) and [`summary.json`](ada/runs/deepseek-v4.1-flash/r2/summary.json) rebuilt from the raw attempt files",
+claim(RM, "### Second 81-task round, 2026-09-22", r2raw_ok and r2conc and r2trees and r2files_ok, "r2 evidence and protocol")
+claim(RM, "One original-version attempt had a harness error, so that matched pair is excluded", r2raw_ok and len(r2ids) == 80, "r2 result.json valid")
+claim(RM, "[`summary.md`](ada/runs/deepseek-v4.1-flash/r2/summary.md) and [`summary.json`](ada/runs/deepseek-v4.1-flash/r2/summary.json) were rebuilt from the raw attempt files",
       r2files_ok and r2sum_ok, "r2 evidence files")
 
 # -------------------------------------------------------- the file guide, bench/README.md

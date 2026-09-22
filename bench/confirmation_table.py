@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Origin vs shipped build: every attempt of the confirmation run (R9 + R10), from raw rows.
+"""Original vs best optimized version: every attempt across both GLM rounds, from raw rows.
 
 Reads the four per-task diagnostics of run 20260915T0825Z and prints the "every attempt"
 table in the README and blog. Definitions, as the README states them:
@@ -35,9 +35,9 @@ stopped_passed = count("best", lambda r: r["agent_is_error"] and r["passed"])
 errors = {k: count(k, lambda r: not r.get("valid", True)) for k in arm}
 pct = lambda x: f"{100 * x / n:.1f}%"
 
-print("| Every attempt, both replicates | Origin `df0c537` | Shipped `5f4c5c0` |")
+print("| Every attempt across both rounds | Original version | Best optimized version |")
 print("|---|---:|---:|")
 print(f"| Passed, out of {n} | {passed['base']} ({pct(passed['base'])}) | **{passed['best']} ({pct(passed['best'])})** |")
 print(f"| Timed out, so never checked | {timed_out['base']} | **{timed_out['best']}** |")
 print(f"| Stopped by the watchdog, then checked | {stopped['base']} | {stopped['best']} ({stopped_passed} passed) |")
-print(f"| Harness errors, left out | {errors['base']} | {errors['best']} |")
+print(f"| Harness errors, excluded from matched pairs | {errors['base']} | {errors['best']} |")
