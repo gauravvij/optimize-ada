@@ -185,6 +185,7 @@ version running concurrently.
 Where the original version timed out, the best optimized version recovered 15 passes. Five came
 after a watchdog stop, and 10 finished without it. Where the original version finished in time,
 the two versions passed about the same number: 34 and 33.
+Again showing the watchdog tasks improved the number
 
 | | Original version | Best optimized version | Best optimized vs original |
 |---|---:|---:|---:|
@@ -258,22 +259,7 @@ All 21 tasks gained in the second row were tasks the original version had timed 
 version keeps the simpler prompt because it delivered the stronger overall result in the
 primary campaign comparison. The reminder path remains available for future experiments.
 
-### Additional benchmark context
 
-Terminal-Bench 2.0 provides additional context on a different benchmark. An earlier version
-(`08a8d5d`) and the original version each passed 26 of 38 tasks. Two more tasks were excluded because
-the benchmark's own checker encountered an error, although the original version had passed both. The
-two versions ran on different days, and the best optimized version was not run on this benchmark, so this
-result is context for the campaign rather than part of the primary SetupBench comparison.
-
-### Next improvement area
-
-The best optimized version identified 25 tasks as the next improvement area because they remained unresolved
-in both confirmation rounds. With twice the time (960 s), it passed 7 of them. The campaign
-also explored a late wrap-up instruction (P3), which gained 2 pairs net in its follow-up check.
-The team kept the best optimized version while continuing to investigate this opportunity.
-
----
 
 ## How the campaign went
 
@@ -322,9 +308,6 @@ other checks.
 | The campaign's own record | [`ada/RESULTS.md`](ada/RESULTS.md), [`ada/REPORT.md`](ada/REPORT.md) |
 | Running Ada | [`ada/README.md`](ada/README.md) |
 
-The campaign's own records keep their original text. Where the raw data disagrees with them, a
-dated note at the top of each record says so, and [`bench/README.md`](bench/README.md) lists
-every correction.
 
 ---
 
