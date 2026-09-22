@@ -8,30 +8,38 @@ and the evidence behind the final build.
 
 ## The result in short
 
-**Starting point.** The build the campaign started from, the **origin build**, passed **68 of 162**
-attempts on SetupBench. The benchmark has 81 tasks, and each build ran each task twice. The main
-challenge was that **84 of its 94 unsuccessful attempts** were still running at the 480-second time
-limit. The harness stopped those attempts before it could check the work.
+**What was improved.** NEO, our autonomous engineering agent, improved **Ada**, the coding agent
+being evaluated. The starting build passed **68 of 162** attempts on SetupBench. SetupBench has 81
+tasks, and each build ran every task twice. Of the starting build's 94 unsuccessful attempts, 84
+were still running when the 480-second deadline arrived.
 
-**What changed.** NEO added a deadline-aware execution path. The shipped build stops itself 30
-seconds before the limit and exits cleanly, so the benchmark can check its work. It also uses a
-time-aware prompt and a limit on the model's thinking.
+**How it was improved.** NEO added deadline-aware execution to Ada. Ada now stops 30 seconds before
+the benchmark limit, exits cleanly, and gives the task checker a chance to evaluate its work. NEO
+also added a time-aware prompt and limited the model's thinking time.
 
-**Primary result.** The shipped build passed **99 of 162** attempts and had no harness timeouts in
-the confirmation run. Among the 157 task pairs with valid results from both builds, it passed 98
-against the origin build's 67 (p = 7.92e-09). The additional passes came mainly from tasks where
-the origin build ran out of time. On tasks where the origin build finished in time, both builds
-performed similarly.
+**Result.** The improved Ada build passed **99 of 162** attempts in the confirmation run, and
+SetupBench's harness did not have to stop any of those runs at the deadline. For a fair task-by-task
+comparison, we then kept only the **157 task pairs** where both the original Ada build and the improved
+build produced a result that SetupBench could check. On those matched tasks, the improved build
+passed **98**, compared with **67** for the original build 
 
-**Second model.** Both builds also attempted all 81 tasks with `deepseek/deepseek-v4.1-flash`
-as the model. The baseline passed **34 of 81** and the best build **48 of 81** (16 gained,
-2 lost, p = 1.31e-03): the same pattern, with the baseline out of time on 41 tasks and the
-best build on none, and about the same where the baseline finished in time (34 against 33).
-This was one replicate, so it checks whether the same mechanism appears with another model rather
-than retesting the primary result. A clean repeat on 2026-09-22 ran all 81 tasks in a single run. The
-baseline passed **40 of 81** and the best build **49 of 81** (14 gained, 5 lost,
-p = 0.0636): the same pattern, with the baseline out of time on 36 tasks and the best
-build on none, and about the same where the baseline finished in time (40 against 36).
+The improvement mostly came from preventing the original build from running past SetupBench's
+deadline. Once Ada stopped cleanly, SetupBench could check the work. On tasks where the original
+build finished before the deadline, the original and improved builds performed similarly. This
+means the main improvement was better use of the available time, not a general change in how Ada
+solved tasks that it already completed in time.since main tasks were done by claude code 
+
+**Check with a second model.** We also tested both Ada builds with
+`deepseek/deepseek-v4.1-flash` instead of the model used for the primary result. In the first
+81-task run, the original build passed **34 of 81** tasks and the improved build passed **48**.
+The improved build gained 16 tasks and lost 2 . The original build ran out of time
+on 41 tasks; the improved build ran out of time on none. 
+
+This first run was a separate check with another model, not a repeat of the primary evaluation. We
+then ran a clean second 81-task test on 2026-09-22. The original build passed **40 of 81** tasks,
+while the improved build passed **49**. It gained 14 tasks and lost 5 (p = 0.0636). The original
+build ran out of time on 36 tasks, while the improved build ran out of time on none. Among tasks
+the original build completed in time, results were again close: 
 
 > **Every change, evaluation run, and verification in this campaign was carried out
 > autonomously by [NEO](https://heyneo.com), our autonomous AI engineering agent.**
@@ -55,7 +63,7 @@ the job was done.
 A test **harness** runs every attempt in a fresh Docker container and gives Ada
 **480 seconds**. If Ada is still working at 480 seconds, the harness stops it and **never runs
 the check**. The attempt fails, however much Ada had done. The origin build ran out of time on
-40 to 53 of the 81 tasks, depending on the run.
+40 in the first run and 53 in the second run of the 81 tasks, depending on the run.
 
 Ada is built on the Claude Agent SDK, but no Claude model did the work in this campaign. The
 harness points the SDK at OpenRouter and sets the model to `z-ai/glm-5.3-flash`. Every
