@@ -19,8 +19,8 @@ attempts per Ada version with DeepSeek V4.1 Flash.
 | Model | Evaluation | Original version | Best optimized version |
 |---|---|---:|---:|
 | GLM 5.3 Flash | All attempts across two 81-task rounds | 68/162 | **99/162** |
-| DeepSeek V4.1 Flash | First 81-task round | 34/81 | **48/81** |
-| DeepSeek V4.1 Flash | Second 81-task round | 40/81 | **49/81** |
+| DeepSeek V4.1 Flash | All attempts across two 81-task rounds | 74/162 | **97/162** |
+
 
 The headline GLM result is simple: the original version passed **68 of 162 attempts**, and the
 best optimized version passed **99 of 162 attempts**. Five attempts had a harness error. Those
